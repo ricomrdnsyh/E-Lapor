@@ -45,7 +45,7 @@
             </nav>
 
             <div class="d-flex align-items-center gap-2">
-                <a href="#" class="btn btn-sm btn-primary">
+                <a href="{{ route('createLaporan') }}" class="btn btn-sm btn-primary">
                     <i class="ki-duotone ki-pencil fs-5 me-1">
                         <span class="path1"></span><span class="path2"></span>
                     </i>
@@ -90,7 +90,7 @@
 
             <div class="separator my-4"></div>
 
-            <a href="#" class="btn btn-primary">Buat Laporan</a>
+            <a href="{{ route('createLaporan') }}" class="btn btn-primary">Buat Laporan</a>
         </div>
     </div>
 </div>

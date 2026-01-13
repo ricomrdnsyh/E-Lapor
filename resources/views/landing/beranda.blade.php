@@ -28,7 +28,7 @@
                     </p>
 
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="#" class="btn btn-primary btn-lg">
+                        <a href="{{ route('createLaporan') }}" class="btn btn-primary btn-lg">
                             <i class="ki-duotone ki-pencil fs-4 me-2"><span class="path1"></span><span
                                     class="path2"></span></i>
                             Buat Laporan
@@ -383,7 +383,7 @@
                             <div class="separator my-8"></div>
 
                             <div class="d-flex flex-wrap gap-3">
-                                <a href="#" class="btn btn-primary">Buat Laporan</a>
+                                <a href="{{ route('createLaporan') }}" class="btn btn-primary">Buat Laporan</a>
                                 <a href="#home" class="btn btn-secondary">Lacak Status</a>
                             </div>
 

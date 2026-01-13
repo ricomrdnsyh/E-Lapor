@@ -11,4 +11,9 @@ class LandingController extends Controller
     {
         return view('landing.beranda');
     }
+
+    public function createLaporan()
+    {
+        return view('landing.laporan');
+    }
 }
