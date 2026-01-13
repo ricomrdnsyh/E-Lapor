@@ -1,0 +1,464 @@
+@extends('pages.app')
+
+@section('content')
+    <!-- HERO -->
+    <section id="home" class="elapor-hero">
+        <div class="container">
+            <div class="row align-items-center gy-10">
+
+                <div class="col-lg-7">
+                    <div class="hero-badge d-inline-flex align-items-center gap-2 mb-6">
+                        <i class="ki-duotone ki-shield-tick fs-4 text-success"><span class="path1"></span><span
+                                class="path2"></span></i>
+                        <span class="fw-semibold text-gray-800">Kanal resmi pengaduan & aspirasi civitas
+                            akademika</span>
+                    </div>
+
+                    <h1 class="fw-bold text-gray-900 mb-4" style="letter-spacing:-0.03em;">
+                        Laporkan Masalah Kampus Dengan
+                        <span class="text-primary">Cepat</span>,
+                        <span class="text-success">Aman</span>,
+                        dan <span class="text-warning">Terpantau</span>
+                    </h1>
+
+                    <p class="text-muted fs-5 mb-7">
+                        E-Lapor membantu mahasiswa & civitas menyampaikan laporan (fasilitas, akademik, TIK,
+                        keamanan, etik) lengkap dengan bukti,
+                        lalu memantau statusnya sampai selesai.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#" class="btn btn-primary btn-lg">
+                            <i class="ki-duotone ki-pencil fs-4 me-2"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                            Buat Laporan
+                        </a>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 mt-8">
+                        <div class="stat-pill d-flex align-items-center gap-3">
+                            <span class="symbol symbol-35px symbol-circle bg-light-primary">
+                                <span class="symbol-label">
+                                    <i class="ki-duotone ki-lock fs-3 text-primary"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                </span>
+                            </span>
+                            <div>
+                                <div class="fw-bold text-gray-900">Privasi</div>
+                                <div class="text-muted fs-8">Opsi rahasia/anonim*</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-pill d-flex align-items-center gap-3">
+                            <span class="symbol symbol-35px symbol-circle bg-light-warning">
+                                <span class="symbol-label">
+                                    <i class="ki-duotone ki-notification-bing fs-3 text-warning"><span
+                                            class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span></i>
+                                </span>
+                            </span>
+                            <div>
+                                <div class="fw-bold text-gray-900">Notifikasi</div>
+                                <div class="text-muted fs-8">Email</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-pill d-flex align-items-center gap-3">
+                            <span class="symbol symbol-35px symbol-circle bg-light-success">
+                                <span class="symbol-label">
+                                    <i class="ki-duotone ki-timer fs-3 text-success"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                </span>
+                            </span>
+                            <div>
+                                <div class="fw-bold text-gray-900">Respon awal</div>
+                                <div class="text-muted fs-8">≤ 1×24 jam*</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="card elapor-card elapor-card-hover">
+                        <div class="card-body p-7 p-lg-9">
+
+                            <div class="d-flex align-items-center justify-content-between mb-6">
+                                <div>
+                                    <div class="fw-bold fs-4 text-gray-900">Lacak Laporan</div>
+                                    <div class="text-muted">Masukkan kode tiket dan identitas untuk melihat status
+                                        terbaru.</div>
+                                </div>
+                                <span class="badge badge-light-primary">E-Lapor</span>
+                            </div>
+
+                            <form action="#" method="GET" class="d-flex flex-column gap-4">
+                                <div>
+                                    <label class="form-label fw-semibold">Kode tiket</label>
+                                    <input name="ticket" class="form-control form-control" placeholder="ELPR-2026-000123"
+                                        required />
+                                </div>
+
+                                <div>
+                                    <label class="form-label fw-semibold">Email / NIM / NIP</label>
+                                    <input name="id" class="form-control form-control" placeholder="2020123456"
+                                        required />
+                                </div>
+
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="ki-duotone ki-geolocation fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>Lacak Sekarang
+                                </button>
+
+                                <div class="text-muted fs-8">
+                                    Jika mode anonim aktif, pelacakan dapat disesuaikan kebijakan kampus.
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="py-10 py-lg-15 bg-primary">
+        <div class="container">
+            <div class="row align-items-end mb-8">
+                <div class="col-lg-7">
+                    <h2 class="fw-bold text-white text-opacity-60 mb-2">Komitmen layanan</h2>
+                    <div class="section-kicker text-white mb-0">Pelaporan yang rapi, cepat, dan transparan</div>
+                </div>
+            </div>
+
+            <div class="row g-6">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 elapor-card elapor-card-hover">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-50px symbol-circle bg-light-primary mb-5">
+                                <i class="ki-duotone ki-shield fs-2 text-primary"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold fs-4 mb-2">Terstruktur</div>
+                            <div class="text-muted">Kategori jelas, data lengkap, mudah ditindaklanjuti.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 elapor-card elapor-card-hover">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-50px symbol-circle bg-light-success mb-5">
+                                <i class="ki-duotone ki-lock fs-2 text-success"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold fs-4 mb-2">Aman</div>
+                            <div class="text-muted">Kerahasiaan pelapor & akses petugas dibatasi.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 elapor-card elapor-card-hover">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-50px symbol-circle bg-light-warning mb-5">
+                                <i class="ki-duotone ki-notification-bing fs-2 text-warning"><span
+                                        class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span></i>
+                            </span>
+                            <div class="fw-bold fs-4 mb-2">Update Status</div>
+                            <div class="text-muted">Notifikasi perkembangan dan catatan tindak lanjut.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 elapor-card elapor-card-hover">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-50px symbol-circle bg-light-info mb-5">
+                                <i class="ki-duotone ki-graph-up fs-2 text-info"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold fs-4 mb-2">Transparan</div>
+                            <div class="text-muted">Riwayat proses terekam dari diterima sampai selesai.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="kategori" class="py-10 py-lg-15 bg-light">
+        <div class="container">
+
+            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-5 mb-8">
+                <div>
+                    <h2 class="fw-bold text-gray-900 mb-2">Kategori laporan</h2>
+                    <div class="section-kicker text-muted mb-0">Pilih kategori agar langsung ke unit terkait</div>
+                </div>
+            </div>
+
+            <div class="row g-6">
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-primary mb-5">
+                                <i class="ki-duotone ki-teacher fs-2 text-primary"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Akademik</div>
+                            <div class="text-muted fs-7 mt-2">KRS, jadwal, nilai, administrasi akademik.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-success mb-5">
+                                <i class="ki-duotone ki-home-2 fs-2 text-success"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Sarpras</div>
+                            <div class="text-muted fs-7 mt-2">Ruang, listrik, AC, kebersihan, aksesibilitas.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-info mb-5">
+                                <i class="ki-duotone ki-monitor-mobile fs-2 text-info"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">TIK / Sistem Informasi </div>
+                            <div class="text-muted fs-7 mt-2">SSO, WiFi, LMS, email kampus, aplikasi layanan.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-danger mb-5">
+                                <i class="ki-duotone ki-shield fs-2 text-danger"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Keamanan</div>
+                            <div class="text-muted fs-7 mt-2">Insiden, kehilangan, parkir, ketertiban kampus.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-warning mb-5">
+                                <i class="ki-duotone ki-flag fs-2 text-warning"><span class="path1"></span><span
+                                        class="path2"></span><span class="path3"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Etik / Perundungan</div>
+                            <div class="text-muted fs-7 mt-2">Pelanggaran etik, pelecehan, diskriminasi.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-dark mb-5">
+                                <i class="ki-duotone ki-people fs-2 text-gray-800"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Kemahasiswaan</div>
+                            <div class="text-muted fs-7 mt-2">UKM, beasiswa, kegiatan, konseling.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-success mb-5">
+                                <i class="ki-duotone ki-wallet fs-2 text-success"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Keuangan</div>
+                            <div class="text-muted fs-7 mt-2">UKT, pembayaran, refund, administrasi.</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                        <div class="card-body p-7">
+                            <span class="symbol symbol-45px symbol-circle bg-light-info mb-5">
+                                <i class="ki-duotone ki-dots-circle fs-2 text-info"><span class="path1"></span><span
+                                        class="path2"></span></i>
+                            </span>
+                            <div class="fw-bold text-gray-900">Lainnya</div>
+                            <div class="text-muted fs-7 mt-2">Aspirasi, saran, masukan layanan.</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ALUR -->
+    <section id="alur" class="py-10 py-lg-15 bg-white">
+        <div class="container">
+            <div class="row align-items-center g-10">
+
+                <div class="col-lg-5">
+                    <h2 class="fw-bold text-gray-900 mb-2">Alur penanganan</h2>
+                    <div class="section-kicker text-muted mb-4">Dari laporan masuk sampai selesai</div>
+                    <p class="text-muted mb-7">
+                        Setiap laporan diverifikasi, diteruskan ke unit terkait, dan diberi pembaruan status.
+                        Pelapor bisa menambahkan komentar/bukti jika dibutuhkan.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge badge-light-primary">Diterima</span>
+                        <span class="badge badge-light-warning">Diverifikasi</span>
+                        <span class="badge badge-light-info">Diproses</span>
+                        <span class="badge badge-light-success">Selesai</span>
+                        <span class="badge badge-light-danger">Ditolak</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="card elapor-card">
+                        <div class="card-body p-8 p-lg-10">
+
+                            <div class="d-flex align-items-start mb-6">
+                                <span class="symbol symbol-40px symbol-circle bg-light-primary me-4">
+                                    <span class="symbol-label fw-bold text-primary">1</span>
+                                </span>
+                                <div>
+                                    <div class="fw-bold text-gray-900">Submit Laporan</div>
+                                    <div class="text-muted">Isi kategori, kronologi, lokasi, dan lampiran.</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-6">
+                                <span class="symbol symbol-40px symbol-circle bg-light-warning me-4">
+                                    <span class="symbol-label fw-bold text-warning">2</span>
+                                </span>
+                                <div>
+                                    <div class="fw-bold text-gray-900">Verifikasi ULT</div>
+                                    <div class="text-muted">Validasi data & bukti agar tepat sasaran.</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-6">
+                                <span class="symbol symbol-40px symbol-circle bg-light-info me-4">
+                                    <span class="symbol-label fw-bold text-info">3</span>
+                                </span>
+                                <div>
+                                    <div class="fw-bold text-gray-900">Diproses Unit Terkait</div>
+                                    <div class="text-muted">Tindak lanjut + komunikasi bila butuh klarifikasi.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start">
+                                <span class="symbol symbol-40px symbol-circle bg-light-success me-4">
+                                    <span class="symbol-label fw-bold text-success">4</span>
+                                </span>
+                                <div>
+                                    <div class="fw-bold text-gray-900">Selesai & Penutupan</div>
+                                    <div class="text-muted">Hasil dicatat, status ditutup, pelapor diberi
+                                        ringkasan.</div>
+                                </div>
+                            </div>
+
+                            <div class="separator my-8"></div>
+
+                            <div class="d-flex flex-wrap gap-3">
+                                <a href="#" class="btn btn-primary">Buat Laporan</a>
+                                <a href="#home" class="btn btn-secondary">Lacak Status</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-10 py-lg-15 bg-light">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h2 class="fw-bold text-gray-900 mb-2">FAQ</h2>
+                <div class="section-kicker text-muted mb-0">Pertanyaan yang sering ditanyakan</div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="accordion" id="faq_accordion">
+
+                        <div class="accordion-item border border-gray-200 mb-4"
+                            style="border-radius: var(--elapor-radius); overflow:hidden;">
+                            <h2 class="accordion-header" id="faq_1_h">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq_1" aria-expanded="true">
+                                    Apakah laporan saya bisa anonim?
+                                </button>
+                            </h2>
+                            <div id="faq_1" class="accordion-collapse collapse show" data-bs-parent="#faq_accordion">
+                                <div class="accordion-body text-muted">
+                                    Bisa jika kebijakan universitas mengaktifkan opsi anonim/rahasia. Pastikan tetap
+                                    menyertakan bukti seperlunya.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item border border-gray-200 mb-4"
+                            style="border-radius: var(--elapor-radius); overflow:hidden;">
+                            <h2 class="accordion-header" id="faq_2_h">
+                                <button class="accordion-button collapsed fw-bold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq_2">
+                                    Berapa lama laporan ditangani?
+                                </button>
+                            </h2>
+                            <div id="faq_2" class="accordion-collapse collapse" data-bs-parent="#faq_accordion">
+                                <div class="accordion-body text-muted">
+                                    Respon awal ditargetkan ≤ 1×24 jam (contoh). Durasi penyelesaian tergantung
+                                    kategori & kompleksitas.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item border border-gray-200"
+                            style="border-radius: var(--elapor-radius); overflow:hidden;">
+                            <h2 class="accordion-header" id="faq_3_h">
+                                <button class="accordion-button collapsed fw-bold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq_3">
+                                    Apa yang membuat laporan diproses lebih cepat?
+                                </button>
+                            </h2>
+                            <div id="faq_3" class="accordion-collapse collapse" data-bs-parent="#faq_accordion">
+                                <div class="accordion-body text-muted">
+                                    Pilih kategori tepat, isi kronologi singkat-jelas, sertakan lokasi/waktu, dan
+                                    unggah bukti (foto/screenshot).
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+@endsection
