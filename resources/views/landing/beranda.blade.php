@@ -14,7 +14,7 @@
                             akademika</span>
                     </div>
 
-                    <h1 class="fw-bold text-gray-900 mb-4" style="letter-spacing:-0.03em;">
+                    <h1 class="fw-bold text-gray-900 mb-4" style="letter-spacing:-0.03em; font-size: 2.5rem;">
                         Laporkan Masalah Kampus Dengan
                         <span class="text-primary">Cepat</span>,
                         <span class="text-success">Aman</span>,
@@ -28,7 +28,7 @@
                     </p>
 
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="{{ route('createLaporan') }}" class="btn btn-primary btn-lg">
+                        <a href="{{ route('lapor') }}" class="btn btn-primary btn-lg">
                             <i class="ki-duotone ki-pencil fs-4 me-2"><span class="path1"></span><span
                                     class="path2"></span></i>
                             Buat Laporan
@@ -383,7 +383,7 @@
                             <div class="separator my-8"></div>
 
                             <div class="d-flex flex-wrap gap-3">
-                                <a href="{{ route('createLaporan') }}" class="btn btn-primary">Buat Laporan</a>
+                                <a href="{{ route('lapor') }}" class="btn btn-primary">Buat Laporan</a>
                                 <a href="#home" class="btn btn-secondary">Lacak Status</a>
                             </div>
 

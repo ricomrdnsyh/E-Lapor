@@ -4,7 +4,8 @@
             Kanal resmi pengaduan & aspirasi civitas akademika •
             <span class="opacity-75">Respon awal ≤ 1×24 jam*</span>
         </div>
-        <a href="#faq" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca FAQ</a>
+        <a href="{{ route('faq') }}" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca
+            FAQ</a>
     </div>
 </div>
 
@@ -37,15 +38,15 @@
             </div>
 
             <!-- Nav (desktop) -->
-            <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-2">
-                <a href="{{ route('beranda') }}" class="btn btn-sm btn-light">Beranda</a>
-                <a href="#kategori" class="btn btn-sm btn-light">Kategori</a>
-                <a href="#alur" class="btn btn-sm btn-light">Alur</a>
-                <a href="#faq" class="btn btn-sm btn-light">FAQ</a>
+            <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-8">
+                <a href="{{ route('beranda') }}" class="fw-bold text-gray-700 text-hover-primary">Beranda</a>
+                <a href="{{ route('kategori') }}" class="fw-bold text-gray-700 text-hover-primary">Kategori</a>
+                <a href="{{ route('alur') }}" class="fw-bold text-gray-700 text-hover-primary">Alur</a>
+                <a href="{{ route('faq') }}" class="fw-bold text-gray-700 text-hover-primary">FAQ</a>
             </nav>
 
             <div class="d-flex align-items-center gap-2">
-                <a href="{{ route('createLaporan') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('lapor') }}" class="btn btn-sm btn-primary">
                     <i class="ki-duotone ki-pencil fs-5 me-1">
                         <span class="path1"></span><span class="path2"></span>
                     </i>
@@ -83,14 +84,14 @@
 
     <div class="offcanvas-body">
         <div class="d-grid gap-2">
-            <a href="{{ route('beranda') }}" class="btn btn-light" data-bs-dismiss="offcanvas">Beranda</a>
-            <a href="#kategori" class="btn btn-light" data-bs-dismiss="offcanvas">Kategori</a>
-            <a href="#alur" class="btn btn-light" data-bs-dismiss="offcanvas">Alur</a>
-            <a href="#faq" class="btn btn-light" data-bs-dismiss="offcanvas">FAQ</a>
+            <a href="{{ route('beranda') }}" class="btn btn-light">Beranda</a>
+            <a href="{{ route('kategori') }}" class="btn btn-light">Kategori</a>
+            <a href="{{ route('alur') }}" class="btn btn-light">Alur</a>
+            <a href="{{ route('faq') }}" class="btn btn-light">FAQ</a>
 
             <div class="separator my-4"></div>
 
-            <a href="{{ route('createLaporan') }}" class="btn btn-primary">Buat Laporan</a>
+            <a href="{{ route('lapor') }}" class="btn btn-primary">Buat Laporan</a>
         </div>
     </div>
 </div>

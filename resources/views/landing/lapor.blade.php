@@ -128,9 +128,14 @@
 
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Tanggal & Waktu Kejadian</label>
-                                        <input type="text" id="incident_at" name="incident_at"
-                                            class="form-control form-control-sm" placeholder="Pilih tanggal & waktu"
-                                            value="{{ old('incident_at') }}" required autocomplete="off" />
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt fs-5"></i>
+                                            </span>
+                                            <input type="text" id="incident_at" name="incident_at"
+                                                class="form-control form-control-sm" placeholder="Pilih tanggal & waktu"
+                                                value="{{ old('incident_at') }}" required autocomplete="off" />
+                                        </div>
                                     </div>
                                 </div>
 

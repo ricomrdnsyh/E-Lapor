@@ -42,9 +42,12 @@
                         <div class="footer-title text-white text-opacity-75 fw-bold fs-4 mb-5">Layanan</div>
                         <a href="{{ route('beranda') }}"
                             class="footer-link text-white text-opacity-60 d-block mb-2">Beranda</a>
-                        <a href="#kategori" class="footer-link text-white text-opacity-60 d-block mb-2">Kategori</a>
-                        <a href="#alur" class="footer-link text-white text-opacity-60 d-block mb-2">Alur</a>
-                        <a href="#faq" class="footer-link text-white text-opacity-60 d-block mb-2">FAQ</a>
+                        <a href="{{ route('kategori') }}"
+                            class="footer-link text-white text-opacity-60 d-block mb-2">Kategori</a>
+                        <a href="{{ route('alur') }}"
+                            class="footer-link text-white text-opacity-60 d-block mb-2">Alur</a>
+                        <a href="{{ route('faq') }}"
+                            class="footer-link text-white text-opacity-60 d-block mb-2">FAQ</a>
                     </div>
 
                 </div>
@@ -56,7 +59,7 @@
 
         <div class="row g-4 align-items-start">
             <div class="col-md-6">
-                <div class="text-white text-opacity-75 fs-8">2026 &copy; Universitas Nurul Jadid</div>
+                <div class="text-white text-opacity-75 fs-8">2026 &copy; PDSI Universitas Nurul Jadid</div>
             </div>
         </div>
 
