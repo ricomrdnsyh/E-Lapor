@@ -6,7 +6,7 @@
 
             <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-5 mb-8">
                 <div>
-                    <h2 class="fw-bold text-gray-900 mb-2">Kategori laporan</h2>
+                    <h2 class="fw-bold text-gray-900 mb-2">Kategori Laporan</h2>
                     <div class="section-kicker text-muted mb-0">Pilih kategori agar langsung ke unit terkait</div>
                 </div>
             </div>

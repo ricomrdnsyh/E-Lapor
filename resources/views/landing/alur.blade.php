@@ -6,7 +6,7 @@
             <div class="row align-items-center g-10">
 
                 <div class="col-lg-5">
-                    <h2 class="fw-bold text-gray-900 mb-2">Alur penanganan</h2>
+                    <h2 class="fw-bold text-gray-900 mb-2">Alur Penanganan</h2>
                     <div class="section-kicker text-muted mb-4">Dari laporan masuk sampai selesai</div>
                     <p class="text-muted mb-7">
                         Setiap laporan diverifikasi, diteruskan ke unit terkait, dan diberi pembaruan status.

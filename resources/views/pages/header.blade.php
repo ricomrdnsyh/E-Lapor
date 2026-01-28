@@ -40,8 +40,8 @@
             <!-- Nav (desktop) -->
             <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-8">
                 <a href="{{ route('beranda') }}" class="fw-bold text-gray-700 text-hover-primary">Beranda</a>
-                <a href="{{ route('kategori') }}" class="fw-bold text-gray-700 text-hover-primary">Kategori</a>
-                <a href="{{ route('alur') }}" class="fw-bold text-gray-700 text-hover-primary">Alur</a>
+                <a href="{{ route('kategori') }}" class="fw-bold text-gray-700 text-hover-primary">Kategori Laporan</a>
+                <a href="{{ route('alur') }}" class="fw-bold text-gray-700 text-hover-primary">Alur Penanganan</a>
                 <a href="{{ route('faq') }}" class="fw-bold text-gray-700 text-hover-primary">FAQ</a>
             </nav>
 
@@ -85,8 +85,8 @@
     <div class="offcanvas-body">
         <div class="d-grid gap-2">
             <a href="{{ route('beranda') }}" class="btn btn-light">Beranda</a>
-            <a href="{{ route('kategori') }}" class="btn btn-light">Kategori</a>
-            <a href="{{ route('alur') }}" class="btn btn-light">Alur</a>
+            <a href="{{ route('kategori') }}" class="btn btn-light">Kategori Laporan</a>
+            <a href="{{ route('alur') }}" class="btn btn-light">Alur Penanganan</a>
             <a href="{{ route('faq') }}" class="btn btn-light">FAQ</a>
 
             <div class="separator my-4"></div>
