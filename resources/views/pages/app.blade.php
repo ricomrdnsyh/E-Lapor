@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="light">
 
 <head>
     <title>E-Lapor | Universitas Nurul Jadid</title>
@@ -8,6 +8,12 @@
     <meta name="description" content="Kanal resmi pengaduan & aspirasi civitas akademika Universitas Nurul Jadid." />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/unuja.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+
+    <script>
+        document.documentElement.setAttribute("data-bs-theme", "light");
+        localStorage.removeItem("data-bs-theme");
+        localStorage.setItem("data-bs-theme", "light");
+    </script>
 
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -21,7 +27,6 @@
             --elapor-border: rgba(15, 23, 42, .08);
         }
 
-        /* Smooth */
         html {
             scroll-behavior: smooth;
         }
@@ -30,7 +35,6 @@
             background: var(--bs-body-bg);
         }
 
-        /* Header glass */
         .elapor-header {
             position: sticky;
             top: 0;
@@ -41,15 +45,9 @@
             border-bottom: 1px solid rgba(255, 255, 255, .35);
         }
 
-        [data-bs-theme="dark"] .elapor-header {
-            background: rgba(17, 24, 39, .60);
-            border-bottom-color: rgba(255, 255, 255, .06);
-        }
-
         .mobile-header {
             position: relative;
             padding-right: 3.25rem;
-            /* biar judul tidak ketiban tombol close */
         }
 
         .mobile-close {
@@ -58,12 +56,10 @@
             right: .75rem;
         }
 
-
         .elapor-header.is-scrolled {
             box-shadow: 0 8px 24px rgba(15, 23, 42, .10);
         }
 
-        /* Hero background */
         .elapor-hero {
             position: relative;
             overflow: hidden;
@@ -72,13 +68,6 @@
                 radial-gradient(1200px 500px at 10% -10%, rgba(59, 130, 246, .18), transparent 60%),
                 radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, .16), transparent 55%),
                 linear-gradient(180deg, rgba(15, 23, 42, .02), transparent 40%);
-        }
-
-        [data-bs-theme="dark"] .elapor-hero {
-            background:
-                radial-gradient(1200px 500px at 10% -10%, rgba(59, 130, 246, .25), transparent 60%),
-                radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, .18), transparent 55%),
-                linear-gradient(180deg, rgba(255, 255, 255, .03), transparent 40%);
         }
 
         .hero-badge {
@@ -90,12 +79,6 @@
             backdrop-filter: blur(10px);
         }
 
-        [data-bs-theme="dark"] .hero-badge {
-            background: rgba(17, 24, 39, .55);
-            border-color: rgba(255, 255, 255, .08);
-        }
-
-        /* Cards */
         .elapor-card {
             border-radius: var(--elapor-radius);
             border: 1px solid var(--elapor-border);
@@ -112,7 +95,6 @@
             border-color: rgba(59, 130, 246, .25);
         }
 
-        /* Category tiles */
         .cat-tile {
             border-radius: var(--elapor-radius);
             border: 1px solid var(--elapor-border);
@@ -126,7 +108,6 @@
             border-color: rgba(59, 130, 246, .25);
         }
 
-        /* Section headings */
         .section-kicker {
             letter-spacing: .08em;
             text-transform: uppercase;
@@ -135,7 +116,6 @@
             opacity: .75;
         }
 
-        /* Footer links */
         .footer-link {
             text-decoration: none;
         }
@@ -144,7 +124,6 @@
             text-decoration: underline;
         }
 
-        /* Minor */
         .stat-pill {
             border-radius: 999px;
             border: 1px solid var(--elapor-border);
@@ -152,33 +131,7 @@
             backdrop-filter: blur(10px);
             padding: .6rem .9rem;
         }
-
-        [data-bs-theme="dark"] .stat-pill {
-            background: rgba(17, 24, 39, .5);
-            border-color: rgba(255, 255, 255, .08);
-        }
     </style>
-
-    <script>
-        // Theme init (Metronic style)
-        var defaultThemeMode = "light";
-        var themeMode;
-        if (document.documentElement) {
-            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-            } else {
-                if (localStorage.getItem("data-bs-theme") !== null) {
-                    themeMode = localStorage.getItem("data-bs-theme");
-                } else {
-                    themeMode = defaultThemeMode;
-                }
-            }
-            if (themeMode === "system") {
-                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            }
-            document.documentElement.setAttribute("data-bs-theme", themeMode);
-        }
-    </script>
 </head>
 
 <body id="kt_body" data-bs-spy="scroll" data-bs-target="#kt_landing_menu" class="bg-body position-relative app-blank">
