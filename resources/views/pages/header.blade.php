@@ -4,7 +4,8 @@
             Kanal resmi pengaduan & aspirasi civitas akademika •
             <span class="opacity-75">Respon awal ≤ 1×24 jam*</span>
         </div>
-        <a href="{{ route('faq') }}" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca FAQ</a>
+        <a href="{{ route('faq') }}" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca
+            FAQ</a>
     </div>
 </div>
 
@@ -38,25 +39,25 @@
             <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-6">
                 <a href="{{ route('beranda') }}"
                     class="elapor-nav-link {{ request()->routeIs('beranda') ? 'is-active' : '' }}"
-                    @if(request()->routeIs('beranda')) aria-current="page" @endif>
+                    @if (request()->routeIs('beranda')) aria-current="page" @endif>
                     Beranda
                 </a>
 
                 <a href="{{ route('kategori') }}"
                     class="elapor-nav-link {{ request()->routeIs('kategori*') ? 'is-active' : '' }}"
-                    @if(request()->routeIs('kategori*')) aria-current="page" @endif>
+                    @if (request()->routeIs('kategori*')) aria-current="page" @endif>
                     Kategori Laporan
                 </a>
 
                 <a href="{{ route('alur') }}"
                     class="elapor-nav-link {{ request()->routeIs('alur*') ? 'is-active' : '' }}"
-                    @if(request()->routeIs('alur*')) aria-current="page" @endif>
+                    @if (request()->routeIs('alur*')) aria-current="page" @endif>
                     Alur Penanganan
                 </a>
 
                 <a href="{{ route('faq') }}"
                     class="elapor-nav-link {{ request()->routeIs('faq*') ? 'is-active' : '' }}"
-                    @if(request()->routeIs('faq*')) aria-current="page" @endif>
+                    @if (request()->routeIs('faq*')) aria-current="page" @endif>
                     FAQ
                 </a>
             </nav>
@@ -109,13 +110,11 @@
                 Kategori Laporan
             </a>
 
-            <a href="{{ route('alur') }}"
-                class="btn {{ request()->routeIs('alur*') ? 'btn-primary' : 'btn-light' }}">
+            <a href="{{ route('alur') }}" class="btn {{ request()->routeIs('alur*') ? 'btn-primary' : 'btn-light' }}">
                 Alur Penanganan
             </a>
 
-            <a href="{{ route('faq') }}"
-                class="btn {{ request()->routeIs('faq*') ? 'btn-primary' : 'btn-light' }}">
+            <a href="{{ route('faq') }}" class="btn {{ request()->routeIs('faq*') ? 'btn-primary' : 'btn-light' }}">
                 FAQ
             </a>
 

@@ -22,58 +22,85 @@
                         </p>
                     </div>
 
-                    <div class="card elapor-card mb-6">
+                    <div class="card border-0 shadow-sm bg-white bg-opacity-75 mb-6">
                         <div class="card-body p-7 p-lg-9">
-                            <div class="fw-bold text-gray-900 mb-5">Panduan cepat</div>
 
-                            <div class="d-flex align-items-start mb-5">
-                                <span class="symbol symbol-40px symbol-circle bg-light-primary me-4">
-                                    <span class="symbol-label fw-bold text-primary">1</span>
-                                </span>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-6">
                                 <div>
-                                    <div class="fw-bold text-gray-900">Pilih kategori</div>
-                                    <div class="text-muted fs-7">Agar langsung ke unit yang tepat.</div>
+                                    <div class="fw-bold text-gray-900 fs-3 mb-1">Panduan cepat</div>
+                                    <div class="text-gray-600">Ikuti 4 langkah agar laporan cepat diproses</div>
                                 </div>
+                                <span class="badge badge-light-primary d-inline-flex align-items-center">
+                                    <span class="bullet bullet-dot bg-primary me-2"></span>
+                                    Praktis & jelas
+                                </span>
                             </div>
 
-                            <div class="d-flex align-items-start mb-5">
-                                <span class="symbol symbol-40px symbol-circle bg-light-warning me-4">
-                                    <span class="symbol-label fw-bold text-warning">2</span>
-                                </span>
-                                <div>
-                                    <div class="fw-bold text-gray-900">Tulis kronologi</div>
-                                    <div class="text-muted fs-7">Apa, kapan, di mana, dampak, dan harapan.</div>
+                            <div class="timeline-label">
+
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">01</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-category fs-2 text-primary">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Pilih kategori</span>
+                                            <span class="badge badge-light-primary fs-8 px-3 py-2">Diterima</span>
+                                        </div>
+                                        <div class="text-gray-600">Agar langsung ke unit yang tepat.</div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="d-flex align-items-start mb-5">
-                                <span class="symbol symbol-40px symbol-circle bg-light-info me-4">
-                                    <span class="symbol-label fw-bold text-info">3</span>
-                                </span>
-                                <div>
-                                    <div class="fw-bold text-gray-900">Upload bukti</div>
-                                    <div class="text-muted fs-7">Foto/screenshot/PDF (opsional tapi disarankan).</div>
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">02</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-notepad-edit fs-2 text-warning">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Tulis kronologi</span>
+                                            <span class="badge badge-light-warning fs-8 px-3 py-2">Diverifikasi</span>
+                                        </div>
+                                        <div class="text-gray-600">Apa, kapan, di mana, dampak, dan harapan.</div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="d-flex align-items-start">
-                                <span class="symbol symbol-40px symbol-circle bg-light-success me-4">
-                                    <span class="symbol-label fw-bold text-success">4</span>
-                                </span>
-                                <div>
-                                    <div class="fw-bold text-gray-900">Kirim & dapatkan kode tiket</div>
-                                    <div class="text-muted fs-7">Pantau progres dari menu Lacak.</div>
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">03</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-file-added fs-2 text-info">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Upload bukti</span>
+                                            <span class="badge badge-light-info fs-8 px-3 py-2">Diproses</span>
+                                        </div>
+                                        <div class="text-gray-600">Foto/screenshot/PDF (opsional tapi disarankan).</div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="separator my-7"></div>
-
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="badge badge-light-primary">Diterima</span>
-                                <span class="badge badge-light-warning">Diverifikasi</span>
-                                <span class="badge badge-light-info">Diproses</span>
-                                <span class="badge badge-light-success">Selesai</span>
-                                <span class="badge badge-light-danger">Ditolak</span>
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">04</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-send fs-2 text-success">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Kirim & dapatkan kode tiket</span>
+                                            <span class="badge badge-light-success fs-8 px-3 py-2">Selesai</span>
+                                        </div>
+                                        <div class="text-gray-600">Pantau progres dari menu Lacak.</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,7 +128,7 @@
 
                                 <div class="row g-4">
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Kategori</label>
+                                        <label class="required form-label fw-semibold">Kategori Laporan</label>
                                         <select name="category" class="form-select form-select-sm" data-control="select2"
                                             required>
                                             <option value="" disabled {{ old('category') ? '' : 'selected' }}>Pilih
@@ -142,22 +169,31 @@
                                 <div>
                                     <label class="required form-label fw-semibold">Judul Laporan</label>
                                     <input type="text" name="title" class="form-control form-control-sm"
-                                        placeholder="Contoh: AC Ruang 204 tidak berfungsi" value="{{ old('title') }}"
-                                        required>
+                                        placeholder="Contoh: AC Ruang Lab 2 Gedung D tidak berfungsi"
+                                        value="{{ old('title') }}" required>
                                     <div class="text-muted fs-8 mt-1">Buat judul ringkas dan spesifik.</div>
                                 </div>
 
                                 <div class="row g-4">
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Lokasi</label>
                                         <input type="text" name="location" class="form-control form-control-sm"
                                             placeholder="Gedung / Lantai / Ruangan / Area" value="{{ old('location') }}"
                                             required>
                                     </div>
-                                    <div class="col-md-5">
-                                        <label class="form-label fw-semibold">Unit Tujuan (opsional)</label>
-                                        <input type="text" name="target_unit" class="form-control form-control-sm"
-                                            placeholder="Contoh: ULT / Sarpras / Prodi" value="{{ old('target_unit') }}">
+                                    <div class="col-md-6">
+                                        <label class="required form-label fw-semibold">Unit Tujuan</label>
+                                        <select name="unit" class="form-select form-select-sm" data-control="select2"
+                                            required>
+                                            <option value="" disabled {{ old('unit') ? '' : 'selected' }}>Pilih
+                                                unit</option>
+                                            <option value="akademik" {{ old('unit') == 'akademik' ? 'selected' : '' }}>
+                                                Rektorat</option>
+                                            <option value="sarpras" {{ old('unit') == 'sarpras' ? 'selected' : '' }}>
+                                                Fakultas</option>
+                                            <option value="lainnya" {{ old('unit') == 'lainnya' ? 'selected' : '' }}>
+                                                Lainnya</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -227,10 +263,9 @@
                                             value="{{ old('reporter_name') }}" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Email / NIM / NIP</label>
+                                        <label class="required form-label fw-semibold">Email</label>
                                         <input type="text" id="reporter_id" name="reporter_id"
-                                            class="form-control form-control-sm"
-                                            placeholder="Contoh: 2020123456 / email@kampus.ac.id"
+                                            class="form-control form-control-sm" placeholder="nama@gmail.com"
                                             value="{{ old('reporter_id') }}" required>
                                     </div>
                                     <div class="col-md-6">
@@ -238,6 +273,20 @@
                                         <input type="text" id="reporter_phone" name="reporter_phone"
                                             class="form-control form-control-sm" placeholder="08xxxxxxxxxx"
                                             value="{{ old('reporter_phone') }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="required form-label fw-semibold">Profesi</label>
+                                        <select name="profesi" class="form-select form-select-sm" data-control="select2"
+                                            required>
+                                            <option value="" disabled {{ old('profesi') ? '' : 'selected' }}>Pilih
+                                                profesi</option>
+                                            <option value="akademik" {{ old('profesi') == 'akademik' ? 'selected' : '' }}>
+                                                Dosen</option>
+                                            <option value="sarpras" {{ old('profesi') == 'sarpras' ? 'selected' : '' }}>
+                                                Mahasiswa</option>
+                                            <option value="lainnya" {{ old('profesi') == 'lainnya' ? 'selected' : '' }}>
+                                                Lainnya</option>
+                                        </select>
                                     </div>
                                 </div>
 
