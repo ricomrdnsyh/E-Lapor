@@ -48,6 +48,8 @@
                             class="footer-link text-white text-opacity-60 d-block mb-2">Alur</a>
                         <a href="{{ route('faq') }}"
                             class="footer-link text-white text-opacity-60 d-block mb-2">FAQ</a>
+                        <a href="{{ route('lacak') }}"
+                            class="footer-link text-white text-opacity-60 d-block mb-2">Pelacakan</a>
                     </div>
 
                 </div>

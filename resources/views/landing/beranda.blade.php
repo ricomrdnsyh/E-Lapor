@@ -329,7 +329,8 @@
 
                             <div class="d-flex flex-wrap gap-2 mb-3">
                                 <span class="badge badge-light-primary d-inline-flex align-items-center">Diterima</span>
-                                <span class="badge badge-light-warning d-inline-flex align-items-center">Diverifikasi</span>
+                                <span
+                                    class="badge badge-light-warning d-inline-flex align-items-center">Diverifikasi</span>
                                 <span class="badge badge-light-info d-inline-flex align-items-center">Diproses</span>
                                 <span class="badge badge-light-success d-inline-flex align-items-center">Selesai</span>
                                 <span class="badge badge-light-danger d-inline-flex align-items-center">Ditolak</span>
@@ -367,7 +368,8 @@
                                             <span class="fw-bold text-gray-900">Submit Laporan</span>
                                             <span class="badge badge-light-primary">Diterima</span>
                                         </div>
-                                        <div class="text-gray-600">Isi kategori, kronologi, lokasi, dan lampiran bukti pendukung.</div>
+                                        <div class="text-gray-600">Isi kategori, kronologi, lokasi, dan lampiran bukti
+                                            pendukung.</div>
                                     </div>
                                 </div>
 
@@ -384,7 +386,8 @@
                                             <span class="badge badge-light-warning">Diverifikasi</span>
                                             <span class="badge badge-light-danger">Ditolak</span>
                                         </div>
-                                        <div class="text-gray-600">Validasi kelengkapan data & bukti. Jika tidak sesuai, laporan bisa ditolak.</div>
+                                        <div class="text-gray-600">Validasi kelengkapan data & bukti. Jika tidak sesuai,
+                                            laporan bisa ditolak.</div>
                                     </div>
                                 </div>
 
@@ -400,7 +403,8 @@
                                             <span class="fw-bold text-gray-900">Diproses Unit Terkait</span>
                                             <span class="badge badge-light-info">Diproses</span>
                                         </div>
-                                        <div class="text-gray-600">Ditindaklanjuti unit berwenang, termasuk klarifikasi bila diperlukan.</div>
+                                        <div class="text-gray-600">Ditindaklanjuti unit berwenang, termasuk klarifikasi
+                                            bila diperlukan.</div>
                                     </div>
                                 </div>
 
@@ -416,7 +420,8 @@
                                             <span class="fw-bold text-gray-900">Selesai & Penutupan</span>
                                             <span class="badge badge-light-success">Selesai</span>
                                         </div>
-                                        <div class="text-gray-600">Hasil dicatat, status ditutup, dan pelapor menerima ringkasan penyelesaian.</div>
+                                        <div class="text-gray-600">Hasil dicatat, status ditutup, dan pelapor menerima
+                                            ringkasan penyelesaian.</div>
                                     </div>
                                 </div>
                             </div>

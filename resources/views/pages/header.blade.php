@@ -36,7 +36,7 @@
                 </a>
             </div>
 
-            <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-6">
+            <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-2">
                 <a href="{{ route('beranda') }}"
                     class="elapor-nav-link {{ request()->routeIs('beranda') ? 'is-active' : '' }}"
                     @if (request()->routeIs('beranda')) aria-current="page" @endif>
@@ -59,6 +59,12 @@
                     class="elapor-nav-link {{ request()->routeIs('faq*') ? 'is-active' : '' }}"
                     @if (request()->routeIs('faq*')) aria-current="page" @endif>
                     FAQ
+                </a>
+
+                <a href="{{ route('lacak') }}"
+                    class="elapor-nav-link {{ request()->routeIs('lacak*') ? 'is-active' : '' }}"
+                    @if (request()->routeIs('lacak*')) aria-current="page" @endif>
+                    Pelacakan
                 </a>
             </nav>
 
@@ -104,18 +110,19 @@
                 class="btn {{ request()->routeIs('beranda') ? 'btn-primary' : 'btn-light' }}">
                 Beranda
             </a>
-
             <a href="{{ route('kategori') }}"
                 class="btn {{ request()->routeIs('kategori*') ? 'btn-primary' : 'btn-light' }}">
                 Kategori Laporan
             </a>
-
             <a href="{{ route('alur') }}" class="btn {{ request()->routeIs('alur*') ? 'btn-primary' : 'btn-light' }}">
                 Alur Penanganan
             </a>
-
             <a href="{{ route('faq') }}" class="btn {{ request()->routeIs('faq*') ? 'btn-primary' : 'btn-light' }}">
                 FAQ
+            </a>
+            <a href="{{ route('lacak') }}"
+                class="btn {{ request()->routeIs('lacak*') ? 'btn-primary' : 'btn-light' }}">
+                Pelacakan
             </a>
 
             <div class="separator my-4"></div>
