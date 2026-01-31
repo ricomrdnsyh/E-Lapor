@@ -8,23 +8,16 @@
     <meta name="description" content="Kanal resmi pengaduan & aspirasi civitas akademika Universitas Nurul Jadid." />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/unuja.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-
-    <script>
-        document.documentElement.setAttribute("data-bs-theme", "light");
-        localStorage.removeItem("data-bs-theme");
-        localStorage.setItem("data-bs-theme", "light");
-    </script>
-
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     @yield('css')
-
     <style>
         :root {
             --elapor-radius: 1.25rem;
             --elapor-shadow: 0 12px 40px rgba(15, 23, 42, .10);
             --elapor-shadow-soft: 0 10px 24px rgba(15, 23, 42, .08);
             --elapor-border: rgba(15, 23, 42, .08);
+            --nav-blue: #004289;
         }
 
         html {
@@ -45,6 +38,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, .35);
         }
 
+        .elapor-header.is-scrolled {
+            box-shadow: 0 8px 24px rgba(15, 23, 42, .10);
+        }
+
         .mobile-header {
             position: relative;
             padding-right: 3.25rem;
@@ -56,8 +53,29 @@
             right: .75rem;
         }
 
-        .elapor-header.is-scrolled {
-            box-shadow: 0 8px 24px rgba(15, 23, 42, .10);
+        #kt_landing_menu .elapor-nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: .45rem 1.05rem;
+            border-radius: .55rem;
+            text-decoration: none;
+            color: var(--nav-blue);
+            transition: background-color .18s ease, color .18s ease, box-shadow .18s ease;
+        }
+
+        #kt_landing_menu .elapor-nav-link:hover {
+            background: var(--nav-blue);
+            color: #fff;
+        }
+
+        #kt_landing_menu .elapor-nav-link.is-active {
+            background: var(--nav-blue);
+            color: #fff;
+        }
+
+        #kt_landing_menu .elapor-nav-link:focus-visible {
+            outline: 2px solid rgba(0, 66, 137, .25);
+            outline-offset: 2px;
         }
 
         .elapor-hero {
@@ -131,7 +149,20 @@
             backdrop-filter: blur(10px);
             padding: .6rem .9rem;
         }
+        .alur-section {
+        position: relative;
+        overflow: hidden;
+        background:
+            radial-gradient(1200px 500px at 10% -10%, rgba(59, 130, 246, .18), transparent 60%),
+            radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, .16), transparent 55%),
+            linear-gradient(180deg, rgba(15, 23, 42, .02), transparent 40%);
+        }
     </style>
+    <script>
+        document.documentElement.setAttribute("data-bs-theme", "light");
+        localStorage.removeItem("data-bs-theme");
+        localStorage.setItem("data-bs-theme", "light");
+    </script>
 </head>
 
 <body id="kt_body" data-bs-spy="scroll" data-bs-target="#kt_landing_menu" class="bg-body position-relative app-blank">
@@ -146,7 +177,6 @@
 
     </div>
 
-    <!-- Scrolltop -->
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <i class="ki-duotone ki-arrow-up"><span class="path1"></span><span class="path2"></span></i>
     </div>

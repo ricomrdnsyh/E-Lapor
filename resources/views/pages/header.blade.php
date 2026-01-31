@@ -4,15 +4,13 @@
             Kanal resmi pengaduan & aspirasi civitas akademika •
             <span class="opacity-75">Respon awal ≤ 1×24 jam*</span>
         </div>
-        <a href="{{ route('faq') }}" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca
-            FAQ</a>
+        <a href="{{ route('faq') }}" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca FAQ</a>
     </div>
 </div>
 
 <header class="elapor-header">
     <div class="container">
         <div class="d-flex align-items-center justify-content-between py-4">
-
             <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-icon btn-active-color-primary d-flex d-lg-none" id="kt_landing_menu_toggle"
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu"
@@ -31,18 +29,36 @@
                     </span>
 
                     <div class="ms-3">
-                        <div class="fw-bold text-gray-900 lh-1">E-Lapor</div>
+                        <div class="fw-bold text-gray-900 lh-1 fs-5">E-Lapor</div>
                         <div class="text-muted fs-8">Universitas Nurul Jadid</div>
                     </div>
                 </a>
             </div>
 
-            <!-- Nav (desktop) -->
-            <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-8">
-                <a href="{{ route('beranda') }}" class="fw-bold text-gray-700 text-hover-primary">Beranda</a>
-                <a href="{{ route('kategori') }}" class="fw-bold text-gray-700 text-hover-primary">Kategori Laporan</a>
-                <a href="{{ route('alur') }}" class="fw-bold text-gray-700 text-hover-primary">Alur Penanganan</a>
-                <a href="{{ route('faq') }}" class="fw-bold text-gray-700 text-hover-primary">FAQ</a>
+            <nav id="kt_landing_menu" class="d-none d-lg-flex align-items-center gap-6">
+                <a href="{{ route('beranda') }}"
+                    class="elapor-nav-link {{ request()->routeIs('beranda') ? 'is-active' : '' }}"
+                    @if(request()->routeIs('beranda')) aria-current="page" @endif>
+                    Beranda
+                </a>
+
+                <a href="{{ route('kategori') }}"
+                    class="elapor-nav-link {{ request()->routeIs('kategori*') ? 'is-active' : '' }}"
+                    @if(request()->routeIs('kategori*')) aria-current="page" @endif>
+                    Kategori Laporan
+                </a>
+
+                <a href="{{ route('alur') }}"
+                    class="elapor-nav-link {{ request()->routeIs('alur*') ? 'is-active' : '' }}"
+                    @if(request()->routeIs('alur*')) aria-current="page" @endif>
+                    Alur Penanganan
+                </a>
+
+                <a href="{{ route('faq') }}"
+                    class="elapor-nav-link {{ request()->routeIs('faq*') ? 'is-active' : '' }}"
+                    @if(request()->routeIs('faq*')) aria-current="page" @endif>
+                    FAQ
+                </a>
             </nav>
 
             <div class="d-flex align-items-center gap-2">
@@ -57,7 +73,6 @@
     </div>
 </header>
 
-<!-- Mobile menu -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
     <div class="offcanvas-header mobile-header">
         <div class="d-flex align-items-center">
@@ -84,10 +99,25 @@
 
     <div class="offcanvas-body">
         <div class="d-grid gap-2">
-            <a href="{{ route('beranda') }}" class="btn btn-light">Beranda</a>
-            <a href="{{ route('kategori') }}" class="btn btn-light">Kategori Laporan</a>
-            <a href="{{ route('alur') }}" class="btn btn-light">Alur Penanganan</a>
-            <a href="{{ route('faq') }}" class="btn btn-light">FAQ</a>
+            <a href="{{ route('beranda') }}"
+                class="btn {{ request()->routeIs('beranda') ? 'btn-primary' : 'btn-light' }}">
+                Beranda
+            </a>
+
+            <a href="{{ route('kategori') }}"
+                class="btn {{ request()->routeIs('kategori*') ? 'btn-primary' : 'btn-light' }}">
+                Kategori Laporan
+            </a>
+
+            <a href="{{ route('alur') }}"
+                class="btn {{ request()->routeIs('alur*') ? 'btn-primary' : 'btn-light' }}">
+                Alur Penanganan
+            </a>
+
+            <a href="{{ route('faq') }}"
+                class="btn {{ request()->routeIs('faq*') ? 'btn-primary' : 'btn-light' }}">
+                FAQ
+            </a>
 
             <div class="separator my-4"></div>
 
