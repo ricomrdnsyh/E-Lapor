@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- HERO -->
-    <section id="home" class="elapor-hero">
+    <section id="home" class="elapor-hero py-10 py-lg-15">
         <div class="container">
             <div class="row align-items-center gy-10">
 
@@ -14,11 +14,10 @@
                             akademika</span>
                     </div>
 
-                    <h1 class="fw-bold text-gray-900 mb-4" style="letter-spacing:-0.03em; font-size: 2.5rem;">
-                        Laporkan Masalah Kampus Dengan
-                        <span class="text-primary">Cepat</span>,
-                        <span class="text-success">Aman</span>,
-                        dan <span class="text-warning">Terpantau</span>
+                    <h1 class="fw-bold text-gray-900 mb-5" style="letter-spacing:-0.03em; font-size: 2.7rem;">
+                        Laporkan Masalah Kampus<br class="d-none d-lg-block">
+                        <span class="text-primary">Cepat</span>, <span class="text-success">Aman</span>, dan
+                        <span class="text-warning">Terpantau</span>
                     </h1>
 
                     <p class="text-muted fs-5 mb-7">
@@ -59,7 +58,7 @@
                             </span>
                             <div>
                                 <div class="fw-bold text-gray-900">Notifikasi</div>
-                                <div class="text-muted fs-8">Email</div>
+                                <div class="text-muted fs-8">Update via Email</div>
                             </div>
                         </div>
 
@@ -71,51 +70,94 @@
                                 </span>
                             </span>
                             <div>
-                                <div class="fw-bold text-gray-900">Respon awal</div>
-                                <div class="text-muted fs-8">≤ 1×24 jam*</div>
+                                <div class="fw-bold text-gray-900">Transparan</div>
+                                <div class="text-muted fs-8">Riwayat proses terekam</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-5">
-                    <div class="card elapor-card elapor-card-hover">
+                    <div class="card border-0 shadow-sm bg-white bg-opacity-75 mb-6">
                         <div class="card-body p-7 p-lg-9">
 
-                            <div class="d-flex align-items-center justify-content-between mb-6">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-6">
                                 <div>
-                                    <div class="fw-bold fs-4 text-gray-900">Lacak Laporan</div>
-                                    <div class="text-muted">Masukkan kode tiket dan identitas untuk melihat status
-                                        terbaru.</div>
+                                    <div class="fw-bold text-gray-900 fs-3 mb-1">Cara Cepat Membuat Laporan</div>
+                                    <div class="text-gray-600">Ikuti 4 langkah agar laporan cepat diproses</div>
                                 </div>
-                                <span class="badge badge-light-primary">E-Lapor</span>
+                                <span class="badge badge-light-primary d-inline-flex align-items-center">
+                                    <span class="bullet bullet-dot bg-primary me-2"></span>
+                                    Panduan
+                                </span>
                             </div>
 
-                            <form action="#" method="GET" class="d-flex flex-column gap-4">
-                                <div>
-                                    <label class="form-label fw-semibold">Kode tiket</label>
-                                    <input name="ticket" class="form-control form-control" placeholder="ELPR-2026-000123"
-                                        required />
+                            <div class="timeline-label">
+
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">01</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-category fs-2 text-primary">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Pilih kategori</span>
+                                            <span class="badge badge-light-primary fs-8 px-3 py-2">Diterima</span>
+                                        </div>
+                                        <div class="text-gray-600">Agar langsung ke unit yang tepat.</div>
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <label class="form-label fw-semibold">Email / NIM / NIP</label>
-                                    <input name="id" class="form-control form-control" placeholder="2020123456"
-                                        required />
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">02</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-notepad-edit fs-2 text-warning">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Tulis kronologi</span>
+                                            <span class="badge badge-light-warning fs-8 px-3 py-2">Diverifikasi</span>
+                                        </div>
+                                        <div class="text-gray-600">Apa, kapan, di mana, dampak, dan harapan.</div>
+                                    </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-success w-100">
-                                    <i class="ki-duotone ki-geolocation fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>Lacak Sekarang
-                                </button>
-
-                                <div class="text-muted fs-8">
-                                    Jika mode anonim aktif, pelacakan dapat disesuaikan kebijakan kampus.
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">03</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-file-added fs-2 text-info">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Upload bukti</span>
+                                            <span class="badge badge-light-info fs-8 px-3 py-2">Diproses</span>
+                                        </div>
+                                        <div class="text-gray-600">Foto/screenshot/PDF (opsional tapi disarankan).</div>
+                                    </div>
                                 </div>
-                            </form>
 
+                                <div class="timeline-item">
+                                    <div class="timeline-label fw-bold text-gray-700 fs-6">04</div>
+                                    <div class="timeline-badge">
+                                        <i class="ki-duotone ki-send fs-2 text-success">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <div class="timeline-content ps-3">
+                                        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                                            <span class="fw-bold text-gray-900">Kirim & dapatkan kode tiket</span>
+                                            <span class="badge badge-light-success fs-8 px-3 py-2">Selesai</span>
+                                        </div>
+                                        <div class="text-gray-600">Pantau progres dari menu Lacak.</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
