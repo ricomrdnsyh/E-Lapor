@@ -65,21 +65,25 @@
                     <div class="col-md-6">
                         <div class="text-white fw-bold fs-4 mb-5">Internal Link</div>
                         <a href="https://www.unuja.ac.id/"
-                            class="text-white d-block mb-2 text-decoration-none">Universitas Nurul Jadid</a>
-                        <a href="https://pmb.unuja.ac.id/" class="text-white d-block mb-2 text-decoration-none">PMB
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Universitas Nurul
+                            Jadid</a>
+                        <a href="https://pmb.unuja.ac.id/"
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">PMB
                             UNUJA</a>
                     </div>
 
                     <div class="col-md-6">
                         <div class="text-white fw-bold fs-4 mb-5">Layanan</div>
                         <a href="{{ route('beranda') }}"
-                            class="text-white d-block mb-2 text-decoration-none">Beranda</a>
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Beranda</a>
                         <a href="{{ route('kategori') }}"
-                            class="text-white d-block mb-2 text-decoration-none">Kategori</a>
-                        <a href="{{ route('alur') }}" class="text-white d-block mb-2 text-decoration-none">Alur</a>
-                        <a href="{{ route('faq') }}" class="text-white d-block mb-2 text-decoration-none">FAQ</a>
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Kategori</a>
+                        <a href="{{ route('alur') }}"
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Alur</a>
+                        <a href="{{ route('faq') }}"
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">FAQ</a>
                         <a href="{{ route('lacak') }}"
-                            class="text-white d-block mb-2 text-decoration-none">Pelacakan</a>
+                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Pelacakan</a>
                     </div>
                 </div>
             </div>
