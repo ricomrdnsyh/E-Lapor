@@ -149,13 +149,14 @@
             backdrop-filter: blur(10px);
             padding: .6rem .9rem;
         }
+
         .alur-section {
-        position: relative;
-        overflow: hidden;
-        background:
-            radial-gradient(1200px 500px at 10% -10%, rgba(59, 130, 246, .18), transparent 60%),
-            radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, .16), transparent 55%),
-            linear-gradient(180deg, rgba(15, 23, 42, .02), transparent 40%);
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(1200px 500px at 10% -10%, rgba(59, 130, 246, .18), transparent 60%),
+                radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, .16), transparent 55%),
+                linear-gradient(180deg, rgba(15, 23, 42, .02), transparent 40%);
         }
     </style>
     <script>
