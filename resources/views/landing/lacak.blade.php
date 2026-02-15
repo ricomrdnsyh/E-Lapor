@@ -1,5 +1,176 @@
 @extends('pages.app')
 
+@section('css')
+    <style>
+        .track-summary {
+            background: linear-gradient(180deg, rgba(62, 151, 255, .08) 0%, rgba(255, 255, 255, 1) 70%);
+            border-radius: 16px;
+        }
+
+        .track-pill {
+            display: inline-flex;
+            padding: .35rem .7rem;
+            border-radius: 999px;
+            font-size: .75rem;
+            color: #7E8299;
+            background: #F5F8FA;
+            border: 1px solid #EFF2F5;
+            font-weight: 700;
+        }
+
+        .track-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: .5rem .8rem;
+            border-radius: 999px;
+            font-size: .8rem;
+            font-weight: 700;
+            border: 1px solid #EFF2F5;
+            background: #fff;
+            color: #3F4254;
+        }
+
+        .track-status .track-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #D8DDE6;
+        }
+
+        .track-status.is-info .track-dot {
+            background: #3E97FF;
+        }
+
+        .track-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 14px;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .75);
+            border: 1px solid #EFF2F5;
+        }
+
+        .track-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .75rem;
+            color: #7E8299;
+            font-weight: 700;
+        }
+
+        .track-step .s-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #D8DDE6;
+            box-shadow: 0 0 0 3px rgba(216, 221, 230, .35);
+        }
+
+        .track-step.is-done {
+            color: #50CD89;
+        }
+
+        .track-step.is-done .s-dot {
+            background: #50CD89;
+            box-shadow: 0 0 0 3px rgba(80, 205, 137, .18);
+        }
+
+        .track-step.is-active {
+            color: #3E97FF;
+        }
+
+        .track-step.is-active .s-dot {
+            background: #3E97FF;
+            box-shadow: 0 0 0 3px rgba(62, 151, 255, .18);
+        }
+
+        .track-step.is-danger {
+            color: #F1416C;
+        }
+
+        .track-step.is-danger .s-dot {
+            background: #F1416C;
+            box-shadow: 0 0 0 3px rgba(241, 65, 108, .18);
+        }
+
+        .track-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #fff;
+            border: 1px solid #EFF2F5;
+        }
+
+        .track-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .track-label {
+            font-size: .75rem;
+            color: #7E8299;
+        }
+
+        .track-value {
+            font-weight: 800;
+            color: #181C32;
+        }
+
+        .track-activity {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding-left: 52px;
+        }
+
+        .track-activity:before {
+            content: "";
+            position: absolute;
+            left: 22px;
+            top: 10px;
+            bottom: 10px;
+            width: 1px;
+            background: #EEF0F5;
+        }
+
+        .track-item {
+            position: relative;
+        }
+
+        .track-badge {
+            position: absolute;
+            left: -52px;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #EFF2F5;
+        }
+
+        .track-card {
+            background: #fff;
+            border: 1px solid #EFF2F5;
+            border-radius: 16px;
+            padding: 14px 16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <section id="lacak" class="py-10 py-lg-15 bg-light">
         <div class="container">
@@ -74,142 +245,160 @@
                             @if (request('kode'))
                                 <div class="separator my-7"></div>
 
-                                <div class="d-flex align-items-start justify-content-between flex-wrap gap-4 mb-7">
-                                    <div>
-                                        <div class="d-flex align-items-center gap-2 mb-2">
-                                            <span class="badge badge-light fs-8 px-3 py-2">Kode</span>
-                                            <span class="fw-bold text-gray-900">{{ request('kode') }}</span>
-                                        </div>
-                                        <div class="fw-bold text-gray-900 fs-3 mb-1">Status Saat Ini</div>
-                                        <div class="text-gray-600">Update terakhir: 31 Jan 2026 • 14:20</div>
-                                    </div>
-
-                                    <div class="text-end">
-                                        <span
-                                            class="badge badge-light-info fs-7 px-4 py-3 d-inline-flex align-items-center">
-                                            <span class="bullet bullet-dot bg-info me-2"></span>
-                                            Diproses
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="row g-4 mb-8">
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-center p-5 rounded bg-light">
-                                            <span class="symbol symbol-40px me-3">
-                                                <span class="symbol-label bg-light-primary">
-                                                    <i class="ki-duotone ki-category fs-4 text-primary">
-                                                        <span class="path1"></span><span class="path2"></span>
-                                                    </i>
-                                                </span>
-                                            </span>
+                                <!-- SUMMARY -->
+                                <div class="card border-0 shadow-sm track-summary mb-7">
+                                    <div class="card-body p-6 p-lg-7">
+                                        <div
+                                            class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-5">
                                             <div>
-                                                <div class="text-gray-600 fs-8">Kategori</div>
-                                                <div class="fw-bold text-gray-900">Fasilitas Kampus</div>
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="track-pill">Kode tiket</span>
+                                                    <span class="fw-bold text-gray-900">{{ request('kode') }}</span>
+                                                </div>
+
+                                                <div class="d-flex align-items-center flex-wrap gap-3 mb-1">
+                                                    <div class="fw-bold text-gray-900 fs-2">Diproses</div>
+
+                                                    <span class="track-status is-info">
+                                                        <span class="track-dot"></span>
+                                                        Status saat ini
+                                                    </span>
+                                                </div>
+
+                                                <div class="text-gray-500 fs-8">
+                                                    Update terakhir: <span class="text-gray-700 fw-semibold">31 Jan
+                                                        2026</span> • 14:20
+                                                </div>
+                                            </div>
+
+                                            <!-- MINI STEPPER -->
+                                            <div class="track-steps ms-lg-auto">
+                                                <div class="track-step is-done">
+                                                    <span class="s-dot"></span><span class="s-text">Diterima</span>
+                                                </div>
+                                                <div class="track-step is-done">
+                                                    <span class="s-dot"></span><span class="s-text">Diverifikasi</span>
+                                                </div>
+                                                <div class="track-step is-active">
+                                                    <span class="s-dot"></span><span class="s-text">Diproses</span>
+                                                </div>
+                                                <div class="track-step">
+                                                    <span class="s-dot"></span><span class="s-text">Selesai</span>
+                                                </div>
+                                                <div class="track-step is-danger">
+                                                    <span class="s-dot"></span><span class="s-text">Ditolak</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- META -->
+                                <div class="row g-4 mb-7">
+                                    <div class="col-md-6">
+                                        <div class="track-meta">
+                                            <div class="track-icon bg-light-primary">
+                                                <i class="ki-duotone ki-category fs-4 text-primary">
+                                                    <span class="path1"></span><span class="path2"></span>
+                                                </i>
+                                            </div>
+                                            <div>
+                                                <div class="track-label">Kategori</div>
+                                                <div class="track-value">Fasilitas Kampus</div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="d-flex align-items-center p-5 rounded bg-light">
-                                            <span class="symbol symbol-40px me-3">
-                                                <span class="symbol-label bg-light-info">
-                                                    <i class="ki-duotone ki-briefcase fs-4 text-info">
-                                                        <span class="path1"></span><span class="path2"></span>
-                                                    </i>
-                                                </span>
-                                            </span>
+                                        <div class="track-meta">
+                                            <div class="track-icon bg-light-info">
+                                                <i class="ki-duotone ki-briefcase fs-4 text-info">
+                                                    <span class="path1"></span><span class="path2"></span>
+                                                </i>
+                                            </div>
                                             <div>
-                                                <div class="text-gray-600 fs-8">Unit</div>
-                                                <div class="fw-bold text-gray-900">Sarana & Prasarana</div>
+                                                <div class="track-label">Unit</div>
+                                                <div class="track-value">Sarana & Prasarana</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="fw-bold text-gray-900 fs-3 mb-5">Timeline</div>
-
-                                <div class="timeline-label mb-8">
-                                    <div class="timeline-item">
-                                        <div class="timeline-label fw-bold text-gray-700 fs-6">10:05</div>
-                                        <div class="timeline-badge">
-                                            <i class="ki-duotone ki-document fs-2 text-primary">
-                                                <span class="path1"></span><span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <div class="timeline-content ps-3 pb-8">
-                                            <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
-                                                <span class="fw-bold text-gray-900">Laporan diterima</span>
-                                                <span class="badge badge-light-primary fs-8 px-3 py-2">Diterima</span>
-                                            </div>
-                                            <div class="text-gray-600">Tiket dibuat dan masuk antrian verifikasi.</div>
-                                            <div class="text-gray-500 fs-8 mt-2">30 Jan 2026</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="timeline-item">
-                                        <div class="timeline-label fw-bold text-gray-700 fs-6">11:22</div>
-                                        <div class="timeline-badge">
-                                            <i class="ki-duotone ki-shield-search fs-2 text-warning">
-                                                <span class="path1"></span><span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <div class="timeline-content ps-3 pb-8">
-                                            <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
-                                                <span class="fw-bold text-gray-900">Verifikasi ULT</span>
-                                                <span class="badge badge-light-warning fs-8 px-3 py-2">Diverifikasi</span>
-                                            </div>
-                                            <div class="text-gray-600">Data dan bukti dinyatakan lengkap.</div>
-                                            <div class="text-gray-500 fs-8 mt-2">30 Jan 2026</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="timeline-item">
-                                        <div class="timeline-label fw-bold text-gray-700 fs-6">14:20</div>
-                                        <div class="timeline-badge">
-                                            <i class="ki-duotone ki-setting-2 fs-2 text-info">
-                                                <span class="path1"></span><span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <div class="timeline-content ps-3">
-                                            <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
-                                                <span class="fw-bold text-gray-900">Diproses unit terkait</span>
-                                                <span class="badge badge-light-info fs-8 px-3 py-2">Diproses</span>
-                                            </div>
-                                            <div class="text-gray-600">Tim melakukan pengecekan dan penjadwalan perbaikan.
-                                            </div>
-                                            <div class="text-gray-500 fs-8 mt-2">31 Jan 2026</div>
-                                        </div>
-                                    </div>
+                                <!-- TIMELINE -->
+                                <div class="d-flex align-items-end justify-content-between mb-4">
+                                    <div class="fw-bold text-gray-900 fs-3">Timeline</div>
+                                    <div class="text-gray-500 fs-8">Riwayat progres laporan</div>
                                 </div>
 
-                                <form action="{{ route('lacak') }}" method="POST" class="mb-0"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="kode" value="{{ request('kode') }}">
+                                <div class="track-activity mb-2">
 
-                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-                                        <div class="fw-bold text-gray-900 fs-3">Tambahkan komentar</div>
-                                        <span class="badge badge-light fs-8 px-3 py-2">Opsional</span>
-                                    </div>
-
-                                    <textarea name="komentar" class="form-control form-control-solid mb-4" rows="3"
-                                        placeholder="Tulis komentar tambahan (opsional)"></textarea>
-
-                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <input type="file" name="lampiran" class="form-control form-control-solid"
-                                                style="max-width: 320px;">
-                                            <span class="text-gray-500 fs-8">JPG/PNG/PDF, maks 5MB</span>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="ki-duotone ki-send fs-5 me-1">
+                                    <div class="track-item">
+                                        <div class="track-badge bg-light-primary">
+                                            <i class="ki-duotone ki-document fs-3 text-primary">
                                                 <span class="path1"></span><span class="path2"></span>
                                             </i>
-                                            Kirim
-                                        </button>
+                                        </div>
+
+                                        <div class="track-card">
+                                            <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
+                                                <div>
+                                                    <div class="fw-semibold text-gray-900">Laporan diterima</div>
+                                                    <div class="text-gray-600 fs-7 mt-1">Tiket dibuat dan masuk antrian
+                                                        verifikasi.</div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <div class="text-gray-500 fs-8">30 Jan 2026 • 10:05</div>
+                                                    <span class="badge badge-light-primary mt-2">Diterima</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+
+                                    <div class="track-item">
+                                        <div class="track-badge bg-light-warning">
+                                            <i class="ki-duotone ki-shield-search fs-3 text-warning">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </div>
+
+                                        <div class="track-card">
+                                            <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
+                                                <div>
+                                                    <div class="fw-semibold text-gray-900">Verifikasi ULT</div>
+                                                    <div class="text-gray-600 fs-7 mt-1">Data dan bukti dinyatakan lengkap.
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <div class="text-gray-500 fs-8">30 Jan 2026 • 11:22</div>
+                                                    <span class="badge badge-light-warning mt-2">Diverifikasi</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="track-item">
+                                        <div class="track-badge bg-light-info">
+                                            <i class="ki-duotone ki-setting-2 fs-3 text-info">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </div>
+
+                                        <div class="track-card">
+                                            <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
+                                                <div>
+                                                    <div class="fw-semibold text-gray-900">Diproses unit terkait</div>
+                                                    <div class="text-gray-600 fs-7 mt-1">Tim melakukan pengecekan dan
+                                                        penjadwalan perbaikan.</div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <div class="text-gray-500 fs-8">31 Jan 2026 • 14:20</div>
+                                                    <span class="badge badge-light-info mt-2">Diproses</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             @else
                                 <div class="text-center py-10">
                                     <div class="symbol symbol-70px symbol-circle bg-light mb-5">

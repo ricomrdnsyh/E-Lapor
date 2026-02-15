@@ -1,5 +1,34 @@
 @extends('pages.app')
 
+@section('css')
+    <style>
+        @media (min-width: 992px) {
+            .text-justify-lg {
+                text-align: justify;
+                text-justify: inter-word;
+            }
+        }
+
+        .about-illustration {
+            width: 100%;
+            height: auto;
+            max-width: 280px;
+        }
+
+        @media (min-width: 576px) {
+            .about-illustration {
+                max-width: 340px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .about-illustration {
+                max-width: 100%;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
     <!-- HERO -->
     <section id="home" class="elapor-hero py-10 py-lg-15">
@@ -166,75 +195,57 @@
         </div>
     </section>
 
-    <!-- FEATURES -->
-    <section class="py-10 py-lg-15 bg-primary">
-        <div class="container">
-            <div class="row align-items-end mb-8">
-                <div class="col-lg-7">
-                    <h2 class="fw-bold text-white text-opacity-60 mb-2">Komitmen Layanan</h2>
-                    <div class="section-kicker text-white mb-0">Pelaporan yang rapi, cepat, dan transparan</div>
+    <!-- TENTANG -->
+    <section id="about" class="py-10 py-lg-15 bg-primary position-relative overflow-hidden">
+        <span class="position-absolute top-0 end-0 translate-middle opacity-10"
+            style="width:520px;height:520px;border-radius:50%;
+        background:radial-gradient(circle, rgba(255,255,255,.28), rgba(255,255,255,0));"></span>
+
+        <span class="position-absolute bottom-0 start-0 translate-middle opacity-10"
+            style="width:640px;height:640px;border-radius:50%;
+        background:radial-gradient(circle, rgba(255,255,255,.22), rgba(255,255,255,0));"></span>
+
+        <div class="container position-relative">
+            <div class="row align-items-center gy-10 gy-lg-0">
+
+                <div
+                    class="col-lg-5 d-flex align-items-center justify-content-center justify-content-lg-start text-center text-lg-start">
+                    <img src="{{ asset('assets/media/illustrations/sigma-1/21.png') }}"
+                        class="img-fluid about-illustration d-block" alt="Ilustrasi E-Lapor" />
                 </div>
+
+                <div class="col-lg-7 d-flex align-items-center">
+                    <div class="w-100">
+                        <h2 class="fw-bold text-white mb-4">
+                            Apa Itu E-Lapor?
+                        </h2>
+
+                        <p class="text-white text-opacity-75 fs-5 mb-4 text-justify-lg">
+                            <span class="fw-semibold text-white">E-Lapor</span> adalah kanal resmi pengaduan dan aspirasi
+                            di Universitas Nurul Jadid. Layanan ini dibuat agar setiap keluhan, temuan, atau masukan dari
+                            civitas akademika dapat disampaikan secara <span
+                                class="fw-semibold text-white">terstruktur</span>,
+                            diproses oleh unit yang tepat, serta <span class="fw-semibold text-white">terpantau</span>
+                            hingga selesai.
+                        </p>
+
+                        <p class="text-white text-opacity-75 fs-5 mb-0 text-justify-lg">
+                            Saat membuat laporan, pelapor dapat memilih kategori, menuliskan kronologi secara singkat-jelas,
+                            mencantumkan lokasi dan waktu, serta melampirkan bukti (foto/screenshot/dokumen) bila
+                            diperlukan.
+                            Laporan diverifikasi terlebih dahulu, diteruskan ke unit terkait, dan status penanganannya
+                            diperbarui sampai ditutup. Untuk menjaga kenyamanan, tersedia opsi
+                            <span class="fw-semibold text-white">anonim/rahasia</span> serta pembatasan akses petugas
+                            sesuai kewenangan.
+                        </p>
+                    </div>
+                </div>
+
             </div>
-
-            <div class="row g-6">
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 elapor-card elapor-card-hover">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-50px symbol-circle bg-light-primary mb-5">
-                                <i class="ki-duotone ki-shield fs-2 text-primary"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold fs-4 mb-2">Terstruktur</div>
-                            <div class="text-muted">Kategori jelas, data lengkap, mudah ditindaklanjuti.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 elapor-card elapor-card-hover">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-50px symbol-circle bg-light-success mb-5">
-                                <i class="ki-duotone ki-lock fs-2 text-success"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold fs-4 mb-2">Aman</div>
-                            <div class="text-muted">Kerahasiaan pelapor & akses petugas dibatasi.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 elapor-card elapor-card-hover">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-50px symbol-circle bg-light-warning mb-5">
-                                <i class="ki-duotone ki-notification-bing fs-2 text-warning"><span
-                                        class="path1"></span><span class="path2"></span><span
-                                        class="path3"></span></i>
-                            </span>
-                            <div class="fw-bold fs-4 mb-2">Update Status</div>
-                            <div class="text-muted">Notifikasi perkembangan dan catatan tindak lanjut.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 elapor-card elapor-card-hover">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-50px symbol-circle bg-light-info mb-5">
-                                <i class="ki-duotone ki-graph-up fs-2 text-info"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold fs-4 mb-2">Transparan</div>
-                            <div class="text-muted">Riwayat proses terekam dari diterima sampai selesai.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- CATEGORIES -->
+    <!-- KATEGORI -->
     <section id="kategori" class="py-10 py-lg-15 bg-light">
         <div class="container">
 

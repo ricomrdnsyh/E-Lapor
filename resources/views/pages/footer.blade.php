@@ -31,7 +31,7 @@
                                     d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.85 22 2 13.15 2 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2z" />
                             </svg>
                         </span>
-                        <a href="tel:+628883077077" class="text-white text-decoration-none">0888 30
+                        <a href="tel:+628883077077" class="text-white text-decoration-none text-hover-warning">0888 30
                             77077</a>
                     </div>
 
@@ -55,7 +55,8 @@
                                     d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
                             </svg>
                         </span>
-                        <a href="mailto:unuja@unuja.ac.id" class="text-white text-decoration-none">unuja@unuja.ac.id</a>
+                        <a href="mailto:unuja@unuja.ac.id"
+                            class="text-white text-decoration-none text-hover-warning">unuja@unuja.ac.id</a>
                     </div>
                 </div>
             </div>
@@ -65,25 +66,26 @@
                     <div class="col-md-6">
                         <div class="text-white fw-bold fs-4 mb-5">Internal Link</div>
                         <a href="https://www.unuja.ac.id/"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Universitas Nurul
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">Universitas Nurul
                             Jadid</a>
                         <a href="https://pmb.unuja.ac.id/"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">PMB
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">PMB
                             UNUJA</a>
                     </div>
 
                     <div class="col-md-6">
                         <div class="text-white fw-bold fs-4 mb-5">Layanan</div>
                         <a href="{{ route('beranda') }}"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Beranda</a>
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">Beranda</a>
                         <a href="{{ route('kategori') }}"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Kategori</a>
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">Kategori
+                            Laporan</a>
                         <a href="{{ route('alur') }}"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Alur</a>
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">Alur Penanganan</a>
                         <a href="{{ route('faq') }}"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">FAQ</a>
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">FAQ</a>
                         <a href="{{ route('lacak') }}"
-                            class="text-white-50 text-hover-white d-block mb-2 text-decoration-none">Pelacakan</a>
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">Pelacakan</a>
                     </div>
                 </div>
             </div>

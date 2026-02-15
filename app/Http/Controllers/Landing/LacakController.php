@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class LacakController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('landing.lacak');
     }

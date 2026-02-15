@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class LaporController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('landing.lapor');
     }

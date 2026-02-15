@@ -104,10 +104,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="text-muted fs-8">
-                        * Opsi anonim/rahasia mengikuti kebijakan kampus. Gunakan bahasa yang sopan dan faktual.
-                    </div>
                 </div>
 
                 <div class="col-lg-7">
