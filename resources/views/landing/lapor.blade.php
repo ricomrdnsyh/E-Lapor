@@ -150,34 +150,6 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Tanggal & Waktu Kejadian</label>
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-calendar-alt fs-5"></i>
-                                            </span>
-                                            <input type="text" id="incident_at" name="incident_at"
-                                                class="form-control form-control-sm" placeholder="Pilih tanggal & waktu"
-                                                value="{{ old('incident_at') }}" required autocomplete="off" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="required form-label fw-semibold">Judul Laporan</label>
-                                    <input type="text" name="title" class="form-control form-control-sm"
-                                        placeholder="Contoh: AC Ruang Lab 2 Gedung D tidak berfungsi"
-                                        value="{{ old('title') }}" required>
-                                    <div class="text-muted fs-8 mt-1">Buat judul ringkas dan spesifik.</div>
-                                </div>
-
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Lokasi</label>
-                                        <input type="text" name="location" class="form-control form-control-sm"
-                                            placeholder="Gedung / Lantai / Ruangan / Area" value="{{ old('location') }}"
-                                            required>
-                                    </div>
-                                    <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Unit Tujuan</label>
                                         <select name="unit" class="form-select form-select-sm" data-control="select2"
                                             required>
@@ -193,6 +165,34 @@
                                     </div>
                                 </div>
 
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="required form-label fw-semibold">Tanggal & Waktu Kejadian</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-alt fs-5"></i>
+                                            </span>
+                                            <input type="text" id="incident_at" name="incident_at"
+                                                class="form-control form-control-sm" placeholder="Pilih tanggal & waktu"
+                                                value="{{ old('incident_at') }}" required autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="required form-label fw-semibold">Lokasi</label>
+                                        <input type="text" name="location" class="form-control form-control-sm"
+                                            placeholder="Gedung / Lantai / Ruangan / Area" value="{{ old('location') }}"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="required form-label fw-semibold">Judul Laporan</label>
+                                    <input type="text" name="title" class="form-control form-control-sm"
+                                        placeholder="Contoh: AC Ruang Lab 2 Gedung D tidak berfungsi"
+                                        value="{{ old('title') }}" required>
+                                    <div class="text-muted fs-8 mt-1">Buat judul ringkas dan spesifik.</div>
+                                </div>
+
                                 <div>
                                     <label class="required form-label fw-semibold">Kronologi / Deskripsi</label>
                                     <textarea name="description" id="desc" rows="5" class="form-control form-control-sm"
@@ -205,7 +205,7 @@
                                 </div>
 
                                 <div>
-                                    <label class="form-label fw-semibold">Lampiran Bukti (opsional)</label>
+                                    <label class="required form-label fw-semibold">Lampiran Bukti</label>
                                     <input type="file" name="attachments[]" class="form-control form-control-sm"
                                         multiple accept=".jpg,.jpeg,.png,.pdf">
                                     <div class="text-muted fs-8 mt-1">
@@ -265,7 +265,7 @@
                                             value="{{ old('reporter_id') }}" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">No. HP (opsional)</label>
+                                        <label class="required form-label fw-semibold">No. Telepon</label>
                                         <input type="text" id="reporter_phone" name="reporter_phone"
                                             class="form-control form-control-sm" placeholder="08xxxxxxxxxx"
                                             value="{{ old('reporter_phone') }}">
@@ -295,16 +295,12 @@
                                 </label>
 
                                 <div class="d-flex flex-wrap gap-3 pt-2">
-                                    <button type="submit" class="btn btn-primary btn-sm">
+                                    <button type="submit" class="btn btn-primary btn-sm w-100">
                                         <i class="ki-duotone ki-send fs-4 me-2">
                                             <span class="path1"></span><span class="path2"></span>
                                         </i>
                                         Kirim Laporan
                                     </button>
-
-                                    <a href="{{ url('/') }}" class="btn btn-secondary btn-sm">
-                                        Kembali
-                                    </a>
                                 </div>
 
                                 <div class="text-muted fs-8">

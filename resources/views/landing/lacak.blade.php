@@ -229,7 +229,7 @@
                                         </i>
                                     </span>
                                     <input type="text" name="kode" value="{{ request('kode') }}" class="form-control"
-                                        placeholder="Contoh: ELP-2026-000123" autocomplete="off" />
+                                        placeholder="Contoh: ELP-2026-000123" data-allow-clear="true" autocomplete="off" />
                                     <button type="submit" class="btn btn-success">
                                         <i class="ki-duotone ki-magnifier fs-5 me-1">
                                             <span class="path1"></span><span class="path2"></span>
