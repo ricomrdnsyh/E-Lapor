@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\FAQController;
 use App\Http\Controllers\Landing\AlurController;
@@ -14,3 +15,11 @@ Route::get('/alur', [AlurController::class, 'alur'])->name('alur');
 Route::get('/faq', [FAQController::class, 'faq'])->name('faq');
 Route::get('/lapor', [LaporController::class, 'index'])->name('lapor');
 Route::get('/lacak', [LacakController::class, 'index'])->name('lacak');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
+    Route::resource('unit', AdminUnitController::class);
+});

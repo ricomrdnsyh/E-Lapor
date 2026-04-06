@@ -76,8 +76,12 @@
 
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <a href="#">
-            <img alt="Logo" src="assets/media/logos/default-dark.svg" class="h-25px app-sidebar-logo-default" />
-            <img alt="Logo" src="assets/media/logos/default-small.svg" class="h-20px app-sidebar-logo-minimize" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/default-dark.svg') }}"
+                class="h-25px
+                app-sidebar-logo-default" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/default-small.svg') }}"
+                class="h-20px
+                app-sidebar-logo-minimize" />
         </a>
 
         <div id="kt_app_sidebar_toggle"
@@ -94,7 +98,8 @@
         <a href="#"
             class="user-card d-flex flex-column align-items-center text-center w-100 rounded-3 p-3 text-decoration-none">
             <div class="symbol symbol-42px symbol-circle position-relative">
-                <img src="assets/media/avatars/300-1.jpg" alt="avatar" class="w-30 h-30 object-fit-cover" />
+                <img src="{{ asset('assets/media/avatars/300-1.jpg') }}" alt="avatar"
+                    class="w-30 h-30 object-fit-cover" />
                 <span
                     class="position-absolute translate-middle bottom-0 start-100 bg-success rounded-circle border border-2 border-white"
                     style="width:10px;height:10px;"></span>
@@ -125,8 +130,7 @@
                             </div>
                         </div> --}}
 
-                        <a class="menu-link {{ Request::is('dashboard') ? 'active' : '' }}"
-                            href="{{ route('dashboard') }}">
+                        <a class="menu-link" href="#">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-element-11 fs-2">
                                     <span class="path1"></span><span class="path2"></span>
@@ -156,22 +160,10 @@
 
                         <div class="menu-sub menu-sub-accordion">
                             <div class="menu-item">
-                                <a class="menu-link" href="#">
+                                <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}"
+                                    href="{{ route('admin.unit.index') }}">
                                     <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                    <span class="menu-title">Master Mahasiswa</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="#">
-                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                    <span class="menu-title">Master Penduduk</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link {{ Request::is('mitra') || Request::is('mitra/*') ? 'active' : '' }}"
-                                    href="{{ route('mitra.index') }}">
-                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                    <span class="menu-title">Master Mitra</span>
+                                    <span class="menu-title">Master Unit</span>
                                 </a>
                             </div>
                         </div>
@@ -184,8 +176,7 @@
                     </div> --}}
 
                     <div class="menu-item">
-                        <a class="menu-link {{ Request::is('users') || Request::is('users/*') ? 'active' : '' }}"
-                            href="{{ route('users.index') }}">
+                        <a class="menu-link" href="#">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-user fs-2">
                                     <span class="path1"></span>
