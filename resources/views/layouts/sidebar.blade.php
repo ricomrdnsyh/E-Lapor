@@ -166,6 +166,13 @@
                                     <span class="menu-title">Master Unit</span>
                                 </a>
                             </div>
+                            <div class="menu-item">
+                                <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}"
+                                    href="{{ route('admin.kategori.index') }}">
+                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                    <span class="menu-title">Master Kategori</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
 

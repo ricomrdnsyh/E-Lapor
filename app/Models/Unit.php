@@ -14,4 +14,9 @@ class Unit extends Model
         'nama_unit',
         'deskripsi'
     ];
+
+    public function kategoris()
+    {
+        return $this->hasMany(Kategori::class, 'unit_id', 'id_unit');
+    }
 }

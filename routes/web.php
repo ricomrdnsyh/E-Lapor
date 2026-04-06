@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUnitController;
+use App\Http\Controllers\Admin\AdminKategoriController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\FAQController;
 use App\Http\Controllers\Landing\AlurController;
@@ -22,4 +23,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
     Route::resource('unit', AdminUnitController::class);
+
+    Route::get('/kategori/data', [AdminKategoriController::class, 'getKategori'])->name('kategori.data');
+    Route::resource('kategori', AdminKategoriController::class);
 });
