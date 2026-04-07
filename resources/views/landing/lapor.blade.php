@@ -118,50 +118,24 @@
                                 <span class="badge badge-light-primary">E-Lapor</span>
                             </div>
 
-                            <form action="#" method="POST" enctype="multipart/form-data"
-                                class="d-flex flex-column gap-5">
+                            <form action="{{ route('lapor.store') }}" method="POST" enctype="multipart/form-data"
+                                class="d-flex flex-column gap-5" id="form_laporan">
                                 @csrf
 
                                 <div class="row g-4">
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Kategori Laporan</label>
-                                        <select name="category" class="form-select form-select-sm" data-control="select2"
-                                            required>
-                                            <option value="" disabled {{ old('category') ? '' : 'selected' }}>Pilih
-                                                kategori</option>
-                                            <option value="akademik" {{ old('category') == 'akademik' ? 'selected' : '' }}>
-                                                Akademik</option>
-                                            <option value="sarpras" {{ old('category') == 'sarpras' ? 'selected' : '' }}>
-                                                Sarpras</option>
-                                            <option value="tik" {{ old('category') == 'tik' ? 'selected' : '' }}>TIK /
-                                                Sistem Informasi</option>
-                                            <option value="keamanan" {{ old('category') == 'keamanan' ? 'selected' : '' }}>
-                                                Keamanan</option>
-                                            <option value="etik" {{ old('category') == 'etik' ? 'selected' : '' }}>Etik /
-                                                Perundungan</option>
-                                            <option value="kemahasiswaan"
-                                                {{ old('category') == 'kemahasiswaan' ? 'selected' : '' }}>Kemahasiswaan
-                                            </option>
-                                            <option value="keuangan" {{ old('category') == 'keuangan' ? 'selected' : '' }}>
-                                                Keuangan</option>
-                                            <option value="lainnya" {{ old('category') == 'lainnya' ? 'selected' : '' }}>
-                                                Lainnya</option>
+                                        <select id="kategori_id" name="kategori_id" class="form-select form-select-sm"
+                                            data-control="select2" required>
+                                            <option value="" disabled selected>-- Pilih kategori --</option>
                                         </select>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Unit Tujuan</label>
-                                        <select name="unit" class="form-select form-select-sm" data-control="select2"
-                                            required>
-                                            <option value="" disabled {{ old('unit') ? '' : 'selected' }}>Pilih
-                                                unit</option>
-                                            <option value="akademik" {{ old('unit') == 'akademik' ? 'selected' : '' }}>
-                                                Rektorat</option>
-                                            <option value="sarpras" {{ old('unit') == 'sarpras' ? 'selected' : '' }}>
-                                                Fakultas</option>
-                                            <option value="lainnya" {{ old('unit') == 'lainnya' ? 'selected' : '' }}>
-                                                Lainnya</option>
-                                        </select>
+                                        <input type="text" id="unit_tujuan" name="unit_tujuan"
+                                            class="form-control form-control-sm" disabled readonly>
+                                        <input type="hidden" id="unit_id" name="unit_id">
                                     </div>
                                 </div>
 
@@ -172,31 +146,31 @@
                                             <span class="input-group-text">
                                                 <i class="fas fa-calendar-alt fs-5"></i>
                                             </span>
-                                            <input type="text" id="incident_at" name="incident_at"
+                                            <input type="text" id="tgl_kejadian" name="tgl_kejadian"
                                                 class="form-control form-control-sm" placeholder="Pilih tanggal & waktu"
-                                                value="{{ old('incident_at') }}" required autocomplete="off" />
+                                                value="{{ old('tgl_kejadian') }}" required autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Lokasi</label>
-                                        <input type="text" name="location" class="form-control form-control-sm"
-                                            placeholder="Gedung / Lantai / Ruangan / Area" value="{{ old('location') }}"
-                                            required>
+                                        <input type="text" name="lokasi_kejadian" class="form-control form-control-sm"
+                                            placeholder="Gedung / Lantai / Ruangan / Area"
+                                            value="{{ old('lokasi_kejadian') }}" required>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label class="required form-label fw-semibold">Judul Laporan</label>
-                                    <input type="text" name="title" class="form-control form-control-sm"
+                                    <input type="text" name="judul_laporan" class="form-control form-control-sm"
                                         placeholder="Contoh: AC Ruang Lab 2 Gedung D tidak berfungsi"
-                                        value="{{ old('title') }}" required>
+                                        value="{{ old('judul_laporan') }}" required>
                                     <div class="text-muted fs-8 mt-1">Buat judul ringkas dan spesifik.</div>
                                 </div>
 
                                 <div>
                                     <label class="required form-label fw-semibold">Kronologi / Deskripsi</label>
-                                    <textarea name="description" id="desc" rows="5" class="form-control form-control-sm"
-                                        placeholder="Tuliskan apa yang terjadi, kronologi, dampak, dan harapan..." required>{{ old('description') }}</textarea>
+                                    <textarea name="deskripsi_laporan" id="desc" rows="5" class="form-control form-control-sm"
+                                        placeholder="Tuliskan apa yang terjadi, kronologi, dampak, dan harapan..." required>{{ old('deskripsi_laporan') }}</textarea>
                                     <div class="d-flex justify-content-between mt-1">
                                         <div class="text-muted fs-8">Saran: sertakan waktu, saksi, dan kondisi sekitar.
                                         </div>
@@ -206,8 +180,8 @@
 
                                 <div>
                                     <label class="required form-label fw-semibold">Lampiran Bukti</label>
-                                    <input type="file" name="attachments[]" class="form-control form-control-sm"
-                                        multiple accept=".jpg,.jpeg,.png,.pdf">
+                                    <input type="file" name="lampiran_file" class="form-control form-control-sm"
+                                        accept=".jpg,.jpeg,.png,.pdf">
                                     <div class="text-muted fs-8 mt-1">
                                         Format: JPG/PNG/PDF. Disarankan: foto jelas / screenshot error.
                                     </div>
@@ -219,9 +193,8 @@
                                     <div class="fw-bold text-gray-900 mb-2">Privasi Laporan</div>
                                     <div class="d-flex flex-column gap-2">
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" name="privacy"
-                                                value="terbuka"
-                                                {{ old('privacy', 'terbuka') == 'terbuka' ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="is_anonymous"
+                                                value="t" {{ old('is_anonymous', 't') == 't' ? 'checked' : '' }}>
                                             <span class="form-check-label">
                                                 <span class="fw-semibold text-gray-800">Terbuka</span>
                                                 <span class="text-muted fs-8 d-block">Identitas pelapor tercatat untuk
@@ -230,8 +203,8 @@
                                         </label>
 
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" name="privacy"
-                                                value="rahasia" {{ old('privacy') == 'rahasia' ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="is_anonymous"
+                                                value="t" {{ old('is_anonymous') == 't' ? 'checked' : '' }}>
                                             <span class="form-check-label">
                                                 <span class="fw-semibold text-gray-800">Rahasia</span>
                                                 <span class="text-muted fs-8 d-block">Identitas hanya terlihat petugas
@@ -240,8 +213,8 @@
                                         </label>
 
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" name="privacy" value="anonim"
-                                                {{ old('privacy') == 'anonim' ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="is_anonymous"
+                                                value="y" {{ old('is_anonymous') == 'y' ? 'checked' : '' }}>
                                             <span class="form-check-label">
                                                 <span class="fw-semibold text-gray-800">Anonim</span>
                                                 <span class="text-muted fs-8 d-block">Tanpa identitas pelapor (jika
@@ -254,33 +227,39 @@
                                 <div id="identityBlock" class="row g-4">
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Nama Pelapor</label>
-                                        <input type="text" id="reporter_name" name="reporter_name"
+                                        <input type="text" id="nama_pelapor" name="nama_pelapor"
                                             class="form-control form-control-sm" placeholder="Nama lengkap"
-                                            value="{{ old('reporter_name') }}" required>
+                                            value="{{ old('nama_pelapor') }}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Email</label>
-                                        <input type="text" id="reporter_id" name="reporter_id"
+                                        <input type="email" id="email_pelapor" name="email_pelapor"
                                             class="form-control form-control-sm" placeholder="nama@gmail.com"
-                                            value="{{ old('reporter_id') }}" required>
+                                            value="{{ old('email_pelapor') }}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">No. Telepon</label>
-                                        <input type="text" id="reporter_phone" name="reporter_phone"
+                                        <input type="text" id="no_telp_pelapor" name="no_telp_pelapor"
                                             class="form-control form-control-sm" placeholder="08xxxxxxxxxx"
-                                            value="{{ old('reporter_phone') }}">
+                                            value="{{ old('no_telp_pelapor') }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Profesi</label>
-                                        <select name="profesi" class="form-select form-select-sm" data-control="select2"
-                                            required>
-                                            <option value="" disabled {{ old('profesi') ? '' : 'selected' }}>Pilih
+                                        <label class="form-label fw-semibold">Profesi/Tipe Pelapor</label>
+                                        <select name="tipe_pelapor" class="form-select form-select-sm"
+                                            data-control="select2">
+                                            <option value="" disabled {{ old('tipe_pelapor') ? '' : 'selected' }}>
+                                                Pilih
                                                 profesi</option>
-                                            <option value="akademik" {{ old('profesi') == 'akademik' ? 'selected' : '' }}>
+                                            <option value="Dosen" {{ old('tipe_pelapor') == 'Dosen' ? 'selected' : '' }}>
                                                 Dosen</option>
-                                            <option value="sarpras" {{ old('profesi') == 'sarpras' ? 'selected' : '' }}>
+                                            <option value="Mahasiswa"
+                                                {{ old('tipe_pelapor') == 'Mahasiswa' ? 'selected' : '' }}>
                                                 Mahasiswa</option>
-                                            <option value="lainnya" {{ old('profesi') == 'lainnya' ? 'selected' : '' }}>
+                                            <option value="Karyawan"
+                                                {{ old('tipe_pelapor') == 'Karyawan' ? 'selected' : '' }}>
+                                                Karyawan</option>
+                                            <option value="Lainnya"
+                                                {{ old('tipe_pelapor') == 'Lainnya' ? 'selected' : '' }}>
                                                 Lainnya</option>
                                         </select>
                                     </div>
@@ -296,10 +275,16 @@
 
                                 <div class="d-flex flex-wrap gap-3 pt-2">
                                     <button type="submit" class="btn btn-primary btn-sm w-100">
-                                        <i class="ki-duotone ki-send fs-4 me-2">
-                                            <span class="path1"></span><span class="path2"></span>
-                                        </i>
-                                        Kirim Laporan
+                                        <span class="indicator-label">
+                                            <i class="ki-duotone ki-send fs-4 me-2">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                            Kirim Laporan
+                                        </span>
+                                        <span class="indicator-progress" style="display:none;">
+                                            Mengirim...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
                                     </button>
                                 </div>
 
@@ -319,14 +304,16 @@
 
 @section('js')
     <script>
+        let categoriesData = [];
+
         (function() {
             const desc = document.getElementById('desc');
             const descCount = document.getElementById('descCount');
-            const radios = document.querySelectorAll('input[name="privacy"]');
+            const radios = document.querySelectorAll('input[name="is_anonymous"]');
             const identityBlock = document.getElementById('identityBlock');
 
-            const reporterName = document.getElementById('reporter_name');
-            const reporterId = document.getElementById('reporter_id');
+            const namaPelapor = document.getElementById('nama_pelapor');
+            const emailPelapor = document.getElementById('email_pelapor');
 
             function updateCount() {
                 const len = (desc?.value || '').length;
@@ -335,21 +322,33 @@
             }
 
             function toggleIdentity() {
-                const val = document.querySelector('input[name="privacy"]:checked')?.value || 'terbuka';
-                const isAnon = (val === 'anonim');
+                const val = document.querySelector('input[name="is_anonymous"]:checked')?.value || 't';
+                const isAnon = (val === 'y');
 
                 if (identityBlock) {
                     identityBlock.style.display = isAnon ? 'none' : '';
-                    identityBlock.querySelectorAll('input').forEach(inp => {
+                    identityBlock.querySelectorAll('input, select').forEach(inp => {
                         if (isAnon) inp.setAttribute('disabled', 'disabled');
                         else inp.removeAttribute('disabled');
                     });
                 }
 
-                // required hanya jika bukan anonim
-                if (reporterName) isAnon ? reporterName.removeAttribute('required') : reporterName.setAttribute(
+                if (isAnon) {
+                    if (namaPelapor) namaPelapor.value = 'Anonymous';
+                    if (emailPelapor) emailPelapor.value = 'Anonymous';
+                    document.getElementById('no_telp_pelapor').value = 'Anonymous';
+                    document.getElementById('tipe_pelapor').value = '';
+                } else {
+                    if (namaPelapor && namaPelapor.value === 'Anonymous') namaPelapor.value = '';
+                    if (emailPelapor && emailPelapor.value === 'Anonymous') emailPelapor.value = '';
+                    const noTelp = document.getElementById('no_telp_pelapor');
+                    if (noTelp && noTelp.value === 'Anonymous') noTelp.value = '';
+                }
+
+                if (namaPelapor) isAnon ? namaPelapor.removeAttribute('required') : namaPelapor.setAttribute(
                     'required', 'required');
-                if (reporterId) isAnon ? reporterId.removeAttribute('required') : reporterId.setAttribute('required',
+                if (emailPelapor) isAnon ? emailPelapor.removeAttribute('required') : emailPelapor.setAttribute(
+                    'required',
                     'required');
             }
 
@@ -363,15 +362,154 @@
         })();
 
         KTUtil.onDOMContentLoaded(function() {
-            const el = document.querySelector('#incident_at');
-            if (!el || typeof flatpickr === 'undefined') return;
+            const kategoriSelect = document.getElementById('kategori_id');
+            const tglKejadianEl = document.querySelector('#tgl_kejadian');
 
-            flatpickr(el, {
-                enableTime: true,
-                time_24hr: true,
-                dateFormat: "Y-m-d H:i",
-                allowInput: true
-            });
+            const unitTujuanEl = document.getElementById('unit_tujuan');
+            const unitIdHiddenEl = document.getElementById('unit_id');
+
+            fetch('{{ route('lapor.categories') }}')
+                .then(res => res.json())
+                .then(data => {
+                    categoriesData = data;
+
+                    if (kategoriSelect) {
+                        data.forEach(cat => {
+                            const option = document.createElement('option');
+                            option.value = cat.id;
+                            option.textContent = cat.nama;
+                            option.dataset.unitId = cat.unit_id;
+                            option.dataset.unitName = cat.unit_name;
+                            kategoriSelect.appendChild(option);
+                        });
+
+                        if (typeof jQuery !== 'undefined' && jQuery(kategoriSelect).length) {
+                            jQuery(kategoriSelect).select2({
+                                placeholder: '-- Pilih Kategori --',
+                                allowClear: true,
+                                width: '100%'
+                            });
+
+                            jQuery(kategoriSelect).on('select2:select', function() {
+                                const selectedOption = this.options[this.selectedIndex];
+                                const unitId = selectedOption.dataset.unitId;
+                                const unitName = selectedOption.dataset.unitName;
+
+                                console.log('Selected:', {
+                                    unitId,
+                                    unitName
+                                });
+
+                                if (unitId && unitTujuanEl) {
+                                    unitTujuanEl.value = unitName || '';
+                                    if (unitIdHiddenEl) unitIdHiddenEl.value = unitId;
+                                } else if (unitTujuanEl) {
+                                    unitTujuanEl.value = '';
+                                    if (unitIdHiddenEl) unitIdHiddenEl.value = '';
+                                }
+                            });
+                        }
+                    }
+                });
+
+            if (tglKejadianEl && typeof flatpickr !== 'undefined') {
+                flatpickr(tglKejadianEl, {
+                    enableTime: true,
+                    time_24hr: true,
+                    dateFormat: "Y-m-d H:i",
+                    allowInput: true
+                });
+            }
+
+            const formLaporan = document.getElementById('form_laporan');
+            if (formLaporan) {
+                formLaporan.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const indicatorLabel = submitBtn.querySelector('.indicator-label');
+                    const indicatorProgress = submitBtn.querySelector('.indicator-progress');
+
+                    submitBtn.disabled = true;
+                    indicatorLabel.style.display = 'none';
+                    indicatorProgress.style.display = 'inline-block';
+
+                    fetch('{{ route('lapor.store') }}', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            submitBtn.disabled = false;
+                            indicatorLabel.style.display = 'inline-block';
+                            indicatorProgress.style.display = 'none';
+
+                            if (data.success) {
+                                if (typeof Swal !== 'undefined') {
+                                    Swal.fire({
+                                        title: 'Laporan Berhasil Dibuat!',
+                                        html: `
+                                            <div class="text-start">
+                                                <p class="mb-3 fw-semibold text-gray-800">Kode Tiket Anda:</p>
+                                                <div class="bg-light-primary p-4 rounded-3 mb-3">
+                                                    <h5 class="text-center fw-bold fs-2 text-primary">${data.kode_tiket}</h5>
+                                                </div>
+                                                <p class="text-muted mb-3">Simpan kode tiket ini untuk melacak status laporan Anda.</p>
+                                            </div>
+                                        `,
+                                        icon: 'success',
+                                        confirmButtonText: 'Lacak Sekarang',
+                                        confirmButtonColor: '#1F4788',
+                                        allowOutsideClick: false,
+                                        allowEscapeKey: false
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = data.redirect;
+                                        }
+                                    });
+                                } else {
+                                    alert('Laporan berhasil dibuat! Kode tiket: ' + data.kode_tiket);
+                                    window.location.href = data.redirect;
+                                }
+                            } else {
+                                if (typeof Swal !== 'undefined') {
+                                    Swal.fire({
+                                        title: 'Terjadi Kesalahan!',
+                                        text: data.message || 'Gagal membuat laporan.',
+                                        icon: 'error',
+                                        confirmButtonText: 'Coba Lagi',
+                                        confirmButtonColor: '#F64E60'
+                                    });
+                                } else {
+                                    alert('Error: ' + (data.message || 'Terjadi kesalahan'));
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Error:', err);
+                            submitBtn.disabled = false;
+                            indicatorLabel.style.display = 'inline-block';
+                            indicatorProgress.style.display = 'none';
+
+                            if (typeof Swal !== 'undefined') {
+                                Swal.fire({
+                                    title: 'Terjadi Kesalahan!',
+                                    text: 'Kesalahan jaringan. Silakan coba lagi.',
+                                    icon: 'error',
+                                    confirmButtonText: 'Coba Lagi',
+                                    confirmButtonColor: '#F64E60'
+                                });
+                            } else {
+                                alert('Error: Terjadi kesalahan jaringan');
+                            }
+                        });
+                });
+            }
         });
     </script>
 @endsection

@@ -124,12 +124,12 @@
                     data-kt-menu="true" data-kt-menu-expand="false">
 
                     <div class="menu-item">
-                        {{-- <div class="menu-item pt-1">
-                            <div class="menu-content">
-                                <span class="menu-heading fw-bold text-uppercase fs-8">Main</span>
-                            </div>
-                        </div> --}}
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-8">Main</span>
+                        </div>
+                    </div>
 
+                    <div class="menu-item">
                         <a class="menu-link" href="#">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-element-11 fs-2">
@@ -141,11 +141,11 @@
                         </a>
                     </div>
 
-                    {{-- <div class="menu-item pt-1">
+                    <div class="menu-item pt-1">
                         <div class="menu-content">
                             <span class="menu-heading fw-bold text-uppercase fs-8">Master</span>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                         <span class="menu-link">
@@ -176,11 +176,24 @@
                         </div>
                     </div>
 
-                    {{-- <div class="menu-item pt-1">
+                    <div class="menu-item pt-1">
                         <div class="menu-content">
-                            <span class="menu-heading fw-bold text-uppercase fs-8">Account</span>
+                            <span class="menu-heading fw-bold text-uppercase fs-8">Lapor</span>
                         </div>
-                    </div> --}}
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link {{ Request::is('admin/laporan*') ? 'active' : '' }}"
+                            href="{{ route('admin.laporan.index') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-message-text-2 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Kelola Laporan</span>
+                        </a>
+                    </div>
 
                     <div class="menu-item">
                         <a class="menu-link" href="#">
