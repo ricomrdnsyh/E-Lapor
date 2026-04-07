@@ -126,14 +126,14 @@
                                 <div class="timeline-item">
                                     <div class="timeline-label fw-bold text-gray-700 fs-6">01</div>
                                     <div class="timeline-badge">
-                                        <i class="ki-duotone ki-category fs-2 text-primary">
+                                        <i class="ki-duotone ki-category fs-2 text-warning">
                                             <span class="path1"></span><span class="path2"></span>
                                         </i>
                                     </div>
                                     <div class="timeline-content ps-3">
                                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
                                             <span class="fw-bold text-gray-900">Pilih kategori</span>
-                                            <span class="badge badge-light-primary fs-8 px-3 py-2">Diterima</span>
+                                            <span class="badge badge-light-warning fs-8 px-3 py-2">Menunggu</span>
                                         </div>
                                         <div class="text-gray-600">Agar langsung ke unit yang tepat.</div>
                                     </div>
@@ -142,14 +142,14 @@
                                 <div class="timeline-item">
                                     <div class="timeline-label fw-bold text-gray-700 fs-6">02</div>
                                     <div class="timeline-badge">
-                                        <i class="ki-duotone ki-notepad-edit fs-2 text-warning">
+                                        <i class="ki-duotone ki-notepad-edit fs-2 text-primary">
                                             <span class="path1"></span><span class="path2"></span>
                                         </i>
                                     </div>
                                     <div class="timeline-content ps-3">
                                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
                                             <span class="fw-bold text-gray-900">Tulis kronologi</span>
-                                            <span class="badge badge-light-warning fs-8 px-3 py-2">Diverifikasi</span>
+                                            <span class="badge badge-light-primary fs-8 px-3 py-2">Diverifikasi</span>
                                         </div>
                                         <div class="text-gray-600">Apa, kapan, di mana, dampak, dan harapan.</div>
                                     </div>
@@ -381,9 +381,9 @@
                             </p>
 
                             <div class="d-flex flex-wrap gap-2 mb-3">
-                                <span class="badge badge-light-primary d-inline-flex align-items-center">Diterima</span>
+                                <span class="badge badge-light-warning d-inline-flex align-items-center">Menunggu</span>
                                 <span
-                                    class="badge badge-light-warning d-inline-flex align-items-center">Diverifikasi</span>
+                                    class="badge badge-light-primary d-inline-flex align-items-center">Diverifikasi</span>
                                 <span class="badge badge-light-info d-inline-flex align-items-center">Diproses</span>
                                 <span class="badge badge-light-success d-inline-flex align-items-center">Selesai</span>
                                 <span class="badge badge-light-danger d-inline-flex align-items-center">Ditolak</span>
@@ -412,14 +412,14 @@
                                 <div class="timeline-item">
                                     <div class="timeline-label fw-bold text-gray-700 fs-6">01</div>
                                     <div class="timeline-badge">
-                                        <i class="ki-duotone ki-document fs-2 text-primary">
+                                        <i class="ki-duotone ki-document fs-2 text-warning">
                                             <span class="path1"></span><span class="path2"></span>
                                         </i>
                                     </div>
                                     <div class="timeline-content ps-3">
                                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
                                             <span class="fw-bold text-gray-900">Submit Laporan</span>
-                                            <span class="badge badge-light-primary">Diterima</span>
+                                            <span class="badge badge-light-warning">Menunggu</span>
                                         </div>
                                         <div class="text-gray-600">Isi kategori, kronologi, lokasi, dan lampiran bukti
                                             pendukung.</div>
@@ -429,14 +429,14 @@
                                 <div class="timeline-item">
                                     <div class="timeline-label fw-bold text-gray-700 fs-6">02</div>
                                     <div class="timeline-badge">
-                                        <i class="ki-duotone ki-shield-search fs-2 text-warning">
+                                        <i class="ki-duotone ki-shield-search fs-2 text-primary">
                                             <span class="path1"></span><span class="path2"></span>
                                         </i>
                                     </div>
                                     <div class="timeline-content ps-3">
                                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
                                             <span class="fw-bold text-gray-900">Verifikasi ULT</span>
-                                            <span class="badge badge-light-warning">Diverifikasi</span>
+                                            <span class="badge badge-light-primary">Diverifikasi</span>
                                             <span class="badge badge-light-danger">Ditolak</span>
                                         </div>
                                         <div class="text-gray-600">Validasi kelengkapan data & bukti. Jika tidak sesuai,
