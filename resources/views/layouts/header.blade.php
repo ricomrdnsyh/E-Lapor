@@ -29,7 +29,7 @@
                         <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">@yield('title')</h1>
                         <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
                             <li class="breadcrumb-item text-muted text-hover-primary">
-                                <span>Admin</span>
+                                <span>{{ auth()->user()?->role === 'admin' ? 'Admin' : auth()->user()?->unit?->nama_unit ?? 'Unit' }}</span>
                             </li>
                         </ul>
                     </div>
@@ -128,10 +128,13 @@
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
-                            <a href="account/overview.html" class="menu-link px-5">My Profile</a>
-                        </div>
-                        <div class="menu-item px-5">
-                            <a href="authentication/layouts/corporate/sign-in.html" class="menu-link px-5">Logout</a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="menu-link px-5 w-100 text-start border-0 bg-transparent">
+                                    Logout
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

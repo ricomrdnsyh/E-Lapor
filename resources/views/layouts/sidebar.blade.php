@@ -70,6 +70,13 @@
     }
 </style>
 
+@php
+    $currentUser = Auth::user();
+    $isAdmin = $currentUser?->role === 'admin';
+    $isUnit = $currentUser?->role === 'unit';
+    $unitName = $currentUser?->unit?->nama_unit;
+@endphp
+
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
     data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px"
     data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
@@ -77,11 +84,9 @@
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <a href="#">
             <img alt="Logo" src="{{ asset('assets/media/logos/default-dark.svg') }}"
-                class="h-25px
-                app-sidebar-logo-default" />
+                class="h-25px app-sidebar-logo-default" />
             <img alt="Logo" src="{{ asset('assets/media/logos/default-small.svg') }}"
-                class="h-20px
-                app-sidebar-logo-minimize" />
+                class="h-20px app-sidebar-logo-minimize" />
         </a>
 
         <div id="kt_app_sidebar_toggle"
@@ -106,8 +111,10 @@
             </div>
 
             <div class="sidebar-minimize-hide mt-2 w-100">
-                <div class="text-white fw-semibold text-truncate">Research User</div>
-                <div class="text-gray-400 fs-8 text-truncate">Administrator</div>
+                <div class="text-white fw-semibold text-truncate">{{ $currentUser?->nama ?? 'User' }}</div>
+                <div class="text-gray-400 fs-8 text-truncate">
+                    {{ $isAdmin ? 'Administrator' : $unitName ?? 'Unit' }}
+                </div>
             </div>
         </a>
     </div>
@@ -129,83 +136,105 @@
                         </div>
                     </div>
 
-                    <div class="menu-item">
-                        <a class="menu-link" href="#">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span><span class="path2"></span>
-                                    <span class="path3"></span><span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </div>
-
-                    <div class="menu-item pt-1">
-                        <div class="menu-content">
-                            <span class="menu-heading fw-bold text-uppercase fs-8">Master</span>
+                    @if ($isAdmin)
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('beranda') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-element-11 fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                        <span class="path3"></span><span class="path4"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
                         </div>
-                    </div>
 
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                        <span class="menu-link">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-switch fs-2">
-                                    <span class="path1"></span><span class="path2"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Data Master</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-
-                        <div class="menu-sub menu-sub-accordion">
-                            <div class="menu-item">
-                                <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}"
-                                    href="{{ route('admin.unit.index') }}">
-                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                    <span class="menu-title">Master Unit</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}"
-                                    href="{{ route('admin.kategori.index') }}">
-                                    <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                    <span class="menu-title">Master Kategori</span>
-                                </a>
+                        <div class="menu-item pt-1">
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-8">Master</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="menu-item pt-1">
-                        <div class="menu-content">
-                            <span class="menu-heading fw-bold text-uppercase fs-8">Lapor</span>
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                            <span class="menu-link">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-switch fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Data Master</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+
+                            <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}"
+                                        href="{{ route('admin.unit.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Unit</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}"
+                                        href="{{ route('admin.kategori.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Kategori</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="menu-item">
-                        <a class="menu-link {{ Request::is('admin/laporan*') ? 'active' : '' }}"
-                            href="{{ route('admin.laporan.index') }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-message-text-2 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Kelola Laporan</span>
-                        </a>
-                    </div>
+                        <div class="menu-item pt-1">
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-8">Lapor</span>
+                            </div>
+                        </div>
 
-                    <div class="menu-item">
-                        <a class="menu-link" href="#">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-user fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Users</span>
-                        </a>
-                    </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/laporan*') ? 'active' : '' }}"
+                                href="{{ route('admin.laporan.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-message-text-2 fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Kelola Laporan</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/users*') ? 'active' : '' }}"
+                                href="{{ route('admin.users.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-user fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Users</span>
+                            </a>
+                        </div>
+                    @elseif ($isUnit)
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('unit/dashboard*') ? 'active' : '' }}"
+                                href="{{ route('unit.dashboard.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-element-11 fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                        <span class="path3"></span><span class="path4"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item pt-1">
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-8">Unit</span>
+                            </div>
+                        </div>
+                    @endif
 
                 </div>
             </div>
@@ -213,11 +242,15 @@
     </div>
 
     <div class="app-sidebar-footer px-4 pb-4 mt-auto" id="kt_app_sidebar_footer">
-        <a href="#" class="btn btn-sm btn-light w-100 d-flex align-items-center justify-content-center gap-2">
-            <i class="ki-duotone ki-exit-right fs-4">
-                <span class="path1"></span><span class="path2"></span>
-            </i>
-            <span class="sidebar-minimize-hide fw-semibold">Logout</span>
-        </a>
+        <form action="{{ route('logout') }}" method="POST" class="w-100">
+            @csrf
+            <button type="submit"
+                class="btn btn-sm btn-light w-100 d-flex align-items-center justify-content-center gap-2">
+                <i class="ki-duotone ki-exit-right fs-4">
+                    <span class="path1"></span><span class="path2"></span>
+                </i>
+                <span class="sidebar-minimize-hide fw-semibold">Logout</span>
+            </button>
+        </form>
     </div>
 </div>
