@@ -2,11 +2,12 @@
     .app-mobile-logo {
         display: inline-flex;
         align-items: center;
-        max-width: 150px;
+        max-width: 300px;
+        margin-left: -8px;
     }
 
     .app-mobile-logo img {
-        height: 34px;
+        height: 100px;
         width: auto;
         max-width: 100%;
         object-fit: contain;
@@ -15,11 +16,12 @@
 
     @media (max-width: 575.98px) {
         .app-mobile-logo {
-            max-width: 125px;
+            max-width: 250px;
+            margin-left: -6px;
         }
 
         .app-mobile-logo img {
-            height: 30px;
+            height: 88px;
         }
     }
 </style>
@@ -44,7 +46,7 @@
         </div>
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('beranda') }}" class="d-lg-none app-mobile-logo">
-                <img alt="Logo E-Lapor" src="{{ asset('assets/media/logos/unuja.png') }}" />
+                <img alt="Logo E-Lapor" src="{{ asset('assets/media/logos/logo-elapor-dark.png') }}" />
             </a>
         </div>
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
