@@ -68,6 +68,50 @@
     #kt_app_sidebar_footer .btn:hover i {
         color: #ffffff !important;
     }
+
+    #kt_app_sidebar_logo .app-sidebar-logo-default {
+        height: 144px !important;
+        width: auto !important;
+        margin-top: 8px;
+        margin-left: 0;
+        max-width: 480px;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    #kt_app_sidebar_logo .app-sidebar-logo-minimize {
+        height: 28px !important;
+        width: auto !important;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    @media (min-width: 992px) {
+        #kt_app_sidebar_logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #kt_app_sidebar_logo>a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        #kt_app_sidebar_logo .app-sidebar-logo-default {
+            height: 116px !important;
+            max-width: 400px;
+        }
+
+        #kt_app_sidebar_logo .app-sidebar-logo-minimize {
+            height: 24px !important;
+        }
+    }
 </style>
 
 @php
@@ -83,10 +127,9 @@
 
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <a href="#">
-            <img alt="Logo" src="{{ asset('assets/media/logos/default-dark.svg') }}"
-                class="h-25px app-sidebar-logo-default" />
-            <img alt="Logo" src="{{ asset('assets/media/logos/default-small.svg') }}"
-                class="h-20px app-sidebar-logo-minimize" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/logo-elapor.png') }}"
+                class="app-sidebar-logo-default" />
+            <img alt="Logo" src="{{ asset('assets/media/logos/unuja.png') }}" class="app-sidebar-logo-minimize" />
         </a>
 
         <div id="kt_app_sidebar_toggle"
@@ -103,7 +146,7 @@
         <a href="#"
             class="user-card d-flex flex-column align-items-center text-center w-100 rounded-3 p-3 text-decoration-none">
             <div class="symbol symbol-42px symbol-circle position-relative">
-                <img src="{{ asset('assets/media/avatars/300-1.jpg') }}" alt="avatar"
+                <img src="{{ asset('assets/media/avatars/profile.png') }}" alt="avatar"
                     class="w-30 h-30 object-fit-cover" />
                 <span
                     class="position-absolute translate-middle bottom-0 start-100 bg-success rounded-circle border border-2 border-white"
@@ -201,6 +244,25 @@
                                 </span>
                                 <span class="menu-title">Kelola Laporan</span>
                             </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/history-laporan*') ? 'active' : '' }}"
+                                href="{{ route('admin.history-laporan.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-time fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">History Laporan</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-8">Account</span>
+                            </div>
                         </div>
 
                         <div class="menu-item">

@@ -23,13 +23,13 @@ class Laporan extends Model
         'email_pelapor',
         'no_telp_pelapor',
         'tipe_pelapor',
-        'status'
+        'status',
     ];
 
     protected $casts = [
         'tgl_kejadian' => 'datetime',
-        'created_at'   => 'datetime',
-        'updated_at'   => 'datetime'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function kategori()
@@ -37,11 +37,17 @@ class Laporan extends Model
         return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
     }
 
+    public function historyLaporans()
+    {
+        return $this->hasMany(HistoryLaporan::class, 'laporan_id', 'id_laporan');
+    }
+
     // Generate kode tiket
     public static function generateTicket()
     {
         $date = date('Ymd');
         $randomNumber = str_pad(random_int(1, 9999), 4, '0', STR_PAD_LEFT);
+
         return 'UNUJA-ELP-' . $date . '-' . $randomNumber;
     }
 }

@@ -9,6 +9,7 @@
                     target: 0
                 }
             },
+            ajax: '{{ route('admin.history-laporan.data') }}',
             columnDefs: [{
                     targets: 0,
                     className: 'dt-control',
@@ -19,6 +20,43 @@
                     targets: 1,
                     orderable: false,
                     searchable: false
+                }
+            ],
+            columns: [{
+                    data: null,
+                    defaultContent: ''
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                },
+                {
+                    data: 'kode_tiket',
+                    name: 'kode_tiket'
+                },
+                {
+                    data: 'judul_laporan',
+                    name: 'judul_laporan'
+                },
+                {
+                    data: 'kategori',
+                    name: 'kategori'
+                },                
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'nama_pelapor',
+                    name: 'nama_pelapor'
+                },
+                {
+                    data: 'unit_penangan',
+                    name: 'unit_penangan'
+                },
+                {
+                    data: 'catatan',
+                    name: 'catatan'
                 }
             ],
             searchHighlight: true,
@@ -37,56 +75,18 @@
                 {
                     extend: 'csv',
                     titleAttr: 'Csv',
-                    title: 'Data Laporan',
+                    title: 'Data History Laporan',
                     action: newexportaction,
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 },
                 {
                     extend: 'excel',
                     titleAttr: 'Excel',
-                    title: 'Data Laporan',
+                    title: 'Data History Laporan',
                     action: newexportaction,
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.laporan.data') }}',
-            columns: [{
-                    data: null,
-                    defaultContent: '',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'kode_tiket',
-                    name: 'kode_tiket'
-                },
-                {
-                    data: 'judul_laporan',
-                    name: 'judul_laporan'
-                },
-                {
-                    data: 'nama_pelapor',
-                    name: 'nama_pelapor'
-                },
-                {
-                    data: 'kategori_name',
-                    name: 'kategori_name'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'tgl_kejadian',
-                    name: 'tgl_kejadian'
-                },
-            ]
         });
 
         @if ($message = Session::get('success'))
@@ -110,5 +110,4 @@
             });
         @endif
     });
-
 </script>

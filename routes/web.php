@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\AdminUnitController;
 use App\Http\Controllers\Admin\AdminKategoriController;
+use App\Http\Controllers\Admin\AdminHistoryLaporanController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Unit\UnitDashboardController;
@@ -23,16 +24,12 @@ Route::post('/lapor', [LaporController::class, 'store'])->name('lapor.store');
 Route::get('/lapor/data/categories', [LaporController::class, 'getCategories'])->name('lapor.categories');
 Route::get('/lacak', [LacakController::class, 'index'])->name('lacak');
 
-// Auth Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/users/data', [AdminUserController::class, 'getUsers'])->name('users.data');
-    Route::resource('users', AdminUserController::class);
-
+    
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
     Route::resource('unit', AdminUnitController::class);
 
@@ -40,10 +37,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('kategori', AdminKategoriController::class);
 
     Route::get('/laporan/data', [AdminLaporanController::class, 'getLaporan'])->name('laporan.data');
-    Route::resource('laporan', AdminLaporanController::class, ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
+    Route::resource('laporan', AdminLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
+
+    Route::get('/history-laporan/data', [AdminHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
+    Route::resource('history-laporan', AdminHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
+
+    Route::get('/users/data', [AdminUserController::class, 'getUsers'])->name('users.data');
+    Route::resource('users', AdminUserController::class);
 });
 
-// Unit Routes
 Route::prefix('unit')->name('unit.')->middleware(['auth', 'role:unit'])->group(function () {
     Route::get('/dashboard', [UnitDashboardController::class, 'index'])->name('dashboard.index');
 });

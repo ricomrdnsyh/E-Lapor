@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
+use App\Models\HistoryLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LaporController extends Controller
 {
@@ -64,54 +66,66 @@ class LaporController extends Controller
         ]);
 
         try {
-            // Generate kode tiket
             $kode_tiket = Laporan::generateTicket();
 
-            // Handle file upload
             $lampiran_file = null;
             if ($request->hasFile('lampiran_file')) {
-                $file           = $request->file('lampiran_file');
-                $filename       = time() . '_' . $file->getClientOriginalName();
+                $file = $request->file('lampiran_file');
+                $filename = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('uploads/laporan'), $filename);
-                $lampiran_file  = $filename;
+                $lampiran_file = $filename;
             }
 
-            // Set "Anonymous"
-            $nama_pelapor = $validated['nama_pelapor'] ?? null;
-            $email_pelapor = $validated['email_pelapor'] ?? null;
-            $no_telp_pelapor = $validated['no_telp_pelapor'] ?? null;
-            $tipe_pelapor = $validated['tipe_pelapor'] ?? null;
+            $nama_pelapor       = $validated['nama_pelapor'] ?? null;
+            $email_pelapor      = $validated['email_pelapor'] ?? null;
+            $no_telp_pelapor    = $validated['no_telp_pelapor'] ?? null;
+            $tipe_pelapor       = $validated['tipe_pelapor'] ?? null;
 
             if ($validated['is_anonymous'] === 'y') {
-                $nama_pelapor    = 'Anonymous';
-                $email_pelapor   = 'Anonymous';
-                $no_telp_pelapor = 'Anonymous';
-                $tipe_pelapor    = null;
+                $nama_pelapor       = 'Anonymous';
+                $email_pelapor      = 'Anonymous';
+                $no_telp_pelapor    = 'Anonymous';
+                $tipe_pelapor       = null;
             }
 
-            // Create laporan
-            Laporan::create([
-                'kode_tiket'        => $kode_tiket,
-                'kategori_id'       => $validated['kategori_id'],
-                'judul_laporan'     => $validated['judul_laporan'],
-                'tgl_kejadian'      => $validated['tgl_kejadian'],
-                'lokasi_kejadian'   => $validated['lokasi_kejadian'],
-                'deskripsi_laporan' => $validated['deskripsi_laporan'],
-                'lampiran_file'     => $lampiran_file,
-                'is_anonymous'      => $validated['is_anonymous'],
-                'nama_pelapor'      => $nama_pelapor,
-                'email_pelapor'     => $email_pelapor,
-                'no_telp_pelapor'   => $no_telp_pelapor,
-                'tipe_pelapor'      => $tipe_pelapor,
-                'status'            => 'menunggu'
-            ]);
+            DB::transaction(function () use (
+                $validated,
+                $kode_tiket,
+                $lampiran_file,
+                $nama_pelapor,
+                $email_pelapor,
+                $no_telp_pelapor,
+                $tipe_pelapor
+            ) {
+                $laporan = Laporan::create([
+                    'kode_tiket'        => $kode_tiket,
+                    'kategori_id'       => $validated['kategori_id'],
+                    'judul_laporan'     => $validated['judul_laporan'],
+                    'tgl_kejadian'      => $validated['tgl_kejadian'],
+                    'lokasi_kejadian'   => $validated['lokasi_kejadian'],
+                    'deskripsi_laporan' => $validated['deskripsi_laporan'],
+                    'lampiran_file'     => $lampiran_file,
+                    'is_anonymous'      => $validated['is_anonymous'],
+                    'nama_pelapor'      => $nama_pelapor,
+                    'email_pelapor'     => $email_pelapor,
+                    'no_telp_pelapor'   => $no_telp_pelapor,
+                    'tipe_pelapor'      => $tipe_pelapor,
+                    'status'            => 'menunggu'
+                ]);
 
-            // Return success with kode tiket
+                HistoryLaporan::create([
+                    'laporan_id'    => $laporan->id_laporan,
+                    'user_id'       => null,
+                    'status'        => 'menunggu',
+                    'catatan'       => null,
+                ]);
+            });
+
             return response()->json([
                 'success'    => true,
                 'message'    => 'Laporan berhasil dibuat',
                 'kode_tiket' => $kode_tiket,
-                'redirect'   => route('lacak') . '?tiket=' . $kode_tiket
+                'redirect'   => route('lacak')
             ]);
         } catch (\Exception $e) {
             return response()->json([

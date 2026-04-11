@@ -5,16 +5,22 @@
 
         const formatTanggal = function(dateStr) {
             if (!dateStr) return '-';
-            const date = new Date(dateStr);
-            const options = {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-            const formatter = new Intl.DateTimeFormat('id-ID', options);
-            return formatter.format(date);
+            const bulan = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            const normalized = dateStr.replace('T', ' ');
+            const datePart = normalized.substring(0, 10);
+            const timePart = normalized.substring(11, 16);
+
+            if (!datePart || !timePart) return dateStr;
+
+            const [year, month, day] = datePart.split('-');
+            const monthName = bulan[parseInt(month, 10) - 1];
+
+            if (!year || !monthName || !day) return dateStr;
+
+            return `${day} ${monthName} ${year}, ${timePart}`;
         };
 
         const getFilePreview = function(filename) {

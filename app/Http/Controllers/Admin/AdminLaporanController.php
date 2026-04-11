@@ -19,7 +19,8 @@ class AdminLaporanController extends Controller
     public function getLaporan()
     {
         $query = Laporan::with('kategori')
-            ->select(['id_laporan', 'kode_tiket', 'kategori_id', 'judul_laporan', 'nama_pelapor', 'status', 'tgl_kejadian']);
+            ->select(['id_laporan', 'kode_tiket', 'kategori_id', 'judul_laporan', 'nama_pelapor', 'status', 'tgl_kejadian'])
+            ->orderByDesc('id_laporan');
 
         return DataTables::of($query)
             ->addColumn('kategori_name', function ($row) {
@@ -52,9 +53,7 @@ class AdminLaporanController extends Controller
                                 <i class="fas fa-edit"></i>
                             </a>';
 
-                $deleteBtn = '<a href="javascript:void(0)" onclick="confirmDelete(' . $row->id_laporan . ')" class="btn btn-sm btn-light btn-active-light-danger text-center" data-bs-toggle="tooltip" title="Hapus" data-bs-title="Hapus"><i class="fas fa-trash-alt"></i></a>';
-
-                return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
+                return '<div class="text-center">' . $showBtn . ' ' . $editBtn . '</div>';
             })
             ->rawColumns(['status', 'action'])
             ->make(true);
@@ -108,16 +107,5 @@ class AdminLaporanController extends Controller
         ]));
 
         return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
-    }
-
-    public function destroy(string $id)
-    {
-        $laporan = Laporan::findOrFail($id);
-        $laporan->delete();
-
-        return response()->json([
-            'status'  => 'success',
-            'message' => 'Data laporan berhasil dihapus.',
-        ]);
     }
 }

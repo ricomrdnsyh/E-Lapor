@@ -1,3 +1,34 @@
+<style>
+    .app-mobile-logo {
+        display: inline-flex;
+        align-items: center;
+        max-width: 150px;
+    }
+
+    .app-mobile-logo img {
+        height: 34px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    @media (max-width: 575.98px) {
+        .app-mobile-logo {
+            max-width: 125px;
+        }
+
+        .app-mobile-logo img {
+            height: 30px;
+        }
+    }
+</style>
+
+@php
+    $currentUser = auth()->user();
+    $currentUserIdentity = $currentUser?->username ?? '-';
+@endphp
+
 <div id="kt_app_header" class="app-header" data-kt-sticky="true" data-kt-sticky-activate="{default: true, lg: true}"
     data-kt-sticky-name="app-header-minimize" data-kt-sticky-offset="{default: '200px', lg: '0'}"
     data-kt-sticky-animation="false">
@@ -12,8 +43,8 @@
             </div>
         </div>
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-            <a href="index.html" class="d-lg-none">
-                <img alt="Logo" src="{{ asset('assets/media/logos/default-dark.svg') }}" class="h-30px" />
+            <a href="{{ route('beranda') }}" class="d-lg-none app-mobile-logo">
+                <img alt="Logo E-Lapor" src="{{ asset('assets/media/logos/unuja.png') }}" />
             </a>
         </div>
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
@@ -91,8 +122,7 @@
                             </a>
                         </div>
                         <div class="menu-item px-3 my-0">
-                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode"
-                                data-kt-value="system">
+                            <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
                                 <span class="menu-icon" data-kt-element="icon">
                                     <i class="ki-duotone ki-screen fs-2">
                                         <span class="path1"></span>
@@ -110,19 +140,20 @@
                     <div class="cursor-pointer symbol symbol-35px"
                         data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
-                        <img src="{{ asset('assets/media/avatars/300-3.jpg') }}" class="rounded-3" alt="user" />
+                        <img src="{{ asset('assets/media/avatars/profile.png') }}" class="rounded-3"
+                            alt="user" />
                     </div>
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
                         data-kt-menu="true">
                         <div class="menu-item px-3">
                             <div class="menu-content d-flex align-items-center px-3">
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="{{ asset('assets/media/avatars/300-3.jpg') }}" />
+                                    <img alt="Logo" src="{{ asset('assets/media/avatars/profile.png') }}" />
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bold d-flex align-items-center fs-5">Robert Fox
+                                    <div class="fw-bold d-flex align-items-center fs-5">{{ $currentUser?->nama ?? 'User' }}
                                     </div>
-                                    <span class="fw-semibold text-muted text-hover-primary fs-7">robert@kt.com</span>
+                                    <span class="fw-semibold text-muted text-hover-primary fs-7">{{ $currentUserIdentity }}</span>
                                 </div>
                             </div>
                         </div>
