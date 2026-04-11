@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminHistoryLaporanController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Unit\UnitDashboardController;
+use App\Http\Controllers\Unit\UnitHistoryLaporanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\FAQController;
 use App\Http\Controllers\Landing\AlurController;
@@ -48,4 +49,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
 Route::prefix('unit')->name('unit.')->middleware(['auth', 'role:unit'])->group(function () {
     Route::get('/dashboard', [UnitDashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/history-laporan/data', [UnitHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
+    Route::resource('history-laporan', UnitHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
 });

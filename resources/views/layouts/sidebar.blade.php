@@ -291,10 +291,17 @@
                             </a>
                         </div>
 
-                        <div class="menu-item pt-1">
-                            <div class="menu-content">
-                                <span class="menu-heading fw-bold text-uppercase fs-8">Unit</span>
-                            </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('unit/history-laporan*') ? 'active' : '' }}"
+                                href="{{ route('unit.history-laporan.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-time fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">History Laporan</span>
+                            </a>
                         </div>
                     @endif
 
