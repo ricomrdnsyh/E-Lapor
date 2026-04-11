@@ -56,7 +56,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if ($user->role === 'admin') {
-            return redirect()->route('admin.laporan.index');
+            return redirect()->route('admin.dashboard.index');
         } elseif ($user->role === 'unit') {
             return redirect()->route('unit.dashboard.index');
         }

@@ -181,7 +181,7 @@
 
                     @if ($isAdmin)
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('beranda') }}">
+                            <a class="menu-link {{ Request::is('admin/dashboard*') ? 'active' : '' }}" href="{{ route('admin.dashboard.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-element-11 fs-2">
                                         <span class="path1"></span><span class="path2"></span>
