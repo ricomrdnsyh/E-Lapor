@@ -124,9 +124,11 @@
                                                 <th class="min-w-100px">Kode Tiket</th>
                                                 <th class="min-w-200px">Judul Laporan</th>
                                                 <th class="min-w-150px">Kategori</th>
-                                                <th class="min-w-120px">Status</th>
+                                                <th class="min-w-120px">Status Sebelumnya</th>
+                                                <th class="min-w-120px">Status Baru</th>
                                                 <th class="min-w-150px">Pelapor</th>
                                                 <th class="min-w-150px">Unit Penangan</th>
+                                                <th class="min-w-150px">Lampiran Bukti</th>
                                                 <th class="min-w-200px">Catatan</th>
                                             </tr>
                                         </thead>
@@ -138,8 +140,8 @@
                     </div>
                 </div>
             </div>
-            @include('admin.history-laporan.edit')
-            @include('admin.history-laporan.show')
+            @include('unit.history-laporan.edit')
+            @include('unit.history-laporan.show')
 
             @include('layouts.footer')
         </div>

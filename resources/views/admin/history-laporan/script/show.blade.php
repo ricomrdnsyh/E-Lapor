@@ -2,6 +2,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const modalEl = document.getElementById('form_show');
         const modal = new bootstrap.Modal(modalEl);
+
         const formatTanggal = function(dateStr) {
             if (!dateStr) return '-';
             const bulan = [
@@ -21,20 +22,24 @@
 
             return `${day} ${monthName} ${year}, ${timePart}`;
         };
-        const getFilePreview = function(filename) {
+
+        const getFilePreview = function(filename, folder = 'laporan') {
             if (!filename) return '-';
+
             const ext = filename.split('.').pop().toLowerCase();
-            const filePath = '/uploads/laporan/' + filename;
+            const filePath = '/uploads/' + folder + '/' + filename;
             const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-            const docExts = ['pdf'];
+            const docExts = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
 
             if (imageExts.includes(ext)) {
                 return `<img src="${filePath}" alt="Lampiran" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 1px solid #dee2e6;">`;
-            } else if (docExts.includes(ext)) {
-                return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-danger"><i class="fas fa-file-pdf fs-4 me-1"></i>Lihat PDF</a>`;
             }
 
-            return '-';
+            if (docExts.includes(ext)) {
+                return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-danger"><i class="fas fa-file fs-4 me-1"></i>Lihat File</a>`;
+            }
+
+            return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-light-primary">Unduh File</a>`;
         };
 
         document.addEventListener('click', function(e) {
@@ -54,7 +59,6 @@
                         document.getElementById('show_kode_tiket').value = laporan.kode_tiket || '';
                         document.getElementById('show_kategori').value = laporan.kategori?.nama_kategori || '-';
                         document.getElementById('show_unit_tujuan').value = laporan.kategori?.unit?.nama_unit || '-';
-                        document.getElementById('show_status').value = history.status ? history.status.charAt(0).toUpperCase() + history.status.slice(1) : '-';
                         document.getElementById('show_judul_laporan').value = laporan.judul_laporan || '-';
                         document.getElementById('show_nama_pelapor').value = laporan.nama_pelapor || '-';
                         document.getElementById('show_email_pelapor').value = laporan.email_pelapor || '-';
@@ -64,7 +68,11 @@
                         document.getElementById('show_tgl_kejadian').value = laporan.tgl_kejadian ? formatTanggal(laporan.tgl_kejadian) : '-';
                         document.getElementById('show_lokasi_kejadian').value = laporan.lokasi_kejadian || '-';
                         document.getElementById('show_deskripsi_laporan').value = laporan.deskripsi_laporan || '-';
-                        document.getElementById('show_lampiran_file').innerHTML = getFilePreview(laporan.lampiran_file);
+                        document.getElementById('show_lampiran_laporan').innerHTML = getFilePreview(laporan.lampiran_file);
+                        document.getElementById('show_status_sebelumnya').value = history.status_sebelumnya || '-';
+                        document.getElementById('show_status_baru').value = history.status_baru || '-';
+                        document.getElementById('show_lampiran_bukti').innerHTML = getFilePreview(history.lampiran_file, 'history-laporan');
+                        document.getElementById('show_user_penangan').value = history.user?.nama || history.user?.unit?.nama_unit || '-';
                         document.getElementById('show_created_at').value = data.created_at_formatted || '-';
                         document.getElementById('show_updated_at').value = data.updated_at_formatted || '-';
                         document.getElementById('show_catatan').value = history.catatan || '-';

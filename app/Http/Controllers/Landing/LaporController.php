@@ -114,10 +114,12 @@ class LaporController extends Controller
                 ]);
 
                 HistoryLaporan::create([
-                    'laporan_id'    => $laporan->id_laporan,
-                    'user_id'       => null,
-                    'status'        => 'menunggu',
-                    'catatan'       => null,
+                    'laporan_id'        => $laporan->id_laporan,
+                    'user_id'           => null,
+                    'status_sebelumnya' => null,
+                    'status_baru'       => 'menunggu',
+                    'lampiran_file'     => null,
+                    'catatan'           => null,
                 ]);
             });
 

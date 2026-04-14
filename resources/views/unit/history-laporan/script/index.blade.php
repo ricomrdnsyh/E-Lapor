@@ -43,8 +43,12 @@
                     name: 'kategori'
                 },
                 {
-                    data: 'status',
-                    name: 'status'
+                    data: 'status_sebelumnya',
+                    name: 'status_sebelumnya'
+                },
+                {
+                    data: 'status_baru',
+                    name: 'status_baru'
                 },
                 {
                     data: 'nama_pelapor',
@@ -53,6 +57,10 @@
                 {
                     data: 'unit_penangan',
                     name: 'unit_penangan'
+                },
+                {
+                    data: 'lampiran_file',
+                    name: 'lampiran_file'
                 },
                 {
                     data: 'catatan',
@@ -101,6 +109,18 @@
         @if ($message = Session::get('failed'))
             Swal.fire({
                 text: "{{ $message }}",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-sm btn-danger"
+                }
+            });
+        @endif
+
+        @if ($errors->any())
+            Swal.fire({
+                text: @json($errors->first()),
                 icon: "error",
                 buttonsStyling: false,
                 confirmButtonText: "Ok, got it!",

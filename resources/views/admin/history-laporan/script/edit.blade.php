@@ -4,7 +4,9 @@
         const form = document.getElementById('bt_submit_edit');
         const submitButton = document.getElementById('btn_submit_edit');
         const modal = new bootstrap.Modal(modalEl);
-        const statusSelectEl = document.getElementById('edit_status');
+        const statusSelectEl = document.getElementById('edit_status_baru');
+        const lampiranInputEl = document.getElementById('edit_lampiran_bukti');
+
         const initStatusSelect = function() {
             if (typeof jQuery === 'undefined' || !statusSelectEl) return;
 
@@ -42,23 +44,35 @@
 
             return `${day} ${monthName} ${year}, ${timePart}`;
         };
-        const getFilePreview = function(filename) {
+
+        const getFilePreview = function(filename, folder = 'laporan') {
             if (!filename) return '-';
+
             const ext = filename.split('.').pop().toLowerCase();
-            const filePath = '/uploads/laporan/' + filename;
+            const filePath = '/uploads/' + folder + '/' + filename;
             const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-            const docExts = ['pdf'];
+            const docExts = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
 
             if (imageExts.includes(ext)) {
                 return `<img src="${filePath}" alt="Lampiran" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 1px solid #dee2e6;">`;
-            } else if (docExts.includes(ext)) {
-                return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-danger"><i class="fas fa-file-pdf fs-4 me-1"></i>Lihat PDF</a>`;
             }
 
-            return '-';
+            if (docExts.includes(ext)) {
+                return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-danger"><i class="fas fa-file fs-4 me-1"></i>Lihat File</a>`;
+            }
+
+            return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-light-primary">Unduh File</a>`;
         };
 
         initStatusSelect();
+
+        const updateLampiranRequirement = function() {
+            if (!statusSelectEl || !lampiranInputEl) return;
+
+            const isSelesai = statusSelectEl.value === 'selesai';
+            lampiranInputEl.required = isSelesai;
+            lampiranInputEl.classList.toggle('is-invalid', false);
+        };
 
         document.addEventListener('click', function(e) {
             if (e.target.closest('.btn-edit')) {
@@ -87,15 +101,20 @@
                         document.getElementById('edit_tipe_pelapor').value = laporan.tipe_pelapor || '-';
                         document.getElementById('edit_is_anonymous').value = privasi;
                         document.getElementById('edit_lampiran_file_preview').innerHTML = getFilePreview(laporan.lampiran_file);
+                        document.getElementById('edit_status_sebelumnya').value = history.status_sebelumnya || '-';
+                        document.getElementById('edit_lampiran_bukti_preview').innerHTML = getFilePreview(history.lampiran_file, 'history-laporan');
+                        document.getElementById('edit_lampiran_bukti').value = '';
                         document.getElementById('edit_catatan').value = history.catatan || '';
                         form.action = '/admin/history-laporan/' + id;
 
                         if (typeof jQuery !== 'undefined') {
                             initStatusSelect();
-                            jQuery(statusSelectEl).val(history.status || '').trigger('change');
+                            jQuery(statusSelectEl).val(history.status_baru || '').trigger('change');
                         } else {
-                            statusSelectEl.value = history.status || '';
+                            statusSelectEl.value = history.status_baru || '';
                         }
+
+                        updateLampiranRequirement();
 
                         modal.show();
                     },
@@ -111,6 +130,23 @@
         });
 
         form.addEventListener('submit', function(e) {
+            const isSelesai = statusSelectEl && statusSelectEl.value === 'selesai';
+            const hasLampiran = lampiranInputEl && lampiranInputEl.files && lampiranInputEl.files.length > 0;
+
+            if (isSelesai && !hasLampiran) {
+                e.preventDefault();
+                e.stopPropagation();
+                lampiranInputEl.classList.add('is-invalid');
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Lampiran wajib diisi',
+                    text: 'Lampiran file wajib diunggah ketika status diubah menjadi selesai.'
+                });
+
+                return;
+            }
+
             if (!form.checkValidity()) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -128,5 +164,19 @@
                 jQuery(statusSelectEl).trigger('change');
             }
         });
+
+        if (statusSelectEl) {
+            statusSelectEl.addEventListener('change', updateLampiranRequirement);
+
+            if (typeof jQuery !== 'undefined') {
+                jQuery(statusSelectEl).on('change', updateLampiranRequirement);
+            }
+        }
+
+        if (lampiranInputEl) {
+            lampiranInputEl.addEventListener('change', function() {
+                lampiranInputEl.classList.toggle('is-invalid', lampiranInputEl.required && lampiranInputEl.files.length === 0);
+            });
+        }
     });
 </script>

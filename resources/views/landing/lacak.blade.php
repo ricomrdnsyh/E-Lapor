@@ -866,7 +866,8 @@
 
                                     @forelse ($history as $item)
                                         @php
-                                            $itemMeta = match ($item->status) {
+                                            $itemStatus = $item->status_baru ?? $item->status ?? null;
+                                            $itemMeta = match ($itemStatus) {
                                                 'menunggu' => [
                                                     'bg' => 'bg-light-warning',
                                                     'text' => 'text-warning',
@@ -917,12 +918,20 @@
                                                 <div>
                                                     <div class="track-timeline-item-title">{{ $itemMeta['title'] }}</div>
                                                     <div class="track-timeline-item-text">
-                                                        {{ $item->catatan ?: $statusMeta['timeline_note'] }}
+                                                        {{ $item->catatan ?: $itemMeta['title'] }}
                                                     </div>
                                                     @if ($item->user)
                                                         <div class="track-timeline-note">
                                                             Diperbarui oleh
                                                             {{ $item->user->unit?->nama_unit ?? $item->user->nama }}
+                                                        </div>
+                                                    @endif
+                                                    @if ($item->lampiran_file)
+                                                        <div class="track-timeline-note mt-2">
+                                                            <a href="{{ asset('uploads/history-laporan/' . $item->lampiran_file) }}"
+                                                                target="_blank" class="btn btn-sm btn-light-primary">
+                                                                Lihat lampiran bukti
+                                                            </a>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -935,7 +944,7 @@
                                                         @endif
                                                     </div>
                                                     <span
-                                                        class="badge {{ $itemMeta['badge'] }} text-capitalize">{{ $item->status }}</span>
+                                                        class="badge {{ $itemMeta['badge'] }} text-capitalize">{{ $itemStatus ?: '-' }}</span>
                                                 </div>
                                             </div>
                                         </div>

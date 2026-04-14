@@ -13,7 +13,9 @@ class HistoryLaporan extends Model
     protected $fillable = [
         'laporan_id',
         'user_id',
-        'status',
+        'status_sebelumnya',
+        'status_baru',
+        'lampiran_file',
         'catatan',
     ];
 
