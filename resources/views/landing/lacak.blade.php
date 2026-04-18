@@ -832,41 +832,14 @@
                                         <p class="track-timeline-subtitle">Urutan pembaruan status laporan dari awal sampai
                                             sekarang.</p>
                                     </div>
-                                    <span class="badge badge-light-primary px-4 py-2">{{ $history->count() + 1 }}
+                                    <span class="badge badge-light-primary px-4 py-2">{{ $history->count() }}
                                         aktivitas</span>
                                 </div>
 
                                 <div class="track-timeline">
-                                    <div class="track-timeline-item">
-                                        <div class="track-timeline-badge bg-light-primary">
-                                            <i class="ki-duotone ki-document fs-5 text-primary">
-                                                <span class="path1"></span><span class="path2"></span>
-                                            </i>
-                                        </div>
-                                        <div class="track-timeline-row">
-                                            <div>
-                                                <div class="track-timeline-item-title">Laporan dibuat</div>
-                                                <div class="track-timeline-item-text">
-                                                    Laporan berhasil dikirim dengan judul
-                                                    <strong>{{ $laporan->judul_laporan }}</strong>.
-                                                </div>
-                                            </div>
-                                            <div class="track-timeline-meta">
-                                                <div class="track-timeline-date">
-                                                    {{ $laporan->created_at?->copy()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') }}
-                                                    @if ($laporan->created_at)
-                                                        •
-                                                        {{ $laporan->created_at->copy()->setTimezone('Asia/Jakarta')->format('H:i') }}
-                                                    @endif
-                                                </div>
-                                                <span class="badge badge-light-primary">Diterima</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     @forelse ($history as $item)
                                         @php
-                                            $itemStatus = $item->status_baru ?? $item->status ?? null;
+                                            $itemStatus = $item->status ?? null;
                                             $itemMeta = match ($itemStatus) {
                                                 'menunggu' => [
                                                     'bg' => 'bg-light-warning',
@@ -923,15 +896,11 @@
                                                     @if ($item->user)
                                                         <div class="track-timeline-note">
                                                             Diperbarui oleh
-                                                            {{ $item->user->unit?->nama_unit ?? $item->user->nama }}
+                                                            {{ $item->user->nama ?? $item->user->unit?->nama_unit}}
                                                         </div>
-                                                    @endif
-                                                    @if ($item->lampiran_file)
-                                                        <div class="track-timeline-note mt-2">
-                                                            <a href="{{ asset('uploads/history-laporan/' . $item->lampiran_file) }}"
-                                                                target="_blank" class="btn btn-sm btn-light-primary">
-                                                                Lihat lampiran bukti
-                                                            </a>
+                                                    @else
+                                                        <div class="track-timeline-note">
+                                                            Dibuat oleh pelapor
                                                         </div>
                                                     @endif
                                                 </div>

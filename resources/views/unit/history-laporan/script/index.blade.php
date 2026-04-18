@@ -43,12 +43,8 @@
                     name: 'kategori'
                 },
                 {
-                    data: 'status_sebelumnya',
-                    name: 'status_sebelumnya'
-                },
-                {
-                    data: 'status_baru',
-                    name: 'status_baru'
+                    data: 'status',
+                    name: 'status'
                 },
                 {
                     data: 'nama_pelapor',

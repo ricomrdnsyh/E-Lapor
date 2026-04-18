@@ -4,7 +4,7 @@
         const form = document.getElementById('bt_submit_edit');
         const submitButton = document.getElementById('btn_submit_edit');
         const modal = new bootstrap.Modal(modalEl);
-        const statusSelectEl = document.getElementById('edit_status_baru');
+        const statusSelectEl = document.getElementById('edit_status');
         const lampiranInputEl = document.getElementById('edit_lampiran_bukti');
 
         const initStatusSelect = function() {
@@ -101,7 +101,6 @@
                         document.getElementById('edit_tipe_pelapor').value = laporan.tipe_pelapor || '-';
                         document.getElementById('edit_is_anonymous').value = privasi;
                         document.getElementById('edit_lampiran_file_preview').innerHTML = getFilePreview(laporan.lampiran_file);
-                        document.getElementById('edit_status_sebelumnya').value = history.status_sebelumnya || '-';
                         document.getElementById('edit_lampiran_bukti_preview').innerHTML = getFilePreview(history.lampiran_file, 'history-laporan');
                         document.getElementById('edit_lampiran_bukti').value = '';
                         document.getElementById('edit_catatan').value = history.catatan || '';
@@ -109,9 +108,9 @@
 
                         if (typeof jQuery !== 'undefined') {
                             initStatusSelect();
-                            jQuery(statusSelectEl).val(history.status_baru || '').trigger('change');
+                            jQuery(statusSelectEl).val(history.status || laporan.status || '').trigger('change');
                         } else {
-                            statusSelectEl.value = history.status_baru || '';
+                            statusSelectEl.value = history.status || laporan.status || '';
                         }
 
                         updateLampiranRequirement();

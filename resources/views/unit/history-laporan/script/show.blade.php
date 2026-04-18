@@ -71,8 +71,7 @@
                         document.getElementById('show_lokasi_kejadian').value = laporan.lokasi_kejadian || '-';
                         document.getElementById('show_deskripsi_laporan').value = laporan.deskripsi_laporan || '-';
                         document.getElementById('show_lampiran_laporan').innerHTML = getFilePreview(laporan.lampiran_file);
-                        document.getElementById('show_status_sebelumnya').value = history.status_sebelumnya || '-';
-                        document.getElementById('show_status_baru').value = history.status_baru || '-';
+                        document.getElementById('show_status').value = history.status || laporan.status || '-';
                         document.getElementById('show_lampiran_bukti').innerHTML = getFilePreview(history.lampiran_file, 'history-laporan');
                         document.getElementById('show_user_penangan').value = history.user?.nama || history.user?.unit?.nama_unit || '-';
                         document.getElementById('show_created_at').value = data.created_at_formatted || '-';

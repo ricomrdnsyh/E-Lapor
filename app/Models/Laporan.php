@@ -42,6 +42,18 @@ class Laporan extends Model
         return $this->hasMany(HistoryLaporan::class, 'laporan_id', 'id_laporan');
     }
 
+    public function logStatusLaporans()
+    {
+        return $this->hasManyThrough(
+            LogStatusLaporan::class,
+            HistoryLaporan::class,
+            'laporan_id',
+            'history_id',
+            'id_laporan',
+            'id_history'
+        );
+    }
+
     // Generate kode tiket
     public static function generateTicket()
     {

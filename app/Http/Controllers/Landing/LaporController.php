@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\HistoryLaporan;
+use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
@@ -113,13 +114,19 @@ class LaporController extends Controller
                     'status'            => 'menunggu'
                 ]);
 
-                HistoryLaporan::create([
+                $history = HistoryLaporan::create([
                     'laporan_id'        => $laporan->id_laporan,
                     'user_id'           => null,
-                    'status_sebelumnya' => null,
-                    'status_baru'       => 'menunggu',
+                    'status'            => 'menunggu',
                     'lampiran_file'     => null,
                     'catatan'           => null,
+                ]);
+
+                LogStatusLaporan::create([
+                    'history_id'    => $history->id_history,
+                    'user_id'       => null,
+                    'status'        => 'menunggu',
+                    'catatan'       => 'Laporan berhasil dikirim dengan judul ' . $laporan->judul_laporan . '.',
                 ]);
             });
 

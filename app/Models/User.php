@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(HistoryLaporan::class, 'user_id', 'id');
     }
+
+    public function logStatusLaporans()
+    {
+        return $this->hasMany(LogStatusLaporan::class, 'user_id', 'id');
+    }
 }

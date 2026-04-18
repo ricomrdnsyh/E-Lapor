@@ -142,19 +142,9 @@
                         <div class="col-12">
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
-                                    <span>Status Sebelumnya</span>
+                                    <span>Status</span>
                                 </label>
-                                <input type="text" id="edit_status_sebelumnya"
-                                    class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="d-flex flex-column mb-2">
-                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
-                                    <span>Status Baru</span>
-                                </label>
-                                <select name="status_baru" id="edit_status_baru"
+                                <select name="status" id="edit_status"
                                     class="form-select form-select-sm fs-sm-8 fs-lg-6 text-dark"
                                     data-control="select2" required>
                                     <option value="">-- Pilih Status --</option>

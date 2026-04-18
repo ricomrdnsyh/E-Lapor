@@ -13,11 +13,20 @@ class HistoryLaporan extends Model
     protected $fillable = [
         'laporan_id',
         'user_id',
-        'status_sebelumnya',
-        'status_baru',
+        'status',
         'lampiran_file',
         'catatan',
     ];
+
+    public function getStatusBaruAttribute()
+    {
+        return $this->attributes['status'] ?? null;
+    }
+
+    public function getStatusSebelumnyaAttribute()
+    {
+        return null;
+    }
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -32,5 +41,10 @@ class HistoryLaporan extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function logStatusLaporans()
+    {
+        return $this->hasMany(LogStatusLaporan::class, 'history_id', 'id_history');
     }
 }

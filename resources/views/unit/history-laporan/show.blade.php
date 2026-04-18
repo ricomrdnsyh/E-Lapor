@@ -140,19 +140,9 @@
                     <div class="col-12">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Status Sebelumnya</span>
+                                <span>Status</span>
                             </label>
-                            <input type="text" id="show_status_sebelumnya"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Status Baru</span>
-                            </label>
-                            <input type="text" id="show_status_baru"
+                            <input type="text" id="show_status"
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>

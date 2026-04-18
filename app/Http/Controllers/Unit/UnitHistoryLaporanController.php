@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Unit;
 
 use App\Http\Controllers\Controller;
 use App\Models\HistoryLaporan;
+use App\Models\LogStatusLaporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -23,8 +24,7 @@ class UnitHistoryLaporanController extends Controller
                 'id_history',
                 'laporan_id',
                 'user_id',
-                'status_sebelumnya',
-                'status_baru',
+                'status',
                 'lampiran_file',
                 'catatan',
                 'created_at'
@@ -47,11 +47,8 @@ class UnitHistoryLaporanController extends Controller
             ->addColumn('unit_penangan', function ($row) {
                 return $row->user?->nama ?? '-';
             })
-            ->editColumn('status_sebelumnya', function ($row) {
-                return $this->formatStatusBadge($row->status_sebelumnya);
-            })
-            ->editColumn('status_baru', function ($row) {
-                return $this->formatStatusBadge($row->status_baru);
+            ->editColumn('status', function ($row) {
+                return $this->formatStatusBadge($row->status ?? $row->laporan?->status);
             })
             ->editColumn('lampiran_file', function ($row) {
                 if (!$row->lampiran_file) {
@@ -80,7 +77,7 @@ class UnitHistoryLaporanController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . '</div>';
             })
-            ->rawColumns(['status_sebelumnya', 'status_baru', 'lampiran_file', 'action'])
+            ->rawColumns(['status', 'lampiran_file', 'action'])
             ->make(true);
     }
 
@@ -111,45 +108,50 @@ class UnitHistoryLaporanController extends Controller
     public function update(Request $request, string $id)
     {
         $rules = [
-            'status_baru' => 'required|in:menunggu,diproses,selesai,ditolak',
-            'catatan' => 'nullable|string|max:2000',
-            'lampiran_file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:5120',
+            'status'        => 'required|in:menunggu,diproses,selesai,ditolak',
+            'catatan'       => 'nullable|string|max:2000',
+            'lampiran_file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ];
 
-        if ($request->status_baru === 'selesai') {
-            $rules['lampiran_file'] = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:5120';
+        if ($request->status === 'selesai') {
+            $rules['lampiran_file'] = 'required|file|mimes:jpg,jpeg,png,pdf|max:5120';
         }
 
         $request->validate($rules, [
-            'status_baru.required' => 'Status harus dipilih',
-            'status_baru.in' => 'Status tidak valid',
-            'catatan.max' => 'Catatan maksimal 2000 karakter',
-            'lampiran_file.required' => 'Lampiran bukti wajib diunggah saat laporan selesai',
-            'lampiran_file.mimes' => 'Lampiran harus berupa jpg, jpeg, png, pdf, doc, docx, xls, atau xlsx',
-            'lampiran_file.max' => 'Ukuran lampiran maksimal 5 MB',
+            'status.required'           => 'Status harus dipilih',
+            'status.in'                 => 'Status tidak valid',
+            'catatan.max'               => 'Catatan maksimal 2000 karakter',
+            'lampiran_file.required'    => 'Lampiran bukti wajib diunggah saat laporan selesai',
+            'lampiran_file.mimes'       => 'Lampiran harus berupa jpg, jpeg, png, pdf',
+            'lampiran_file.max'         => 'Ukuran lampiran maksimal 5 MB',
         ]);
 
         $history = $this->findOwnedHistoryOrFail($id);
-        $statusSebelumnya = $history->laporan->status;
         $lampiranFile = $history->lampiran_file;
 
         if ($request->hasFile('lampiran_file')) {
-            $file = $request->file('lampiran_file');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $file           = $request->file('lampiran_file');
+            $filename       = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/history-laporan'), $filename);
-            $lampiranFile = $filename;
+            $lampiranFile   = $filename;
         }
 
         $history->update([
-            'user_id' => Auth::id(),
-            'status_sebelumnya' => $statusSebelumnya,
-            'status_baru' => $request->status_baru,
+            'user_id'       => Auth::id(),
+            'status'        => $request->status,
             'lampiran_file' => $lampiranFile,
-            'catatan' => $request->filled('catatan') ? $request->catatan : null,
+            'catatan'       => $request->filled('catatan') ? $request->catatan : null,
+        ]);
+
+        LogStatusLaporan::create([
+            'history_id'    => $history->id_history,
+            'user_id'       => Auth::id(),
+            'status'        => $request->status,
+            'catatan'       => $request->filled('catatan') ? $request->catatan : null,
         ]);
 
         $history->laporan()->update([
-            'status' => $request->status_baru,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('unit.history-laporan.index')->with('success', 'History laporan berhasil diperbarui.');
@@ -177,11 +179,11 @@ class UnitHistoryLaporanController extends Controller
         }
 
         return match ($status) {
-            'menunggu' => '<span class="badge text-white bg-warning">Menunggu</span>',
-            'diproses' => '<span class="badge text-white bg-info">Diproses</span>',
-            'selesai' => '<span class="badge text-white bg-success">Selesai</span>',
-            'ditolak' => '<span class="badge text-white bg-danger">Ditolak</span>',
-            default => '<span class="badge text-white bg-secondary">Tidak Diketahui</span>',
+            'menunggu'  => '<span class="badge text-white bg-warning">Menunggu</span>',
+            'diproses'  => '<span class="badge text-white bg-info">Diproses</span>',
+            'selesai'   => '<span class="badge text-white bg-success">Selesai</span>',
+            'ditolak'   => '<span class="badge text-white bg-danger">Ditolak</span>',
+            default     => '<span class="badge text-white bg-secondary">Tidak Diketahui</span>',
         };
     }
 }
