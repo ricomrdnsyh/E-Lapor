@@ -16,12 +16,9 @@ class AdminUnitController extends Controller
 
     public function getUnit()
     {
-        $query = Unit::select(['id_unit', 'nama_unit', 'deskripsi']);
+        $query = Unit::select(['id_unit', 'nama_unit', 'singkatan']);
 
         return DataTables::of($query)
-            ->editColumn('deskripsi', function ($row) {
-                return nl2br(e($row->deskripsi));
-            })
             ->addColumn('action', function ($row) {
                 $showBtn = '<a href="javascript:void(0)"
                                 class="btn btn-sm btn-light btn-active-light-info text-center btn-show"
@@ -41,7 +38,7 @@ class AdminUnitController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
-            ->rawColumns(['deskripsi', 'action'])
+            ->rawColumns(['action'])
             ->make(true);
     }
 
@@ -61,12 +58,12 @@ class AdminUnitController extends Controller
     {
         $request->validate([
             'nama_unit' => 'required|string|max:100',
-            'deskripsi' => 'required|string',
+            'singkatan' => 'required|string',
         ]);
 
         Unit::create([
             'nama_unit' => $request->nama_unit,
-            'deskripsi' => $request->deskripsi,
+            'singkatan' => $request->singkatan,
         ]);
 
         return redirect()->route('admin.unit.index')->with('success', 'Data unit berhasil ditambahkan.');
@@ -76,13 +73,13 @@ class AdminUnitController extends Controller
     {
         $request->validate([
             'nama_unit' => 'required|string|max:100',
-            'deskripsi' => 'required|string',
+            'singkatan' => 'required|string',
         ]);
 
         $unit = Unit::findOrFail($id);
         $unit->update([
             'nama_unit' => $request->nama_unit,
-            'deskripsi' => $request->deskripsi,
+            'singkatan' => $request->singkatan,
         ]);
 
         return redirect()->route('admin.unit.index')->with('success', 'Data unit berhasil diperbarui.');

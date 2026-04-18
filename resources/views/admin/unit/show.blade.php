@@ -21,9 +21,9 @@
                     <div class="col-12">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Deskripsi</span>
+                                <span>Singkatan</span>
                             </label>
-                            <textarea id="show_deskripsi" rows="2" class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled></textarea>
+                            <textarea id="show_singkatan" rows="2" class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled></textarea>
                         </div>
                     </div>
                 </div>

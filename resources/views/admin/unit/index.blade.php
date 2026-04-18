@@ -129,7 +129,7 @@
                                                 <th class="text-center p-0" style="width:28px; min-width:28px;"></th>
                                                 <th class="text-center ps-1 min-w-175px">Aksi</th>
                                                 <th class="min-w-150px">Nama Unit</th>
-                                                <th class="min-w-150px">Deskripsi</th>
+                                                <th class="min-w-150px">Singkatan</th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-800"></tbody>

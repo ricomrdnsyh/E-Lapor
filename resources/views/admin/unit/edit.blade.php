@@ -31,15 +31,15 @@
                         <div class="col-12">
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
-                                    <span>Deskripsi</span>
+                                    <span>Singkatan</span>
                                 </label>
-                                <textarea name="deskripsi" id="edit_deskripsi" rows="2"
-                                    class="form-control form-control-sm fs-sm-8 fs-lg-6 @error('deskripsi') is-invalid @enderror" required></textarea>
+                                <textarea name="singkatan" id="edit_singkatan" rows="2"
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6 @error('singkatan') is-invalid @enderror" required></textarea>
 
-                                @error('deskripsi')
+                                @error('singkatan')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
                                 @enderror
-                                <div class="invalid-feedback">Deskripsi unit wajib diisi.</div>
+                                <div class="invalid-feedback">Singkatan unit wajib diisi.</div>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@
                     success: function(data) {
                         document.getElementById('show_nama_unit').value = data.nama_unit ||
                             '';
-                        document.getElementById('show_deskripsi').value = data.deskripsi ||
+                        document.getElementById('show_singkatan').value = data.singkatan ||
                             '';
 
                         modal.show();

@@ -5,7 +5,7 @@
         const submitButton = form.querySelector('[data-kt-contacts-type="submit"]');
 
         modalEl.addEventListener('shown.bs.modal', function() {
-            const el = document.getElementById('nama_mitra');
+            const el = document.getElementById('nama_unit');
             if (el) el.focus();
         });
 

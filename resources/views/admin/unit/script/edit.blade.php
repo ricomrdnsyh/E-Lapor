@@ -19,7 +19,7 @@
                     success: function(data) {
                         document.getElementById('edit_nama_unit').value = data.nama_unit ||
                             '';
-                        document.getElementById('edit_deskripsi').value = data.deskripsi ||
+                        document.getElementById('edit_singkatan').value = data.singkatan ||
                             '';
 
                         form.action = '/admin/unit/' + id;

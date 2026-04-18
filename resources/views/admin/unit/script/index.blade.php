@@ -67,8 +67,8 @@
                     name: 'nama_unit'
                 },
                 {
-                    data: 'deskripsi',
-                    name: 'deskripsi'
+                    data: 'singkatan',
+                    name: 'singkatan'
                 },
             ]
         });

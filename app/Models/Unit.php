@@ -12,7 +12,7 @@ class Unit extends Model
 
     protected $fillable = [
         'nama_unit',
-        'deskripsi'
+        'singkatan'
     ];
 
     public function kategoris()
