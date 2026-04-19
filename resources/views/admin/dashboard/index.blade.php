@@ -173,11 +173,30 @@
             font-size: .82rem;
         }
 
-        .admin-dashboard .theme-total .stat-icon { background: #dbeafe; color: #2563eb; }
-        .admin-dashboard .theme-menunggu .stat-icon { background: #fef3c7; color: #d97706; }
-        .admin-dashboard .theme-diproses .stat-icon { background: #dbeafe; color: #0284c7; }
-        .admin-dashboard .theme-selesai .stat-icon { background: #dcfce7; color: #16a34a; }
-        .admin-dashboard .theme-ditolak .stat-icon { background: #fee2e2; color: #dc2626; }
+        .admin-dashboard .theme-total .stat-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .admin-dashboard .theme-menunggu .stat-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .admin-dashboard .theme-diproses .stat-icon {
+            background: #dbeafe;
+            color: #0284c7;
+        }
+
+        .admin-dashboard .theme-selesai .stat-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .admin-dashboard .theme-ditolak .stat-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
 
         .admin-dashboard .chart-wrap {
             display: flex;
@@ -407,7 +426,8 @@
                                     <h1 class="hero-title">Ringkasan pengelolaan seluruh laporan E-Lapor</h1>
                                     <p class="hero-subtitle">
                                         Dashboard admin menampilkan gambaran menyeluruh terhadap seluruh laporan yang masuk,
-                                        sehingga pemantauan status, tindak lanjut, dan distribusi progres bisa dilihat dalam satu tampilan.
+                                        sehingga pemantauan status, tindak lanjut, dan distribusi progres bisa dilihat dalam
+                                        satu tampilan.
                                     </p>
 
                                     <div class="hero-inline-info">
@@ -624,12 +644,12 @@
 
                                         <div class="profile-grid">
                                             <div class="info-item">
-                                                <div class="info-label">Role</div>
-                                                <div class="info-value text-capitalize">{{ $user->role }}</div>
-                                            </div>
-                                            <div class="info-item">
                                                 <div class="info-label">Username</div>
                                                 <div class="info-value">{{ $user->username }}</div>
+                                            </div>
+                                            <div class="info-item">
+                                                <div class="info-label">Role</div>
+                                                <div class="info-value text-capitalize">{{ $user->role }}</div>
                                             </div>
                                             <div class="info-item">
                                                 <div class="info-label">Total Unit</div>

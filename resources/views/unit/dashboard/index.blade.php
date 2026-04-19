@@ -656,16 +656,16 @@
                                                 <div class="info-value">{{ $user->unit->nama_unit ?? 'N/A' }}</div>
                                             </div>
                                             <div class="info-item">
-                                                <div class="info-label">Username</div>
-                                                <div class="info-value">{{ $user->username }}</div>
-                                            </div>
-                                            <div class="info-item">
                                                 <div class="info-label">Nama Petugas</div>
                                                 <div class="info-value">{{ $user->nama }}</div>
                                             </div>
                                             <div class="info-item">
+                                                <div class="info-label">Username</div>
+                                                <div class="info-value">{{ $user->username }}</div>
+                                            </div>
+                                            <div class="info-item">
                                                 <div class="info-label">Status Akses</div>
-                                                <div class="info-value">Aktif sebagai akun unit</div>
+                                                <div class="info-value">Aktif Sebagai Akun Unit</div>
                                             </div>
                                         </div>
                                     </div>

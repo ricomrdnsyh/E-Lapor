@@ -118,7 +118,7 @@
     $currentUser = Auth::user();
     $isAdmin = $currentUser?->role === 'admin';
     $isUnit = $currentUser?->role === 'unit';
-    $unitName = $currentUser?->unit?->nama_unit;
+    $unitName = $currentUser?->unit?->singkatan;
 @endphp
 
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
@@ -181,7 +181,8 @@
 
                     @if ($isAdmin)
                         <div class="menu-item">
-                            <a class="menu-link {{ Request::is('admin/dashboard*') ? 'active' : '' }}" href="{{ route('admin.dashboard.index') }}">
+                            <a class="menu-link {{ Request::is('admin/dashboard*') ? 'active' : '' }}"
+                                href="{{ route('admin.dashboard.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-element-11 fs-2">
                                         <span class="path1"></span><span class="path2"></span>
