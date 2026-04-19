@@ -418,6 +418,40 @@
             color: #c2410c;
         }
 
+        .track-list-item.is-evidence {
+            min-height: 0;
+        }
+
+        .track-attachment-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            margin-top: .9rem;
+        }
+
+        .track-attachment-actions.is-timeline {
+            margin-top: .7rem;
+        }
+
+        .track-attachment-preview {
+            display: block;
+            width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            margin-top: 1rem;
+            border-radius: 18px;
+            border: 1px solid #dbe5ef;
+            background: #fff;
+            padding: .35rem;
+        }
+
+        .track-attachment-note {
+            margin-top: .65rem;
+            font-size: .85rem;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
         .track-list-item.is-compact {
             min-height: 88px;
             padding: 14px 16px;
@@ -639,6 +673,12 @@
                 @php
                     $rejectionNote = $history->where('status', 'ditolak')->last()?->catatan;
                     $lastUpdate = $history->last()?->updated_at ?? $laporan?->updated_at;
+                    $completionEvidence = null;
+
+                    if ($laporan?->status === 'selesai') {
+                        $completionEvidence = $history->where('status', 'selesai')->last()?->historyLaporan?->lampiran_file
+                            ?? $laporan->historyLaporans->where('status', 'selesai')->sortByDesc('updated_at')->first()?->lampiran_file;
+                    }
                 @endphp
 
                 <div class="track-hero">
@@ -840,6 +880,8 @@
                                     @forelse ($history as $item)
                                         @php
                                             $itemStatus = $item->status ?? null;
+                                            $itemEvidence = $itemStatus === 'selesai' ? $item->historyLaporan?->lampiran_file : null;
+                                            $itemEvidenceUrl = $itemEvidence ? asset('uploads/history-laporan/' . $itemEvidence) : null;
                                             $itemMeta = match ($itemStatus) {
                                                 'menunggu' => [
                                                     'bg' => 'bg-light-warning',
@@ -901,6 +943,19 @@
                                                     @else
                                                         <div class="track-timeline-note">
                                                             Dibuat oleh pelapor
+                                                        </div>
+                                                    @endif
+
+                                                    @if ($itemEvidenceUrl)
+                                                        <div class="track-timeline-note">
+                                                            Lampiran bukti penanganan tersedia untuk status selesai ini.
+                                                        </div>
+                                                        <div class="track-attachment-actions is-timeline">
+                                                            <a href="{{ $itemEvidenceUrl }}" target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                class="btn btn-sm btn-light-success">
+                                                                Lihat Bukti
+                                                            </a>
                                                         </div>
                                                     @endif
                                                 </div>
