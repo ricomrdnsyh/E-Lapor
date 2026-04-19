@@ -11,8 +11,10 @@ class Unit extends Model
     protected $primaryKey = 'id_unit';
 
     protected $fillable = [
+        'id_unit',
         'nama_unit',
-        'singkatan'
+        'singkatan',
+        'status'
     ];
 
     public function kategoris()

@@ -103,10 +103,18 @@
                         <span class="text-muted fw-semibold fs-7">Kelola data unit yang ada dalam sistem</span>
                     </div>
                     <div class="d-flex w-100 w-sm-auto justify-content-end ms-auto">
-                        <a type="button" class="btn btn-sm btn-primary w-100 w-sm-auto text-nowrap" data-bs-toggle="modal"
-                            data-bs-target="#form_create" title="Tambah Unit">
-                            <i class="fas fa-plus me-2"></i>Tambah Unit
-                        </a>
+                        <form id="sinkron_data" action="{{ route('admin.unit.sync') }}" method="POST" class="me-2">
+                            @csrf
+                            <button type="submit" data-kt-contacts-type="submit" class="btn btn-sm btn-primary">
+                                <span class="indicator-label">
+                                    <i class="fas fa-sync-alt"></i> Sinkron Data Unit
+                                </span>
+                                <span class="indicator-progress">
+                                    <span class="spinner-border spinner-border-sm align-middle me-2"></span>
+                                    Sinkronisasi...
+                                </span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -130,6 +138,7 @@
                                                 <th class="text-center ps-1 min-w-175px">Aksi</th>
                                                 <th class="min-w-150px">Nama Unit</th>
                                                 <th class="min-w-150px">Singkatan</th>
+                                                <th class="min-w-150px">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-800"></tbody>
@@ -140,8 +149,6 @@
                     </div>
                 </div>
             </div>
-            @include('admin.unit.create')
-            @include('admin.unit.edit')
             @include('admin.unit.show')
 
             @include('layouts.footer')
@@ -165,7 +172,5 @@
     <script src="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.js') }}"></script>
 
     @include('admin.unit.script.index')
-    @include('admin.unit.script.create')
-    @include('admin.unit.script.edit')
     @include('admin.unit.script.show')
 @endsection

@@ -32,9 +32,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard.index');
-    
+
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
-    Route::resource('unit', AdminUnitController::class);
+    Route::post('/unit/sinkronisasi', [AdminUnitController::class, 'syncFromApi'])->name('unit.sync');
+    Route::resource('unit', AdminUnitController::class, ['only' => ['index', 'show', 'destroy']]);
 
     Route::get('/kategori/data', [AdminKategoriController::class, 'getKategori'])->name('kategori.data');
     Route::resource('kategori', AdminKategoriController::class);

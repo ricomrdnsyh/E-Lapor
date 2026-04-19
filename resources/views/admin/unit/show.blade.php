@@ -23,7 +23,18 @@
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                 <span>Singkatan</span>
                             </label>
-                            <textarea id="show_singkatan" rows="2" class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled></textarea>
+                            <input type="text" id="show_singkatan"
+                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex flex-column mb-2">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Status</span>
+                            </label>
+                            <div>
+                                <span id="show_status_badge" class="badge bg-secondary fs-sm-8 fs-lg-6">-</span>
+                            </div>
                         </div>
                     </div>
                 </div>

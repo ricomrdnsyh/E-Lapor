@@ -70,6 +70,10 @@
                     data: 'singkatan',
                     name: 'singkatan'
                 },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
             ]
         });
 
@@ -142,4 +146,18 @@
             }
         })
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('sinkron_data');
+        const submitButton = form.querySelector('[data-kt-contacts-type="submit"]');
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                return;
+            }
+            submitButton.disabled = true;
+            submitButton.querySelector('.indicator-label').style.display = 'none';
+            submitButton.querySelector('.indicator-progress').style.display = 'inline-block';
+        });
+    });
 </script>
