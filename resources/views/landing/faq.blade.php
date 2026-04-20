@@ -57,7 +57,7 @@
                             </h2>
                             <div id="faq_3" class="accordion-collapse collapse" data-bs-parent="#faq_accordion">
                                 <div class="accordion-body text-muted">
-                                    Respon awal ditargetkan paling lambat 3 (tiga) hari kerja terhitung sejak pelaporan
+                                    Respon awal ditargetkan paling lambat 1 (satu) hari kerja terhitung sejak pelaporan
                                     diterima. Durasi penyelesaian tergantung kategori & kompleksitas.
                                 </div>
                             </div>
