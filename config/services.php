@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'telegram_sso' => [
+        'base_url' => env('TELEGRAM_API_BASE_URL', 'https://sso.unuja.ac.id/portal/data/telegram/message'),
+    ],
+
 ];

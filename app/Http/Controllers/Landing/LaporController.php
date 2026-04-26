@@ -7,6 +7,7 @@ use App\Models\HistoryLaporan;
 use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
+use App\Services\TelegramNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,7 @@ class LaporController extends Controller
                     'id'        => $item->id_kategori,
                     'nama'      => $item->nama_kategori,
                     'unit_id'   => $item->unit_id,
-                    'unit_name' => $item->unit->nama_unit ?? 'N/A'
+                    'unit_name' => $item->unit?->nama_unit ?? 'N/A'
                 ];
             });
 
@@ -89,7 +90,7 @@ class LaporController extends Controller
                 $tipe_pelapor       = null;
             }
 
-            DB::transaction(function () use (
+            $laporan = DB::transaction(function () use (
                 $validated,
                 $kode_tiket,
                 $lampiran_file,
@@ -128,7 +129,16 @@ class LaporController extends Controller
                     'status'        => 'menunggu',
                     'catatan'       => 'Laporan berhasil dikirim dengan judul ' . $laporan->judul_laporan . '.',
                 ]);
+
+                return $laporan;
             });
+
+            // Kirim notifikasi Telegram
+            try {
+                app(TelegramNotificationService::class)->notifyNewLaporan($laporan);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('[TelegramNotif] Error: ' . $e->getMessage());
+            }
 
             return response()->json([
                 'success'    => true,
@@ -144,3 +154,4 @@ class LaporController extends Controller
         }
     }
 }
+

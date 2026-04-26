@@ -33,7 +33,19 @@ class AuthSSO
             'dev_id'   => $this->devId,
         ];
 
-        $response = Http::post($this->authUrl, $payload);
+        $curlOptions = [];
+        if (filter_var(env('TELEGRAM_FORCE_IPV4', true), FILTER_VALIDATE_BOOLEAN)) {
+            $curlOptions[CURLOPT_IPRESOLVE] = CURL_IPRESOLVE_V4;
+        }
+        if (filter_var(env('TELEGRAM_FORCE_HTTP_1_1', true), FILTER_VALIDATE_BOOLEAN)) {
+            $curlOptions[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
+        }
+
+        $response = Http::withoutVerifying()
+            ->withOptions(['curl' => $curlOptions])
+            ->connectTimeout(10)
+            ->timeout(30)
+            ->post($this->authUrl, $payload);
 
         if (! $response->successful()) {
             throw new \Exception('Gagal authorize ke API (status ' . $response->status() . '): ' . $response->body());
