@@ -130,9 +130,9 @@
                                                 <th class="text-center ps-1 min-w-175px">Aksi</th>
                                                 <th class="min-w-150px">Nama</th>
                                                 <th class="min-w-150px">Username</th>
+                                                <th class="min-w-160px">Telegram ID</th>
                                                 <th class="min-w-120px">Role</th>
                                                 <th class="min-w-150px">Unit</th>
-                                                <th class="min-w-160px">Dibuat</th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-800"></tbody>

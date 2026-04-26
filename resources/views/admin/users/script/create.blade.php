@@ -7,7 +7,12 @@
         const unitWrapper = document.getElementById('create_unit_wrapper');
         const unitSelect = document.getElementById('unit_id');
         const roleSelect = document.getElementById('role');
+        const karyawanSelect = document.getElementById('karyawan_select');
 
+        let karyawanData = [];
+        let karyawanLoaded = false;
+
+        // Init Select2 for role
         if (roleSelect && $) {
             $(roleSelect).select2({
                 placeholder: '-- Pilih Role --',
@@ -19,6 +24,7 @@
             });
         }
 
+        // Init Select2 for unit
         if (unitSelect && $) {
             $(unitSelect).select2({
                 placeholder: '-- Pilih Unit --',
@@ -28,6 +34,75 @@
                 dropdownParent: $('#form_create')
             });
         }
+
+        // Init Select2 for karyawan
+        if (karyawanSelect && $) {
+            $(karyawanSelect).select2({
+                placeholder: '-- Pilih Karyawan --',
+                allowClear: true,
+                width: '100%',
+                language: 'id',
+                dropdownParent: $('#form_create')
+            });
+        }
+
+        // Fetch karyawan data from API
+        function loadKaryawan() {
+            if (karyawanLoaded) return;
+
+            $(karyawanSelect).empty().append('<option value="">Memuat data karyawan...</option>').trigger('change');
+
+            $.ajax({
+                url: '{{ route("admin.users.karyawan-api") }}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    karyawanLoaded = true;
+                    $(karyawanSelect).empty().append('<option value="">-- Pilih Karyawan --</option>');
+
+                    if (response.success && response.data) {
+                        karyawanData = response.data;
+                        response.data.forEach(function(item) {
+                            const label = item.nama_penduduk + ' — ' + item.lembaga;
+                            $(karyawanSelect).append(
+                                $('<option>', {
+                                    value: item.id_penduduk,
+                                    text: label,
+                                    'data-nama': item.nama_penduduk,
+                                    'data-telegram': item.telegram_id || '',
+                                    'data-lembaga': item.lembaga
+                                })
+                            );
+                        });
+                    }
+                    $(karyawanSelect).trigger('change');
+                },
+                error: function() {
+                    $(karyawanSelect).empty().append('<option value="">Gagal memuat data</option>').trigger('change');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Perhatian',
+                        text: 'Gagal mengambil data karyawan dari API. Silakan coba lagi.'
+                    });
+                }
+            });
+        }
+
+        // On karyawan select change → auto-fill username & telegram_id
+        $(karyawanSelect).on('select2:select', function() {
+            const selected = this.options[this.selectedIndex];
+            if (selected && selected.value) {
+                document.getElementById('username').value = selected.value; // id_penduduk
+                document.getElementById('nama').value = selected.dataset.nama || '';
+                document.getElementById('telegram_id').value = selected.dataset.telegram || '-';
+            }
+        });
+
+        $(karyawanSelect).on('select2:clear', function() {
+            document.getElementById('username').value = '';
+            document.getElementById('nama').value = '';
+            document.getElementById('telegram_id').value = '';
+        });
 
         function toggleCreateUnitField() {
             const showUnitField = roleElement.value === 'unit';
@@ -43,12 +118,18 @@
             toggleCreateUnitField();
         });
 
+        // Load karyawan when modal is shown
         modalEl.addEventListener('shown.bs.modal', function() {
-            const el = document.getElementById('nama');
-            if (el) el.focus();
+            loadKaryawan();
         });
 
         form.addEventListener('submit', function(e) {
+            // Set nama from hidden field if empty
+            if (!document.getElementById('nama').value && karyawanSelect.value) {
+                const selected = karyawanSelect.options[karyawanSelect.selectedIndex];
+                document.getElementById('nama').value = selected?.dataset?.nama || '';
+            }
+
             if (!form.checkValidity()) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -70,6 +151,10 @@
             if (!@json((bool) old('role'))) {
                 $(roleSelect).val('').trigger('change');
             }
+            $(karyawanSelect).val('').trigger('change');
+            document.getElementById('username').value = '';
+            document.getElementById('nama').value = '';
+            document.getElementById('telegram_id').value = '';
             toggleCreateUnitField();
         });
 

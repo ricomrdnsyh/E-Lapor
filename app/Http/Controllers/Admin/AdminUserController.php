@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Unit;
+use App\Services\ClientSSO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,7 +20,7 @@ class AdminUserController extends Controller
 
     public function getUsers()
     {
-        $query = User::with('unit')->select(['id', 'nama', 'username', 'role', 'unit_id', 'created_at']);
+        $query = User::with('unit')->select(['id', 'nama', 'username', 'role', 'unit_id', 'telegram_id']);
 
         return DataTables::of($query)
             ->editColumn('role', function ($row) {
@@ -29,9 +30,8 @@ class AdminUserController extends Controller
             ->editColumn('unit_id', function ($row) {
                 return $row->unit ? $row->unit->nama_unit : '-';
             })
-            ->editColumn('created_at', function ($row) {
-                return $row->created_at
-                    ? $row->created_at->copy()->setTimezone('Asia/Jakarta')->locale('id')->isoFormat('DD MMMM YYYY, HH:mm') : '-';
+            ->editColumn('telegram_id', function ($row) {
+                return $row->telegram_id ?: '-';
             })
             ->addColumn('action', function ($row) {
                 $showBtn = '<a href="javascript:void(0)"
@@ -56,6 +56,16 @@ class AdminUserController extends Controller
             ->make(true);
     }
 
+    public function getKaryawanApi(ClientSSO $client)
+    {
+        try {
+            $karyawan = $client->getKaryawanFromApi();
+            return response()->json(['success' => true, 'data' => $karyawan]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
     public function show(string $id)
     {
         $user = User::with('unit')->findOrFail($id);
@@ -78,11 +88,12 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'      => 'required|string|max:100',
-            'username'  => 'required|string|max:100|unique:users',
-            'password'  => 'required|string|min:6',
-            'role'      => 'required|in:admin,unit',
-            'unit_id'   => 'required_if:role,unit|nullable|exists:unit,id_unit',
+            'nama'        => 'required|string|max:100',
+            'username'    => 'required|string|max:100|unique:users',
+            'telegram_id' => 'nullable|string|max:50',
+            'password'    => 'required|string|min:6',
+            'role'        => 'required|in:admin,unit',
+            'unit_id'     => 'required_if:role,unit|nullable|exists:unit,id_unit',
         ], [
             'nama.required'       => 'Nama harus diisi',
             'username.required'   => 'Username harus diisi',
@@ -97,11 +108,12 @@ class AdminUserController extends Controller
         $unitId = $request->role === 'unit' ? $request->unit_id : null;
 
         User::create([
-            'nama'      => $request->nama,
-            'username'  => $request->username,
-            'password'  => Hash::make($request->password),
-            'role'      => $request->role,
-            'unit_id'   => $unitId,
+            'nama'        => $request->nama,
+            'username'    => $request->username,
+            'telegram_id' => $request->telegram_id ?: null,
+            'password'    => Hash::make($request->password),
+            'role'        => $request->role,
+            'unit_id'     => $unitId,
         ]);
 
         return redirect()->route('admin.users.index')->with('success', 'Data user berhasil ditambahkan.');
@@ -112,11 +124,12 @@ class AdminUserController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'nama'      => 'required|string|max:100',
-            'username'  => 'required|string|max:100|unique:users,username,' . $id,
-            'password'  => 'nullable|string|min:6',
-            'role'      => 'required|in:admin,unit',
-            'unit_id'   => 'required_if:role,unit|nullable|exists:unit,id_unit',
+            'nama'        => 'required|string|max:100',
+            'username'    => 'required|string|max:100|unique:users,username,' . $id,
+            'telegram_id' => 'nullable|string|max:50',
+            'password'    => 'nullable|string|min:6',
+            'role'        => 'required|in:admin,unit',
+            'unit_id'     => 'required_if:role,unit|nullable|exists:unit,id_unit',
         ], [
             'nama.required'         => 'Nama harus diisi',
             'username.required'     => 'Username harus diisi',
@@ -128,10 +141,11 @@ class AdminUserController extends Controller
         ]);
 
         $data = [
-            'nama'      => $request->nama,
-            'username'  => $request->username,
-            'role'      => $request->role,
-            'unit_id'   => $request->role === 'unit' ? $request->unit_id : null,
+            'nama'        => $request->nama,
+            'username'    => $request->username,
+            'telegram_id' => $request->telegram_id ?: null,
+            'role'        => $request->role,
+            'unit_id'     => $request->role === 'unit' ? $request->unit_id : null,
         ];
 
         if ($request->filled('password')) {

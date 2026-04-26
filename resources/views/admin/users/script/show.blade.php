@@ -15,10 +15,10 @@
                     success: function(data) {
                         document.getElementById('show_nama').value = data.user.nama || '';
                         document.getElementById('show_username').value = data.user.username || '';
+                        document.getElementById('show_telegram_id').value = data.user.telegram_id || '-';
                         document.getElementById('show_role').value = data.user.role ? data.user.role.charAt(0).toUpperCase() + data.user.role.slice(1) : '';
                         document.getElementById('show_unit').value = data.user.unit ? data.user.unit.nama_unit : '-';
-                        document.getElementById('show_created_at').value = data.created_at_formatted || '-';
-                        document.getElementById('show_updated_at').value = data.updated_at_formatted || '-';
+
 
                         modal.show();
                     },

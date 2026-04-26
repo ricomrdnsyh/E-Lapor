@@ -46,6 +46,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/history-laporan/data', [AdminHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
     Route::resource('history-laporan', AdminHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
 
+    Route::get('/users/karyawan-api', [AdminUserController::class, 'getKaryawanApi'])->name('users.karyawan-api');
     Route::get('/users/data', [AdminUserController::class, 'getUsers'])->name('users.data');
     Route::resource('users', AdminUserController::class);
 });

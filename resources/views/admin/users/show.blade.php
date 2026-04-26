@@ -8,7 +8,7 @@
 
             <div class="modal-body">
                 <div class="row g-3">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                 <span>Nama</span>
@@ -24,6 +24,16 @@
                                 <span>Username</span>
                             </label>
                             <input type="text" id="show_username"
+                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="d-flex flex-column mb-2">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Telegram ID</span>
+                            </label>
+                            <input type="text" id="show_telegram_id"
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>
@@ -48,25 +58,6 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-lg-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Dibuat</span>
-                            </label>
-                            <input type="text" id="show_created_at"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Diperbarui</span>
-                            </label>
-                            <input type="text" id="show_updated_at"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
                 </div>
             </div>
 

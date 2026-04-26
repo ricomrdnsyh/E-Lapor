@@ -71,20 +71,20 @@
                     name: 'username'
                 },
                 {
+                    data: 'telegram_id',
+                    name: 'telegram_id'
+                },
+                {
                     data: 'role',
                     name: 'role'
                 },
                 {
                     data: 'unit_id',
                     name: 'unit_id'
-                },
-                {
-                    data: 'created_at',
-                    name: 'created_at'
                 }
             ],
             order: [
-                [6, 'desc']
+                [2, 'asc']
             ]
         });
 

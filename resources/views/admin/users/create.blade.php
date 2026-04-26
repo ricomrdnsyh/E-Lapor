@@ -11,19 +11,18 @@
 
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12">
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
-                                    <span>Nama</span>
+                                    <span>Pilih Karyawan</span>
                                 </label>
-                                <input type="text" name="nama" id="nama"
-                                    class="form-control form-control-sm fs-sm-8 fs-lg-6 @error('nama') is-invalid @enderror"
-                                    value="{{ old('nama') }}" required autofocus>
-
-                                @error('nama')
-                                    <div class="small text-danger mt-1">{{ $message }}</div>
-                                @enderror
-                                <div class="invalid-feedback">Nama wajib diisi.</div>
+                                <select name="karyawan_select" id="karyawan_select"
+                                    class="form-select form-select-sm fs-sm-8 fs-lg-6"
+                                    data-control="select2" required>
+                                    <option value="">-- Pilih Karyawan --</option>
+                                </select>
+                                <input type="hidden" name="nama" id="nama">
+                                <div class="invalid-feedback">Karyawan wajib dipilih.</div>
                             </div>
                         </div>
 
@@ -34,12 +33,22 @@
                                 </label>
                                 <input type="text" name="username" id="username"
                                     class="form-control form-control-sm fs-sm-8 fs-lg-6 @error('username') is-invalid @enderror"
-                                    value="{{ old('username') }}" required>
+                                    value="{{ old('username') }}" required readonly>
 
                                 @error('username')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
                                 @enderror
-                                <div class="invalid-feedback">Username wajib diisi.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <div class="d-flex flex-column mb-2">
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                    <span>Telegram ID</span>
+                                </label>
+                                <input type="text" name="telegram_id" id="telegram_id"
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6"
+                                    value="{{ old('telegram_id') }}" readonly>
                             </div>
                         </div>
 
