@@ -10,6 +10,7 @@ use App\Models\Laporan;
 use App\Services\TelegramNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class LaporController extends Controller
 {
@@ -35,8 +36,44 @@ class LaporController extends Controller
         return response()->json($categories);
     }
 
+    public function generateCaptcha()
+    {
+        $operators = ['+', '-', 'x'];
+        $operator = $operators[array_rand($operators)];
+
+        if ($operator === '+') {
+            $a = rand(1, 20);
+            $b = rand(1, 20);
+            $answer = $a + $b;
+        } elseif ($operator === '-') {
+            $a = rand(5, 30);
+            $b = rand(1, $a);
+            $answer = $a - $b;
+        } else {
+            $a = rand(1, 10);
+            $b = rand(1, 10);
+            $answer = $a * $b;
+        }
+
+        $question = "{$a} {$operator} {$b} = ?";
+        Session::put('captcha_answer', $answer);
+
+        return response()->json(['question' => $question]);
+    }
+
     public function store(Request $request)
     {
+        $captchaInput = $request->input('captcha');
+        $captchaAnswer = Session::get('captcha_answer');
+
+        if (is_null($captchaAnswer) || (int) $captchaInput !== (int) $captchaAnswer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Jawaban captcha salah. Silakan coba lagi.'
+            ], 422);
+        }
+
+        Session::forget('captcha_answer');
         $validated = $request->validate([
             'kategori_id'       => 'required|exists:kategori,id_kategori',
             'unit_id'           => 'required|exists:unit,id_unit',

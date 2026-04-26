@@ -263,6 +263,22 @@
                                                 Lainnya</option>
                                         </select>
                                     </div>
+                                </div>                                
+
+                                <div class="separator"></div>
+
+                                <div>
+                                    <div class="fw-bold text-gray-900 mb-3">Verifikasi Captcha</div>
+                                    <div class="d-flex align-items-center gap-3 mb-2">
+                                        <div class="bg-light-primary border border-primary border-dashed rounded-3 px-4 py-3 d-flex align-items-center justify-content-center" style="min-width: 160px;">
+                                            <span id="captcha_question" class="fw-bold fs-4 text-primary">Memuat...</span>
+                                        </div>
+                                        <button type="button" id="btn_refresh_captcha" class="btn btn-sm btn-icon btn-light-primary" title="Refresh Captcha">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </div>
+                                    <input type="number" name="captcha" id="captcha_answer"
+                                        class="form-control form-control-sm" placeholder="Masukkan jawaban" required>
                                 </div>
 
                                 <label class="form-check form-check-sm form-check-custom form-check-solid">
@@ -421,10 +437,43 @@
                 });
             }
 
+            // Load captcha
+            function loadCaptcha() {
+                fetch('{{ route('lapor.captcha') }}')
+                    .then(res => res.json())
+                    .then(data => {
+                        const el = document.getElementById('captcha_question');
+                        if (el) el.textContent = data.question;
+                        const input = document.getElementById('captcha_answer');
+                        if (input) input.value = '';
+                    })
+                    .catch(() => {
+                        const el = document.getElementById('captcha_question');
+                        if (el) el.textContent = 'Gagal memuat';
+                    });
+            }
+
+            const btnRefresh = document.getElementById('btn_refresh_captcha');
+            if (btnRefresh) btnRefresh.addEventListener('click', loadCaptcha);
+            loadCaptcha();
+
             const formLaporan = document.getElementById('form_laporan');
             if (formLaporan) {
                 formLaporan.addEventListener('submit', function(e) {
                     e.preventDefault();
+
+                    // Validate captcha is filled
+                    const captchaInput = document.getElementById('captcha_answer');
+                    if (!captchaInput || !captchaInput.value.trim()) {
+                        Swal.fire({
+                            title: 'Captcha Belum Diisi',
+                            text: 'Silakan jawab pertanyaan captcha terlebih dahulu.',
+                            icon: 'warning',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#1F4788'
+                        });
+                        return;
+                    }
 
                     const formData = new FormData(this);
                     const submitBtn = this.querySelector('button[type="submit"]');
@@ -478,6 +527,7 @@
                                     window.location.href = data.redirect;
                                 }
                             } else {
+                                loadCaptcha();
                                 if (typeof Swal !== 'undefined') {
                                     Swal.fire({
                                         title: 'Terjadi Kesalahan!',
@@ -496,6 +546,7 @@
                             submitBtn.disabled = false;
                             indicatorLabel.style.display = 'inline-block';
                             indicatorProgress.style.display = 'none';
+                            loadCaptcha();
 
                             if (typeof Swal !== 'undefined') {
                                 Swal.fire({
