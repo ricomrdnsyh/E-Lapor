@@ -1,6 +1,6 @@
 <script>
     $(function() {
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             processing: false,
             serverSide: true,
             responsive: {
@@ -9,7 +9,12 @@
                     target: 0
                 }
             },
-            ajax: '{{ route('unit.history-laporan.data') }}',
+            ajax: {
+                url: '{{ route('unit.history-laporan.data') }}',
+                data: function(d) {
+                    d.status = $('#filter_status').val();
+                }
+            },
             columnDefs: [{
                     targets: 0,
                     className: 'dt-control',
@@ -91,6 +96,10 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
+        });
+
+        $('#filter_status').on('change', function() {
+            table.ajax.reload();
         });
 
         @if ($message = Session::get('success'))

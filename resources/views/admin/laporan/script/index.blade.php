@@ -1,6 +1,6 @@
 <script>
     $(function() {
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             processing: false,
             serverSide: true,
             responsive: {
@@ -49,7 +49,13 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.laporan.data') }}',
+            ajax: {
+                url: '{{ route('admin.laporan.data') }}',
+                data: function(d) {
+                    d.status = $('#filter_status').val();
+                    d.kategori_id = $('#filter_kategori').val();
+                }
+            },
             columns: [{
                     data: null,
                     defaultContent: '',
@@ -87,6 +93,10 @@
                     name: 'tgl_kejadian'
                 },
             ]
+        });
+
+        $('#filter_status, #filter_kategori').on('change', function() {
+            table.ajax.reload();
         });
 
         @if ($message = Session::get('success'))

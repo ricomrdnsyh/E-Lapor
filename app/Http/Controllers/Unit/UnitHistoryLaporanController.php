@@ -17,7 +17,7 @@ class UnitHistoryLaporanController extends Controller
         return view('unit.history-laporan.index');
     }
 
-    public function getHistoryLaporan()
+    public function getHistoryLaporan(Request $request)
     {
         $query = $this->historyLaporanQuery()
             ->select([
@@ -30,6 +30,10 @@ class UnitHistoryLaporanController extends Controller
                 'created_at'
             ])
             ->orderByDesc('id_history');
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
 
         return DataTables::of($query)
             ->addColumn('kode_tiket', function ($row) {

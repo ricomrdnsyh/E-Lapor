@@ -115,7 +115,21 @@
                                     </div>
                                 </div>
                                 <div class="separator my-4"></div>
-                                <div class="card-body pt-0">
+                                <div class="px-9 pb-4">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label class="fw-bold fs-7 text-gray-800 mb-1 d-block">Status:</label>
+                                            <select id="filter_status" class="form-select form-select-sm form-select-solid w-100" data-control="select2" data-placeholder="Pilih Status" data-allow-clear="true">
+                                                <option value="">Semua</option>
+                                                <option value="menunggu">Menunggu</option>
+                                                <option value="diproses">Diproses</option>
+                                                <option value="selesai">Selesai</option>
+                                                <option value="ditolak">Ditolak</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-4">
                                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="example">
                                         <thead>
                                             <tr class="text-start text-gray-600 fw-semibold fs-7 text-uppercase gs-0">
@@ -141,7 +155,6 @@
             </div>
             @include('unit.history-laporan.edit')
             @include('unit.history-laporan.show')
-
             @include('layouts.footer')
         </div>
     </div>
@@ -160,7 +173,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/print.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.js') }}"></script>
-
     @include('unit.history-laporan.script.index')
     @include('unit.history-laporan.script.edit')
     @include('unit.history-laporan.script.show')

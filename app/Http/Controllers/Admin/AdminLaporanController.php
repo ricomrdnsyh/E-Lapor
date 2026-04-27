@@ -16,11 +16,19 @@ class AdminLaporanController extends Controller
         return view('admin.laporan.index', compact('kategoris'));
     }
 
-    public function getLaporan()
+    public function getLaporan(Request $request)
     {
         $query = Laporan::with('kategori')
             ->select(['id_laporan', 'kode_tiket', 'kategori_id', 'judul_laporan', 'nama_pelapor', 'status', 'tgl_kejadian'])
             ->orderByDesc('id_laporan');
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('kategori_id')) {
+            $query->where('kategori_id', $request->kategori_id);
+        }
 
         return DataTables::of($query)
             ->addColumn('kategori_name', function ($row) {

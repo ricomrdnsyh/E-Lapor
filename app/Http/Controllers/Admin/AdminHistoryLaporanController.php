@@ -14,10 +14,11 @@ class AdminHistoryLaporanController extends Controller
 {
     public function index()
     {
-        return view('admin.history-laporan.index');
+        $kategoris = \App\Models\Kategori::all();
+        return view('admin.history-laporan.index', compact('kategoris'));
     }
 
-    public function getHistoryLaporan()
+    public function getHistoryLaporan(Request $request)
     {
         $query = HistoryLaporan::with(['laporan.kategori', 'user.unit'])
             ->select([
@@ -30,6 +31,16 @@ class AdminHistoryLaporanController extends Controller
                 'created_at'
             ])
             ->orderByDesc('id_history');
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('kategori_id')) {
+            $query->whereHas('laporan', function ($q) use ($request) {
+                $q->where('kategori_id', $request->kategori_id);
+            });
+        }
 
         return DataTables::of($query)
             ->addColumn('kode_tiket', function ($row) {

@@ -110,13 +110,48 @@
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-12">
                             <div class="card card-flush h-md-100 shadow-sm border-dark rounded border border-dashed">
+
                                 <div class="card-header pt-6">
                                     <div class="card-title">
                                         <h3 class="card-label fw-bold fs-3 mb-1">List Laporan</h3>
                                     </div>
                                 </div>
+
                                 <div class="separator my-4"></div>
-                                <div class="card-body pt-0">
+
+                                <div class="px-9 pb-4">
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-6">
+                                            <label class="fw-bold fs-7 text-gray-700 mb-1 d-block">Kategori:</label>
+                                            <select id="filter_kategori"
+                                                class="form-select form-select-sm form-select-solid w-100"
+                                                data-control="select2"
+                                                data-placeholder="Semua Kategori"
+                                                data-allow-clear="true">
+                                                <option value="">Semua</option>
+                                                @foreach ($kategoris as $kat)
+                                                    <option value="{{ $kat->id_kategori }}">{{ $kat->nama_kategori }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <label class="fw-bold fs-7 text-gray-700 mb-1 d-block">Status:</label>
+                                            <select id="filter_status"
+                                                class="form-select form-select-sm form-select-solid w-100"
+                                                data-control="select2"
+                                                data-placeholder="Semua Status"
+                                                data-allow-clear="true">
+                                                <option value="">Semua</option>
+                                                <option value="menunggu">Menunggu</option>
+                                                <option value="diproses">Diproses</option>
+                                                <option value="selesai">Selesai</option>
+                                                <option value="ditolak">Ditolak</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body pt-4">
                                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="example">
                                         <thead>
                                             <tr class="text-start text-gray-600 fw-semibold fs-7 text-uppercase gs-0">
@@ -133,15 +168,17 @@
                                         <tbody class="fw-bold text-gray-800"></tbody>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             @include('admin.laporan.edit')
             @include('admin.laporan.show')
-
             @include('layouts.footer')
+
         </div>
     </div>
 @endsection
@@ -153,7 +190,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/dataTables.colReorder.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/dataTables.buttons.min.js') }}"></script>
-
     <script src="{{ asset('assets/plugins/custom/datatables/vfs_fonts.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/jszip.min.js') }}"></script>
