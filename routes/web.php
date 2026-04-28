@@ -17,6 +17,8 @@ use App\Http\Controllers\Landing\LaporController;
 use App\Http\Controllers\Landing\BerandaController;
 use App\Http\Controllers\Landing\KategoriController;
 
+Route::get('log-viewer', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
 Route::get('/', [BerandaController::class, 'beranda'])->name('beranda');
 Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori');
 Route::get('/alur', [AlurController::class, 'alur'])->name('alur');
