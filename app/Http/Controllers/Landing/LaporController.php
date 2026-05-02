@@ -81,12 +81,13 @@ class LaporController extends Controller
             'lokasi_kejadian'   => 'required|string|max:150',
             'tgl_kejadian'      => 'required|date_format:Y-m-d H:i',
             'deskripsi_laporan' => 'required|string|max:2000',
-            'lampiran_file'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'lampiran_file'     => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'is_anonymous'      => 'required|in:t,y',
             'nama_pelapor'      => 'required_if:is_anonymous,t|nullable|string|max:100',
             'email_pelapor'     => 'required_if:is_anonymous,t|nullable|email|max:100',
             'no_telp_pelapor'   => 'required_if:is_anonymous,t|nullable|string|max:15',
-            'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Karyawan,Lainnya',
+            'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Lainnya',
+            'email_anonim'      => 'nullable|email|max:100',
             'agreement'         => 'required|accepted',
         ], [
             'kategori_id.required'        => 'Kategori laporan harus dipilih',
@@ -97,6 +98,7 @@ class LaporController extends Controller
             'lokasi_kejadian.required'    => 'Lokasi kejadian harus diisi',
             'tgl_kejadian.required'       => 'Tanggal dan waktu kejadian harus diisi',
             'deskripsi_laporan.required'  => 'Deskripsi laporan harus diisi',
+            'lampiran_file.required'      => 'File harus diisi dan berupa jpg,jpeg,png,pdf dengan ukuran maksimal 5MB',
             'nama_pelapor.required_if'    => 'Nama pelapor harus diisi jika tidak anonim',
             'email_pelapor.required_if'   => 'Email pelapor harus diisi jika tidak anonim',
             'no_telp_pelapor.required_if' => 'Email pelapor harus diisi jika tidak anonim',
@@ -122,7 +124,7 @@ class LaporController extends Controller
 
             if ($validated['is_anonymous'] === 'y') {
                 $nama_pelapor       = 'Anonymous';
-                $email_pelapor      = 'Anonymous';
+                $email_pelapor      = !empty($validated['email_anonim']) ? $validated['email_anonim'] : 'Anonymous';
                 $no_telp_pelapor    = 'Anonymous';
                 $tipe_pelapor       = null;
             }
@@ -181,7 +183,7 @@ class LaporController extends Controller
                 'success'    => true,
                 'message'    => 'Laporan berhasil dibuat',
                 'kode_tiket' => $kode_tiket,
-                'redirect'   => route('lacak')
+                'redirect'   => route('lacak', ['kode' => $kode_tiket])
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -191,4 +193,3 @@ class LaporController extends Controller
         }
     }
 }
-

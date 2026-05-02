@@ -37,7 +37,6 @@
                             </div>
 
                             <div class="timeline-label">
-
                                 <div class="timeline-item">
                                     <div class="timeline-label fw-bold text-gray-700 fs-6">01</div>
                                     <div class="timeline-badge">
@@ -82,7 +81,7 @@
                                             <span class="fw-bold text-gray-900">Upload bukti</span>
                                             <span class="badge badge-light-info fs-8 px-3 py-2">Diproses</span>
                                         </div>
-                                        <div class="text-gray-600">Foto/screenshot/PDF (opsional tapi disarankan).</div>
+                                        <div class="text-gray-600">Foto/screenshot/PDF (maks. 5MB).</div>
                                     </div>
                                 </div>
 
@@ -139,6 +138,14 @@
                                     </div>
                                 </div>
 
+                                <div>
+                                    <label class="required form-label fw-semibold">Judul Laporan</label>
+                                    <input type="text" name="judul_laporan" class="form-control form-control-sm"
+                                        placeholder="Contoh: AC Ruang Lab 2 Gedung D tidak berfungsi"
+                                        value="{{ old('judul_laporan') }}" required>
+                                    <div class="text-muted fs-8 mt-1">Buat judul ringkas dan spesifik.</div>
+                                </div>
+
                                 <div class="row g-4">
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Tanggal & Waktu Kejadian</label>
@@ -160,14 +167,6 @@
                                 </div>
 
                                 <div>
-                                    <label class="required form-label fw-semibold">Judul Laporan</label>
-                                    <input type="text" name="judul_laporan" class="form-control form-control-sm"
-                                        placeholder="Contoh: AC Ruang Lab 2 Gedung D tidak berfungsi"
-                                        value="{{ old('judul_laporan') }}" required>
-                                    <div class="text-muted fs-8 mt-1">Buat judul ringkas dan spesifik.</div>
-                                </div>
-
-                                <div>
                                     <label class="required form-label fw-semibold">Kronologi / Deskripsi</label>
                                     <textarea name="deskripsi_laporan" id="desc" rows="5" class="form-control form-control-sm"
                                         placeholder="Tuliskan apa yang terjadi, kronologi, dampak, dan harapan..." required>{{ old('deskripsi_laporan') }}</textarea>
@@ -180,11 +179,12 @@
 
                                 <div>
                                     <label class="required form-label fw-semibold">Lampiran Bukti</label>
-                                    <input type="file" name="lampiran_file" class="form-control form-control-sm"
-                                        accept=".jpg,.jpeg,.png,.pdf">
+                                    <input type="file" name="lampiran_file" id="lampiran_file"
+                                        class="form-control form-control-sm" accept=".jpg,.jpeg,.png,.pdf">
                                     <div class="text-muted fs-8 mt-1">
-                                        Format: JPG/PNG/PDF. Disarankan: foto jelas / screenshot error.
+                                        Format: JPG / PNG / PDF. Maksimal ukuran file: <strong>5MB</strong>.
                                     </div>
+                                    <div id="file_error" class="text-danger fs-8 mt-1" style="display:none;"></div>
                                 </div>
 
                                 <div class="separator"></div>
@@ -195,16 +195,6 @@
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
                                             <input class="form-check-input" type="radio" name="is_anonymous"
                                                 value="t" {{ old('is_anonymous', 't') == 't' ? 'checked' : '' }}>
-                                            <span class="form-check-label">
-                                                <span class="fw-semibold text-gray-800">Terbuka</span>
-                                                <span class="text-muted fs-8 d-block">Identitas pelapor tercatat untuk
-                                                    verifikasi.</span>
-                                            </span>
-                                        </label>
-
-                                        <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" name="is_anonymous"
-                                                value="t" {{ old('is_anonymous') == 't' ? 'checked' : '' }}>
                                             <span class="form-check-label">
                                                 <span class="fw-semibold text-gray-800">Rahasia</span>
                                                 <span class="text-muted fs-8 d-block">Identitas hanya terlihat petugas
@@ -221,6 +211,19 @@
                                                     diizinkan kebijakan).</span>
                                             </span>
                                         </label>
+                                    </div>
+                                </div>
+
+                                <div id="anonEmailBlock" style="display:none;">
+                                    <label class="form-label fw-semibold">Email <span class="text-muted fw-normal">(opsional)</span></label>
+                                    <input type="email" id="email_anonim" name="email_anonim"
+                                        class="form-control form-control-sm" placeholder="nama@gmail.com"
+                                        value="{{ old('email_anonim') }}">
+                                    <div class="d-flex align-items-start gap-2 mt-2 p-3 rounded-2" style="background-color: #f1f5ff;">
+                                        <i class="fas fa-shield-alt text-primary fs-6 mt-1" style="min-width: 16px;"></i>
+                                        <span class="text-muted fs-8">
+                                            Alamat email Anda akan dirahasiakan dan hanya digunakan oleh sistem untuk mengirimkan notifikasi terkait perkembangan progress laporan.
+                                        </span>
                                     </div>
                                 </div>
 
@@ -244,36 +247,36 @@
                                             value="{{ old('no_telp_pelapor') }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Profesi/Tipe Pelapor</label>
+                                        <label class="required form-label fw-semibold">Profesi/Tipe Pelapor</label>
                                         <select name="tipe_pelapor" class="form-select form-select-sm"
                                             data-control="select2">
                                             <option value="" disabled {{ old('tipe_pelapor') ? '' : 'selected' }}>
-                                                Pilih
-                                                profesi</option>
+                                                Pilih profesi</option>
                                             <option value="Dosen" {{ old('tipe_pelapor') == 'Dosen' ? 'selected' : '' }}>
                                                 Dosen</option>
                                             <option value="Mahasiswa"
-                                                {{ old('tipe_pelapor') == 'Mahasiswa' ? 'selected' : '' }}>
-                                                Mahasiswa</option>
-                                            <option value="Karyawan"
-                                                {{ old('tipe_pelapor') == 'Karyawan' ? 'selected' : '' }}>
-                                                Karyawan</option>
+                                                {{ old('tipe_pelapor') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa
+                                            </option>
+                                            <option value="Tenaga Pendidik"
+                                                {{ old('tipe_pelapor') == 'Tenaga Pendidik' ? 'selected' : '' }}>Tenaga
+                                                Pendidik</option>
                                             <option value="Lainnya"
-                                                {{ old('tipe_pelapor') == 'Lainnya' ? 'selected' : '' }}>
-                                                Lainnya</option>
+                                                {{ old('tipe_pelapor') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                                         </select>
                                     </div>
-                                </div>                                
+                                </div>
 
                                 <div class="separator"></div>
 
                                 <div>
                                     <div class="fw-bold text-gray-900 mb-3">Verifikasi Captcha</div>
                                     <div class="d-flex align-items-center gap-3 mb-2">
-                                        <div class="bg-light-primary border border-primary border-dashed rounded-3 px-4 py-3 d-flex align-items-center justify-content-center" style="min-width: 160px;">
+                                        <div class="bg-light-primary border border-primary border-dashed rounded-3 px-4 py-3 d-flex align-items-center justify-content-center"
+                                            style="min-width: 160px;">
                                             <span id="captcha_question" class="fw-bold fs-4 text-primary">Memuat...</span>
                                         </div>
-                                        <button type="button" id="btn_refresh_captcha" class="btn btn-sm btn-icon btn-light-primary" title="Refresh Captcha">
+                                        <button type="button" id="btn_refresh_captcha"
+                                            class="btn btn-sm btn-icon btn-light-primary" title="Refresh Captcha">
                                             <i class="fas fa-sync-alt"></i>
                                         </button>
                                     </div>
@@ -281,7 +284,7 @@
                                         class="form-control form-control-sm" placeholder="Masukkan jawaban" required>
                                 </div>
 
-                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                <label class="form-check form-check-sm form-check-custom">
                                     <input class="form-check-input" type="checkbox" name="agreement" value="1"
                                         required>
                                     <span class="form-check-label text-muted">
@@ -327,9 +330,10 @@
             const descCount = document.getElementById('descCount');
             const radios = document.querySelectorAll('input[name="is_anonymous"]');
             const identityBlock = document.getElementById('identityBlock');
-
+            const anonEmailBlock = document.getElementById('anonEmailBlock');
             const namaPelapor = document.getElementById('nama_pelapor');
             const emailPelapor = document.getElementById('email_pelapor');
+            const emailAnonim = document.getElementById('email_anonim');
 
             function updateCount() {
                 const len = (desc?.value || '').length;
@@ -349,6 +353,13 @@
                     });
                 }
 
+                if (anonEmailBlock) {
+                    anonEmailBlock.style.display = isAnon ? '' : 'none';
+                    if (emailAnonim) {
+                        if (!isAnon) emailAnonim.value = '';
+                    }
+                }
+
                 if (isAnon) {
                     if (namaPelapor) namaPelapor.value = 'Anonymous';
                     if (emailPelapor) emailPelapor.value = 'Anonymous';
@@ -361,11 +372,10 @@
                     if (noTelp && noTelp.value === 'Anonymous') noTelp.value = '';
                 }
 
-                if (namaPelapor) isAnon ? namaPelapor.removeAttribute('required') : namaPelapor.setAttribute(
-                    'required', 'required');
-                if (emailPelapor) isAnon ? emailPelapor.removeAttribute('required') : emailPelapor.setAttribute(
-                    'required',
+                if (namaPelapor) isAnon ? namaPelapor.removeAttribute('required') : namaPelapor.setAttribute('required',
                     'required');
+                if (emailPelapor) isAnon ? emailPelapor.removeAttribute('required') : emailPelapor.setAttribute(
+                    'required', 'required');
             }
 
             if (desc) {
@@ -375,12 +385,40 @@
 
             radios.forEach(r => r.addEventListener('change', toggleIdentity));
             toggleIdentity();
+
+            const lampiranInput = document.getElementById('lampiran_file');
+            const fileError = document.getElementById('file_error');
+            const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+            const maxSize = 5 * 1024 * 1024;
+
+            if (lampiranInput) {
+                lampiranInput.addEventListener('change', function() {
+                    const file = this.files[0];
+                    fileError.style.display = 'none';
+                    fileError.textContent = '';
+
+                    if (!file) return;
+
+                    if (!allowedTypes.includes(file.type)) {
+                        fileError.textContent = 'Format file tidak didukung. Gunakan JPG, PNG, atau PDF.';
+                        fileError.style.display = 'block';
+                        this.value = '';
+                        return;
+                    }
+
+                    if (file.size > maxSize) {
+                        fileError.textContent = 'Ukuran file terlalu besar. Maksimal 5MB.';
+                        fileError.style.display = 'block';
+                        this.value = '';
+                        return;
+                    }
+                });
+            }
         })();
 
         KTUtil.onDOMContentLoaded(function() {
             const kategoriSelect = document.getElementById('kategori_id');
             const tglKejadianEl = document.querySelector('#tgl_kejadian');
-
             const unitTujuanEl = document.getElementById('unit_tujuan');
             const unitIdHiddenEl = document.getElementById('unit_id');
 
@@ -411,11 +449,6 @@
                                 const unitId = selectedOption.dataset.unitId;
                                 const unitName = selectedOption.dataset.unitName;
 
-                                console.log('Selected:', {
-                                    unitId,
-                                    unitName
-                                });
-
                                 if (unitId && unitTujuanEl) {
                                     unitTujuanEl.value = unitName || '';
                                     if (unitIdHiddenEl) unitIdHiddenEl.value = unitId;
@@ -437,7 +470,6 @@
                 });
             }
 
-            // Load captcha
             function loadCaptcha() {
                 fetch('{{ route('lapor.captcha') }}')
                     .then(res => res.json())
@@ -462,12 +494,23 @@
                 formLaporan.addEventListener('submit', function(e) {
                     e.preventDefault();
 
-                    // Validate captcha is filled
                     const captchaInput = document.getElementById('captcha_answer');
                     if (!captchaInput || !captchaInput.value.trim()) {
                         Swal.fire({
                             title: 'Captcha Belum Diisi',
                             text: 'Silakan jawab pertanyaan captcha terlebih dahulu.',
+                            icon: 'warning',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#1F4788'
+                        });
+                        return;
+                    }
+
+                    const fileError = document.getElementById('file_error');
+                    if (fileError && fileError.style.display === 'block') {
+                        Swal.fire({
+                            title: 'File Tidak Valid',
+                            text: fileError.textContent,
                             icon: 'warning',
                             confirmButtonText: 'OK',
                             confirmButtonColor: '#1F4788'
@@ -490,65 +533,83 @@
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
                                 'Accept': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    ?.content || ''
                             }
                         })
-                        .then(res => res.json())
+                        .then(res => {
+                            if (!res.ok) throw res;
+                            return res.json();
+                        })
                         .then(data => {
                             submitBtn.disabled = false;
                             indicatorLabel.style.display = 'inline-block';
                             indicatorProgress.style.display = 'none';
 
                             if (data.success) {
-                                if (typeof Swal !== 'undefined') {
-                                    Swal.fire({
-                                        title: 'Laporan Berhasil Dibuat!',
-                                        html: `
-                                            <div class="text-start">
-                                                <p class="mb-3 fw-semibold text-gray-800">Kode Tiket Anda:</p>
-                                                <div class="bg-light-primary p-4 rounded-3 mb-3">
-                                                    <h5 class="text-center fw-bold fs-2 text-primary">${data.kode_tiket}</h5>
-                                                </div>
-                                                <p class="text-muted mb-3">Simpan kode tiket ini untuk melacak status laporan Anda.</p>
+                                Swal.fire({
+                                    title: 'Laporan Berhasil Dibuat!',
+                                    html: `
+                                        <div class="text-start">
+                                            <p class="mb-3 fw-semibold text-gray-800">Kode Tiket Anda:</p>
+                                            <div class="bg-light-primary p-4 rounded-3 mb-3">
+                                                <h5 class="text-center fw-bold fs-2 text-primary">${data.kode_tiket}</h5>
                                             </div>
-                                        `,
-                                        icon: 'success',
-                                        confirmButtonText: 'Lacak Sekarang',
-                                        confirmButtonColor: '#1F4788',
-                                        allowOutsideClick: false,
-                                        allowEscapeKey: false
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            window.location.href = data.redirect;
-                                        }
-                                    });
-                                } else {
-                                    alert('Laporan berhasil dibuat! Kode tiket: ' + data.kode_tiket);
-                                    window.location.href = data.redirect;
-                                }
+                                            <p class="text-muted mb-3">Simpan kode tiket ini untuk melacak status laporan Anda.</p>
+                                        </div>
+                                    `,
+                                    icon: 'success',
+                                    confirmButtonText: 'Lacak Sekarang',
+                                    confirmButtonColor: '#1F4788',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = data.redirect;
+                                    }
+                                });
                             } else {
                                 loadCaptcha();
-                                if (typeof Swal !== 'undefined') {
-                                    Swal.fire({
-                                        title: 'Terjadi Kesalahan!',
-                                        text: data.message || 'Gagal membuat laporan.',
-                                        icon: 'error',
-                                        confirmButtonText: 'Coba Lagi',
-                                        confirmButtonColor: '#F64E60'
-                                    });
-                                } else {
-                                    alert('Error: ' + (data.message || 'Terjadi kesalahan'));
-                                }
+                                Swal.fire({
+                                    title: 'Terjadi Kesalahan!',
+                                    text: data.message || 'Gagal membuat laporan.',
+                                    icon: 'error',
+                                    confirmButtonText: 'Coba Lagi',
+                                    confirmButtonColor: '#F64E60'
+                                });
                             }
                         })
-                        .catch(err => {
-                            console.error('Error:', err);
+                        .catch(async err => {
                             submitBtn.disabled = false;
                             indicatorLabel.style.display = 'inline-block';
                             indicatorProgress.style.display = 'none';
                             loadCaptcha();
 
-                            if (typeof Swal !== 'undefined') {
+                            try {
+                                const errData = await err.json();
+                                const errors = errData.errors || {};
+                                const messages = Object.values(errors).flat();
+
+                                if (messages.length > 0) {
+                                    const htmlList = messages.map(m =>
+                                        `<li class="text-start">${m}</li>`).join('');
+                                    Swal.fire({
+                                        title: 'Validasi Gagal!',
+                                        html: `<ul class="ps-4 mb-0">${htmlList}</ul>`,
+                                        icon: 'warning',
+                                        confirmButtonText: 'OK',
+                                        confirmButtonColor: '#1F4788'
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Terjadi Kesalahan!',
+                                        text: errData.message || 'Gagal membuat laporan.',
+                                        icon: 'error',
+                                        confirmButtonText: 'Coba Lagi',
+                                        confirmButtonColor: '#F64E60'
+                                    });
+                                }
+                            } catch {
                                 Swal.fire({
                                     title: 'Terjadi Kesalahan!',
                                     text: 'Kesalahan jaringan. Silakan coba lagi.',
@@ -556,8 +617,6 @@
                                     confirmButtonText: 'Coba Lagi',
                                     confirmButtonColor: '#F64E60'
                                 });
-                            } else {
-                                alert('Error: Terjadi kesalahan jaringan');
                             }
                         });
                 });

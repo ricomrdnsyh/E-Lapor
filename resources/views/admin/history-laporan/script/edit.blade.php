@@ -86,7 +86,7 @@
                     success: function(data) {
                         const history = data.history;
                         const laporan = history.laporan || {};
-                        const privasi = laporan.is_anonymous === 'y' ? 'Anonim' : 'Terbuka / Rahasia';
+                        const privasi = laporan.is_anonymous === 'y' ? 'Anonim' : 'Rahasia';
 
                         document.getElementById('edit_kode_tiket').value = laporan.kode_tiket || '';
                         document.getElementById('edit_kategori').value = laporan.kategori?.nama_kategori || '-';

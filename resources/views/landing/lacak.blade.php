@@ -46,7 +46,7 @@
             pointer-events: none;
         }
 
-        .track-hero > * {
+        .track-hero>* {
             position: relative;
             z-index: 1;
         }
@@ -329,7 +329,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            min-height: 104px;
+            min-height: 88px;
         }
 
         .track-meta-value,
@@ -340,7 +340,7 @@
             font-weight: 700;
             margin-top: .35rem;
             word-break: break-word;
-            white-space: pre-wrap;
+            white-space: normal;
         }
 
         .track-list-item.full {
@@ -676,8 +676,10 @@
                     $completionEvidence = null;
 
                     if ($laporan?->status === 'selesai') {
-                        $completionEvidence = $history->where('status', 'selesai')->last()?->historyLaporan?->lampiran_file
-                            ?? $laporan->historyLaporans->where('status', 'selesai')->sortByDesc('updated_at')->first()?->lampiran_file;
+                        $completionEvidence =
+                            $history->where('status', 'selesai')->last()?->historyLaporan?->lampiran_file ??
+                            $laporan->historyLaporans->where('status', 'selesai')->sortByDesc('updated_at')->first()
+                                ?->lampiran_file;
                     }
                 @endphp
 
@@ -770,15 +772,15 @@
                                         </div>
                                     </div>
 
-                                        <div class="track-meta-stack">
-                                            <div class="track-meta-box">
-                                                <div class="track-meta-label">Kode Tiket</div>
-                                                <div class="track-meta-value">{{ $laporan->kode_tiket }}</div>
-                                            </div>
-                                            <div class="track-meta-box">
-                                                <div class="track-meta-label">Judul Laporan</div>
-                                                <div class="track-meta-value">{{ $laporan->judul_laporan }}</div>
-                                            </div>
+                                    <div class="track-meta-stack">
+                                        <div class="track-meta-box">
+                                            <div class="track-meta-label">Kode Tiket</div>
+                                            <div class="track-meta-value">{{ $laporan->kode_tiket }}</div>
+                                        </div>
+                                        <div class="track-meta-box">
+                                            <div class="track-meta-label">Judul Laporan</div>
+                                            <div class="track-meta-value">{{ $laporan->judul_laporan }}</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -813,7 +815,8 @@
                                         </div>
                                         <div class="track-list-item is-compact">
                                             <div class="track-list-label">Unit Penangan</div>
-                                            <div class="track-list-value">{{ $laporan->kategori?->unit?->nama_unit ?? '-' }}</div>
+                                            <div class="track-list-value">
+                                                {{ $laporan->kategori?->unit?->nama_unit ?? '-' }}</div>
                                         </div>
                                         <div class="track-list-item is-compact">
                                             <div class="track-list-label">Lokasi</div>
@@ -821,7 +824,14 @@
                                         </div>
                                         <div class="track-list-item is-compact">
                                             <div class="track-list-label">Tanggal Kejadian</div>
-                                            <div class="track-list-value">{{ $laporan->tgl_kejadian?->locale('id')->translatedFormat('d M Y') ?? '-' }}@if ($laporan->tgl_kejadian) • {{ $laporan->tgl_kejadian->format('H:i') }} @endif</div>
+                                            <div class="track-list-value">
+                                                @if ($laporan->tgl_kejadian)
+                                                    {{ $laporan->tgl_kejadian->locale('id')->translatedFormat('d M Y') }}
+                                                    &bull; {{ $laporan->tgl_kejadian->format('H:i') }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </div>
                                         </div>
                                         <div class="track-list-item full is-description">
                                             <div class="track-list-label">Deskripsi</div>
@@ -880,8 +890,13 @@
                                     @forelse ($history as $item)
                                         @php
                                             $itemStatus = $item->status ?? null;
-                                            $itemEvidence = $itemStatus === 'selesai' ? $item->historyLaporan?->lampiran_file : null;
-                                            $itemEvidenceUrl = $itemEvidence ? asset('uploads/history-laporan/' . $itemEvidence) : null;
+                                            $itemEvidence =
+                                                $itemStatus === 'selesai'
+                                                    ? $item->historyLaporan?->lampiran_file
+                                                    : null;
+                                            $itemEvidenceUrl = $itemEvidence
+                                                ? asset('uploads/history-laporan/' . $itemEvidence)
+                                                : null;
                                             $itemMeta = match ($itemStatus) {
                                                 'menunggu' => [
                                                     'bg' => 'bg-light-warning',
@@ -933,37 +948,28 @@
                                                 <div>
                                                     <div class="track-timeline-item-title">{{ $itemMeta['title'] }}</div>
                                                     <div class="track-timeline-item-text">
-                                                        {{ $item->catatan ?: $itemMeta['title'] }}
-                                                    </div>
+                                                        {{ $item->catatan ?: $itemMeta['title'] }}</div>
                                                     @if ($item->user)
-                                                        <div class="track-timeline-note">
-                                                            Diperbarui oleh
-                                                            {{ $item->user->nama ?? $item->user->unit?->nama_unit}}
-                                                        </div>
+                                                        <div class="track-timeline-note">Diperbarui oleh
+                                                            {{ $item->user->unit?->nama_unit ?? $item->user->nama }}</div>
                                                     @else
-                                                        <div class="track-timeline-note">
-                                                            Dibuat oleh pelapor
-                                                        </div>
+                                                        <div class="track-timeline-note">Dibuat oleh pelapor</div>
                                                     @endif
-
                                                     @if ($itemEvidenceUrl)
-                                                        <div class="track-timeline-note">
-                                                            Lampiran bukti penanganan tersedia untuk status selesai ini.
-                                                        </div>
+                                                        <div class="track-timeline-note">Lampiran bukti penanganan tersedia
+                                                            untuk status selesai ini.</div>
                                                         <div class="track-attachment-actions is-timeline">
                                                             <a href="{{ $itemEvidenceUrl }}" target="_blank"
                                                                 rel="noopener noreferrer"
-                                                                class="btn btn-sm btn-light-success">
-                                                                Lihat Bukti
-                                                            </a>
+                                                                class="btn btn-sm btn-light-success">Lihat Bukti</a>
                                                         </div>
                                                     @endif
                                                 </div>
                                                 <div class="track-timeline-meta">
                                                     <div class="track-timeline-date">
-                                                        {{ $item->created_at?->copy()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') }}
                                                         @if ($item->created_at)
-                                                            •
+                                                            {{ $item->created_at->copy()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') }}
+                                                            &bull;
                                                             {{ $item->created_at->copy()->setTimezone('Asia/Jakarta')->format('H:i') }}
                                                         @endif
                                                     </div>
@@ -990,9 +996,9 @@
                                                 </div>
                                                 <div class="track-timeline-meta">
                                                     <div class="track-timeline-date">
-                                                        {{ $laporan->updated_at?->copy()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') }}
                                                         @if ($laporan->updated_at)
-                                                            •
+                                                            {{ $laporan->updated_at->copy()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') }}
+                                                            &bull;
                                                             {{ $laporan->updated_at->copy()->setTimezone('Asia/Jakarta')->format('H:i') }}
                                                         @endif
                                                     </div>

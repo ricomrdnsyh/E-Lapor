@@ -110,7 +110,7 @@
                             </span>
                             <div>
                                 <div class="fw-bold text-gray-900">Notifikasi</div>
-                                <div class="text-muted fs-8">Update via Email</div>
+                                <div class="text-muted fs-8">Update via Telegram & Email</div>
                             </div>
                         </div>
 
@@ -337,7 +337,7 @@
                                         class="path2"></span></i>
                             </span>
                             <div class="fw-bold text-gray-900">Akademik</div>
-                            <div class="text-muted fs-7 mt-2">KRS, jadwal, nilai, administrasi akademik.</div>
+                            <div class="text-muted fs-7 mt-2">KRS, LMS, jadwal, nilai, administrasi akademik.</div>
                         </div>
                     </a>
                 </div>
@@ -363,7 +363,7 @@
                                         class="path2"></span></i>
                             </span>
                             <div class="fw-bold text-gray-900">TIK / Sistem Informasi </div>
-                            <div class="text-muted fs-7 mt-2">SSO, WiFi, LMS, email kampus, aplikasi layanan.</div>
+                            <div class="text-muted fs-7 mt-2">SSO, WiFi, email kampus, aplikasi layanan.</div>
                         </div>
                     </a>
                 </div>

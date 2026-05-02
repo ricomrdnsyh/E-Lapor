@@ -80,10 +80,8 @@
                         document.getElementById('show_tgl_kejadian').value = tglKejadian;
 
                         const privasi = laporan.is_anonymous === 'y' ? 'Anonim' :
-                            'Terbuka / Rahasia';
+                            'Rahasia';
                         document.getElementById('show_is_anonymous').value = privasi;
-
-
 
                         const createdAtFormatted = formatTanggal(laporan.created_at);
                         document.getElementById('show_created_at').value =

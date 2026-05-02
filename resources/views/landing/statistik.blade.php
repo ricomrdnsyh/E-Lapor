@@ -100,7 +100,7 @@
 
                                 <div class="fs-6 text-gray-600 mw-550px">
                                     Visualisasi data laporan yang telah dipublikasikan — tren bulanan, distribusi kategori,
-                                    profil pelapor, dan perbandingan laporan anonim versus terbuka.
+                                    profil pelapor, dan perbandingan laporan rahasia versus anonim.
                                 </div>
 
                                 <div class="d-flex flex-wrap gap-3 mt-7">
@@ -211,7 +211,7 @@
                         <div class="card card-flush h-100 border border-gray-200 shadow-sm">
                             <div class="card-header align-items-center border-0 pt-6 pb-0">
                                 <div class="card-title flex-column">
-                                    <h3 class="fw-bold text-gray-900 mb-1 fs-5">Anonim vs Terbuka</h3>
+                                    <h3 class="fw-bold text-gray-900 mb-1 fs-5">Rahasia vs Anonim</h3>
                                     <span class="text-gray-500 fs-7">Pilihan privasi pelapor</span>
                                 </div>
                             </div>
@@ -219,8 +219,8 @@
                                 <div id="anonimLegend" class="d-flex flex-wrap justify-content-center gap-3 mb-5"></div>
                                 <div class="chart-holder chart-holder-donut">
                                     <canvas id="anonimChart" role="img"
-                                        aria-label="Diagram donat perbandingan laporan anonim dan terbuka">
-                                        Perbandingan laporan anonim dan terbuka.
+                                        aria-label="Diagram donat perbandingan laporan rahasia dan anonim">
+                                        Perbandingan laporan rahasia dan anonim.
                                     </canvas>
                                 </div>
                             </div>
@@ -518,31 +518,25 @@
 
             const tipeLabels = {!! json_encode($tipePelapor->pluck('tipe_pelapor')) !!};
             const tipeData = {!! json_encode($tipePelapor->pluck('jumlah')) !!};
-            const tipeColors = [
-                colors.primary,
-                colors.danger,
-                colors.success,
-                colors.warning,
-                colors.info,
-                '#7239ea',
-                '#43ced7'
-            ];
-
-            const tipeLabelsClean = tipeLabels.map(function(label) {
-                return label ? label.charAt(0).toUpperCase() + label.slice(1) : 'Tidak Diketahui';
+            const tipeColorMap = {
+                'Dosen': colors.primary,
+                'Mahasiswa': colors.success,
+                'Tenaga Pendidik': colors.warning,
+                'Lainnya': colors.info
+            };
+            const tipeColors = tipeLabels.map(function(label) {
+                return tipeColorMap[label] || colors.danger;
             });
 
-            createLegend(document.getElementById('tipeLegend'), tipeLabelsClean, tipeData, tipeColors);
+            createLegend(document.getElementById('tipeLegend'), tipeLabels, tipeData, tipeColors);
 
             new Chart(document.getElementById('tipePelaporChart'), {
                 type: 'pie',
                 data: {
-                    labels: tipeLabelsClean,
+                    labels: tipeLabels,
                     datasets: [{
                         data: tipeData,
-                        backgroundColor: tipeLabelsClean.map(function(_, index) {
-                            return tipeColors[index % tipeColors.length];
-                        }),
+                        backgroundColor: tipeColors,
                         borderColor: colors.body,
                         borderWidth: 3,
                         hoverOffset: 10
@@ -560,8 +554,8 @@
                 }
             });
 
-            const anonData = [{{ $anonimData['anonim'] }}, {{ $anonimData['terbuka'] }}];
-            const anonLabels = ['Anonim', 'Terbuka'];
+            const anonData = [{{ $anonimData['rahasia'] }}, {{ $anonimData['anonim'] }}];
+            const anonLabels = ['Rahasia', 'Anonim'];
             const anonColors = [colors.primary, colors.success];
 
             createLegend(document.getElementById('anonimLegend'), anonLabels, anonData, anonColors);

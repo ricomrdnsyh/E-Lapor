@@ -165,7 +165,7 @@
                                     <label class="form-check">
                                         <input class="form-check-input" type="radio" name="is_anonymous"
                                             value="t" id="edit_is_anonymous_t">
-                                        <span class="form-check-label">Terbuka / Rahasia</span>
+                                        <span class="form-check-label">Rahasia</span>
                                     </label>
                                     <label class="form-check">
                                         <input class="form-check-input" type="radio" name="is_anonymous"

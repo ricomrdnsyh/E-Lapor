@@ -15,14 +15,21 @@ class StatistikController extends Controller
         // 1. Total laporan
         $totalLaporan = Laporan::count();
 
-        // 2. Tipe pelapor
-        $tipePelapor = Laporan::select('tipe_pelapor')
+        // 2. Tipe pelapor (4 kategori tetap)
+        $fixedTipes = ['Dosen', 'Mahasiswa', 'Tenaga Pendidik', 'Lainnya'];
+        $tipePelaporRaw = Laporan::select('tipe_pelapor')
             ->selectRaw('COUNT(*) as jumlah')
-            ->whereNotNull('tipe_pelapor')
-            ->where('tipe_pelapor', '!=', '')
+            ->whereIn('tipe_pelapor', $fixedTipes)
             ->groupBy('tipe_pelapor')
-            ->orderByDesc('jumlah')
-            ->get();
+            ->get()
+            ->keyBy('tipe_pelapor');
+
+        $tipePelapor = collect($fixedTipes)->map(function ($tipe) use ($tipePelaporRaw) {
+            return (object) [
+                'tipe_pelapor' => $tipe,
+                'jumlah'       => $tipePelaporRaw->get($tipe)?->jumlah ?? 0,
+            ];
+        });
 
         // 3. Tren bulanan (12 bulan terakhir)
         $trenBulanan = Laporan::select(
@@ -53,11 +60,11 @@ class StatistikController extends Controller
             ->orderByDesc('jumlah_laporan')
             ->get();
 
-        // 5. Anonim vs Terbuka
+        // 5. Rahasia vs Anonim
         $anonimCount = Laporan::where('is_anonymous', 'y')->count();
         $anonimData = [
+            'rahasia' => max(0, $totalLaporan - $anonimCount),
             'anonim'  => $anonimCount,
-            'terbuka' => max(0, $totalLaporan - $anonimCount),
         ];
 
         return view('landing.statistik', compact(
