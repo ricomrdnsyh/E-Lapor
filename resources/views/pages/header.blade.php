@@ -61,6 +61,12 @@
                     FAQ
                 </a>
 
+                <a href="{{ route('statistik') }}"
+                    class="elapor-nav-link {{ request()->routeIs('statistik*') ? 'is-active' : '' }}"
+                    @if (request()->routeIs('statistik*')) aria-current="page" @endif>
+                    Statistik
+                </a>
+
                 <a href="{{ route('lacak') }}"
                     class="elapor-nav-link {{ request()->routeIs('lacak*') ? 'is-active' : '' }}"
                     @if (request()->routeIs('lacak*')) aria-current="page" @endif>
@@ -119,6 +125,9 @@
             </a>
             <a href="{{ route('faq') }}" class="btn {{ request()->routeIs('faq*') ? 'btn-primary' : 'btn-light' }}">
                 FAQ
+            </a>
+            <a href="{{ route('statistik') }}" class="btn {{ request()->routeIs('statistik*') ? 'btn-primary' : 'btn-light' }}">
+                Statistik
             </a>
             <a href="{{ route('lacak') }}"
                 class="btn {{ request()->routeIs('lacak*') ? 'btn-primary' : 'btn-light' }}">

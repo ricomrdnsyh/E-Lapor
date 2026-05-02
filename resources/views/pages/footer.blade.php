@@ -84,6 +84,8 @@
                             class="text-white text-hover-warning d-block mb-2 text-decoration-none">Alur Penanganan</a>
                         <a href="{{ route('faq') }}"
                             class="text-white text-hover-warning d-block mb-2 text-decoration-none">FAQ</a>
+                        <a href="{{ route('statistik') }}"
+                            class="text-white text-hover-warning d-block mb-2 text-decoration-none">Statistik</a>
                         <a href="{{ route('lacak') }}"
                             class="text-white text-hover-warning d-block mb-2 text-decoration-none">Pelacakan</a>
                     </div>

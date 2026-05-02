@@ -26,6 +26,29 @@
                 max-width: 100%;
             }
         }
+
+        .unit-stat-card {
+            background: #ffffff;
+        }
+
+        .unit-stat-card:hover {
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, .08);
+            transform: translateY(-2px);
+        }
+
+        .btn-selengkapnya {
+            border: 2px solid var(--bs-primary, #3b82f6) !important;
+            color: var(--bs-primary, #3b82f6) !important;
+            background: transparent !important;
+            transition: all .2s ease;
+        }
+
+        .btn-selengkapnya:hover {
+            background-color: var(--bs-primary, #3b82f6) !important;
+            border-color: var(--bs-primary, #3b82f6) !important;
+            color: #ffffff !important;
+        }
     </style>
 @endsection
 
@@ -191,6 +214,55 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- STATISTIK -->
+    <section id="statistik" class="py-0">
+        <div class="position-relative overflow-hidden"
+            style="background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 58%, #60a5fa 100%);">
+            <span class="position-absolute"
+                style="width:350px;height:350px;border-radius:50%;background:rgba(255,255,255,.06);top:-120px;right:-60px;"></span>
+            <span class="position-absolute"
+                style="width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04);bottom:-80px;left:60px;"></span>
+            <div class="container position-relative py-12 py-lg-16 text-center">
+                <h1 class="text-white text-uppercase mb-5"
+                    style="letter-spacing:.12em; font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight:900;">Jumlah Laporan
+                    Sekarang</h1>
+                <div class="counter-value fw-bolder text-white"
+                    style="font-size: clamp(3.5rem, 9vw, 6rem); line-height:1; letter-spacing:-.03em;"
+                    data-target="{{ $totalLaporan }}">0</div>
+            </div>
+        </div>
+
+        <div class="py-10 py-lg-14 bg-white">
+            <div class="container">
+                <div class="text-center mb-8">
+                    <h1 class="fw-bolder text-gray-700 text-uppercase mb-2"
+                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Laporan Kategori Unit</h1>
+                </div>
+
+                <div class="row g-4 g-lg-6 justify-content-center mb-8">
+                    @foreach ($laporanPerKategori as $kategori)
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="text-center p-5 rounded-3 unit-stat-card"
+                                style="border: 1px solid #f1f5f9; transition: all .2s ease;">
+                                <div class="fw-bolder text-gray-900 mb-1"
+                                    style="font-size: clamp(1.8rem, 3vw, 2.6rem); line-height:1;">
+                                    <span class="counter-unit" data-target="{{ $kategori->jumlah_laporan }}">0</span>
+                                </div>
+                                <div class="text-muted fw-semibold fs-7">{{ $kategori->nama_kategori }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="text-center">
+                    <a href="{{ route('statistik') }}" class="btn btn-outline-primary fw-bold btn-selengkapnya">
+                        LIHAT SELENGKAPNYA
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -594,4 +666,49 @@
 
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function animateCounter(el, target, duration) {
+                let start = 0;
+                const startTime = performance.now();
+                const formatter = new Intl.NumberFormat('id-ID');
+
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // easeOutExpo
+                    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                    const current = Math.floor(eased * target);
+                    el.textContent = formatter.format(current);
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    }
+                }
+                requestAnimationFrame(update);
+            }
+
+            function handleIntersect(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+                        const duration = el.classList.contains('counter-value') ? 2000 : 1500;
+                        animateCounter(el, target, duration);
+                        observer.unobserve(el);
+                    }
+                });
+            }
+
+            const observer = new IntersectionObserver(handleIntersect, {
+                threshold: 0.3
+            });
+
+            document.querySelectorAll('.counter-value, .counter-unit').forEach(function(el) {
+                observer.observe(el);
+            });
+        });
+    </script>
 @endsection
