@@ -553,9 +553,15 @@
                                         <div class="text-start">
                                             <p class="mb-3 fw-semibold text-gray-800">Kode Tiket Anda:</p>
                                             <div class="bg-light-primary p-4 rounded-3 mb-3">
-                                                <h5 class="text-center fw-bold fs-2 text-primary">${data.kode_tiket}</h5>
+                                                <h5 class="text-center fw-bold fs-2 text-primary" style="user-select:all; cursor:pointer;" title="Klik untuk menyalin">${data.kode_tiket}</h5>
                                             </div>
-                                            <p class="text-muted mb-3">Simpan kode tiket ini untuk melacak status laporan Anda.</p>
+                                            <div class="d-flex align-items-start gap-2 p-3 rounded-2 mb-3" style="background-color:#fff3cd; border:1px solid #ffecb5;">
+                                                <i class="fas fa-exclamation-triangle text-warning fs-4 mt-1" style="min-width:20px;"></i>
+                                                <div>
+                                                    <span class="fw-bold text-dark d-block mb-1">Penting! Simpan Kode Tiket Ini</span>
+                                                    <span class="text-gray-700 fs-7">Harap <b>catat</b>, <b>salin</b>, atau <b>screenshot</b> kode tiket di atas untuk melacak status laporan Anda.</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     `,
                                     icon: 'success',
