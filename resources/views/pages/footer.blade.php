@@ -11,7 +11,7 @@
                     </span>
 
                     <div class="ms-3">
-                        <div class="fw-bold fs-4">E-Lapor Universitas Nurul Jadid</div>
+                        <div class="fw-bold fs-4">E-LAPOR Universitas Nurul Jadid</div>
                         <div class="text-white fs-7">
                             Kanal resmi pengaduan & aspirasi civitas akademika
                         </div>

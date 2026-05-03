@@ -30,7 +30,7 @@
                     </span>
 
                     <div class="ms-3">
-                        <div class="fw-bold text-gray-900 lh-1 fs-5">E-Lapor</div>
+                        <div class="fw-bold text-gray-900 lh-1 fs-5">E-LAPOR</div>
                         <div class="text-muted fs-8">Universitas Nurul Jadid</div>
                     </div>
                 </a>

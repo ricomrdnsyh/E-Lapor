@@ -7,6 +7,7 @@ use App\Models\HistoryLaporan;
 use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
+use App\Services\EmailNotificationService;
 use App\Services\TelegramNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -177,6 +178,13 @@ class LaporController extends Controller
                 app(TelegramNotificationService::class)->notifyNewLaporan($laporan);
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error('[TelegramNotif] Error: ' . $e->getMessage());
+            }
+
+            // Kirim notifikasi Email ke pelapor
+            try {
+                app(EmailNotificationService::class)->notifyLaporanBaru($laporan);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('[EmailNotif] Error: ' . $e->getMessage());
             }
 
             return response()->json([

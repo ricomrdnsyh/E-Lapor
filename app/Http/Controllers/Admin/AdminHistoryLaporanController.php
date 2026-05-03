@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HistoryLaporan;
 use App\Models\LogStatusLaporan;
+use App\Services\EmailNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -157,6 +158,20 @@ class AdminHistoryLaporanController extends Controller
         $history->laporan()->update([
             'status' => $request->status,
         ]);
+
+        // Kirim notifikasi email ke pelapor
+        try {
+            $laporan = $history->laporan;
+            if ($laporan) {
+                app(EmailNotificationService::class)->notifyLaporanUpdate(
+                    $laporan,
+                    $request->status,
+                    $request->catatan
+                );
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('[EmailNotif] Error update admin: ' . $e->getMessage());
+        }
 
         return redirect()->route('admin.history-laporan.index')->with('success', 'History laporan berhasil diperbarui.');
     }
