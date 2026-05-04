@@ -117,6 +117,18 @@
                                 <span class="badge badge-light-primary">E-Lapor</span>
                             </div>
 
+                            @php $ssoUser = session('sso_user'); @endphp
+
+                            @if($ssoUser)
+                                <div class="d-flex align-items-start gap-3 p-4 rounded-3 mb-5" style="background-color: #e8f5e9; border: 1px solid #a5d6a7;">
+                                    <i class="fas fa-user-check text-success fs-3 mt-1"></i>
+                                    <div>
+                                        <span class="fw-bold text-success d-block mb-1">Login via SSO UNUJA</span>
+                                        <span class="text-gray-700 fs-7">Halo, <strong>{{ $ssoUser['nama'] }}</strong>! Data identitas Anda sudah terisi otomatis dari SSO.</span>
+                                    </div>
+                                </div>
+                            @endif
+
                             <form action="{{ route('lapor.store') }}" method="POST" enctype="multipart/form-data"
                                 class="d-flex flex-column gap-5" id="form_laporan">
                                 @csrf
@@ -194,13 +206,14 @@
                                     <div class="d-flex flex-column gap-2">
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
                                             <input class="form-check-input" type="radio" name="is_anonymous"
-                                                value="t" {{ old('is_anonymous', 't') == 't' ? 'checked' : '' }}>
+                                                value="t" checked>
                                             <span class="form-check-label">
                                                 <span class="fw-semibold text-gray-800">Rahasia</span>
                                                 <span class="text-muted fs-8 d-block">Identitas hanya terlihat petugas
                                                     berwenang.</span>
                                             </span>
                                         </label>
+
 
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
                                             <input class="form-check-input" type="radio" name="is_anonymous"
@@ -227,42 +240,49 @@
                                     </div>
                                 </div>
 
+
                                 <div id="identityBlock" class="row g-4">
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Nama Pelapor</label>
                                         <input type="text" id="nama_pelapor" name="nama_pelapor"
                                             class="form-control form-control-sm" placeholder="Nama lengkap"
-                                            value="{{ old('nama_pelapor') }}" required>
+                                            value="{{ $ssoUser['nama'] ?? old('nama_pelapor') }}"
+                                            {{ $ssoUser ? 'readonly' : '' }} required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Email</label>
                                         <input type="email" id="email_pelapor" name="email_pelapor"
                                             class="form-control form-control-sm" placeholder="nama@gmail.com"
-                                            value="{{ old('email_pelapor') }}" required>
+                                            value="{{ $ssoUser['email'] ?? old('email_pelapor') }}"
+                                            {{ $ssoUser && !empty($ssoUser['email']) ? 'readonly' : '' }} required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">No. Telepon</label>
                                         <input type="text" id="no_telp_pelapor" name="no_telp_pelapor"
                                             class="form-control form-control-sm" placeholder="08xxxxxxxxxx"
-                                            value="{{ old('no_telp_pelapor') }}">
+                                            value="{{ $ssoUser['no_telp'] ?? old('no_telp_pelapor') }}"
+                                            {{ $ssoUser && !empty($ssoUser['no_telp']) ? 'readonly' : '' }}>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Profesi/Tipe Pelapor</label>
-                                        <select name="tipe_pelapor" class="form-select form-select-sm"
-                                            data-control="select2">
-                                            <option value="" disabled {{ old('tipe_pelapor') ? '' : 'selected' }}>
+                                        <select name="{{ $ssoUser ? '' : 'tipe_pelapor' }}" id="tipe_pelapor" class="form-select form-select-sm"
+                                            data-control="select2" {{ $ssoUser ? 'disabled' : '' }}>
+                                            <option value="" disabled {{ (!$ssoUser && !old('tipe_pelapor')) ? 'selected' : '' }}>
                                                 Pilih profesi</option>
-                                            <option value="Dosen" {{ old('tipe_pelapor') == 'Dosen' ? 'selected' : '' }}>
+                                            <option value="Dosen" {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Dosen' ? 'selected' : '' }}>
                                                 Dosen</option>
                                             <option value="Mahasiswa"
-                                                {{ old('tipe_pelapor') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa
                                             </option>
                                             <option value="Tenaga Pendidik"
-                                                {{ old('tipe_pelapor') == 'Tenaga Pendidik' ? 'selected' : '' }}>Tenaga
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Tenaga Pendidik' ? 'selected' : '' }}>Tenaga
                                                 Pendidik</option>
                                             <option value="Lainnya"
-                                                {{ old('tipe_pelapor') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                                         </select>
+                                        @if($ssoUser)
+                                            <input type="hidden" name="tipe_pelapor" value="{{ $ssoUser['tipe'] }}">
+                                        @endif
                                     </div>
                                 </div>
 

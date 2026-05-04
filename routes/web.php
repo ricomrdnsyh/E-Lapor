@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\SsoController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminUnitController;
 use App\Http\Controllers\Admin\AdminKategoriController;
@@ -31,9 +32,14 @@ Route::get('/lapor/data/categories', [LaporController::class, 'getCategories'])-
 Route::get('/lapor/captcha', [LaporController::class, 'generateCaptcha'])->name('lapor.captcha');
 Route::get('/lacak', [LacakController::class, 'index'])->name('lacak');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::get('/login-admin', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/sso', [SsoController::class, 'sso']);
+Route::get('/sso/lapor', [SsoController::class, 'lapor']);
+Route::get('/sso/admin', [SsoController::class, 'admin']);
+Route::get('/sso/logout/{sessionId}', [SsoController::class, 'logout']);
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard.index');

@@ -48,7 +48,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('beranda')->with('success', 'Anda telah logout');
+        return redirect('https://sso.unuja.ac.id');
     }
 
     private function redirectBasedOnRole()
