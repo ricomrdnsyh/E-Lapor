@@ -12,89 +12,35 @@
             --admin-bg-soft: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
         }
 
-        .admin-dashboard .hero-card {
-            background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 58%, #60a5fa 100%);
-            border: 0;
-            border-radius: 1.25rem;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 18px 48px rgba(15, 23, 42, 0.18);
+        .hero-welcome-card {
+            background: linear-gradient(135deg, var(--bs-primary) 0%, #1b84ff 50%, #7239ea 100%);
         }
 
-        .admin-dashboard .hero-card::before,
-        .admin-dashboard .hero-card::after {
+        .hero-welcome-card::before {
             content: "";
             position: absolute;
+            width: 280px;
+            height: 280px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+            top: -120px;
+            right: -60px;
+            pointer-events: none;
         }
 
-        .admin-dashboard .hero-card::before {
-            width: 220px;
-            height: 220px;
-            top: -90px;
-            right: -40px;
-        }
-
-        .admin-dashboard .hero-card::after {
-            width: 160px;
-            height: 160px;
-            bottom: -70px;
-            right: 140px;
-        }
-
-        .admin-dashboard .hero-card .card-body {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-        }
-
-        .admin-dashboard .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            padding: .45rem .85rem;
+        .hero-welcome-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.14);
-            color: #eff6ff;
-            font-size: .85rem;
-            font-weight: 600;
+            background: rgba(255, 255, 255, 0.04);
+            bottom: -80px;
+            left: 10%;
+            pointer-events: none;
         }
 
-        .admin-dashboard .hero-title {
-            color: #ffffff;
-            font-size: clamp(1.65rem, 2.6vw, 2.35rem);
-            font-weight: 800;
-            line-height: 1.2;
-            margin: 1rem 0 .75rem;
-        }
 
-        .admin-dashboard .hero-subtitle {
-            color: rgba(255, 255, 255, 0.82);
-            max-width: 760px;
-            font-size: .98rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .admin-dashboard .hero-inline-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem 1.5rem;
-            margin-top: .5rem;
-        }
-
-        .admin-dashboard .hero-inline-item {
-            display: inline-flex;
-            align-items: center;
-            gap: .6rem;
-            color: rgba(255, 255, 255, 0.84);
-            font-size: .92rem;
-        }
-
-        .admin-dashboard .hero-inline-item i {
-            color: #bfdbfe;
-            font-size: 1rem;
-        }
 
         .admin-dashboard .stat-card,
         .admin-dashboard .info-card,
@@ -174,28 +120,28 @@
         }
 
         .admin-dashboard .theme-total .stat-icon {
-            background: #dbeafe;
-            color: #2563eb;
+            background: rgba(114, 57, 234, 0.12);
+            color: #7239ea;
         }
 
         .admin-dashboard .theme-menunggu .stat-icon {
-            background: #fef3c7;
-            color: #d97706;
+            background: rgba(255, 199, 0, 0.12);
+            color: #ffc700;
         }
 
         .admin-dashboard .theme-diproses .stat-icon {
-            background: #dbeafe;
-            color: #0284c7;
+            background: rgba(0, 158, 247, 0.12);
+            color: #009ef7;
         }
 
         .admin-dashboard .theme-selesai .stat-icon {
-            background: #dcfce7;
-            color: #16a34a;
+            background: rgba(80, 205, 137, 0.12);
+            color: #50cd89;
         }
 
         .admin-dashboard .theme-ditolak .stat-icon {
-            background: #fee2e2;
-            color: #dc2626;
+            background: rgba(241, 65, 108, 0.12);
+            color: #f1416c;
         }
 
         .admin-dashboard .chart-wrap {
@@ -403,6 +349,35 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .admin-dashboard .chart-holder {
+            position: relative;
+            width: 100%;
+        }
+
+        .admin-dashboard .chart-holder-trend {
+            height: 300px;
+        }
+
+        .admin-dashboard .chart-holder-donut {
+            height: 260px;
+        }
+
+        .admin-dashboard .chart-holder-bar {
+            height: var(--chart-height);
+        }
+
+        .admin-dashboard .chart-holder-pie {
+            height: 280px;
+        }
+
+        .admin-dashboard .chart-legend-swatch {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            display: inline-block;
+        }
     </style>
 @endsection
 
@@ -413,45 +388,33 @@
                 <div id="kt_app_content_container" class="app-container container-fluid">
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-12">
-                            <div class="card hero-card">
-                                <div class="card-body">
-                                    <div class="hero-badge">
-                                        <i class="ki-duotone ki-shield-tick fs-5 text-white">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                        <span>Dashboard Admin</span>
+                            <div class="card card-flush hero-welcome-card border-0 overflow-hidden">
+                                <div class="card-body d-flex flex-column flex-md-row align-items-center p-8 p-lg-10 position-relative" style="z-index:1">
+                                    <div class="d-flex flex-column flex-grow-1 me-md-8 mb-5 mb-md-0">
+                                        <div class="d-inline-flex align-items-center bg-white bg-opacity-15 rounded-pill px-4 py-2 mb-4" style="width:fit-content">
+                                            <i class="ki-duotone ki-shield-tick fs-4 text-white me-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                            <span class="text-white fw-semibold fs-7">Dashboard Admin</span>
+                                        </div>
+                                        <h1 class="text-white fw-bolder mb-3" style="font-size:clamp(1.5rem,2.5vw,2rem)">Selamat Datang, {{ $user->nama }}!</h1>
+                                        <p class="text-white text-opacity-75 fs-5 mb-0 mw-700px">
+                                            Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit secara terpusat.
+                                        </p>
                                     </div>
-
-                                    <h1 class="hero-title">Ringkasan pengelolaan seluruh laporan E-Lapor</h1>
-                                    <p class="hero-subtitle">
-                                        Dashboard admin menampilkan gambaran menyeluruh terhadap seluruh laporan yang masuk,
-                                        sehingga pemantauan status, tindak lanjut, dan distribusi progres bisa dilihat dalam
-                                        satu tampilan.
-                                    </p>
-
-                                    <div class="hero-inline-info">
-                                        <div class="hero-inline-item">
-                                            <i class="ki-duotone ki-abstract-26">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                            <span>Monitoring seluruh laporan lintas unit</span>
+                                    <div class="d-flex gap-4 flex-wrap justify-content-center">
+                                        <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
+                                            <div class="text-white fw-bolder fs-2x lh-1">{{ $stats['total'] ?? 0 }}</div>
+                                            <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Total Laporan</div>
                                         </div>
-                                        <div class="hero-inline-item">
-                                            <i class="ki-duotone ki-timer">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                            <span>Membantu melihat antrean dan progres penanganan global</span>
+                                        <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
+                                            <div class="text-white fw-bolder fs-2x lh-1">{{ $meta['total_unit'] ?? 0 }}</div>
+                                            <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Unit Aktif</div>
                                         </div>
-                                        <div class="hero-inline-item">
-                                            <i class="ki-duotone ki-chart-pie-3">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                                <span class="path3"></span>
-                                            </i>
-                                            <span>Distribusi status tersaji dalam grafik lingkaran</span>
+                                        <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
+                                            <div class="text-white fw-bolder fs-2x lh-1">{{ $meta['total_user'] ?? 0 }}</div>
+                                            <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Pengguna</div>
                                         </div>
                                     </div>
                                 </div>
@@ -590,28 +553,28 @@
                                     <div class="legend-list">
                                         <div class="legend-item">
                                             <div class="legend-left">
-                                                <span class="legend-dot" style="background:#f59e0b"></span>
+                                                <span class="legend-dot" style="background:#ffc700"></span>
                                                 <span class="legend-label">Menunggu Respons</span>
                                             </div>
                                             <span class="legend-value">{{ $stats['menunggu'] ?? 0 }}</span>
                                         </div>
                                         <div class="legend-item">
                                             <div class="legend-left">
-                                                <span class="legend-dot" style="background:#0ea5e9"></span>
+                                                <span class="legend-dot" style="background:#009ef7"></span>
                                                 <span class="legend-label">Diproses</span>
                                             </div>
                                             <span class="legend-value">{{ $stats['diproses'] ?? 0 }}</span>
                                         </div>
                                         <div class="legend-item">
                                             <div class="legend-left">
-                                                <span class="legend-dot" style="background:#22c55e"></span>
+                                                <span class="legend-dot" style="background:#50cd89"></span>
                                                 <span class="legend-label">Selesai</span>
                                             </div>
                                             <span class="legend-value">{{ $stats['selesai'] ?? 0 }}</span>
                                         </div>
                                         <div class="legend-item">
                                             <div class="legend-left">
-                                                <span class="legend-dot" style="background:#ef4444"></span>
+                                                <span class="legend-dot" style="background:#f1416c"></span>
                                                 <span class="legend-label">Ditolak</span>
                                             </div>
                                             <span class="legend-value">{{ $stats['ditolak'] ?? 0 }}</span>
@@ -665,6 +628,61 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row g-5 g-xl-10 mb-5">
+                        <div class="col-lg-8">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Tren Laporan Bulanan</div>
+                                    <div class="text-muted fs-7 mb-4">Jumlah laporan masuk per bulan — 12 bulan terakhir</div>
+                                    <div class="chart-holder chart-holder-trend">
+                                        <canvas id="trenChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Rahasia vs Anonim</div>
+                                    <div class="text-muted fs-7 mb-4">Pilihan privasi pelapor</div>
+                                    <div id="anonimLegend" class="d-flex flex-wrap justify-content-center gap-3 mb-5"></div>
+                                    <div class="chart-holder chart-holder-donut">
+                                        <canvas id="anonimChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-5 g-xl-10">
+                        <div class="col-lg-8">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Laporan per Kategori</div>
+                                    <div class="text-muted fs-7 mb-4">Distribusi berdasarkan kategori laporan</div>
+                                    <div class="chart-holder chart-holder-bar" style="--chart-height: {{ max(280, count($laporanPerKategori) * 46) }}px;">
+                                        <canvas id="kategoriChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Tipe Pelapor</div>
+                                    <div class="text-muted fs-7 mb-4">Profil berdasarkan kategori pengguna</div>
+                                    <div id="tipeLegend" class="d-flex flex-wrap justify-content-center gap-3 mb-5"></div>
+                                    <div class="chart-holder chart-holder-pie">
+                                        <canvas id="tipePelaporChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -674,48 +692,241 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('assets/plugins/custom/chartjs/chartjs.bundle.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const cssVar = function(name, fallback) {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+                return value || fallback;
+            };
+
+            const colors = {
+                primary: cssVar('--bs-primary', '#009ef7'),
+                success: cssVar('--bs-success', '#50cd89'),
+                info: cssVar('--bs-info', '#7239ea'),
+                warning: cssVar('--bs-warning', '#ffc700'),
+                danger: cssVar('--bs-danger', '#f1416c'),
+                dark: cssVar('--bs-dark', '#181c32'),
+                body: cssVar('--bs-body-bg', '#ffffff'),
+                gray100: cssVar('--bs-gray-100', '#f5f8fa'),
+                gray200: cssVar('--bs-gray-200', '#eff2f5'),
+                gray300: cssVar('--bs-gray-300', '#e4e6ef'),
+                gray500: cssVar('--bs-gray-500', '#a1a5b7'),
+                gray600: cssVar('--bs-gray-600', '#7e8299'),
+                gray700: cssVar('--bs-gray-700', '#5e6278')
+            };
+
+            Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+            Chart.defaults.color = colors.gray500;
+            Chart.defaults.borderColor = colors.gray200;
+
+            const palette = [
+                colors.primary, colors.success, colors.info, colors.warning,
+                colors.danger, '#7239ea', '#43ced7', '#ff6f1e'
+            ];
+
+            const tooltipOptions = {
+                backgroundColor: colors.dark,
+                titleColor: colors.body,
+                bodyColor: colors.gray500,
+                padding: 12,
+                cornerRadius: 8,
+                displayColors: true,
+                boxPadding: 5
+            };
+
             const chartElement = document.getElementById('adminStatusChart');
 
-            if (!chartElement || typeof Chart === 'undefined') {
-                return;
-            }
-
-            new Chart(chartElement, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Menunggu Respons', 'Diproses', 'Selesai', 'Ditolak'],
-                    datasets: [{
-                        data: [
-                            {{ $stats['menunggu'] ?? 0 }},
-                            {{ $stats['diproses'] ?? 0 }},
-                            {{ $stats['selesai'] ?? 0 }},
-                            {{ $stats['ditolak'] ?? 0 }}
-                        ],
-                        backgroundColor: ['#f59e0b', '#0ea5e9', '#22c55e', '#ef4444'],
-                        borderColor: '#ffffff',
-                        borderWidth: 6,
-                        hoverOffset: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '68%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: '#0f172a',
-                            padding: 12,
-                            displayColors: true
+            if (chartElement && typeof Chart !== 'undefined') {
+                new Chart(chartElement, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Menunggu Respons', 'Diproses', 'Selesai', 'Ditolak'],
+                        datasets: [{
+                            data: [
+                                {{ $stats['menunggu'] ?? 0 }},
+                                {{ $stats['diproses'] ?? 0 }},
+                                {{ $stats['selesai'] ?? 0 }},
+                                {{ $stats['ditolak'] ?? 0 }}
+                            ],
+                            backgroundColor: [colors.warning, colors.primary, colors.success, colors.danger],
+                            borderColor: colors.body,
+                            borderWidth: 6,
+                            hoverOffset: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '68%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: tooltipOptions
                         }
                     }
-                }
-            });
+                });
+            }
+
+            function rgba(hex, alpha) {
+                const value = hex.replace('#', '');
+                const r = parseInt(value.substring(0, 2), 16);
+                const g = parseInt(value.substring(2, 4), 16);
+                const b = parseInt(value.substring(4, 6), 16);
+                return `rgba(${r},${g},${b},${alpha})`;
+            }
+
+            function createLegend(el, labels, data, legendColors) {
+                if(!el) return;
+                const total = data.reduce((a, b) => a + Number(b), 0);
+                labels.forEach((label, index) => {
+                    const item = document.createElement('span');
+                    const swatch = document.createElement('span');
+                    const percent = total > 0 ? Math.round(Number(data[index]) / total * 100) : 0;
+
+                    item.className = 'd-flex align-items-center text-gray-600 fs-7';
+                    swatch.className = 'admin-dashboard chart-legend-swatch me-2';
+                    swatch.style.backgroundColor = legendColors[index % legendColors.length];
+
+                    item.appendChild(swatch);
+                    item.appendChild(document.createTextNode(`${label} ${percent}%`));
+                    el.appendChild(item);
+                });
+            }
+
+            // 1. Tren Laporan Bulanan
+            const trenChartEl = document.getElementById('trenChart');
+            if (trenChartEl) {
+                const trenLabels = {!! json_encode(collect($bulanData)->pluck('bulan')) !!};
+                const trenData = {!! json_encode(collect($bulanData)->pluck('jumlah')) !!};
+
+                new Chart(trenChartEl, {
+                    type: 'line',
+                    data: {
+                        labels: trenLabels,
+                        datasets: [{
+                            label: 'Laporan',
+                            data: trenData,
+                            borderColor: colors.success,
+                            backgroundColor: rgba(colors.success, .12),
+                            borderWidth: 3,
+                            fill: true,
+                            tension: .42,
+                            pointBackgroundColor: colors.success,
+                            pointBorderColor: colors.body,
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: tooltipOptions },
+                        scales: {
+                            x: { grid: { display: false }, ticks: { color: colors.gray500 } },
+                            y: { beginAtZero: true, grid: { color: colors.gray200, borderDash: [5, 5] }, ticks: { stepSize: 1, color: colors.gray500 } }
+                        }
+                    }
+                });
+            }
+
+            // 2. Laporan per Kategori
+            const kategoriChartEl = document.getElementById('kategoriChart');
+            if (kategoriChartEl) {
+                const katLabels = {!! json_encode($laporanPerKategori->pluck('nama_kategori')) !!};
+                const katData = {!! json_encode($laporanPerKategori->pluck('jumlah_laporan')) !!};
+
+                new Chart(kategoriChartEl, {
+                    type: 'bar',
+                    data: {
+                        labels: katLabels,
+                        datasets: [{
+                            label: 'Laporan',
+                            data: katData,
+                            backgroundColor: katLabels.map((_, i) => palette[i % palette.length]),
+                            borderRadius: 6,
+                            barThickness: 24
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: { legend: { display: false }, tooltip: tooltipOptions },
+                        scales: {
+                            x: { beginAtZero: true, grid: { color: colors.gray200 }, ticks: { stepSize: 1, color: colors.gray500 } },
+                            y: { grid: { display: false }, ticks: { color: colors.gray700, font: { weight: '600' } } }
+                        }
+                    }
+                });
+            }
+
+            // 3. Tipe Pelapor
+            const tipePelaporChartEl = document.getElementById('tipePelaporChart');
+            if (tipePelaporChartEl) {
+                const tipeLabels = {!! json_encode($tipePelapor->pluck('tipe_pelapor')) !!};
+                const tipeData = {!! json_encode($tipePelapor->pluck('jumlah')) !!};
+                const tipeColorMap = {
+                    'Dosen': colors.primary,
+                    'Mahasiswa': colors.success,
+                    'Tenaga Pendidik': colors.warning,
+                    'Lainnya': colors.info
+                };
+                const tipeColors = tipeLabels.map(label => tipeColorMap[label] || colors.danger);
+
+                createLegend(document.getElementById('tipeLegend'), tipeLabels, tipeData, tipeColors);
+
+                new Chart(tipePelaporChartEl, {
+                    type: 'pie',
+                    data: {
+                        labels: tipeLabels,
+                        datasets: [{
+                            data: tipeData,
+                            backgroundColor: tipeColors,
+                            borderColor: colors.body,
+                            borderWidth: 3,
+                            hoverOffset: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: tooltipOptions }
+                    }
+                });
+            }
+
+            // 4. Rahasia vs Anonim
+            const anonimChartEl = document.getElementById('anonimChart');
+            if (anonimChartEl) {
+                const anonData = [{{ $anonimData['rahasia'] ?? 0 }}, {{ $anonimData['anonim'] ?? 0 }}];
+                const anonLabels = ['Rahasia', 'Anonim'];
+                const anonColors = [colors.primary, colors.success];
+
+                createLegend(document.getElementById('anonimLegend'), anonLabels, anonData, anonColors);
+
+                new Chart(anonimChartEl, {
+                    type: 'doughnut',
+                    data: {
+                        labels: anonLabels,
+                        datasets: [{
+                            data: anonData,
+                            backgroundColor: anonColors,
+                            borderColor: colors.body,
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '62%',
+                        plugins: { legend: { display: false }, tooltip: tooltipOptions }
+                    }
+                });
+            }
         });
     </script>
 @endsection
