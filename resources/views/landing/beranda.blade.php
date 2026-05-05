@@ -240,7 +240,8 @@
             <div class="container">
                 <div class="text-center mb-8">
                     <h1 class="fw-bolder text-gray-700 text-uppercase mb-2"
-                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Laporan Kategori Unit</h1>
+                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Laporan
+                        Kategori Unit</h1>
                 </div>
 
                 <div class="row g-4 g-lg-6 justify-content-center mb-8">
@@ -295,7 +296,7 @@
                         <p class="text-white text-opacity-75 fs-5 mb-4 text-justify-lg">
                             <span class="fw-semibold text-white">E-Lapor</span> adalah kanal resmi pengaduan dan aspirasi
                             di Universitas Nurul Jadid. Layanan ini dibuat agar setiap keluhan, temuan, atau masukan dari
-                            civitas akademika dapat disampaikan secara <span
+                            civitas akademika atau masyarakat umum dapat disampaikan secara <span
                                 class="fw-semibold text-white">terstruktur</span>,
                             diproses oleh unit yang tepat, serta <span class="fw-semibold text-white">terpantau</span>
                             hingga selesai.
@@ -512,7 +513,8 @@
                                             <span class="badge badge-light-danger">Ditolak</span>
                                         </div>
                                         <div class="text-gray-600">Validasi kelengkapan data & bukti. Jika tidak sesuai,
-                                            laporan bisa ditolak.</div>
+                                            laporan bisa ditolak.
+                                            Penanganan akan dilakukan paling lambat <strong>1×24 jam kerja</strong>.</div>
                                     </div>
                                 </div>
 
@@ -529,7 +531,8 @@
                                             <span class="badge badge-light-info">Diproses</span>
                                         </div>
                                         <div class="text-gray-600">Ditindaklanjuti unit berwenang, termasuk klarifikasi
-                                            bila diperlukan.</div>
+                                            bila diperlukan.
+                                            Proses ini diselesaikan paling lambat <strong>2×24 jam kerja</strong>.</div>
                                     </div>
                                 </div>
 
@@ -580,9 +583,9 @@
                             </h2>
                             <div id="faq_1" class="accordion-collapse collapse" data-bs-parent="#faq_accordion">
                                 <div class="accordion-body text-muted">
-                                    Seluruh civitas akademika, tenaga kependidikan dan pegawai Universitas Nurul Jadid
-                                    dengan perjanjian kerja di lingkungan Universitas Nurul Jadid yang memiliki informasi
-                                    dan/atau akses informasi disertai dengan barang bukti atas dugaan terjadinya
+                                    Seluruh civitas akademika(Tenaga Kependidikan, Dosen, Mahasiswa) Universitas Nurul Jadid
+                                    atau masyarakat umum yang memiliki informasi disertai dengan barang bukti atas dugaan
+                                    terjadinya
                                     Pelanggaran.
                                 </div>
                             </div>
@@ -652,7 +655,8 @@
                                     <ul class="mt-3">
                                         <li>Masuk ke menu utama dan pilih halaman "Pelacakan".</li>
                                         <li>Masukkan nomor unik (Kode Tiket) yang Anda dapatkan sesaat setelah Anda berhasil
-                                            mengirimkan laporan.</li>
+                                            mengirimkan laporan atau bisa cek email anda untuk melihat kode tiketnya jika
+                                            mencatumkan email pada saat membuat laporan.</li>
                                         <li>Sistem akan menampilkan status terkini laporan Anda, mulai dari tahap verifikasi
                                             hingga tahap penyelesaian.</li>
                                     </ul>

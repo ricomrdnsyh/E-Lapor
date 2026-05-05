@@ -2,7 +2,7 @@
     <div class="container py-2 d-flex align-items-center justify-content-between">
         <div class="text-white fs-8 opacity-90">
             Kanal resmi pengaduan & aspirasi civitas akademika •
-            <span class="opacity-75">Respon awal ≤ 1×24 jam*</span>
+            <span class="opacity-75">Respon awal ≤ 1×24 jam kerja</span>
         </div>
         <a href="{{ route('faq') }}" class="text-white fs-8 text-decoration-none opacity-90 text-hover-white">Baca
             FAQ</a>

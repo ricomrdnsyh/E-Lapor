@@ -522,7 +522,7 @@
                 'Dosen': colors.primary,
                 'Mahasiswa': colors.success,
                 'Tenaga Pendidik': colors.warning,
-                'Lainnya': colors.info
+                'Masyarakat/Umum': colors.info
             };
             const tipeColors = tipeLabels.map(function(label) {
                 return tipeColorMap[label] || colors.danger;

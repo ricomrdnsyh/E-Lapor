@@ -119,12 +119,14 @@
 
                             @php $ssoUser = session('sso_user'); @endphp
 
-                            @if($ssoUser)
-                                <div class="d-flex align-items-start gap-3 p-4 rounded-3 mb-5" style="background-color: #e8f5e9; border: 1px solid #a5d6a7;">
+                            @if ($ssoUser)
+                                <div class="d-flex align-items-start gap-3 p-4 rounded-3 mb-5"
+                                    style="background-color: #e8f5e9; border: 1px solid #a5d6a7;">
                                     <i class="fas fa-user-check text-success fs-3 mt-1"></i>
                                     <div>
                                         <span class="fw-bold text-success d-block mb-1">Login via SSO UNUJA</span>
-                                        <span class="text-gray-700 fs-7">Halo, <strong>{{ $ssoUser['nama'] }}</strong>! Data identitas Anda sudah terisi otomatis dari SSO.</span>
+                                        <span class="text-gray-700 fs-7">Halo, <strong>{{ $ssoUser['nama'] }}</strong>! Data
+                                            identitas Anda sudah terisi otomatis dari SSO.</span>
                                     </div>
                                 </div>
                             @endif
@@ -228,14 +230,17 @@
                                 </div>
 
                                 <div id="anonEmailBlock" style="display:none;">
-                                    <label class="form-label fw-semibold">Email <span class="text-muted fw-normal">(opsional)</span></label>
+                                    <label class="form-label fw-semibold">Email <span
+                                            class="text-muted fw-normal">(opsional)</span></label>
                                     <input type="email" id="email_anonim" name="email_anonim"
                                         class="form-control form-control-sm" placeholder="nama@gmail.com"
                                         value="{{ old('email_anonim') }}">
-                                    <div class="d-flex align-items-start gap-2 mt-2 p-3 rounded-2" style="background-color: #f1f5ff;">
+                                    <div class="d-flex align-items-start gap-2 mt-2 p-3 rounded-2"
+                                        style="background-color: #f1f5ff;">
                                         <i class="fas fa-shield-alt text-primary fs-6 mt-1" style="min-width: 16px;"></i>
                                         <span class="text-muted fs-8">
-                                            Alamat email Anda akan dirahasiakan dan hanya digunakan oleh sistem untuk mengirimkan notifikasi terkait perkembangan progress laporan.
+                                            Alamat email Anda akan dirahasiakan dan hanya digunakan oleh sistem untuk
+                                            mengirimkan notifikasi terkait perkembangan progress laporan.
                                         </span>
                                     </div>
                                 </div>
@@ -265,22 +270,28 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="required form-label fw-semibold">Profesi/Tipe Pelapor</label>
-                                        <select name="{{ $ssoUser ? '' : 'tipe_pelapor' }}" id="tipe_pelapor" class="form-select form-select-sm"
-                                            data-control="select2" {{ $ssoUser ? 'disabled' : '' }}>
-                                            <option value="" disabled {{ (!$ssoUser && !old('tipe_pelapor')) ? 'selected' : '' }}>
+                                        <select name="{{ $ssoUser ? '' : 'tipe_pelapor' }}" id="tipe_pelapor"
+                                            class="form-select form-select-sm" data-control="select2"
+                                            {{ $ssoUser ? 'disabled' : '' }}>
+                                            <option value="" disabled
+                                                {{ !$ssoUser && !old('tipe_pelapor') ? 'selected' : '' }}>
                                                 Pilih profesi</option>
-                                            <option value="Dosen" {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Dosen' ? 'selected' : '' }}>
+                                            <option value="Dosen"
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Dosen' ? 'selected' : '' }}>
                                                 Dosen</option>
                                             <option value="Mahasiswa"
-                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Mahasiswa' ? 'selected' : '' }}>
+                                                Mahasiswa
                                             </option>
                                             <option value="Tenaga Pendidik"
-                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Tenaga Pendidik' ? 'selected' : '' }}>Tenaga
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Tenaga Pendidik' ? 'selected' : '' }}>
+                                                Tenaga
                                                 Pendidik</option>
-                                            <option value="Lainnya"
-                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                            <option value="Masyarakat/Umum"
+                                                {{ ($ssoUser['tipe'] ?? old('tipe_pelapor')) == 'Masyarakat/Umum' ? 'selected' : '' }}>
+                                                Masyarakat/Umum</option>
                                         </select>
-                                        @if($ssoUser)
+                                        @if ($ssoUser)
                                             <input type="hidden" name="tipe_pelapor" value="{{ $ssoUser['tipe'] }}">
                                         @endif
                                     </div>
@@ -579,7 +590,7 @@
                                                 <i class="fas fa-exclamation-triangle text-warning fs-4 mt-1" style="min-width:20px;"></i>
                                                 <div>
                                                     <span class="fw-bold text-dark d-block mb-1">Penting! Simpan Kode Tiket Ini</span>
-                                                    <span class="text-gray-700 fs-7">Harap <b>catat</b>, <b>salin</b>, atau <b>screenshot</b> kode tiket di atas untuk melacak status laporan Anda.</span>
+                                                    <span class="text-gray-700 fs-7">Harap <b>Catat</b>, <b>Salin</b>, <b>Cek Email</b> kode tiket di atas untuk melacak status laporan Anda.</span>
                                                 </div>
                                             </div>
                                         </div>

@@ -94,7 +94,7 @@ class AdminLaporanController extends Controller
             'nama_pelapor'      => 'nullable|string|max:100',
             'email_pelapor'     => 'nullable|email|max:100',
             'no_telp_pelapor'   => 'nullable|string|max:15',
-            'tipe_pelapor'      => 'nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Lainnya',
+            'tipe_pelapor'      => 'nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
             'is_anonymous'      => 'required|in:t,y',
             'status'            => 'required|in:menunggu,diproses,selesai,ditolak',
         ]);

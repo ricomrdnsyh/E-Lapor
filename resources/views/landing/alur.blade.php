@@ -22,7 +22,6 @@
                                 <span class="badge badge-light-success d-inline-flex align-items-center">Selesai</span>
                                 <span class="badge badge-light-danger d-inline-flex align-items-center">Ditolak</span>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -75,7 +74,8 @@
                                             <span class="badge badge-light-danger">Ditolak</span>
                                         </div>
                                         <div class="text-gray-600">Validasi kelengkapan data & bukti. Jika tidak sesuai,
-                                            laporan bisa ditolak.</div>
+                                            laporan bisa ditolak.
+                                            Penanganan akan dilakukan paling lambat <strong>1×24 jam kerja</strong>.</div>
                                     </div>
                                 </div>
 
@@ -91,8 +91,9 @@
                                             <span class="fw-bold text-gray-900">Diproses Unit Terkait</span>
                                             <span class="badge badge-light-info">Diproses</span>
                                         </div>
-                                        <div class="text-gray-600">Ditindaklanjuti unit berwenang, termasuk klarifikasi bila
-                                            diperlukan.</div>
+                                        <div class="text-gray-600">Ditindaklanjuti unit berwenang, termasuk klarifikasi
+                                            bila diperlukan.
+                                            Proses ini diselesaikan paling lambat <strong>2×24 jam kerja</strong>.</div>
                                     </div>
                                 </div>
 

@@ -139,10 +139,10 @@
                                 <select name="tipe_pelapor" id="edit_tipe_pelapor"
                                     class="form-select form-select-sm fs-sm-8 fs-lg-6" data-control="select2">
                                     <option value="">-- Pilih Tipe --</option>
-                                    <option value="Dosen">Dosen</option>
-                                    <option value="Mahasiswa">Mahasiswa</option>
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Lainnya">Lainnya</option>
+                                    <option value="Dosen">Dosen</option>\r
+                                    <option value="Mahasiswa">Mahasiswa</option>\r
+                                    <option value="Tenaga Pendidik">Tenaga Pendidik</option>\r
+                                    <option value="Masyarakat/Umum">Masyarakat/Umum</option>
                                 </select>
                             </div>
                         </div>

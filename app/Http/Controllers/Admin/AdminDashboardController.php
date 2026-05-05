@@ -32,7 +32,7 @@ class AdminDashboardController extends Controller
         ];
 
         // 2. Tipe pelapor (4 kategori tetap)
-        $fixedTipes = ['Dosen', 'Mahasiswa', 'Tenaga Pendidik', 'Lainnya'];
+        $fixedTipes = ['Dosen', 'Mahasiswa', 'Tenaga Pendidik', 'Masyarakat/Umum'];
         $tipePelaporRaw = Laporan::select('tipe_pelapor')
             ->selectRaw('COUNT(*) as jumlah')
             ->whereIn('tipe_pelapor', $fixedTipes)

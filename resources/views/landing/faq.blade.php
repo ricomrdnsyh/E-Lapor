@@ -22,9 +22,9 @@
                             </h2>
                             <div id="faq_1" class="accordion-collapse collapse" data-bs-parent="#faq_accordion">
                                 <div class="accordion-body text-muted">
-                                    Seluruh civitas akademika, tenaga kependidikan dan pegawai Universitas Nurul Jadid
-                                    dengan perjanjian kerja di lingkungan Universitas Nurul Jadid yang memiliki informasi
-                                    dan/atau akses informasi disertai dengan barang bukti atas dugaan terjadinya
+                                    Seluruh civitas akademika(Tenaga Kependidikan, Dosen, Mahasiswa) Universitas Nurul Jadid
+                                    atau masyarakat umum yang memiliki informasi disertai dengan barang bukti atas dugaan
+                                    terjadinya
                                     Pelanggaran.
                                 </div>
                             </div>
@@ -94,7 +94,8 @@
                                     <ul class="mt-3">
                                         <li>Masuk ke menu utama dan pilih halaman "Pelacakan".</li>
                                         <li>Masukkan nomor unik (Kode Tiket) yang Anda dapatkan sesaat setelah Anda berhasil
-                                            mengirimkan laporan.</li>
+                                            mengirimkan laporan atau bisa cek email anda untuk melihat kode tiketnya jika
+                                            mencatumkan email pada saat membuat laporan.</li>
                                         <li>Sistem akan menampilkan status terkini laporan Anda, mulai dari tahap verifikasi
                                             hingga tahap penyelesaian.</li>
                                     </ul>

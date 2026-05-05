@@ -87,7 +87,7 @@ class LaporController extends Controller
             'nama_pelapor'      => 'required_if:is_anonymous,t|nullable|string|max:100',
             'email_pelapor'     => 'required_if:is_anonymous,t|nullable|email|max:100',
             'no_telp_pelapor'   => 'required_if:is_anonymous,t|nullable|string|max:15',
-            'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Lainnya',
+            'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
             'email_anonim'      => 'nullable|email|max:100',
             'agreement'         => 'required|accepted',
         ], [
