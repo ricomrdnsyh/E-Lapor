@@ -39,6 +39,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/sso', [SsoController::class, 'sso']);
 Route::get('/sso/lapor', [SsoController::class, 'lapor']);
 Route::get('/sso/admin', [SsoController::class, 'admin']);
+Route::get('/sso/pilih', [SsoController::class, 'pilih'])->name('sso.pilih');
+Route::get('/sso/pilih/dashboard', [SsoController::class, 'pilihDashboard'])->name('sso.pilih.dashboard');
+Route::get('/sso/pilih/lapor', [SsoController::class, 'pilihLapor'])->name('sso.pilih.lapor');
 Route::get('/sso/logout/{sessionId}', [SsoController::class, 'logout']);
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
