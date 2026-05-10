@@ -33,6 +33,8 @@ class SsoController extends Controller
             $user = User::where('username', $identifier)->first();
 
             if ($user && in_array($user->role, ['admin', 'unit'])) {
+                $this->syncUserFromSso($user, $responseData);
+
                 $request->session()->put('sso_pending_user_id', $user->id);
                 $request->session()->put('sso_pending_role', $user->role);
 
@@ -72,6 +74,9 @@ class SsoController extends Controller
         Auth::login($user);
 
         $request->session()->forget(['sso_pending_user_id', 'sso_pending_role']);
+
+        // Refresh user instance to reflect any SSO-synced data
+        $user->refresh();
 
         return match ($user->role) {
             'admin' => redirect()->route('admin.dashboard.index'),
@@ -129,6 +134,8 @@ class SsoController extends Controller
             abort(401, 'User belum terdaftar / tidak punya akses.');
         }
 
+        $this->syncUserFromSso($user, $responseData);
+
         Auth::login($user);
 
         $this->registerSsoCallback($request, $responseData);
@@ -155,6 +162,34 @@ class SsoController extends Controller
         }
 
         return 'Masyarakat/Umum';
+    }
+
+    /**
+     * Sync/update local user data from SSO response.
+     */
+    private function syncUserFromSso(User $user, array $responseData): void
+    {
+        $nama       = $responseData['nama'] ?? $responseData['nama_penduduk'] ?? null;
+        $username    = $responseData['nim'] ?? $responseData['id_penduduk'] ?? null;
+        $telegramId = $responseData['telegram_id'] ?? null;
+
+        $updateData = [];
+
+        if ($nama && $nama !== $user->nama) {
+            $updateData['nama'] = $nama;
+        }
+
+        if ($username && $username !== $user->username) {
+            $updateData['username'] = $username;
+        }
+
+        if ($telegramId && $telegramId !== $user->telegram_id) {
+            $updateData['telegram_id'] = $telegramId;
+        }
+
+        if (!empty($updateData)) {
+            $user->update($updateData);
+        }
     }
 
     private function verifySsoToken(Request $request)
