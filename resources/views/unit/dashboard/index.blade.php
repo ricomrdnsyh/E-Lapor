@@ -429,13 +429,10 @@
                                         <span>Dashboard Unit</span>
                                     </div>
 
-                                    <h1 class="hero-title">Ringkasan penanganan laporan untuk
+                                    <h1 class="hero-title">Ringkasan penanganan laporan
                                         {{ $user->unit->nama_unit ?? 'unit Anda' }}</h1>
                                     <p class="hero-subtitle">
-                                        Dashboard ini dirancang untuk membantu unit membaca kondisi penanganan laporan
-                                        secara
-                                        cepat, mengenali antrean yang perlu diprioritaskan, dan memantau distribusi progres
-                                        penanganan dalam satu tampilan.
+                                        Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit secara terpusat.
                                     </p>
 
                                     <div class="hero-inline-info">
