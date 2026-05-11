@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
+
+        $middleware->redirectGuestsTo('https://sso.unuja.ac.id');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
