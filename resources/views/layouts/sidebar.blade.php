@@ -118,7 +118,6 @@
     $currentUser = Auth::user();
     $isAdmin = $currentUser?->role === 'admin';
     $isUnit = $currentUser?->role === 'unit';
-    $unitName = $currentUser?->unit?->singkatan;
 @endphp
 
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
@@ -156,7 +155,7 @@
             <div class="sidebar-minimize-hide mt-2 w-100">
                 <div class="text-white fw-semibold text-truncate">{{ $currentUser?->nama ?? 'User' }}</div>
                 <div class="text-gray-400 fs-8 text-truncate">
-                    {{ $isAdmin ? 'Administrator' : $unitName ?? 'Unit' }}
+                    {{ $isAdmin ? 'Administrator' : $currentUser?->kategori?->nama_kategori ?? 'Unit' }}
                 </div>
             </div>
         </a>

@@ -132,7 +132,7 @@
                                                 <th class="min-w-150px">Username</th>
                                                 <th class="min-w-160px">Telegram ID</th>
                                                 <th class="min-w-120px">Role</th>
-                                                <th class="min-w-150px">Unit</th>
+                                                <th class="min-w-150px">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-800"></tbody>

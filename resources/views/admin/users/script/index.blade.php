@@ -79,8 +79,8 @@
                     name: 'role'
                 },
                 {
-                    data: 'unit_id',
-                    name: 'unit_id'
+                    data: 'kategori_id',
+                    name: 'kategori_id'
                 }
             ],
             order: [

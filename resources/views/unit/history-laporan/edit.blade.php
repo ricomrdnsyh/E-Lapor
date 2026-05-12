@@ -163,8 +163,8 @@
                                 </label>
                                 <input type="file" name="lampiran_file" id="edit_lampiran_bukti"
                                     class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
-                                    accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx">
-                                <small class="text-muted mt-1">Wajib saat status diubah menjadi selesai.</small>
+                                    accept=".jpg,.jpeg,.png,.pdf">
+                                <small class="text-muted mt-1">Format: JPG / JPEG / PNG / PDF. Max. 5 MB. Wajib diunggah saat status diubah menjadi selesai.</small>
                                 <div id="edit_lampiran_bukti_preview" class="text-gray-600 fs-8 mt-2">-</div>
                             </div>
                         </div>

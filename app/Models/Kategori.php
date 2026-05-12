@@ -19,4 +19,9 @@ class Kategori extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id_unit');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'kategori_id', 'id_kategori');
+    }
 }

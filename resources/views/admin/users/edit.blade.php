@@ -73,24 +73,26 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-lg-6" id="edit_unit_wrapper">
+                        <div class="col-12 col-lg-6" id="edit_kategori_wrapper">
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                    <span>Unit</span>
+                                    <span>Kategori</span>
                                 </label>
-                                <select name="unit_id" id="edit_unit_id"
-                                    class="form-select form-select-sm fs-sm-8 fs-lg-6 @error('unit_id') is-invalid @enderror"
+                                <select name="kategori_id" id="edit_kategori_id"
+                                    class="form-select form-select-sm fs-sm-8 fs-lg-6 @error('kategori_id') is-invalid @enderror"
                                     data-control="select2">
-                                    <option value="">-- Pilih Unit --</option>
-                                    @foreach ($units as $unit)
-                                        <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }}</option>
+                                    <option value="">-- Pilih Kategori --</option>
+                                    @foreach ($kategoris as $kat)
+                                        <option value="{{ $kat->id_kategori }}">
+                                            {{ $kat->nama_kategori }} ({{ $kat->unit->nama_unit ?? '-' }})
+                                        </option>
                                     @endforeach
                                 </select>
 
-                                @error('unit_id')
+                                @error('kategori_id')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
                                 @enderror
-                                <div class="invalid-feedback">Unit wajib dipilih untuk role unit.</div>
+                                <div class="invalid-feedback">Kategori wajib dipilih untuk role unit.</div>
                             </div>
                         </div>
 

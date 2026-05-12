@@ -4,8 +4,8 @@
         const form = document.getElementById('bt_submit_create');
         const submitButton = form.querySelector('[data-kt-contacts-type="submit"]');
         const roleElement = document.getElementById('role');
-        const unitWrapper = document.getElementById('create_unit_wrapper');
-        const unitSelect = document.getElementById('unit_id');
+        const kategoriWrapper = document.getElementById('create_kategori_wrapper');
+        const kategoriSelect = document.getElementById('kategori_id');
         const roleSelect = document.getElementById('role');
         const karyawanSelect = document.getElementById('karyawan_select');
 
@@ -24,10 +24,10 @@
             });
         }
 
-        // Init Select2 for unit
-        if (unitSelect && $) {
-            $(unitSelect).select2({
-                placeholder: '-- Pilih Unit --',
+        // Init Select2 for kategori
+        if (kategoriSelect && $) {
+            $(kategoriSelect).select2({
+                placeholder: '-- Pilih Kategori --',
                 allowClear: true,
                 width: '100%',
                 language: 'id',
@@ -104,18 +104,18 @@
             document.getElementById('telegram_id').value = '';
         });
 
-        function toggleCreateUnitField() {
-            const showUnitField = roleElement.value === 'unit';
-            unitSelect.required = showUnitField;
-            $(unitSelect).prop('disabled', !showUnitField).trigger('change.select2');
+        function toggleCreateKategoriField() {
+            const showKategoriField = roleElement.value === 'unit';
+            kategoriSelect.required = showKategoriField;
+            $(kategoriSelect).prop('disabled', !showKategoriField).trigger('change.select2');
 
-            if (!showUnitField) {
-                $(unitSelect).val('').trigger('change');
+            if (!showKategoriField) {
+                $(kategoriSelect).val('').trigger('change');
             }
         }
 
         $(roleSelect).on('change', function() {
-            toggleCreateUnitField();
+            toggleCreateKategoriField();
         });
 
         // Load karyawan when modal is shown
@@ -134,7 +134,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 form.classList.add('was-validated');
-                toggleCreateUnitField();
+                toggleCreateKategoriField();
                 return;
             }
 
@@ -155,10 +155,10 @@
             document.getElementById('username').value = '';
             document.getElementById('nama').value = '';
             document.getElementById('telegram_id').value = '';
-            toggleCreateUnitField();
+            toggleCreateKategoriField();
         });
 
-        toggleCreateUnitField();
+        toggleCreateKategoriField();
 
         @if ($errors->any())
             (new bootstrap.Modal(modalEl)).show();

@@ -951,7 +951,7 @@
                                                         {{ $item->catatan ?: $itemMeta['title'] }}</div>
                                                     @if ($item->user)
                                                         <div class="track-timeline-note">Diperbarui oleh
-                                                            {{ $item->user->unit?->nama_unit ?? $item->user->nama }}</div>
+                                                            {{ $item->user->kategori?->nama_kategori ?? $item->user->nama }}</div>
                                                     @else
                                                         <div class="track-timeline-note">Dibuat oleh pelapor</div>
                                                     @endif

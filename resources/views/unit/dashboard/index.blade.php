@@ -429,8 +429,8 @@
                                         <span>Dashboard Unit</span>
                                     </div>
 
-                                    <h1 class="hero-title">Ringkasan penanganan laporan
-                                        {{ $user->unit->nama_unit ?? 'unit Anda' }}</h1>
+                                    <h1 class="hero-title">Ringkasan Penanganan Laporan
+                                        {{ $user->kategori->nama_kategori ?? 'kategori Anda' }}</h1>
                                     <p class="hero-subtitle">
                                         Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit secara terpusat.
                                     </p>
@@ -643,14 +643,18 @@
                                             <div class="flex-grow-1 min-w-0">
                                                 <div class="profile-kicker">Akun Aktif</div>
                                                 <div class="profile-name">{{ $user->nama }}</div>
-                                                <p class="profile-subtitle">{{ $user->unit->nama_unit ?? 'N/A' }}</p>
+                                                <p class="profile-subtitle">{{ $user->kategori->nama_kategori ?? 'N/A' }} — {{ $user->kategori->unit->nama_unit ?? '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="profile-grid">
                                             <div class="info-item">
-                                                <div class="info-label">Unit Aktif</div>
-                                                <div class="info-value">{{ $user->unit->nama_unit ?? 'N/A' }}</div>
+                                                <div class="info-label">Kategori Aktif</div>
+                                                <div class="info-value">{{ $user->kategori->nama_kategori ?? 'N/A' }}</div>
+                                            </div>
+                                            <div class="info-item">
+                                                <div class="info-label">Unit</div>
+                                                <div class="info-value">{{ $user->kategori->unit->nama_unit ?? 'N/A' }}</div>
                                             </div>
                                             <div class="info-item">
                                                 <div class="info-label">Nama Petugas</div>

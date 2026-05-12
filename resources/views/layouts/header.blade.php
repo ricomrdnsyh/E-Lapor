@@ -62,7 +62,7 @@
                         <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">@yield('title')</h1>
                         <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
                             <li class="breadcrumb-item text-muted text-hover-primary">
-                                <span>{{ auth()->user()?->role === 'admin' ? 'Admin' : auth()->user()?->unit?->nama_unit ?? 'Unit' }}</span>
+                                <span>{{ auth()->user()?->role === 'admin' ? 'Administrator' : auth()->user()?->kategori?->nama_kategori ?? 'Unit' }}</span>
                             </li>
                         </ul>
                     </div>
@@ -155,7 +155,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">{{ $currentUser?->nama ?? 'User' }}
                                     </div>
-                                    <span class="fw-semibold text-muted text-hover-primary fs-7">{{ $currentUserIdentity }}</span>
+                                    <span class="fw-semibold text-muted text-hover-primary fs-7">{{ $currentUser?->kategori?->nama_kategori ?? 'Unit' }}</span>
                                 </div>
                             </div>
                         </div>

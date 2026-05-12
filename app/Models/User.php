@@ -17,7 +17,7 @@ class User extends Authenticatable
         'telegram_id',
         'password',
         'role',
-        'unit_id',
+        'kategori_id',
     ];
 
     protected $hidden = [
@@ -33,9 +33,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function unit(): BelongsTo
+    public function kategori(): BelongsTo
     {
-        return $this->belongsTo(Unit::class, 'unit_id', 'id_unit');
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
+    }
+
+    /**
+     * Akses unit melalui kategori (HasOneThrough).
+     */
+    public function unit()
+    {
+        return $this->hasOneThrough(
+            Unit::class,
+            Kategori::class,
+            'id_kategori',   // FK di kategori (local key match)
+            'id_unit',       // FK di unit (local key match)
+            'kategori_id',   // FK di users
+            'unit_id'        // FK di kategori ke unit
+        );
     }
 
     public function historyLaporans()

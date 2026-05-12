@@ -178,9 +178,9 @@ class UnitHistoryLaporanController extends Controller
 
     private function historyLaporanQuery()
     {
-        return HistoryLaporan::with(['laporan.kategori', 'user.unit'])
-            ->whereHas('laporan.kategori', function ($query) {
-                $query->where('unit_id', Auth::user()->unit_id);
+        return HistoryLaporan::with(['laporan.kategori', 'user'])
+            ->whereHas('laporan', function ($query) {
+                $query->where('kategori_id', Auth::user()->kategori_id);
             });
     }
 

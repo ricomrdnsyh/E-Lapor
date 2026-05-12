@@ -51,9 +51,9 @@
                     <div class="col-12 col-lg-6">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Unit</span>
+                                <span>Kategori (Unit)</span>
                             </label>
-                            <input type="text" id="show_unit"
+                            <input type="text" id="show_kategori"
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>

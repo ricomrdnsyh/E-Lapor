@@ -17,8 +17,15 @@
                         document.getElementById('show_username').value = data.user.username || '';
                         document.getElementById('show_telegram_id').value = data.user.telegram_id || '-';
                         document.getElementById('show_role').value = data.user.role ? data.user.role.charAt(0).toUpperCase() + data.user.role.slice(1) : '';
-                        document.getElementById('show_unit').value = data.user.unit ? data.user.unit.nama_unit : '-';
 
+                        let kategoriText = '-';
+                        if (data.user.kategori) {
+                            kategoriText = data.user.kategori.nama_kategori;
+                            if (data.user.kategori.unit) {
+                                kategoriText += ' (' + data.user.kategori.unit.nama_unit + ')';
+                            }
+                        }
+                        document.getElementById('show_kategori').value = kategoriText;
 
                         modal.show();
                     },
