@@ -65,14 +65,14 @@ class TelegramNotificationService
      */
     protected function getTargetUsers(Laporan $laporan): Collection
     {
-        $unitId = $laporan->kategori?->unit_id;
+        $kategoriId = $laporan->kategori_id;
 
         $query = User::where('role', 'admin');
 
-        if ($unitId) {
-            $query->orWhere(function ($q) use ($unitId) {
+        if ($kategoriId) {
+            $query->orWhere(function ($q) use ($kategoriId) {
                 $q->where('role', 'unit')
-                  ->where('unit_id', $unitId);
+                  ->where('kategori_id', $kategoriId);
             });
         }
 

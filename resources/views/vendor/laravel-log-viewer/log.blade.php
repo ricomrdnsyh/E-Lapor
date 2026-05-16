@@ -169,7 +169,7 @@
                                         <td class="py-3 text-sm truncate" title="{{ $log['context'] }}">
                                             {{ $log['context'] }}</td>
                                         <td class="py-3 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                                            {{ $log['date'] }}</td>
+                                            {{ \Carbon\Carbon::parse($log['date'])->setTimezone('Asia/Jakarta')->format('Y-m-d H:i:s') }}</td>
                                         <td class="py-3">
                                             <div class="flex items-center justify-between">
                                                 <pre class="font-mono text-sm whitespace-pre-wrap break-words">{{ $log['text'] }}</pre>
