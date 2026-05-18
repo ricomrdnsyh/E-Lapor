@@ -224,6 +224,34 @@
                                         <span class="menu-title">Master Kategori</span>
                                     </a>
                                 </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/gedung*') ? 'active' : '' }}"
+                                        href="{{ route('admin.gedung.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Gedung</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/lantai*') ? 'active' : '' }}"
+                                        href="{{ route('admin.lantai.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Lantai</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/fungsi-ruangan*') ? 'active' : '' }}"
+                                        href="{{ route('admin.fungsi-ruangan.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Fungsi Ruangan</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/ruangan*') ? 'active' : '' }}"
+                                        href="{{ route('admin.ruangan.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Ruangan</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
