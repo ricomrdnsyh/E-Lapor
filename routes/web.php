@@ -28,6 +28,7 @@ Route::get('/faq', [FAQController::class, 'faq'])->name('faq');
 Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
 Route::get('/lapor', [LaporController::class, 'index'])->name('lapor');
 Route::post('/lapor', [LaporController::class, 'store'])->name('lapor.store');
+Route::get('/lapor/data/units', [LaporController::class, 'getUnits'])->name('lapor.units');
 Route::get('/lapor/data/categories', [LaporController::class, 'getCategories'])->name('lapor.categories');
 Route::get('/lapor/captcha', [LaporController::class, 'generateCaptcha'])->name('lapor.captcha');
 Route::get('/lacak', [LacakController::class, 'index'])->name('lacak');

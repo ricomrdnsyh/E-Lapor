@@ -7,6 +7,7 @@ use App\Models\HistoryLaporan;
 use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
+use App\Models\Unit;
 use App\Services\EmailNotificationService;
 use App\Services\TelegramNotificationService;
 use Illuminate\Http\Request;
@@ -20,41 +21,57 @@ class LaporController extends Controller
         return view('landing.lapor');
     }
 
-    public function getCategories()
+    public function getUnits()
     {
-        $categories = Kategori::with('unit')
-            ->select('id_kategori', 'nama_kategori', 'unit_id')
+        $units = Unit::select('id_unit', 'nama_unit', 'singkatan')
+            ->where('status', 'aktif')
+            ->orderBy('nama_unit')
             ->get()
             ->map(function ($item) {
                 return [
-                    'id'        => $item->id_kategori,
-                    'nama'      => $item->nama_kategori,
-                    'unit_id'   => $item->unit_id,
-                    'unit_name' => $item->unit?->nama_unit ?? 'N/A'
+                    'id'        => $item->id_unit,
+                    'nama'      => $item->nama_unit,
+                    'singkatan' => $item->singkatan,
                 ];
             });
+
+        return response()->json($units);
+    }
+
+    public function getCategories(Request $request)
+    {
+        $query = Kategori::with('unit')
+            ->select('id_kategori', 'nama_kategori', 'unit_id');
+
+        if ($request->has('unit_id') && $request->unit_id) {
+            $query->where('unit_id', $request->unit_id);
+        }
+
+        $categories = $query->get()->map(function ($item) {
+            return [
+                'id'        => $item->id_kategori,
+                'nama'      => $item->nama_kategori,
+                'unit_id'   => $item->unit_id,
+                'unit_name' => $item->unit?->nama_unit ?? 'N/A'
+            ];
+        });
 
         return response()->json($categories);
     }
 
     public function generateCaptcha()
     {
-        $operators = ['+', '-', 'x'];
+        $operators = ['+', '-'];
         $operator = $operators[array_rand($operators)];
 
-        if ($operator === '+') {
-            $a = rand(1, 20);
-            $b = rand(1, 20);
-            $answer = $a + $b;
-        } elseif ($operator === '-') {
-            $a = rand(5, 30);
-            $b = rand(1, $a);
-            $answer = $a - $b;
-        } else {
-            $a = rand(1, 10);
-            $b = rand(1, 10);
-            $answer = $a * $b;
+        $a = rand(1, 20);
+        $b = rand(1, 20);
+
+        if ($operator === '-' && $b > $a) {
+            [$a, $b] = [$b, $a];
         }
+
+        $answer = $operator === '+' ? $a + $b : $a - $b;
 
         $question = "{$a} {$operator} {$b} = ?";
         Session::put('captcha_answer', $answer);
@@ -82,7 +99,7 @@ class LaporController extends Controller
             'lokasi_kejadian'   => 'required|string|max:150',
             'tgl_kejadian'      => 'required|date_format:Y-m-d H:i',
             'deskripsi_laporan' => 'required|string|max:2000',
-            'lampiran_file'     => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'lampiran_file'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'is_anonymous'      => 'required|in:t,y',
             'nama_pelapor'      => 'required_if:is_anonymous,t|nullable|string|max:100',
             'email_pelapor'     => 'required_if:is_anonymous,t|nullable|email|max:100',
@@ -99,7 +116,6 @@ class LaporController extends Controller
             'lokasi_kejadian.required'    => 'Lokasi kejadian harus diisi',
             'tgl_kejadian.required'       => 'Tanggal dan waktu kejadian harus diisi',
             'deskripsi_laporan.required'  => 'Deskripsi laporan harus diisi',
-            'lampiran_file.required'      => 'File harus diisi dan berupa jpg,jpeg,png,pdf dengan ukuran maksimal 5MB',
             'nama_pelapor.required_if'    => 'Nama pelapor harus diisi jika tidak anonim',
             'email_pelapor.required_if'   => 'Email pelapor harus diisi jika tidak anonim',
             'no_telp_pelapor.required_if' => 'Email pelapor harus diisi jika tidak anonim',

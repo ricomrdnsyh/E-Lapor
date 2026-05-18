@@ -46,10 +46,10 @@
                                     </div>
                                     <div class="timeline-content ps-3">
                                         <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
-                                            <span class="fw-bold text-gray-900">Pilih kategori</span>
+                                            <span class="fw-bold text-gray-900">Pilih unit & kategori</span>
                                             <span class="badge badge-light-primary fs-8 px-3 py-2">Diterima</span>
                                         </div>
-                                        <div class="text-gray-600">Agar langsung ke unit yang tepat.</div>
+                                        <div class="text-gray-600">Pilih unit tujuan, lalu pilih kategori.</div>
                                     </div>
                                 </div>
 
@@ -137,18 +137,19 @@
 
                                 <div class="row g-4">
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Kategori Laporan</label>
-                                        <select id="kategori_id" name="kategori_id" class="form-select form-select-sm"
+                                        <label class="required form-label fw-semibold">Unit Tujuan</label>
+                                        <select id="unit_id" name="unit_id" class="form-select form-select-sm"
                                             data-control="select2" required>
-                                            <option value="" disabled selected>-- Pilih kategori --</option>
+                                            <option value="" disabled selected>Pilih Unit Tujuan</option>
                                         </select>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Unit Tujuan</label>
-                                        <input type="text" id="unit_tujuan" name="unit_tujuan"
-                                            class="form-control form-control-sm" disabled readonly>
-                                        <input type="hidden" id="unit_id" name="unit_id">
+                                        <label class="required form-label fw-semibold">Kategori Laporan</label>
+                                        <select id="kategori_id" name="kategori_id" class="form-select form-select-sm"
+                                            data-control="select2" required disabled>
+                                            <option value="" disabled selected>Pilih unit terlebih dahulu</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -184,15 +185,13 @@
                                     <label class="required form-label fw-semibold">Kronologi / Deskripsi</label>
                                     <textarea name="deskripsi_laporan" id="desc" rows="5" class="form-control form-control-sm"
                                         placeholder="Tuliskan apa yang terjadi, kronologi, dampak, dan harapan..." required>{{ old('deskripsi_laporan') }}</textarea>
-                                    <div class="d-flex justify-content-between mt-1">
-                                        <div class="text-muted fs-8">Saran: sertakan waktu, saksi, dan kondisi sekitar.
-                                        </div>
+                                    <div class="d-flex justify-content-end mt-1">
                                         <div class="text-muted fs-8"><span id="descCount">0</span>/2000</div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label class="required form-label fw-semibold">Lampiran Bukti</label>
+                                    <label class="form-label fw-semibold">Lampiran Bukti <span class="text-muted fw-normal">(opsional)</span></label>
                                     <input type="file" name="lampiran_file" id="lampiran_file"
                                         class="form-control form-control-sm" accept=".jpg,.jpeg,.png,.pdf">
                                     <div class="text-muted fs-8 mt-1">
@@ -354,7 +353,7 @@
 
 @section('js')
     <script>
-        let categoriesData = [];
+
 
         (function() {
             const desc = document.getElementById('desc');
@@ -448,49 +447,74 @@
         })();
 
         KTUtil.onDOMContentLoaded(function() {
+            const unitSelect = document.getElementById('unit_id');
             const kategoriSelect = document.getElementById('kategori_id');
             const tglKejadianEl = document.querySelector('#tgl_kejadian');
-            const unitTujuanEl = document.getElementById('unit_tujuan');
-            const unitIdHiddenEl = document.getElementById('unit_id');
 
-            fetch('{{ route('lapor.categories') }}')
+            // Initialize Select2 for Unit
+            if (typeof jQuery !== 'undefined' && jQuery(unitSelect).length) {
+                jQuery(unitSelect).select2({
+                    placeholder: 'Pilih Unit Tujuan',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
+            // Initialize Select2 for Kategori (disabled initially)
+            if (typeof jQuery !== 'undefined' && jQuery(kategoriSelect).length) {
+                jQuery(kategoriSelect).select2({
+                    placeholder: 'Pilih Kategori Laporan',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
+            // Load Units
+            fetch('{{ route('lapor.units') }}')
                 .then(res => res.json())
                 .then(data => {
-                    categoriesData = data;
+                    data.forEach(unit => {
+                        const option = document.createElement('option');
+                        option.value = unit.id;
+                        option.textContent = unit.nama;
+                        unitSelect.appendChild(option);
+                    });
+                });
 
-                    if (kategoriSelect) {
+            // When Unit is selected, load filtered categories
+            jQuery(unitSelect).on('select2:select', function() {
+                const selectedUnitId = this.value;
+
+                // Reset & disable kategori
+                kategoriSelect.innerHTML = '<option value="" disabled selected>Memuat kategori...</option>';
+                kategoriSelect.disabled = true;
+                jQuery(kategoriSelect).val(null).trigger('change');
+
+                if (!selectedUnitId) return;
+
+                fetch('{{ route('lapor.categories') }}?unit_id=' + selectedUnitId)
+                    .then(res => res.json())
+                    .then(data => {
+                        kategoriSelect.innerHTML = '<option value="" disabled selected>-- Pilih kategori --</option>';
+
                         data.forEach(cat => {
                             const option = document.createElement('option');
                             option.value = cat.id;
                             option.textContent = cat.nama;
-                            option.dataset.unitId = cat.unit_id;
-                            option.dataset.unitName = cat.unit_name;
                             kategoriSelect.appendChild(option);
                         });
 
-                        if (typeof jQuery !== 'undefined' && jQuery(kategoriSelect).length) {
-                            jQuery(kategoriSelect).select2({
-                                placeholder: '-- Pilih Kategori --',
-                                allowClear: true,
-                                width: '100%'
-                            });
+                        kategoriSelect.disabled = false;
+                        jQuery(kategoriSelect).prop('disabled', false).trigger('change');
+                    });
+            });
 
-                            jQuery(kategoriSelect).on('select2:select', function() {
-                                const selectedOption = this.options[this.selectedIndex];
-                                const unitId = selectedOption.dataset.unitId;
-                                const unitName = selectedOption.dataset.unitName;
-
-                                if (unitId && unitTujuanEl) {
-                                    unitTujuanEl.value = unitName || '';
-                                    if (unitIdHiddenEl) unitIdHiddenEl.value = unitId;
-                                } else if (unitTujuanEl) {
-                                    unitTujuanEl.value = '';
-                                    if (unitIdHiddenEl) unitIdHiddenEl.value = '';
-                                }
-                            });
-                        }
-                    }
-                });
+            // When Unit is cleared, reset kategori
+            jQuery(unitSelect).on('select2:clear', function() {
+                kategoriSelect.innerHTML = '<option value="" disabled selected>Pilih unit terlebih dahulu</option>';
+                kategoriSelect.disabled = true;
+                jQuery(kategoriSelect).val(null).trigger('change');
+            });
 
             if (tglKejadianEl && typeof flatpickr !== 'undefined') {
                 flatpickr(tglKejadianEl, {
