@@ -15,7 +15,7 @@ class Laporan extends Model
         'kategori_id',
         'judul_laporan',
         'tgl_kejadian',
-        'lokasi_kejadian',
+        'ruangan_id',
         'deskripsi_laporan',
         'lampiran_file',
         'is_anonymous',
@@ -35,6 +35,11 @@ class Laporan extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
+    }
+
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'ruangan_id', 'id_ruangan');
     }
 
     public function historyLaporans()

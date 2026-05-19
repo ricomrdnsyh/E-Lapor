@@ -68,7 +68,19 @@
                         document.getElementById('show_tipe_pelapor').value = laporan.tipe_pelapor || '-';
                         document.getElementById('show_is_anonymous').value = privasi;
                         document.getElementById('show_tgl_kejadian').value = laporan.tgl_kejadian ? formatTanggal(laporan.tgl_kejadian) : '-';
-                        document.getElementById('show_lokasi_kejadian').value = laporan.lokasi_kejadian || '-';
+                        let lokasi = '-';
+                        if (laporan.ruangan) {
+                            let parts = [];
+                            if (laporan.ruangan.lantai && laporan.ruangan.lantai.gedung) {
+                                parts.push(laporan.ruangan.lantai.gedung.nama_gedung);
+                            }
+                            if (laporan.ruangan.lantai) {
+                                parts.push(laporan.ruangan.lantai.nama_lantai);
+                            }
+                            parts.push(laporan.ruangan.nama_ruangan);
+                            lokasi = parts.join(' - ');
+                        }
+                        document.getElementById('show_lokasi_kejadian').value = lokasi;
                         document.getElementById('show_deskripsi_laporan').value = laporan.deskripsi_laporan || '-';
                         document.getElementById('show_lampiran_laporan').innerHTML = getFilePreview(laporan.lampiran_file);
                         document.getElementById('show_status').value = history.status || laporan.status || '-';

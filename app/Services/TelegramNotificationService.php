@@ -90,6 +90,21 @@ class TelegramNotificationService
             ? $laporan->tgl_kejadian->locale('id')->isoFormat('DD MMMM YYYY, HH:mm')
             : '-';
 
+        $laporan->loadMissing('ruangan.lantai.gedung');
+
+        $lokasi = '-';
+        if ($laporan->ruangan) {
+            $parts = [];
+            if ($laporan->ruangan->lantai && $laporan->ruangan->lantai->gedung) {
+                $parts[] = $laporan->ruangan->lantai->gedung->nama_gedung;
+            }
+            if ($laporan->ruangan->lantai) {
+                $parts[] = $laporan->ruangan->lantai->nama_lantai;
+            }
+            $parts[] = $laporan->ruangan->nama_ruangan;
+            $lokasi = implode(' - ', $parts);
+        }
+
         $isAnonymous = $laporan->is_anonymous === 'y';
 
         $lines = [
@@ -99,7 +114,7 @@ class TelegramNotificationService
             '📋 <b>Judul:</b> ' . e($laporan->judul_laporan),
             '📂 <b>Kategori:</b> ' . e($kategori),
             '🏢 <b>Unit Tujuan:</b> ' . e($unitNama),
-            '📍 <b>Lokasi:</b> ' . e($laporan->lokasi_kejadian),
+            '📍 <b>Lokasi:</b> ' . e($lokasi),
             '📅 <b>Tanggal:</b> ' . $tanggal,
             '',
             '👤 <b>Pelapor:</b> ' . ($isAnonymous ? '<i>Anonim</i>' : e($laporan->nama_pelapor)),

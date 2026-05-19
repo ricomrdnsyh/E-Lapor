@@ -187,7 +187,7 @@ class UnitHistoryLaporanController extends Controller
     private function findOwnedHistoryOrFail(string $id): HistoryLaporan
     {
         return $this->historyLaporanQuery()
-            ->with(['laporan.kategori.unit', 'user.unit'])
+            ->with(['laporan.kategori.unit', 'laporan.ruangan.lantai.gedung', 'user.unit'])
             ->findOrFail($id);
     }
 

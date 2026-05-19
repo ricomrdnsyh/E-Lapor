@@ -174,10 +174,28 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="required form-label fw-semibold">Lokasi</label>
-                                        <input type="text" name="lokasi_kejadian" class="form-control form-control-sm"
-                                            placeholder="Gedung / Lantai / Ruangan / Area"
-                                            value="{{ old('lokasi_kejadian') }}" required>
+                                        <label class="required form-label fw-semibold">Gedung</label>
+                                        <select id="gedung_id" name="gedung_id" class="form-select form-select-sm"
+                                            data-control="select2" required>
+                                            <option value="" disabled selected>Pilih Gedung</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="required form-label fw-semibold">Lantai</label>
+                                        <select id="lantai_id" name="lantai_id" class="form-select form-select-sm"
+                                            data-control="select2" required disabled>
+                                            <option value="" disabled selected>Pilih gedung terlebih dahulu</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="required form-label fw-semibold">Ruangan</label>
+                                        <select id="ruangan_id" name="ruangan_id" class="form-select form-select-sm"
+                                            data-control="select2" required disabled>
+                                            <option value="" disabled selected>Pilih lantai terlebih dahulu</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -514,6 +532,127 @@
                 kategoriSelect.innerHTML = '<option value="" disabled selected>Pilih unit terlebih dahulu</option>';
                 kategoriSelect.disabled = true;
                 jQuery(kategoriSelect).val(null).trigger('change');
+            });
+
+            // ===== CASCADING: Gedung → Lantai → Ruangan =====
+            const gedungSelect = document.getElementById('gedung_id');
+            const lantaiSelect = document.getElementById('lantai_id');
+            const ruanganSelect = document.getElementById('ruangan_id');
+
+            // Initialize Select2 for Gedung
+            if (typeof jQuery !== 'undefined' && jQuery(gedungSelect).length) {
+                jQuery(gedungSelect).select2({
+                    placeholder: 'Pilih Gedung',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
+            // Initialize Select2 for Lantai (disabled initially)
+            if (typeof jQuery !== 'undefined' && jQuery(lantaiSelect).length) {
+                jQuery(lantaiSelect).select2({
+                    placeholder: 'Pilih Lantai',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
+            // Initialize Select2 for Ruangan (disabled initially)
+            if (typeof jQuery !== 'undefined' && jQuery(ruanganSelect).length) {
+                jQuery(ruanganSelect).select2({
+                    placeholder: 'Pilih Ruangan',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
+            // Load Gedungs
+            fetch('{{ route('lapor.gedungs') }}')
+                .then(res => res.json())
+                .then(data => {
+                    data.forEach(gedung => {
+                        const option = document.createElement('option');
+                        option.value = gedung.id;
+                        option.textContent = gedung.nama;
+                        gedungSelect.appendChild(option);
+                    });
+                });
+
+            // Helper: reset lantai & ruangan
+            function resetLantai() {
+                lantaiSelect.innerHTML = '<option value="" disabled selected>Pilih gedung terlebih dahulu</option>';
+                lantaiSelect.disabled = true;
+                jQuery(lantaiSelect).val(null).trigger('change');
+            }
+
+            function resetRuangan() {
+                ruanganSelect.innerHTML = '<option value="" disabled selected>Pilih lantai terlebih dahulu</option>';
+                ruanganSelect.disabled = true;
+                jQuery(ruanganSelect).val(null).trigger('change');
+            }
+
+            // When Gedung is selected, load Lantai
+            jQuery(gedungSelect).on('select2:select', function() {
+                const selectedGedungId = this.value;
+                resetLantai();
+                resetRuangan();
+
+                if (!selectedGedungId) return;
+
+                lantaiSelect.innerHTML = '<option value="" disabled selected>Memuat lantai...</option>';
+
+                fetch('{{ route('lapor.lantai') }}?gedung_id=' + selectedGedungId)
+                    .then(res => res.json())
+                    .then(data => {
+                        lantaiSelect.innerHTML = '<option value="" disabled selected>-- Pilih Lantai --</option>';
+
+                        data.forEach(lantai => {
+                            const option = document.createElement('option');
+                            option.value = lantai.id;
+                            option.textContent = lantai.nama;
+                            lantaiSelect.appendChild(option);
+                        });
+
+                        lantaiSelect.disabled = false;
+                        jQuery(lantaiSelect).prop('disabled', false).trigger('change');
+                    });
+            });
+
+            // When Gedung is cleared
+            jQuery(gedungSelect).on('select2:clear', function() {
+                resetLantai();
+                resetRuangan();
+            });
+
+            // When Lantai is selected, load Ruangan
+            jQuery(lantaiSelect).on('select2:select', function() {
+                const selectedLantaiId = this.value;
+                resetRuangan();
+
+                if (!selectedLantaiId) return;
+
+                ruanganSelect.innerHTML = '<option value="" disabled selected>Memuat ruangan...</option>';
+
+                fetch('{{ route('lapor.ruangan') }}?lantai_id=' + selectedLantaiId)
+                    .then(res => res.json())
+                    .then(data => {
+                        ruanganSelect.innerHTML = '<option value="" disabled selected>-- Pilih Ruangan --</option>';
+
+                        data.forEach(ruangan => {
+                            const option = document.createElement('option');
+                            option.value = ruangan.id;
+                            option.textContent = ruangan.nama + (ruangan.fungsi ? ' (' + ruangan.fungsi + ')' : '');
+                            ruanganSelect.appendChild(option);
+                        });
+
+                        ruanganSelect.disabled = false;
+                        jQuery(ruanganSelect).prop('disabled', false).trigger('change');
+                    });
+            });
+
+            // When Lantai is cleared
+            jQuery(lantaiSelect).on('select2:clear', function() {
+                resetRuangan();
             });
 
             if (tglKejadianEl && typeof flatpickr !== 'undefined') {

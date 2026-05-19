@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gedung;
 use App\Models\HistoryLaporan;
+use App\Models\Lantai;
 use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
+use App\Models\Ruangan;
 use App\Models\Unit;
 use App\Services\EmailNotificationService;
 use App\Services\TelegramNotificationService;
@@ -59,6 +62,59 @@ class LaporController extends Controller
         return response()->json($categories);
     }
 
+    public function getGedungs()
+    {
+        $gedungs = Gedung::select('id_gedung', 'nama_gedung')
+            ->orderBy('nama_gedung')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id'   => $item->id_gedung,
+                    'nama' => $item->nama_gedung,
+                ];
+            });
+
+        return response()->json($gedungs);
+    }
+
+    public function getLantaiByGedung(Request $request)
+    {
+        $query = Lantai::select('id_lantai', 'nama_lantai', 'gedung_id');
+
+        if ($request->has('gedung_id') && $request->gedung_id) {
+            $query->where('gedung_id', $request->gedung_id);
+        }
+
+        $lantais = $query->orderBy('nama_lantai')->get()->map(function ($item) {
+            return [
+                'id'   => $item->id_lantai,
+                'nama' => $item->nama_lantai,
+            ];
+        });
+
+        return response()->json($lantais);
+    }
+
+    public function getRuanganByLantai(Request $request)
+    {
+        $query = Ruangan::with('fungsiRuangan')
+            ->select('id_ruangan', 'nama_ruangan', 'lantai_id', 'jenis_ruangan');
+
+        if ($request->has('lantai_id') && $request->lantai_id) {
+            $query->where('lantai_id', $request->lantai_id);
+        }
+
+        $ruangans = $query->orderBy('nama_ruangan')->get()->map(function ($item) {
+            return [
+                'id'    => $item->id_ruangan,
+                'nama'  => $item->nama_ruangan,
+                'fungsi' => $item->fungsiRuangan->nama_fungsi ?? '',
+            ];
+        });
+
+        return response()->json($ruangans);
+    }
+
     public function generateCaptcha()
     {
         $operators = ['+', '-'];
@@ -96,7 +152,7 @@ class LaporController extends Controller
             'kategori_id'       => 'required|exists:kategori,id_kategori',
             'unit_id'           => 'required|exists:unit,id_unit',
             'judul_laporan'     => 'required|string|max:255',
-            'lokasi_kejadian'   => 'required|string|max:150',
+            'ruangan_id'        => 'required|exists:ruangan,id_ruangan',
             'tgl_kejadian'      => 'required|date_format:Y-m-d H:i',
             'deskripsi_laporan' => 'required|string|max:2000',
             'lampiran_file'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
@@ -113,7 +169,8 @@ class LaporController extends Controller
             'unit_id.required'            => 'Unit tujuan harus diisi',
             'unit_id.exists'              => 'Unit tidak valid',
             'judul_laporan.required'      => 'Judul laporan harus diisi',
-            'lokasi_kejadian.required'    => 'Lokasi kejadian harus diisi',
+            'ruangan_id.required'         => 'Ruangan harus dipilih',
+            'ruangan_id.exists'           => 'Ruangan tidak valid',
             'tgl_kejadian.required'       => 'Tanggal dan waktu kejadian harus diisi',
             'deskripsi_laporan.required'  => 'Deskripsi laporan harus diisi',
             'nama_pelapor.required_if'    => 'Nama pelapor harus diisi jika tidak anonim',
@@ -160,7 +217,7 @@ class LaporController extends Controller
                     'kategori_id'       => $validated['kategori_id'],
                     'judul_laporan'     => $validated['judul_laporan'],
                     'tgl_kejadian'      => $validated['tgl_kejadian'],
-                    'lokasi_kejadian'   => $validated['lokasi_kejadian'],
+                    'ruangan_id'        => $validated['ruangan_id'],
                     'deskripsi_laporan' => $validated['deskripsi_laporan'],
                     'lampiran_file'     => $lampiran_file,
                     'is_anonymous'      => $validated['is_anonymous'],

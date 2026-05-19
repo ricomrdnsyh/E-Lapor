@@ -92,7 +92,12 @@
                                             style="padding:6px 0; color:#888; font-size:13px; width:140px; vertical-align:top;">
                                             Lokasi Kejadian</td>
                                         <td style="padding:6px 0; color:#333; font-size:13px;">
-                                            {{ $laporan->lokasi_kejadian }}</td>
+                                            @if($laporan->ruangan)
+                                                {{ $laporan->ruangan->lantai->gedung->nama_gedung ?? '' }} - {{ $laporan->ruangan->lantai->nama_lantai ?? '' }} - {{ $laporan->ruangan->nama_ruangan }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td

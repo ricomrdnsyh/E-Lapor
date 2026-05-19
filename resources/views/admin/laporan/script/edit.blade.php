@@ -57,8 +57,19 @@
                             .kode_tiket || '';
                         document.getElementById('edit_judul_laporan').value = data.laporan
                             .judul_laporan || '';
-                        document.getElementById('edit_lokasi_kejadian').value = data.laporan
-                            .lokasi_kejadian || '';
+                        let lokasi = '-';
+                        if (data.laporan.ruangan) {
+                            let parts = [];
+                            if (data.laporan.ruangan.lantai && data.laporan.ruangan.lantai.gedung) {
+                                parts.push(data.laporan.ruangan.lantai.gedung.nama_gedung);
+                            }
+                            if (data.laporan.ruangan.lantai) {
+                                parts.push(data.laporan.ruangan.lantai.nama_lantai);
+                            }
+                            parts.push(data.laporan.ruangan.nama_ruangan);
+                            lokasi = parts.join(' - ');
+                        }
+                        document.getElementById('edit_lokasi_kejadian').value = lokasi;
                         document.getElementById('edit_deskripsi_laporan').value = data
                             .laporan.deskripsi_laporan || '';
                         document.getElementById('edit_nama_pelapor').value = data.laporan

@@ -83,11 +83,11 @@
 
                         <div class="col-md-6">
                             <div class="d-flex flex-column mb-2">
-                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                     <span>Lokasi Kejadian</span>
                                 </label>
-                                <input type="text" name="lokasi_kejadian" id="edit_lokasi_kejadian"
-                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" required>
+                                <input type="text" id="edit_lokasi_kejadian"
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6" disabled readonly>
                             </div>
                         </div>
 

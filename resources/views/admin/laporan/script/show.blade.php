@@ -73,8 +73,19 @@
                             .no_telp_pelapor || '-';
                         document.getElementById('show_tipe_pelapor').value = laporan
                             .tipe_pelapor || '-';
-                        document.getElementById('show_lokasi_kejadian').value = laporan
-                            .lokasi_kejadian || '';
+                        let lokasi = '-';
+                        if (laporan.ruangan) {
+                            let parts = [];
+                            if (laporan.ruangan.lantai && laporan.ruangan.lantai.gedung) {
+                                parts.push(laporan.ruangan.lantai.gedung.nama_gedung);
+                            }
+                            if (laporan.ruangan.lantai) {
+                                parts.push(laporan.ruangan.lantai.nama_lantai);
+                            }
+                            parts.push(laporan.ruangan.nama_ruangan);
+                            lokasi = parts.join(' - ');
+                        }
+                        document.getElementById('show_lokasi_kejadian').value = lokasi;
 
                         const tglKejadian = formatTanggal(laporan.tgl_kejadian);
                         document.getElementById('show_tgl_kejadian').value = tglKejadian;

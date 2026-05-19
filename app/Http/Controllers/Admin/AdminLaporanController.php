@@ -69,13 +69,13 @@ class AdminLaporanController extends Controller
 
     public function show(string $id)
     {
-        $laporan = Laporan::with(['kategori', 'user'])->findOrFail($id);
+        $laporan = Laporan::with(['kategori', 'user', 'ruangan.lantai.gedung'])->findOrFail($id);
         return view('admin.laporan.show', compact('laporan'));
     }
 
     public function edit(string $id)
     {
-        $laporan   = Laporan::with('kategori.unit')->findOrFail($id);
+        $laporan   = Laporan::with(['kategori.unit', 'ruangan.lantai.gedung'])->findOrFail($id);
         $kategoris = Kategori::with('unit')->get();
         return response()->json([
             'laporan'   => $laporan,
@@ -89,7 +89,6 @@ class AdminLaporanController extends Controller
             'kategori_id'       => 'required|exists:kategori,id_kategori',
             'judul_laporan'     => 'required|string|max:255',
             'tgl_kejadian'      => 'required|date_format:Y-m-d H:i',
-            'lokasi_kejadian'   => 'required|string|max:150',
             'deskripsi_laporan' => 'required|string|max:2000',
             'nama_pelapor'      => 'nullable|string|max:100',
             'email_pelapor'     => 'nullable|email|max:100',
@@ -104,7 +103,6 @@ class AdminLaporanController extends Controller
             'kategori_id',
             'judul_laporan',
             'tgl_kejadian',
-            'lokasi_kejadian',
             'deskripsi_laporan',
             'nama_pelapor',
             'email_pelapor',

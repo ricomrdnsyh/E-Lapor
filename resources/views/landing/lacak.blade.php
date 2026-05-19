@@ -820,7 +820,13 @@
                                         </div>
                                         <div class="track-list-item is-compact">
                                             <div class="track-list-label">Lokasi</div>
-                                            <div class="track-list-value">{{ $laporan->lokasi_kejadian ?? '-' }}</div>
+                                            <div class="track-list-value">
+                                                @if($laporan->ruangan)
+                                                    {{ $laporan->ruangan->lantai->gedung->nama_gedung ?? '' }} - {{ $laporan->ruangan->lantai->nama_lantai ?? '' }} - {{ $laporan->ruangan->nama_ruangan }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </div>
                                         </div>
                                         <div class="track-list-item is-compact">
                                             <div class="track-list-label">Tanggal Kejadian</div>

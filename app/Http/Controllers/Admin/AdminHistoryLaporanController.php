@@ -95,7 +95,7 @@ class AdminHistoryLaporanController extends Controller
 
     public function show(string $id)
     {
-        $history = HistoryLaporan::with(['laporan.kategori.unit', 'user.unit'])->findOrFail($id);
+        $history = HistoryLaporan::with(['laporan.kategori.unit', 'laporan.ruangan.lantai.gedung', 'user.unit'])->findOrFail($id);
 
         return response()->json([
             'history' => $history,
@@ -110,7 +110,7 @@ class AdminHistoryLaporanController extends Controller
 
     public function edit(string $id)
     {
-        $history = HistoryLaporan::with(['laporan.kategori.unit', 'user.unit'])->findOrFail($id);
+        $history = HistoryLaporan::with(['laporan.kategori.unit', 'laporan.ruangan.lantai.gedung', 'user.unit'])->findOrFail($id);
 
         return response()->json([
             'history' => $history,
