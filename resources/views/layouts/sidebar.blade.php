@@ -225,6 +225,13 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
+                                    <a class="menu-link {{ Request::is('admin/sub-kategori*') ? 'active' : '' }}"
+                                        href="{{ route('admin.sub-kategori.index') }}">
+                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                                        <span class="menu-title">Master Sub Kategori</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
                                     <a class="menu-link {{ Request::is('admin/gedung*') ? 'active' : '' }}"
                                         href="{{ route('admin.gedung.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>

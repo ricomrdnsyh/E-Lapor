@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Detail Kategori</h5>
+                <h5 class="modal-title">Detail Sub Kategori</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -11,9 +11,9 @@
                     <div class="col-12">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Nama Kategori</span>
+                                <span>Nama Sub Kategori</span>
                             </label>
-                            <input type="text" id="show_nama_kategori"
+                            <input type="text" id="show_nama_sub"
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>
@@ -21,9 +21,9 @@
                     <div class="col-12">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Unit</span>
+                                <span>Kategori</span>
                             </label>
-                            <input type="text" id="show_unit_name"
+                            <input type="text" id="show_nama_kategori"
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>

@@ -30,7 +30,7 @@
                         <div class="col-12">
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
-                                    <span>Unit Menangani</span>
+                                    <span>Unit</span>
                                 </label>
                                 <select name="unit_id" id="unit_id"
                                     class="form-select form-select-sm fs-sm-8 fs-lg-6 @error('unit_id') is-invalid @enderror"

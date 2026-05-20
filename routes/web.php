@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminGedungController;
 use App\Http\Controllers\Admin\AdminLantaiController;
 use App\Http\Controllers\Admin\AdminFungsiRuanganController;
 use App\Http\Controllers\Admin\AdminRuanganController;
+use App\Http\Controllers\Admin\AdminSubKategoriController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Unit\UnitDashboardController;
@@ -73,6 +74,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     Route::get('/ruangan/data', [AdminRuanganController::class, 'getRuangan'])->name('ruangan.data');
     Route::resource('ruangan', AdminRuanganController::class);
+
+    Route::get('/sub-kategori/data', [AdminSubKategoriController::class, 'getSubKategori'])->name('sub-kategori.data');
+    Route::resource('sub-kategori', AdminSubKategoriController::class);
 
     Route::get('/laporan/data', [AdminLaporanController::class, 'getLaporan'])->name('laporan.data');
     Route::resource('laporan', AdminLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);

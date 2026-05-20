@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'List Kategori')
+@section('title', 'List Sub Kategori')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/plugins/custom/datatables/dataTables.bootstrap5.min.css') }}">
@@ -99,13 +99,13 @@
             <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
                 <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack flex-wrap gap-3">
                     <div class="page-title d-flex flex-column me-3">
-                        <h1 class="text-dark fw-bold fs-3 mb-1">Manajemen Kategori</h1>
-                        <span class="text-muted fw-semibold fs-7">Kelola data kategori yang ada dalam sistem</span>
+                        <h1 class="text-dark fw-bold fs-3 mb-1">Manajemen Sub Kategori</h1>
+                        <span class="text-muted fw-semibold fs-7">Kelola data sub kategori yang ada dalam sistem</span>
                     </div>
                     <div class="d-flex w-100 w-sm-auto justify-content-end ms-auto">
                         <a type="button" class="btn btn-sm btn-primary w-100 w-sm-auto text-nowrap" data-bs-toggle="modal"
-                            data-bs-target="#form_create" title="Tambah Kategori">
-                            <i class="fas fa-plus me-2"></i>Tambah Kategori
+                            data-bs-target="#form_create" title="Tambah Sub Kategori">
+                            <i class="fas fa-plus me-2"></i>Tambah Sub Kategori
                         </a>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                             <div class="card card-flush h-md-100 shadow-sm border-dark rounded border border-dashed">
                                 <div class="card-header pt-6">
                                     <div class="card-title">
-                                        <h3 class="card-label fw-bold fs-3 mb-1">List Kategori</h3>
+                                        <h3 class="card-label fw-bold fs-3 mb-1">List Sub Kategori</h3>
                                     </div>
                                 </div>
                                 <div class="separator my-4"></div>
@@ -128,7 +128,8 @@
                                             <tr class="text-start text-gray-600 fw-semibold fs-7 text-uppercase gs-0">
                                                 <th class="text-center p-0" style="width:28px; min-width:28px;"></th>
                                                 <th class="text-center ps-1 min-w-175px">Aksi</th>
-                                                <th class="min-w-150px">Nama Kategori</th>
+                                                <th class="min-w-150px">Nama Sub Kategori</th>
+                                                <th class="min-w-150px">Kategori</th>
                                                 <th class="min-w-150px">Unit</th>
                                             </tr>
                                         </thead>
@@ -140,9 +141,9 @@
                     </div>
                 </div>
             </div>
-            @include('admin.kategori.create')
-            @include('admin.kategori.edit')
-            @include('admin.kategori.show')
+            @include('admin.sub-kategori.create')
+            @include('admin.sub-kategori.edit')
+            @include('admin.sub-kategori.show')
 
             @include('layouts.footer')
         </div>
@@ -164,8 +165,8 @@
     <script src="{{ asset('assets/plugins/custom/datatables/print.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.js') }}"></script>
 
-    @include('admin.kategori.script.index')
-    @include('admin.kategori.script.create')
-    @include('admin.kategori.script.edit')
-    @include('admin.kategori.script.show')
+    @include('admin.sub-kategori.script.index')
+    @include('admin.sub-kategori.script.create')
+    @include('admin.sub-kategori.script.edit')
+    @include('admin.sub-kategori.script.show')
 @endsection
