@@ -10,6 +10,7 @@ use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
 use App\Models\Ruangan;
+use App\Models\SubKategori;
 use App\Models\Unit;
 use App\Services\EmailNotificationService;
 use App\Services\TelegramNotificationService;
@@ -95,6 +96,24 @@ class LaporController extends Controller
         return response()->json($lantais);
     }
 
+    public function getSubKategoris(Request $request)
+    {
+        $query = SubKategori::select('id_sub', 'nama_sub', 'kategori_id');
+
+        if ($request->has('kategori_id') && $request->kategori_id) {
+            $query->where('kategori_id', $request->kategori_id);
+        }
+
+        $subKategoris = $query->orderBy('nama_sub')->get()->map(function ($item) {
+            return [
+                'id'   => $item->id_sub,
+                'nama' => $item->nama_sub,
+            ];
+        });
+
+        return response()->json($subKategoris);
+    }
+
     public function getRuanganByLantai(Request $request)
     {
         $query = Ruangan::with('fungsiRuangan')
@@ -150,6 +169,7 @@ class LaporController extends Controller
         Session::forget('captcha_answer');
         $validated = $request->validate([
             'kategori_id'       => 'required|exists:kategori,id_kategori',
+            'sub_kategori_id'   => 'nullable|exists:sub_kategori,id_sub',
             'unit_id'           => 'required|exists:unit,id_unit',
             'judul_laporan'     => 'required|string|max:255',
             'ruangan_id'        => 'required|exists:ruangan,id_ruangan',
@@ -215,6 +235,7 @@ class LaporController extends Controller
                 $laporan = Laporan::create([
                     'kode_tiket'        => $kode_tiket,
                     'kategori_id'       => $validated['kategori_id'],
+                    'sub_kategori_id'   => $validated['sub_kategori_id'] ?? null,
                     'judul_laporan'     => $validated['judul_laporan'],
                     'tgl_kejadian'      => $validated['tgl_kejadian'],
                     'ruangan_id'        => $validated['ruangan_id'],

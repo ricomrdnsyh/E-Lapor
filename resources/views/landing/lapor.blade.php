@@ -153,6 +153,16 @@
                                     </div>
                                 </div>
 
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Sub Kategori</label>
+                                        <select id="sub_kategori_id" name="sub_kategori_id" class="form-select form-select-sm"
+                                            data-control="select2" disabled>
+                                            <option value="" disabled selected>Pilih kategori terlebih dahulu</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div>
                                     <label class="required form-label fw-semibold">Judul Laporan</label>
                                     <input type="text" name="judul_laporan" class="form-control form-control-sm"
@@ -487,6 +497,16 @@
                 });
             }
 
+            const subKategoriSelect = document.getElementById('sub_kategori_id');
+
+            if (typeof jQuery !== 'undefined' && jQuery(subKategoriSelect).length) {
+                jQuery(subKategoriSelect).select2({
+                    placeholder: 'Pilih Sub Kategori',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
             // Load Units
             fetch('{{ route('lapor.units') }}')
                 .then(res => res.json())
@@ -527,11 +547,50 @@
                     });
             });
 
+            // Helper: reset sub kategori
+            function resetSubKategori() {
+                subKategoriSelect.innerHTML = '<option value="" disabled selected>Pilih kategori terlebih dahulu</option>';
+                subKategoriSelect.disabled = true;
+                jQuery(subKategoriSelect).val(null).trigger('change');
+            }
+
+            // When Kategori is selected, load Sub Kategoris
+            jQuery(kategoriSelect).on('select2:select', function() {
+                const selectedKategoriId = this.value;
+                resetSubKategori();
+
+                if (!selectedKategoriId) return;
+
+                subKategoriSelect.innerHTML = '<option value="" disabled selected>Memuat sub kategori...</option>';
+
+                fetch('{{ route('lapor.subkategoris') }}?kategori_id=' + selectedKategoriId)
+                    .then(res => res.json())
+                    .then(data => {
+                        subKategoriSelect.innerHTML = '<option value=""></option>';
+
+                        data.forEach(sub => {
+                            const option = document.createElement('option');
+                            option.value = sub.id;
+                            option.textContent = sub.nama;
+                            subKategoriSelect.appendChild(option);
+                        });
+
+                        subKategoriSelect.disabled = false;
+                        jQuery(subKategoriSelect).prop('disabled', false).trigger('change');
+                    });
+            });
+
+            // When Kategori is cleared, reset sub kategori
+            jQuery(kategoriSelect).on('select2:clear', function() {
+                resetSubKategori();
+            });
+
             // When Unit is cleared, reset kategori
             jQuery(unitSelect).on('select2:clear', function() {
                 kategoriSelect.innerHTML = '<option value="" disabled selected>Pilih unit terlebih dahulu</option>';
                 kategoriSelect.disabled = true;
                 jQuery(kategoriSelect).val(null).trigger('change');
+                resetSubKategori();
             });
 
             // ===== CASCADING: Gedung → Lantai → Ruangan =====

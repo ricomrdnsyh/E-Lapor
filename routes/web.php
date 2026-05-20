@@ -37,6 +37,7 @@ Route::get('/lapor/data/units', [LaporController::class, 'getUnits'])->name('lap
 Route::get('/lapor/data/categories', [LaporController::class, 'getCategories'])->name('lapor.categories');
 Route::get('/lapor/data/gedungs', [LaporController::class, 'getGedungs'])->name('lapor.gedungs');
 Route::get('/lapor/data/lantai', [LaporController::class, 'getLantaiByGedung'])->name('lapor.lantai');
+Route::get('/lapor/data/subkategori', [LaporController::class, 'getSubKategoris'])->name('lapor.subkategoris');
 Route::get('/lapor/data/ruangan', [LaporController::class, 'getRuanganByLantai'])->name('lapor.ruangan');
 Route::get('/lapor/captcha', [LaporController::class, 'generateCaptcha'])->name('lapor.captcha');
 Route::get('/lacak', [LacakController::class, 'index'])->name('lacak');

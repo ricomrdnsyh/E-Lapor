@@ -13,6 +13,7 @@ class Laporan extends Model
     protected $fillable = [
         'kode_tiket',
         'kategori_id',
+        'sub_kategori_id',
         'judul_laporan',
         'tgl_kejadian',
         'ruangan_id',
@@ -35,6 +36,11 @@ class Laporan extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
+    }
+
+    public function subKategori()
+    {
+        return $this->belongsTo(SubKategori::class, 'sub_kategori_id', 'id_sub');
     }
 
     public function ruangan()
