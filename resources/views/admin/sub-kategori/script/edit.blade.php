@@ -5,9 +5,9 @@
         const submitButton = form.querySelector('[data-kt-contacts-type="submit"]');
         let currentEditId = null;
 
-        const selectElement = document.getElementById('edit_kategori_id');
-        if (selectElement && $) {
-            $(selectElement).select2({
+        const selectKategori = document.getElementById('edit_kategori_id');
+        if (selectKategori && $) {
+            $(selectKategori).select2({
                 placeholder: '-- Pilih Kategori --',
                 allowClear: true,
                 width: '100%',
@@ -17,15 +17,35 @@
                     if ($.trim(params.term) === '') {
                         return data;
                     }
-
                     if (typeof data.text === 'undefined') {
                         return null;
                     }
-
                     if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
                         return data;
                     }
+                    return null;
+                }
+            });
+        }
 
+        const selectUnit = document.getElementById('edit_unit_id');
+        if (selectUnit && $) {
+            $(selectUnit).select2({
+                placeholder: '-- Pilih Unit (sama dengan kategori jika kosong) --',
+                allowClear: true,
+                width: '100%',
+                language: 'id',
+                dropdownParent: $('#form_edit'),
+                matcher: function(params, data) {
+                    if ($.trim(params.term) === '') {
+                        return data;
+                    }
+                    if (typeof data.text === 'undefined') {
+                        return null;
+                    }
+                    if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
+                        return data;
+                    }
                     return null;
                 }
             });
@@ -46,9 +66,10 @@
                             .nama_sub || '';
 
                         setTimeout(function() {
-                            const selectEl = document.getElementById(
-                                'edit_kategori_id');
-                            $(selectEl).val(data.kategori_id).trigger('change');
+                            const selectKtg = document.getElementById('edit_kategori_id');
+                            $(selectKtg).val(data.kategori_id).trigger('change');
+                            const selectUnt = document.getElementById('edit_unit_id');
+                            $(selectUnt).val(data.unit_id).trigger('change');
                         }, 100);
 
                         form.action = '/admin/sub-kategori/' + id;

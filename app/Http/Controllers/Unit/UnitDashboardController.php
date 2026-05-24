@@ -11,7 +11,7 @@ class UnitDashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $baseQuery = $this->laporanKategoriQuery($user->kategori_id);
+        $baseQuery = $this->laporanUnitQuery();
 
         $stats = [
             'total' => (clone $baseQuery)->count(),
@@ -24,8 +24,29 @@ class UnitDashboardController extends Controller
         return view('unit.dashboard.index', compact('stats', 'user'));
     }
 
-    private function laporanKategoriQuery(?int $kategoriId): Builder
+    private function laporanUnitQuery(): Builder
     {
-        return Laporan::query()->where('kategori_id', $kategoriId);
+        $user = Auth::user();
+        $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
+
+        return Laporan::where(function ($q) use ($user, $kategoriIds) {
+            $hasFilter = false;
+
+            if ($user->unit_id) {
+                $hasFilter = true;
+                $q->whereHas('units', function ($q2) use ($user) {
+                    $q2->where('unit_id', $user->unit_id);
+                });
+            }
+
+            if (!empty($kategoriIds)) {
+                $hasFilter = true;
+                $q->orWhereIn('kategori_id', $kategoriIds);
+            }
+
+            if (!$hasFilter) {
+                $q->whereRaw('0=1');
+            }
+        });
     }
 }

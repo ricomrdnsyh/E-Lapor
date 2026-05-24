@@ -13,10 +13,16 @@ class SubKategori extends Model
     protected $fillable = [
         'kategori_id',
         'nama_sub',
+        'unit_id',
     ];
 
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id', 'id_unit');
     }
 }

@@ -43,6 +43,11 @@ class Laporan extends Model
         return $this->belongsTo(SubKategori::class, 'sub_kategori_id', 'id_sub');
     }
 
+    public function units()
+    {
+        return $this->belongsToMany(Unit::class, 'laporan_unit', 'laporan_id', 'unit_id');
+    }
+
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class, 'ruangan_id', 'id_ruangan');

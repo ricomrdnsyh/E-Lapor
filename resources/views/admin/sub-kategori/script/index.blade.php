@@ -71,8 +71,12 @@
                     name: 'nama_kategori'
                 },
                 {
-                    data: 'nama_unit',
-                    name: 'nama_unit'
+                    data: 'nama_kategori_unit',
+                    name: 'nama_kategori_unit'
+                },
+                {
+                    data: 'nama_unit_sub',
+                    name: 'nama_unit_sub'
                 },
             ]
         });

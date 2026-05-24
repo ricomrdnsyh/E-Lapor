@@ -4,9 +4,9 @@
         const form = document.getElementById('bt_submit_create');
         const submitButton = form.querySelector('[data-kt-contacts-type="submit"]');
 
-        const selectElement = document.getElementById('kategori_id');
-        if (selectElement && $) {
-            $(selectElement).select2({
+        const selectKategori = document.getElementById('kategori_id');
+        if (selectKategori && $) {
+            $(selectKategori).select2({
                 placeholder: '-- Pilih Kategori --',
                 allowClear: true,
                 width: '100%',
@@ -16,15 +16,35 @@
                     if ($.trim(params.term) === '') {
                         return data;
                     }
-
                     if (typeof data.text === 'undefined') {
                         return null;
                     }
-
                     if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
                         return data;
                     }
+                    return null;
+                }
+            });
+        }
 
+        const selectUnit = document.getElementById('unit_id');
+        if (selectUnit && $) {
+            $(selectUnit).select2({
+                placeholder: '-- Pilih Unit (sama dengan kategori jika kosong) --',
+                allowClear: true,
+                width: '100%',
+                language: 'id',
+                dropdownParent: $('#form_create'),
+                matcher: function(params, data) {
+                    if ($.trim(params.term) === '') {
+                        return data;
+                    }
+                    if (typeof data.text === 'undefined') {
+                        return null;
+                    }
+                    if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
+                        return data;
+                    }
                     return null;
                 }
             });

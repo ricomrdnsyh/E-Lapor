@@ -22,6 +22,6 @@ class Kategori extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'kategori_id', 'id_kategori');
+        return $this->belongsToMany(User::class, 'kategori_user', 'kategori_id', 'user_id');
     }
 }

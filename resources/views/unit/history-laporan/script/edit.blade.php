@@ -5,6 +5,7 @@
         const submitButton = document.getElementById('btn_submit_edit');
         const modal = new bootstrap.Modal(modalEl);
         const statusSelectEl = document.getElementById('edit_status');
+        const lampiranWrapperEl = document.getElementById('edit_lampiran_bukti_wrapper');
         const lampiranInputEl = document.getElementById('edit_lampiran_bukti');
 
         const initStatusSelect = function() {
@@ -64,15 +65,17 @@
             return `<a href="${filePath}" target="_blank" class="btn btn-sm btn-light-primary">Unduh File</a>`;
         };
 
-        initStatusSelect();
-
-        const updateLampiranRequirement = function() {
-            if (!statusSelectEl || !lampiranInputEl) return;
-
+        const toggleLampiranBukti = function() {
+            if (!statusSelectEl || !lampiranWrapperEl) return;
             const isSelesai = statusSelectEl.value === 'selesai';
-            lampiranInputEl.required = isSelesai;
-            lampiranInputEl.classList.toggle('is-invalid', false);
+            lampiranWrapperEl.style.display = isSelesai ? 'block' : 'none';
+            if (lampiranInputEl) {
+                lampiranInputEl.required = isSelesai;
+                lampiranInputEl.classList.toggle('is-invalid', false);
+            }
         };
+
+        initStatusSelect();
 
         document.addEventListener('click', function(e) {
             if (e.target.closest('.btn-edit')) {
@@ -90,22 +93,18 @@
 
                         document.getElementById('edit_kode_tiket').value = laporan.kode_tiket || '';
                         document.getElementById('edit_kategori').value = laporan.kategori?.nama_kategori || '-';
+                        document.getElementById('edit_sub_kategori').value = laporan.sub_kategori?.nama_sub || '-';
                         document.getElementById('edit_unit_tujuan').value = laporan.kategori?.unit?.nama_unit || '-';
                         document.getElementById('edit_judul_laporan').value = laporan.judul_laporan || '';
                         document.getElementById('edit_tgl_kejadian').value = laporan.tgl_kejadian ? formatTanggal(laporan.tgl_kejadian) : '-';
-                        let lokasi = '-';
-                        if (laporan.ruangan) {
-                            let parts = [];
-                            if (laporan.ruangan.lantai && laporan.ruangan.lantai.gedung) {
-                                parts.push(laporan.ruangan.lantai.gedung.nama_gedung);
-                            }
-                            if (laporan.ruangan.lantai) {
-                                parts.push(laporan.ruangan.lantai.nama_lantai);
-                            }
-                            parts.push(laporan.ruangan.nama_ruangan);
-                            lokasi = parts.join(' - ');
-                        }
-                        document.getElementById('edit_lokasi_kejadian').value = lokasi;
+
+                        document.getElementById('edit_nama_gedung').value = laporan.ruangan
+                            ?.lantai?.gedung?.nama_gedung || '-';
+                        document.getElementById('edit_nama_lantai').value = laporan.ruangan
+                            ?.lantai?.nama_lantai || '-';
+                        document.getElementById('edit_nama_ruangan').value = laporan.ruangan
+                            ?.nama_ruangan || '-';
+
                         document.getElementById('edit_deskripsi_laporan').value = laporan.deskripsi_laporan || '';
                         document.getElementById('edit_nama_pelapor').value = laporan.nama_pelapor || '-';
                         document.getElementById('edit_email_pelapor').value = laporan.email_pelapor || '-';
@@ -113,6 +112,11 @@
                         document.getElementById('edit_tipe_pelapor').value = laporan.tipe_pelapor || '-';
                         document.getElementById('edit_is_anonymous').value = privasi;
                         document.getElementById('edit_lampiran_file_preview').innerHTML = getFilePreview(laporan.lampiran_file);
+
+                        const currentStatus = history.status || laporan.status || '';
+                        const statusLabels = { 'menunggu': 'Menunggu', 'diproses': 'Diproses', 'selesai': 'Selesai', 'ditolak': 'Ditolak' };
+                        document.getElementById('edit_status_sekarang').value = statusLabels[currentStatus] || currentStatus;
+
                         document.getElementById('edit_lampiran_bukti_preview').innerHTML = getFilePreview(history.lampiran_file, 'history-laporan');
                         document.getElementById('edit_lampiran_bukti').value = '';
                         document.getElementById('edit_catatan').value = history.catatan || '';
@@ -125,7 +129,7 @@
                             statusSelectEl.value = history.status || laporan.status || '';
                         }
 
-                        updateLampiranRequirement();
+                        toggleLampiranBukti();
 
                         modal.show();
                     },
@@ -177,10 +181,10 @@
         });
 
         if (statusSelectEl) {
-            statusSelectEl.addEventListener('change', updateLampiranRequirement);
+            statusSelectEl.addEventListener('change', toggleLampiranBukti);
 
             if (typeof jQuery !== 'undefined') {
-                jQuery(statusSelectEl).on('change', updateLampiranRequirement);
+                jQuery(statusSelectEl).on('change', toggleLampiranBukti);
             }
         }
 

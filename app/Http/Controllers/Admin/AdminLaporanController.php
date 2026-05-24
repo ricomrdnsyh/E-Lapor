@@ -69,17 +69,19 @@ class AdminLaporanController extends Controller
 
     public function show(string $id)
     {
-        $laporan = Laporan::with(['kategori', 'user', 'ruangan.lantai.gedung'])->findOrFail($id);
+        $laporan = Laporan::with(['kategori', 'subKategori', 'user', 'ruangan.lantai.gedung'])->findOrFail($id);
         return view('admin.laporan.show', compact('laporan'));
     }
 
     public function edit(string $id)
     {
-        $laporan   = Laporan::with(['kategori.unit', 'ruangan.lantai.gedung'])->findOrFail($id);
+        $laporan   = Laporan::with(['kategori.unit', 'subKategori', 'ruangan.lantai.gedung'])->findOrFail($id);
         $kategoris = Kategori::with('unit')->get();
+        $subKategoris = \App\Models\SubKategori::where('kategori_id', $laporan->kategori_id)->get();
         return response()->json([
-            'laporan'   => $laporan,
-            'kategoris' => $kategoris
+            'laporan'      => $laporan,
+            'kategoris'    => $kategoris,
+            'subKategoris' => $subKategoris
         ]);
     }
 
@@ -87,20 +89,25 @@ class AdminLaporanController extends Controller
     {
         $request->validate([
             'kategori_id'       => 'required|exists:kategori,id_kategori',
+            'sub_kategori_id'   => 'nullable|exists:sub_kategori,id_sub',
             'judul_laporan'     => 'required|string|max:255',
             'tgl_kejadian'      => 'required|date_format:Y-m-d H:i',
             'deskripsi_laporan' => 'required|string|max:2000',
+            'lampiran_file'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'nama_pelapor'      => 'nullable|string|max:100',
             'email_pelapor'     => 'nullable|email|max:100',
             'no_telp_pelapor'   => 'nullable|string|max:15',
             'tipe_pelapor'      => 'nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
+            'ruangan_id'        => 'nullable|exists:ruangan,id_ruangan',
             'is_anonymous'      => 'required|in:t,y',
             'status'            => 'required|in:menunggu,diproses,selesai,ditolak',
         ]);
 
         $laporan = Laporan::findOrFail($id);
-        $laporan->update($request->only([
+
+        $data = $request->only([
             'kategori_id',
+            'sub_kategori_id',
             'judul_laporan',
             'tgl_kejadian',
             'deskripsi_laporan',
@@ -109,8 +116,18 @@ class AdminLaporanController extends Controller
             'no_telp_pelapor',
             'tipe_pelapor',
             'is_anonymous',
-            'status'
-        ]));
+            'status',
+            'ruangan_id'
+        ]);
+
+        if ($request->hasFile('lampiran_file')) {
+            $file     = $request->file('lampiran_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/laporan'), $filename);
+            $data['lampiran_file'] = $filename;
+        }
+
+        $laporan->update($data);
 
         return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
     }

@@ -6,198 +6,264 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body" style="max-height: 600px; overflow-y: auto;">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Kode Tiket</span>
-                            </label>
-                            <input type="text" id="show_kode_tiket"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Kategori</span>
-                            </label>
-                            <input type="text" id="show_kategori"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Unit Tujuan</span>
-                            </label>
-                            <input type="text" id="show_unit_tujuan"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
+            <div class="modal-body px-6 py-5 pb-8" style="max-height: 600px; overflow-y: auto;">
+                <div class="row g-5">
 
                     <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Judul Laporan</span>
-                            </label>
-                            <input type="text" id="show_judul_laporan"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Tanggal & Waktu Kejadian</span>
-                            </label>
-                            <input type="text" id="show_tgl_kejadian"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Lokasi Kejadian</span>
-                            </label>
-                            <input type="text" id="show_lokasi_kejadian"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
+                            <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card-title d-flex align-items-center gap-2 mb-0">
+                                    <span class="badge badge-primary p-2">
+                                        <i class="ki-duotone ki-tag fs-4 text-white">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <h6 class="fw-bold fs-6 mb-0 text-primary">Klasifikasi Laporan</h6>
+                                </div>
+                            </div>
+                            <div class="card-body pt-4 pb-7">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Kode Tiket</span>
+                                        </label>
+                                        <input type="text" id="show_kode_tiket"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Unit Tujuan</span>
+                                        </label>
+                                        <input type="text" id="show_unit_tujuan"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Kategori Laporan</span>
+                                        </label>
+                                        <input type="text" id="show_kategori"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Sub Kategori Laporan</span>
+                                        </label>
+                                        <input type="text" id="show_sub_kategori"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Deskripsi Laporan</span>
-                            </label>
-                            <textarea id="show_deskripsi_laporan" rows="4" class="form-control form-control-sm text-black fs-sm-8 fs-lg-6"
-                                disabled></textarea>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Nama Pelapor</span>
-                            </label>
-                            <input type="text" id="show_nama_pelapor"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Email Pelapor</span>
-                            </label>
-                            <input type="text" id="show_email_pelapor"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>No. Telepon Pelapor</span>
-                            </label>
-                            <input type="text" id="show_no_telp_pelapor"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Tipe Pelapor</span>
-                            </label>
-                            <input type="text" id="show_tipe_pelapor"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Privasi Laporan</span>
-                            </label>
-                            <input type="text" id="show_is_anonymous"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
+                            <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card-title d-flex align-items-center gap-2 mb-0">
+                                    <span class="badge badge-primary p-2">
+                                        <i class="ki-duotone ki-document fs-4 text-white">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <h6 class="fw-bold fs-6 mb-0 text-primary">Detail Laporan</h6>
+                                </div>
+                            </div>
+                            <div class="card-body pt-4 pb-7">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Judul Laporan</span>
+                                        </label>
+                                        <input type="text" id="show_judul_laporan"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Tanggal & Waktu Kejadian</span>
+                                        </label>
+                                        <input type="text" id="show_tgl_kejadian"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Status Saat Ini</span>
+                                        </label>
+                                        <input type="text" id="show_status"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Kronologi / Deskripsi</span>
+                                        </label>
+                                        <textarea id="show_deskripsi_laporan" rows="4" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
+                                            disabled></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Lampiran Bukti</span>
+                                        </label>
+                                        <div id="show_lampiran_laporan" class="text-gray-600 fs-8">-</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Lampiran Laporan</span>
-                            </label>
-                            <div id="show_lampiran_laporan" class="text-gray-600 fs-8">-</div>
+                        <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
+                            <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card-title d-flex align-items-center gap-2 mb-0">
+                                    <span class="badge badge-primary p-2">
+                                        <i class="ki-duotone ki-geolocation fs-4 text-white">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <h6 class="fw-bold fs-6 mb-0 text-primary">Lokasi Kejadian</h6>
+                                </div>
+                            </div>
+                            <div class="card-body pt-4 pb-7">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Nama Gedung</span>
+                                        </label>
+                                        <input type="text" id="show_nama_gedung"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Lantai</span>
+                                        </label>
+                                        <input type="text" id="show_nama_lantai"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Ruangan</span>
+                                        </label>
+                                        <input type="text" id="show_nama_ruangan"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Status</span>
-                            </label>
-                            <input type="text" id="show_status"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
+                            <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card-title d-flex align-items-center gap-2 mb-0">
+                                    <span class="badge badge-primary p-2">
+                                        <i class="ki-duotone ki-user fs-4 text-white">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <h6 class="fw-bold fs-6 mb-0 text-primary">Data Pelapor</h6>
+                                </div>
+                            </div>
+                            <div class="card-body pt-4 pb-7">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Privasi Laporan</span>
+                                        </label>
+                                        <input type="text" id="show_is_anonymous"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Nama Pelapor</span>
+                                        </label>
+                                        <input type="text" id="show_nama_pelapor"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Email Pelapor</span>
+                                        </label>
+                                        <input type="text" id="show_email_pelapor"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>No. Telepon Pelapor</span>
+                                        </label>
+                                        <input type="text" id="show_no_telp_pelapor"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Tipe Pelapor</span>
+                                        </label>
+                                        <input type="text" id="show_tipe_pelapor"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Lampiran Bukti Penanganan</span>
-                            </label>
-                            <div id="show_lampiran_bukti" class="text-gray-600 fs-8">-</div>
+                        <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
+                            <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card-title d-flex align-items-center gap-2 mb-0">
+                                    <span class="badge badge-primary p-2">
+                                        <i class="ki-duotone ki-arrows-circle fs-4 text-white">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <h6 class="fw-bold fs-6 mb-0 text-primary">Riwayat Penanganan</h6>
+                                </div>
+                            </div>
+                            <div class="card-body pt-4 pb-7">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Lampiran Bukti Penanganan</span>
+                                        </label>
+                                        <div id="show_lampiran_bukti" class="text-gray-600 fs-8">-</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>User Penangan</span>
+                                        </label>
+                                        <input type="text" id="show_user_penangan"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Catatan</span>
+                                        </label>
+                                        <textarea id="show_catatan" rows="3" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled></textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Dibuat</span>
+                                        </label>
+                                        <input type="text" id="show_created_at"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                            <span>Diperbarui</span>
+                                        </label>
+                                        <input type="text" id="show_updated_at"
+                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>User Penangan</span>
-                            </label>
-                            <input type="text" id="show_user_penangan"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Catatan</span>
-                            </label>
-                            <textarea id="show_catatan" rows="3" class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled></textarea>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Dibuat</span>
-                            </label>
-                            <input type="text" id="show_created_at"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="d-flex flex-column mb-2">
-                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Diperbarui</span>
-                            </label>
-                            <input type="text" id="show_updated_at"
-                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer py-4">
                 <button type="button" class="btn btn-sm btn-primary fs-sm-8 fs-lg-6" data-bs-dismiss="modal">
                     Tutup
                 </button>

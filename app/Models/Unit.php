@@ -21,4 +21,14 @@ class Unit extends Model
     {
         return $this->hasMany(Kategori::class, 'unit_id', 'id_unit');
     }
+
+    public function subKategoris()
+    {
+        return $this->hasMany(SubKategori::class, 'unit_id', 'id_unit');
+    }
+
+    public function laporans()
+    {
+        return $this->belongsToMany(Laporan::class, 'laporan_unit', 'unit_id', 'laporan_id');
+    }
 }

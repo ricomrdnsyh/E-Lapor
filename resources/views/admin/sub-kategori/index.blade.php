@@ -130,7 +130,8 @@
                                                 <th class="text-center ps-1 min-w-175px">Aksi</th>
                                                 <th class="min-w-150px">Nama Sub Kategori</th>
                                                 <th class="min-w-150px">Kategori</th>
-                                                <th class="min-w-150px">Unit</th>
+                                                <th class="min-w-125px">Unit Kategori</th>
+                                                <th class="min-w-125px">Unit Sub</th>
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-800"></tbody>

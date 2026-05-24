@@ -27,6 +27,26 @@
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>
+
+                    <div class="col-12">
+                        <div class="d-flex flex-column mb-2">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Unit Kategori</span>
+                            </label>
+                            <input type="text" id="show_nama_kategori_unit"
+                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex flex-column mb-2">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Unit Sub Kategori</span>
+                            </label>
+                            <input type="text" id="show_nama_unit_sub"
+                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -155,7 +155,7 @@
             <div class="sidebar-minimize-hide mt-2 w-100">
                 <div class="text-white fw-semibold text-truncate">{{ $currentUser?->nama ?? 'User' }}</div>
                 <div class="text-gray-400 fs-8 text-truncate">
-                    {{ $isAdmin ? 'Administrator' : $currentUser?->kategori?->nama_kategori ?? 'Unit' }}
+                    {{ $isAdmin ? 'Administrator' : $currentUser?->unit?->singkatan ?? 'Unit' }}
                 </div>
             </div>
         </a>

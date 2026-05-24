@@ -72,26 +72,62 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-lg-6" id="create_kategori_wrapper">
+                        <div class="col-12 col-lg-6" id="create_unit_wrapper">
                             <div class="d-flex flex-column mb-2">
-                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                    <span>Kategori</span>
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
+                                    <span>Unit</span>
                                 </label>
-                                <select name="kategori_id" id="kategori_id"
-                                    class="form-select form-select-sm fs-sm-8 fs-lg-6 @error('kategori_id') is-invalid @enderror"
+                                <select name="unit_id" id="unit_id"
+                                    class="form-select form-select-sm fs-sm-8 fs-lg-6 @error('unit_id') is-invalid @enderror"
                                     data-control="select2">
-                                    <option value="">-- Pilih Kategori --</option>
-                                    @foreach ($kategoris as $kat)
-                                        <option value="{{ $kat->id_kategori }}" @selected((string) old('kategori_id') === (string) $kat->id_kategori)>
-                                            {{ $kat->nama_kategori }} ({{ $kat->unit->nama_unit ?? '-' }})
+                                    <option value="">-- Pilih Unit --</option>
+                                    @foreach ($units as $unit)
+                                        <option value="{{ $unit->id_unit }}" @selected((string) old('unit_id') === (string) $unit->id_unit)>
+                                            {{ $unit->nama_unit }}
                                         </option>
                                     @endforeach
                                 </select>
 
-                                @error('kategori_id')
+                                @error('unit_id')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
                                 @enderror
-                                <div class="invalid-feedback">Kategori wajib dipilih untuk role unit.</div>
+                                <div class="invalid-feedback">Unit wajib dipilih untuk role unit.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-12" id="create_kategori_wrapper" style="display:none;">
+                            <div class="d-flex flex-column mb-2">
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                    <span>Kategori yang Ditangani (notifikasi Telegram)</span>
+                                </label>
+
+                                @foreach ($units as $unit)
+                                    @if ($unit->kategoris->isNotEmpty())
+                                        <div class="mb-3">
+                                            <div class="d-flex align-items-center gap-3 mb-2 border-bottom pb-1">
+                                                <label class="form-check mb-0">
+                                                    <input type="checkbox" class="form-check-input create-check-all-unit" data-unit-id="{{ $unit->id_unit }}">
+                                                    <span class="form-check-label text-dark fw-bold fs-sm-8 fs-lg-6">{{ $unit->nama_unit }}</span>
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                @foreach ($unit->kategoris as $kat)
+                                                    <div class="col-6 col-md-4 mb-1">
+                                                        <label class="form-check">
+                                                            <input type="checkbox" name="kategori_ids[]" value="{{ $kat->id_kategori }}"
+                                                                class="form-check-input kategori-checkbox" data-unit-id="{{ $unit->id_unit }}">
+                                                            <span class="form-check-label text-dark fs-sm-8 fs-lg-6">{{ $kat->nama_kategori }}</span>
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @error('kategori_ids')
+                                    <div class="small text-danger mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 

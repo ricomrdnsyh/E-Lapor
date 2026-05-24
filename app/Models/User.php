@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,7 +18,7 @@ class User extends Authenticatable
         'telegram_id',
         'password',
         'role',
-        'kategori_id',
+        'unit_id',
     ];
 
     protected $hidden = [
@@ -33,24 +34,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function kategori(): BelongsTo
+    public function unit(): BelongsTo
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
+        return $this->belongsTo(Unit::class, 'unit_id', 'id_unit');
     }
 
-    /**
-     * Akses unit melalui kategori (HasOneThrough).
-     */
-    public function unit()
+    public function kategoris(): BelongsToMany
     {
-        return $this->hasOneThrough(
-            Unit::class,
-            Kategori::class,
-            'id_kategori',   // FK di kategori (local key match)
-            'id_unit',       // FK di unit (local key match)
-            'kategori_id',   // FK di users
-            'unit_id'        // FK di kategori ke unit
-        );
+        return $this->belongsToMany(Kategori::class, 'kategori_user', 'user_id', 'kategori_id');
     }
 
     public function historyLaporans()

@@ -18,14 +18,17 @@
                         document.getElementById('show_telegram_id').value = data.user.telegram_id || '-';
                         document.getElementById('show_role').value = data.user.role ? data.user.role.charAt(0).toUpperCase() + data.user.role.slice(1) : '';
 
-                        let kategoriText = '-';
-                        if (data.user.kategori) {
-                            kategoriText = data.user.kategori.nama_kategori;
-                            if (data.user.kategori.unit) {
-                                kategoriText += ' (' + data.user.kategori.unit.nama_unit + ')';
-                            }
+                        let unitText = '-';
+                        if (data.user.unit) {
+                            unitText = data.user.unit.nama_unit;
                         }
-                        document.getElementById('show_kategori').value = kategoriText;
+                        document.getElementById('show_unit').value = unitText;
+
+                        let kategorisText = '-';
+                        if (data.user.kategoris && data.user.kategoris.length > 0) {
+                            kategorisText = data.user.kategoris.map(function(k) { return k.nama_kategori; }).join(', ');
+                        }
+                        document.getElementById('show_kategoris').value = kategorisText;
 
                         modal.show();
                     },

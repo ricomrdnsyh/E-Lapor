@@ -51,9 +51,19 @@
                     <div class="col-12 col-lg-6">
                         <div class="d-flex flex-column mb-2">
                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                <span>Kategori (Unit)</span>
+                                <span>Unit</span>
                             </label>
-                            <input type="text" id="show_kategori"
+                            <input type="text" id="show_unit"
+                                class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex flex-column mb-2">
+                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                <span>Kategori yang Ditangani</span>
+                            </label>
+                            <input type="text" id="show_kategoris"
                                 class="form-control form-control-sm text-black fs-sm-8 fs-lg-6" disabled>
                         </div>
                     </div>

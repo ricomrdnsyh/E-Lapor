@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Kategori;
+use App\Models\Unit;
 use App\Services\ClientSSO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,24 +14,27 @@ class AdminUserController extends Controller
 {
     public function index()
     {
-        $kategoris = Kategori::with('unit')->get();
-        return view('admin.users.index', compact('kategoris'));
+        $units = Unit::with('kategoris')->where('status', 'aktif')->get();
+        return view('admin.users.index', compact('units'));
     }
 
     public function getUsers()
     {
-        $query = User::with('kategori.unit')->select(['id', 'nama', 'username', 'role', 'kategori_id', 'telegram_id'])->orderByDesc('id');
+        $query = User::with('unit', 'kategoris')->select(['id', 'nama', 'username', 'role', 'unit_id', 'telegram_id'])->orderByDesc('id');
 
         return DataTables::of($query)
             ->editColumn('role', function ($row) {
                 $badgeClass = $row->role === 'admin' ? 'bg-success' : 'bg-info';
                 return '<span class="badge text-white ' . $badgeClass . '">' . ucfirst($row->role) . '</span>';
             })
-            ->editColumn('kategori_id', function ($row) {
-                if (!$row->kategori) return '-';
-                $kategori = $row->kategori->nama_kategori;
-                $unit = $row->kategori->unit->nama_unit ?? '';
-                return $kategori . ($unit ? ' <small class="text-muted">(' . $unit . ')</small>' : '');
+            ->addColumn('unit_info', function ($row) {
+                if ($row->role === 'admin') return '<span class="text-muted">-</span>';
+                if (!$row->unit) return '-';
+                $kategoris = $row->kategoris->pluck('nama_kategori')->implode(', ');
+                $unit = e($row->unit->nama_unit);
+                return $kategoris
+                    ? $unit . ' <small class="text-muted">(' . e($kategoris) . ')</small>'
+                    : $unit;
             })
             ->editColumn('telegram_id', function ($row) {
                 return $row->telegram_id ?: '-';
@@ -55,7 +58,7 @@ class AdminUserController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
-            ->rawColumns(['role', 'kategori_id', 'action'])
+            ->rawColumns(['role', 'unit_info', 'action'])
             ->make(true);
     }
 
@@ -71,7 +74,7 @@ class AdminUserController extends Controller
 
     public function show(string $id)
     {
-        $user = User::with('kategori.unit')->findOrFail($id);
+        $user = User::with('unit', 'kategoris')->findOrFail($id);
 
         return response()->json([
             'user' => $user,
@@ -84,7 +87,7 @@ class AdminUserController extends Controller
 
     public function edit(string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('kategoris', 'unit')->findOrFail($id);
         return response()->json($user);
     }
 
@@ -96,7 +99,9 @@ class AdminUserController extends Controller
             'telegram_id'  => 'nullable|string|max:50',
             'password'     => 'required|string|min:6',
             'role'         => 'required|in:admin,unit',
-            'kategori_id'  => 'required_if:role,unit|nullable|exists:kategori,id_kategori',
+            'unit_id'      => 'required_if:role,unit|nullable|exists:unit,id_unit',
+            'kategori_ids' => 'nullable|array',
+            'kategori_ids.*' => 'exists:kategori,id_kategori',
         ], [
             'nama.required'          => 'Nama harus diisi',
             'username.required'      => 'Username harus diisi',
@@ -104,20 +109,23 @@ class AdminUserController extends Controller
             'password.required'      => 'Password harus diisi',
             'password.min'           => 'Password minimal 6 karakter',
             'role.required'          => 'Role harus dipilih',
-            'kategori_id.required_if' => 'Kategori harus dipilih untuk role unit',
-            'kategori_id.exists'     => 'Kategori tidak ditemukan',
+            'unit_id.required_if'    => 'Unit harus dipilih untuk role unit',
+            'unit_id.exists'         => 'Unit tidak ditemukan',
+            'kategori_ids.*.exists'  => 'Kategori tidak ditemukan',
         ]);
 
-        $kategoriId = $request->role === 'unit' ? $request->kategori_id : null;
-
-        User::create([
+        $user = User::create([
             'nama'         => $request->nama,
             'username'     => $request->username,
             'telegram_id'  => $request->telegram_id ?: null,
             'password'     => Hash::make($request->password),
             'role'         => $request->role,
-            'kategori_id'  => $kategoriId,
+            'unit_id'      => $request->role === 'unit' ? $request->unit_id : null,
         ]);
+
+        if ($request->role === 'unit' && $request->filled('kategori_ids')) {
+            $user->kategoris()->sync($request->kategori_ids);
+        }
 
         return redirect()->route('admin.users.index')->with('success', 'Data user berhasil ditambahkan.');
     }
@@ -132,15 +140,18 @@ class AdminUserController extends Controller
             'telegram_id'  => 'nullable|string|max:50',
             'password'     => 'nullable|string|min:6',
             'role'         => 'required|in:admin,unit',
-            'kategori_id'  => 'required_if:role,unit|nullable|exists:kategori,id_kategori',
+            'unit_id'      => 'required_if:role,unit|nullable|exists:unit,id_unit',
+            'kategori_ids' => 'nullable|array',
+            'kategori_ids.*' => 'exists:kategori,id_kategori',
         ], [
             'nama.required'          => 'Nama harus diisi',
             'username.required'      => 'Username harus diisi',
             'username.unique'        => 'Username sudah terdaftar',
             'password.min'           => 'Password minimal 6 karakter',
             'role.required'          => 'Role harus dipilih',
-            'kategori_id.required_if' => 'Kategori harus dipilih untuk role unit',
-            'kategori_id.exists'     => 'Kategori tidak ditemukan',
+            'unit_id.required_if'    => 'Unit harus dipilih untuk role unit',
+            'unit_id.exists'         => 'Unit tidak ditemukan',
+            'kategori_ids.*.exists'  => 'Kategori tidak ditemukan',
         ]);
 
         $data = [
@@ -148,7 +159,7 @@ class AdminUserController extends Controller
             'username'     => $request->username,
             'telegram_id'  => $request->telegram_id ?: null,
             'role'         => $request->role,
-            'kategori_id'  => $request->role === 'unit' ? $request->kategori_id : null,
+            'unit_id'      => $request->role === 'unit' ? $request->unit_id : null,
         ];
 
         if ($request->filled('password')) {
@@ -156,6 +167,14 @@ class AdminUserController extends Controller
         }
 
         $user->update($data);
+
+        if ($request->role === 'unit' && $request->filled('kategori_ids')) {
+            $user->kategoris()->sync($request->kategori_ids);
+        } elseif ($request->role === 'unit') {
+            $user->kategoris()->sync([]);
+        } else {
+            $user->kategoris()->sync([]);
+        }
 
         return redirect()->route('admin.users.index')->with('success', 'Data user berhasil diperbarui.');
     }

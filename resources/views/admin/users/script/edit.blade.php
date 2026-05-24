@@ -3,10 +3,11 @@
         const modalEl = document.getElementById('form_edit');
         const form = document.getElementById('bt_submit_edit');
         const submitButton = form.querySelector('[data-kt-contacts-type="submit"]');
-        const roleElement = document.getElementById('edit_role');
-        const kategoriWrapper = document.getElementById('edit_kategori_wrapper');
-        const kategoriSelect = document.getElementById('edit_kategori_id');
         const roleSelect = document.getElementById('edit_role');
+        const unitSelect = document.getElementById('edit_unit_id');
+        const unitWrapper = document.getElementById('edit_unit_wrapper');
+        const kategoriWrapper = document.getElementById('edit_kategori_wrapper');
+        const checkAllUnit = document.querySelectorAll('.edit-check-all-unit');
         const karyawanSelect = document.getElementById('edit_karyawan_select');
 
         let editKaryawanData = [];
@@ -25,9 +26,9 @@
             });
         }
 
-        if (kategoriSelect && $) {
-            $(kategoriSelect).select2({
-                placeholder: '-- Pilih Kategori --',
+        if (unitSelect && $) {
+            $(unitSelect).select2({
+                placeholder: '-- Pilih Unit --',
                 allowClear: true,
                 width: '100%',
                 language: 'id',
@@ -103,23 +104,34 @@
             document.getElementById('edit_telegram_id').value = '';
         });
 
-        function toggleEditKategoriField() {
-            const showKategoriField = roleElement.value === 'unit';
-            kategoriSelect.required = showKategoriField;
-            $(kategoriSelect).prop('disabled', !showKategoriField).trigger('change.select2');
-
-            if (!showKategoriField) {
-                $(kategoriSelect).val('').trigger('change');
+        function showUnitKategoriFields(show) {
+            kategoriWrapper.style.display = show ? '' : 'none';
+            unitSelect.required = show;
+            $(unitSelect).prop('disabled', !show).trigger('change.select2');
+            if (!show) {
+                $(unitSelect).val('').trigger('change');
+                document.querySelectorAll('#edit_kategori_wrapper .kategori-checkbox').forEach(function(cb) {
+                    cb.checked = false;
+                });
             }
         }
 
         $(roleSelect).on('change', function() {
-            toggleEditKategoriField();
+            showUnitKategoriFields(roleSelect.value === 'unit');
+        });
+
+        // Check all / uncheck all per unit
+        document.querySelectorAll('.edit-check-all-unit').forEach(function(cb) {
+            cb.addEventListener('change', function() {
+                const unitId = this.dataset.unitId;
+                document.querySelectorAll('#edit_kategori_wrapper .kategori-checkbox[data-unit-id="' + unitId + '"]').forEach(function(c) {
+                    c.checked = cb.checked;
+                });
+            });
         });
 
         // Pre-select karyawan by username (id_penduduk)
         function preselectKaryawan(username, nama, telegramId) {
-            // Try to find by username (id_penduduk) in options
             let found = false;
             $(karyawanSelect).find('option').each(function() {
                 if (this.value === username) {
@@ -130,7 +142,6 @@
             if (found) {
                 $(karyawanSelect).val(username).trigger('change');
             } else if (username && nama) {
-                // If not found in karyawan list, add a manual option
                 const label = nama + ' (data tersimpan)';
                 $(karyawanSelect).append(
                     $('<option>', {
@@ -159,21 +170,32 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        // Store data to use after karyawan loads
                         pendingEditData = data;
 
                         $(roleSelect).val(data.role || '').trigger('change');
                         document.getElementById('edit_password').value = '';
 
-                        toggleEditKategoriField();
-                        $(kategoriSelect).val(data.kategori_id).trigger('change');
+                        const isUnit = data.role === 'unit';
+                        showUnitKategoriFields(isUnit);
+
+                        if (isUnit && data.unit) {
+                            $(unitSelect).val(data.unit_id).trigger('change');
+                            // After unit change shows kategori groups, check the user's kategoris
+                            setTimeout(function() {
+                                const userKategoriIds = (data.kategoris || []).map(function(k) { return k.id_kategori; });
+                                document.querySelectorAll('#edit_kategori_wrapper .kategori-checkbox').forEach(function(cb) {
+                                    if (userKategoriIds.includes(parseInt(cb.value))) {
+                                        cb.checked = true;
+                                    }
+                                });
+                            }, 100);
+                        }
 
                         form.action = '/admin/users/' + id;
 
                         const modal = new bootstrap.Modal(modalEl);
                         modal.show();
 
-                        // Load karyawan then pre-select
                         loadEditKaryawan(function() {
                             preselectKaryawan(
                                 data.username || '',
@@ -203,7 +225,6 @@
                 e.preventDefault();
                 e.stopPropagation();
                 form.classList.add('was-validated');
-                toggleEditKategoriField();
                 return;
             }
 

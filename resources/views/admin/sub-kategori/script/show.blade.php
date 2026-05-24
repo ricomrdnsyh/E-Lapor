@@ -17,6 +17,10 @@
                             .nama_sub || '';
                         document.getElementById('show_nama_kategori').value = data
                             .nama_kategori || '';
+                        document.getElementById('show_nama_kategori_unit').value = data
+                            .nama_kategori_unit || '';
+                        document.getElementById('show_nama_unit_sub').value = data
+                            .nama_unit_sub || '';
 
                         modal.show();
                     },

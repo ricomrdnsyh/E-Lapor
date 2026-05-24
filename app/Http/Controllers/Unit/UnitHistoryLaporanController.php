@@ -178,16 +178,37 @@ class UnitHistoryLaporanController extends Controller
 
     private function historyLaporanQuery()
     {
+        $user = Auth::user();
+        $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
+
         return HistoryLaporan::with(['laporan.kategori', 'user'])
-            ->whereHas('laporan', function ($query) {
-                $query->where('kategori_id', Auth::user()->kategori_id);
+            ->where(function ($q) use ($user, $kategoriIds) {
+                $hasFilter = false;
+
+                if ($user->unit_id) {
+                    $hasFilter = true;
+                    $q->whereHas('laporan.units', function ($query) use ($user) {
+                        $query->where('unit_id', $user->unit_id);
+                    });
+                }
+
+                if (!empty($kategoriIds)) {
+                    $hasFilter = true;
+                    $q->orWhereHas('laporan', function ($query) use ($kategoriIds) {
+                        $query->whereIn('kategori_id', $kategoriIds);
+                    });
+                }
+
+                if (!$hasFilter) {
+                    $q->whereRaw('0=1');
+                }
             });
     }
 
     private function findOwnedHistoryOrFail(string $id): HistoryLaporan
     {
         return $this->historyLaporanQuery()
-            ->with(['laporan.kategori.unit', 'laporan.ruangan.lantai.gedung', 'user.unit'])
+            ->with(['laporan.kategori.unit', 'laporan.subKategori', 'laporan.ruangan.lantai.gedung', 'user.unit'])
             ->findOrFail($id);
     }
 

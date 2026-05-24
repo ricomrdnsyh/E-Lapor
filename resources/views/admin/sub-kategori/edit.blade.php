@@ -50,6 +50,28 @@
                                 <div class="invalid-feedback">Kategori wajib dipilih.</div>
                             </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="d-flex flex-column mb-2">
+                                <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                    <span>Unit <span class="text-muted fw-normal">(opsional)</span></span>
+                                </label>
+                                <select name="unit_id" id="edit_unit_id"
+                                    class="form-select form-select-sm fs-sm-8 fs-lg-6 @error('unit_id') is-invalid @enderror"
+                                    data-control="select2">
+                                    <option value="">-- Pilih Unit (sama dengan kategori jika kosong) --</option>
+                                    @foreach ($units as $unit)
+                                        <option value="{{ $unit->id_unit }}">
+                                            {{ $unit->nama_unit }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                @error('unit_id')
+                                    <div class="small text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
 

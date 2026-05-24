@@ -61,7 +61,7 @@ class TelegramNotificationService
     }
 
     /**
-     * Ambil user target: semua admin + user unit yang sesuai dengan kategori laporan.
+     * Ambil user target: semua admin + user unit yang memiliki kategori laporan.
      */
     protected function getTargetUsers(Laporan $laporan): Collection
     {
@@ -72,7 +72,9 @@ class TelegramNotificationService
         if ($kategoriId) {
             $query->orWhere(function ($q) use ($kategoriId) {
                 $q->where('role', 'unit')
-                  ->where('kategori_id', $kategoriId);
+                  ->whereHas('kategoris', function ($q2) use ($kategoriId) {
+                      $q2->where('kategori_user.kategori_id', $kategoriId);
+                  });
             });
         }
 

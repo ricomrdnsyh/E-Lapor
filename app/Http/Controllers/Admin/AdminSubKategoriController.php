@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use App\Models\SubKategori;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,19 +14,23 @@ class AdminSubKategoriController extends Controller
     public function index()
     {
         $kategoris = Kategori::with('unit')->get();
-        return view('admin.sub-kategori.index', compact('kategoris'));
+        $units = Unit::all();
+        return view('admin.sub-kategori.index', compact('kategoris', 'units'));
     }
 
     public function getSubKategori()
     {
-        $query = SubKategori::with('kategori.unit')->select(['id_sub', 'kategori_id', 'nama_sub']);
+        $query = SubKategori::with(['kategori.unit', 'unit'])->select(['id_sub', 'kategori_id', 'nama_sub', 'unit_id']);
 
         return DataTables::of($query)
             ->addColumn('nama_kategori', function ($row) {
                 return $row->kategori->nama_kategori ?? '-';
             })
-            ->addColumn('nama_unit', function ($row) {
+            ->addColumn('nama_kategori_unit', function ($row) {
                 return $row->kategori->unit->nama_unit ?? '-';
+            })
+            ->addColumn('nama_unit_sub', function ($row) {
+                return $row->unit->nama_unit ?? '-';
             })
             ->addColumn('action', function ($row) {
                 $showBtn = '<a href="javascript:void(0)"
@@ -52,10 +57,12 @@ class AdminSubKategoriController extends Controller
 
     public function show(string $id)
     {
-        $subKategori = SubKategori::with('kategori')->findOrFail($id);
+        $subKategori = SubKategori::with(['kategori.unit', 'unit'])->findOrFail($id);
         return response()->json([
             'nama_sub' => $subKategori->nama_sub,
             'nama_kategori' => $subKategori->kategori->nama_kategori ?? '-',
+            'nama_kategori_unit' => $subKategori->kategori->unit->nama_unit ?? '-',
+            'nama_unit_sub' => $subKategori->unit->nama_unit ?? '-',
         ]);
     }
 
@@ -70,11 +77,13 @@ class AdminSubKategoriController extends Controller
         $request->validate([
             'nama_sub'    => 'required|string|max:100',
             'kategori_id' => 'required|exists:kategori,id_kategori',
+            'unit_id'     => 'nullable|exists:unit,id_unit',
         ]);
 
         SubKategori::create([
             'nama_sub'    => $request->nama_sub,
             'kategori_id' => $request->kategori_id,
+            'unit_id'     => $request->unit_id,
         ]);
 
         return redirect()->route('admin.sub-kategori.index')->with('success', 'Data sub kategori berhasil ditambahkan.');
@@ -85,12 +94,14 @@ class AdminSubKategoriController extends Controller
         $request->validate([
             'nama_sub'    => 'required|string|max:100',
             'kategori_id' => 'required|exists:kategori,id_kategori',
+            'unit_id'     => 'nullable|exists:unit,id_unit',
         ]);
 
         $subKategori = SubKategori::findOrFail($id);
         $subKategori->update([
             'nama_sub'    => $request->nama_sub,
             'kategori_id' => $request->kategori_id,
+            'unit_id'     => $request->unit_id,
         ]);
 
         return redirect()->route('admin.sub-kategori.index')->with('success', 'Data sub kategori berhasil diperbarui.');
