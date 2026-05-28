@@ -56,17 +56,27 @@
                         const laporan = history.laporan || {};
                         const privasi = laporan.is_anonymous === 'y' ? 'Anonim' : 'Rahasia';
 
-                        document.getElementById('show_kode_tiket').value = laporan.kode_tiket || '';
-                        document.getElementById('show_kategori').value = laporan.kategori?.nama_kategori || '-';
-                        document.getElementById('show_sub_kategori').value = laporan.sub_kategori?.nama_sub || '-';
-                        document.getElementById('show_unit_tujuan').value = laporan.kategori?.unit?.nama_unit || '-';
-                        document.getElementById('show_judul_laporan').value = laporan.judul_laporan || '-';
-                        document.getElementById('show_nama_pelapor').value = laporan.nama_pelapor || '-';
-                        document.getElementById('show_email_pelapor').value = laporan.email_pelapor || '-';
-                        document.getElementById('show_no_telp_pelapor').value = laporan.no_telp_pelapor || '-';
-                        document.getElementById('show_tipe_pelapor').value = laporan.tipe_pelapor || '-';
+                        document.getElementById('show_kode_tiket').value = laporan
+                            .kode_tiket || '';
+                        document.getElementById('show_kategori').value = laporan.kategori
+                            ?.nama_kategori || '-';
+                        document.getElementById('show_sub_kategori').value = laporan
+                            .sub_kategori?.nama_sub || '-';
+                        document.getElementById('show_unit_tujuan').value = laporan.kategori
+                            ?.unit?.nama_unit || '-';
+                        document.getElementById('show_judul_laporan').value = laporan
+                            .judul_laporan || '-';
+                        document.getElementById('show_nama_pelapor').value = laporan
+                            .nama_pelapor || '-';
+                        document.getElementById('show_email_pelapor').value = laporan
+                            .email_pelapor || '-';
+                        document.getElementById('show_no_telp_pelapor').value = laporan
+                            .no_telp_pelapor || '-';
+                        document.getElementById('show_tipe_pelapor').value = laporan
+                            .tipe_pelapor || '-';
                         document.getElementById('show_is_anonymous').value = privasi;
-                        document.getElementById('show_tgl_kejadian').value = laporan.tgl_kejadian ? formatTanggal(laporan.tgl_kejadian) : '-';
+                        document.getElementById('show_tgl_kejadian').value = laporan
+                            .tgl_kejadian ? formatTanggal(laporan.tgl_kejadian) : '-';
 
                         document.getElementById('show_nama_gedung').value = laporan.ruangan
                             ?.lantai?.gedung?.nama_gedung || '-';
@@ -75,14 +85,19 @@
                         document.getElementById('show_nama_ruangan').value = laporan.ruangan
                             ?.nama_ruangan || '-';
 
-                        document.getElementById('show_deskripsi_laporan').value = laporan.deskripsi_laporan || '-';
-                        document.getElementById('show_lampiran_laporan').innerHTML = getFilePreview(laporan.lampiran_file);
-                        document.getElementById('show_status').value = history.status || laporan.status || '-';
-                        document.getElementById('show_lampiran_bukti').innerHTML = getFilePreview(history.lampiran_file, 'history-laporan');
-                        document.getElementById('show_user_penangan').value = history.user?.nama || history.user?.unit?.nama_unit || '-';
-                        document.getElementById('show_created_at').value = data.created_at_formatted || '-';
-                        document.getElementById('show_updated_at').value = data.updated_at_formatted || '-';
-                        document.getElementById('show_catatan').value = history.catatan || '-';
+                        document.getElementById('show_deskripsi_laporan').value = laporan
+                            .deskripsi_laporan || '-';
+                        document.getElementById('show_lampiran_laporan').innerHTML =
+                            getFilePreview(laporan.lampiran_file);
+                        document.getElementById('show_status').value = history.status ||
+                            laporan.status || '-';
+                        document.getElementById('show_lampiran_bukti').innerHTML =
+                            getFilePreview(history.lampiran_file, 'history-laporan');
+                        document.getElementById('show_user_penangan').value = history.user ?
+                            (history.user.nama + ' - ' + (history.user.unit?.singkatan ||
+                                history.user.unit?.nama_unit || '-')) : '-';
+                        document.getElementById('show_catatan').value = history.catatan ||
+                            '-';
 
                         modal.show();
                     },

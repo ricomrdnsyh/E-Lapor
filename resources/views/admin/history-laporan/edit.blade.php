@@ -24,7 +24,7 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </span>
-                                        <h6 class="fw-bold fs-6 mb-0 text-primary">Klasifikasi Laporan</h6>
+                                        <h6 class="fw-bold fs-6 mb-0 text-primary">Kategori Laporan</h6>
                                     </div>
                                 </div>
 
@@ -76,6 +76,51 @@
                                     class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
                                     <div class="card-title d-flex align-items-center gap-2 mb-0">
                                         <span class="badge badge-primary p-2">
+                                            <i class="ki-duotone ki-geolocation fs-4 text-white">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </span>
+                                        <h6 class="fw-bold fs-6 mb-0 text-primary">Lokasi Kejadian</h6>
+                                    </div>
+                                </div>
+
+                                <div class="card-body pt-4 pb-7">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                                <span>Nama Gedung</span>
+                                            </label>
+                                            <input type="text" id="edit_nama_gedung"
+                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                                <span>Lantai</span>
+                                            </label>
+                                            <input type="text" id="edit_nama_lantai"
+                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                                <span>Ruangan</span>
+                                            </label>
+                                            <input type="text" id="edit_nama_ruangan"
+                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
+                                <div
+                                    class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                    <div class="card-title d-flex align-items-center gap-2 mb-0">
+                                        <span class="badge badge-primary p-2">
                                             <i class="ki-duotone ki-document fs-4 text-white">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
@@ -110,7 +155,8 @@
                                                 <span>Status Saat Ini</span>
                                             </label>
                                             <input type="text" id="edit_status_sekarang"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
+                                                disabled>
                                         </div>
 
                                         <div class="col-12">
@@ -127,54 +173,6 @@
                                                 <span>Lampiran Bukti</span>
                                             </label>
                                             <div id="edit_lampiran_file_preview" class="text-gray-600 fs-8">-</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
-                                <div
-                                    class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
-                                    <div class="card-title d-flex align-items-center gap-2 mb-0">
-                                        <span class="badge badge-primary p-2">
-                                            <i class="ki-duotone ki-geolocation fs-4 text-white">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </span>
-                                        <h6 class="fw-bold fs-6 mb-0 text-primary">Lokasi Kejadian</h6>
-                                    </div>
-                                </div>
-
-                                <div class="card-body pt-4 pb-7">
-                                    <div class="row g-3">
-                                        <div class="col-md-4">
-                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>Nama Gedung</span>
-                                            </label>
-                                            <input type="text" id="edit_nama_gedung"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
-                                                disabled>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>Lantai</span>
-                                            </label>
-                                            <input type="text" id="edit_nama_lantai"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
-                                                disabled>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>Ruangan</span>
-                                            </label>
-                                            <input type="text" id="edit_nama_ruangan"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
-                                                disabled>
                                         </div>
                                     </div>
                                 </div>

@@ -9,18 +9,24 @@
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
             ];
-            const normalized = dateStr.replace('T', ' ');
-            const datePart = normalized.substring(0, 10);
-            const timePart = normalized.substring(11, 16);
 
-            if (!datePart || !timePart) return dateStr;
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
 
-            const [year, month, day] = datePart.split('-');
+            const wibOffset = 7 * 60;
+            const localOffset = date.getTimezoneOffset();
+            const wibTime = date.getTime() + (localOffset + wibOffset) * 60 * 1000;
+            const wibDate = new Date(wibTime);
+
+            const year = wibDate.getUTCFullYear();
+            const month = String(wibDate.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(wibDate.getUTCDate()).padStart(2, '0');
+            const hours = String(wibDate.getUTCHours()).padStart(2, '0');
+            const minutes = String(wibDate.getUTCMinutes()).padStart(2, '0');
+
             const monthName = bulan[parseInt(month, 10) - 1];
 
-            if (!year || !monthName || !day) return dateStr;
-
-            return `${day} ${monthName} ${year}, ${timePart}`;
+            return `${day} ${monthName} ${year}, ${hours}:${minutes}`;
         };
 
         const getFilePreview = function(filename) {

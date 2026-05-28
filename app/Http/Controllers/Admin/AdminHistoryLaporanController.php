@@ -57,7 +57,10 @@ class AdminHistoryLaporanController extends Controller
                 return $row->laporan?->nama_pelapor ?: '-';
             })
             ->addColumn('unit_penangan', function ($row) {
-                return $row->user?->nama ?? '-';
+                if ($row->user) {
+                    return $row->user->nama . ' - ' . ($row->user->unit?->singkatan ?? '-');
+                }
+                return '-';
             })
             ->editColumn('status', function ($row) {
                 return $this->formatStatusBadge($row->status ?? $row->laporan?->status);

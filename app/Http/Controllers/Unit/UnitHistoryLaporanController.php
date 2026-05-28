@@ -50,7 +50,10 @@ class UnitHistoryLaporanController extends Controller
                 return $row->laporan?->nama_pelapor ?: '-';
             })
             ->addColumn('unit_penangan', function ($row) {
-                return $row->user?->nama ?? '-';
+                if ($row->user) {
+                    return $row->user->nama . ' - ' . ($row->user->unit?->singkatan ?? '-');
+                }
+                return '-';
             })
             ->editColumn('status', function ($row) {
                 return $this->formatStatusBadge($row->status ?? $row->laporan?->status);
@@ -181,7 +184,7 @@ class UnitHistoryLaporanController extends Controller
         $user = Auth::user();
         $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
 
-        return HistoryLaporan::with(['laporan.kategori', 'user'])
+        return HistoryLaporan::with(['laporan.kategori', 'user.unit'])
             ->where(function ($q) use ($user, $kategoriIds) {
                 $hasFilter = false;
 

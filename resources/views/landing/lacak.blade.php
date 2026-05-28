@@ -821,8 +821,10 @@
                                         <div class="track-list-item is-compact">
                                             <div class="track-list-label">Lokasi</div>
                                             <div class="track-list-value">
-                                                @if($laporan->ruangan)
-                                                    {{ $laporan->ruangan->lantai->gedung->nama_gedung ?? '' }} - {{ $laporan->ruangan->lantai->nama_lantai ?? '' }} - {{ $laporan->ruangan->nama_ruangan }}
+                                                @if ($laporan->ruangan)
+                                                    {{ $laporan->ruangan->lantai->gedung->nama_gedung ?? '' }} -
+                                                    {{ $laporan->ruangan->lantai->nama_lantai ?? '' }} -
+                                                    {{ $laporan->ruangan->nama_ruangan }}
                                                 @else
                                                     -
                                                 @endif
@@ -957,7 +959,7 @@
                                                         {{ $item->catatan ?: $itemMeta['title'] }}</div>
                                                     @if ($item->user)
                                                         <div class="track-timeline-note">Diperbarui oleh
-                                                            {{ $item->user->kategori?->nama_kategori ?? $item->user->nama }}</div>
+                                                            {{ $item->user->unit?->nama_unit ?? $item->user->nama }}</div>
                                                     @else
                                                         <div class="track-timeline-note">Dibuat oleh pelapor</div>
                                                     @endif
