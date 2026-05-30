@@ -458,6 +458,13 @@
                                             </i>
                                             <span>Distribusi status tersaji dalam grafik lingkaran</span>
                                         </div>
+                                        <div class="hero-inline-item">
+                                            <i class="ki-duotone ki-chart-bar-4">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                            <span>Grafik kategori, pelapor, dan privasi laporan</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -670,6 +677,83 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row g-5 g-xl-10 mb-5">
+                        <div class="col-xl-8">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Laporan per Kategori</div>
+                                    <div style="position:relative; height:300px;">
+                                        <canvas id="kategoriChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Privasi Laporan</div>
+                                    <div class="chart-wrap">
+                                        <div class="chart-box" style="width:220px;height:220px;">
+                                            <canvas id="privasiChart"></canvas>
+                                            <div class="chart-center">
+                                                <div class="chart-center-label">Total</div>
+                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="legend-list" style="grid-template-columns:1fr;">
+                                        <div class="legend-item">
+                                            <div class="legend-left">
+                                                <span class="legend-dot" style="background:#8b5cf6"></span>
+                                                <span class="legend-label">Anonim</span>
+                                            </div>
+                                            <span class="legend-value">{{ $privasiData['anonim'] ?? 0 }}</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-left">
+                                                <span class="legend-dot" style="background:#f59e0b"></span>
+                                                <span class="legend-label">Rahasia</span>
+                                            </div>
+                                            <span class="legend-value">{{ $privasiData['rahasia'] ?? 0 }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-5 g-xl-10 mb-5">
+                        <div class="col-xl-8">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Laporan per Sub Kategori</div>
+                                    <div style="position:relative; height:420px;">
+                                        <canvas id="subKategoriChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="card chart-card">
+                                <div class="card-body">
+                                    <div class="info-title">Tipe Pelapor</div>
+                                    <div class="chart-wrap">
+                                        <div class="chart-box" style="width:220px;height:220px;">
+                                            <canvas id="tipePelaporChart"></canvas>
+                                            <div class="chart-center">
+                                                <div class="chart-center-label">Total</div>
+                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tipePelaporLegend" class="legend-list" style="grid-template-columns:1fr;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -682,45 +766,198 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const chartElement = document.getElementById('unitStatusChart');
+            if (typeof Chart === 'undefined') return;
 
-            if (!chartElement || typeof Chart === 'undefined') {
-                return;
-            }
+            const BAR_COLORS = ['#2563eb', '#7c3aed', '#059669', '#d97706', '#dc2626', '#0891b2', '#db2777', '#4f46e5', '#ca8a04', '#65a30d'];
 
-            new Chart(chartElement, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Menunggu Respons', 'Diproses', 'Selesai', 'Ditolak'],
-                    datasets: [{
-                        data: [
-                            {{ $stats['menunggu'] ?? 0 }},
-                            {{ $stats['diproses'] ?? 0 }},
-                            {{ $stats['selesai'] ?? 0 }},
-                            {{ $stats['ditolak'] ?? 0 }}
-                        ],
-                        backgroundColor: ['#f59e0b', '#0ea5e9', '#22c55e', '#ef4444'],
-                        borderColor: '#ffffff',
-                        borderWidth: 6,
-                        hoverOffset: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '68%',
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: '#0f172a',
-                            padding: 12,
-                            displayColors: true
+            // --- Status Doughnut ---
+            const statusEl = document.getElementById('unitStatusChart');
+            if (statusEl) {
+                new Chart(statusEl, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Menunggu Respons', 'Diproses', 'Selesai', 'Ditolak'],
+                        datasets: [{
+                            data: [
+                                {{ $stats['menunggu'] ?? 0 }},
+                                {{ $stats['diproses'] ?? 0 }},
+                                {{ $stats['selesai'] ?? 0 }},
+                                {{ $stats['ditolak'] ?? 0 }}
+                            ],
+                            backgroundColor: ['#f59e0b', '#0ea5e9', '#22c55e', '#ef4444'],
+                            borderColor: '#ffffff',
+                            borderWidth: 6,
+                            hoverOffset: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '68%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { backgroundColor: '#0f172a', padding: 12, displayColors: true }
                         }
                     }
+                });
+            }
+
+            // --- Kategori Bar Chart (all categories with 0) ---
+            const kategoriEl = document.getElementById('kategoriChart');
+            if (kategoriEl) {
+                const kategoriLabels = @json($kategoriData->pluck('nama'));
+                const kategoriValues = @json($kategoriData->pluck('total'));
+
+                new Chart(kategoriEl, {
+                    type: 'bar',
+                    data: {
+                        labels: kategoriLabels,
+                        datasets: [{
+                            label: 'Jumlah Laporan',
+                            data: kategoriValues,
+                            backgroundColor: kategoriLabels.map((_, i) => BAR_COLORS[i % BAR_COLORS.length]),
+                            borderRadius: 6,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { backgroundColor: '#0f172a', padding: 12 }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { stepSize: 1 }
+                            },
+                            y: {
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: 'bold' } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Sub Kategori Bar Chart ---
+            const subKategoriEl = document.getElementById('subKategoriChart');
+            if (subKategoriEl) {
+                const subLabels = @json($subKategoriData->pluck('nama'));
+                const subValues = @json($subKategoriData->pluck('total'));
+
+                new Chart(subKategoriEl, {
+                    type: 'bar',
+                    data: {
+                        labels: subLabels,
+                        datasets: [{
+                            label: 'Jumlah Laporan',
+                            data: subValues,
+                            backgroundColor: subLabels.map((_, i) => BAR_COLORS[(i + 3) % BAR_COLORS.length]),
+                            borderRadius: 6,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { backgroundColor: '#0f172a', padding: 12 }
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { stepSize: 1 }
+                            },
+                            y: {
+                                grid: { display: false },
+                                ticks: {
+                                    autoSkip: false,
+                                    font: { size: 10, weight: 'bold' }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Tipe Pelapor Doughnut ---
+            const tipeEl = document.getElementById('tipePelaporChart');
+            const tipeLabels = @json($tipePelapor->keys());
+            const tipeValues = @json($tipePelapor->values());
+            const tipeColors = ['#2563eb', '#7c3aed', '#059669', '#d97706', '#dc2626'];
+
+            if (tipeEl && tipeLabels.length) {
+                new Chart(tipeEl, {
+                    type: 'doughnut',
+                    data: {
+                        labels: tipeLabels,
+                        datasets: [{
+                            data: tipeValues,
+                            backgroundColor: tipeColors.slice(0, tipeLabels.length),
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                            hoverOffset: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '68%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { backgroundColor: '#0f172a', padding: 12, displayColors: true }
+                        }
+                    }
+                });
+
+                const legendContainer = document.getElementById('tipePelaporLegend');
+                if (legendContainer) {
+                    legendContainer.innerHTML = tipeLabels.map((label, i) => `
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <span class="legend-dot" style="background:${tipeColors[i]}"></span>
+                                <span class="legend-label">${label}</span>
+                            </div>
+                            <span class="legend-value">${tipeValues[i]}</span>
+                        </div>
+                    `).join('');
                 }
-            });
+            }
+
+            // --- Privasi Doughnut ---
+            const privasiEl = document.getElementById('privasiChart');
+            if (privasiEl) {
+                new Chart(privasiEl, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Anonim', 'Rahasia'],
+                        datasets: [{
+                            data: [
+                                {{ $privasiData['anonim'] ?? 0 }},
+                                {{ $privasiData['rahasia'] ?? 0 }}
+                            ],
+                            backgroundColor: ['#8b5cf6', '#f59e0b'],
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                            hoverOffset: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '68%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { backgroundColor: '#0f172a', padding: 12, displayColors: true }
+                        }
+                    }
+                });
+            }
         });
     </script>
 @endsection
