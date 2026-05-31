@@ -63,6 +63,10 @@
             flex-shrink: 0;
         }
 
+        .select2-container {
+            width: 100% !important;
+        }
+
         @media (max-width: 991.98px) {
             .stat-total-card {
                 min-width: 100%;
@@ -89,7 +93,7 @@
                             <div class="col-lg-7">
                                 <div class="badge badge-light-primary fw-bold text-uppercase mb-5">
                                     <span class="bullet bullet-dot bg-primary me-2"></span>
-                                    Data Publik · Diperbarui Otomatis
+                                    Data Diperbarui Otomatis
                                 </div>
 
                                 <h1 class="fw-bolder text-gray-900 mb-4 lh-sm"
@@ -117,23 +121,6 @@
                                         <div>
                                             <div class="fs-8 text-gray-500">Tren Bulanan</div>
                                             <div class="fs-7 fw-bold text-gray-900">12 bulan</div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center bg-body border border-gray-300 rounded-3 px-4 py-3 shadow-sm">
-                                        <div class="symbol symbol-35px me-3">
-                                            <div class="symbol-label bg-light-primary">
-                                                <i class="ki-duotone ki-category fs-2 text-primary">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="fs-8 text-gray-500">Kategori</div>
-                                            <div class="fs-7 fw-bold text-gray-900">{{ count($laporanPerKategori) }} unit
-                                            </div>
                                         </div>
                                     </div>
 
@@ -228,28 +215,8 @@
                     </div>
                 </div>
 
-                <div class="row g-5">
-                    <div class="col-lg-8">
-                        <div class="card card-flush h-100 border border-gray-200 shadow-sm">
-                            <div class="card-header align-items-center border-0 pt-6 pb-0">
-                                <div class="card-title flex-column">
-                                    <h3 class="fw-bold text-gray-900 mb-1 fs-5">Laporan per Kategori</h3>
-                                    <span class="text-gray-500 fs-7">Distribusi berdasarkan kategori laporan</span>
-                                </div>
-                            </div>
-                            <div class="card-body pt-5">
-                                <div class="chart-holder chart-holder-bar"
-                                    style="--chart-height: {{ max(280, count($laporanPerKategori) * 46) }}px;">
-                                    <canvas id="kategoriChart" role="img"
-                                        aria-label="Grafik batang horizontal distribusi laporan per kategori">
-                                        Distribusi laporan per kategori.
-                                    </canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
+                <div class="row g-5 mb-5">
+                    <div class="col-lg-4 order-lg-2">
                         <div class="card card-flush h-100 border border-gray-200 shadow-sm">
                             <div class="card-header align-items-center border-0 pt-6 pb-0">
                                 <div class="card-title flex-column">
@@ -263,6 +230,68 @@
                                     <canvas id="tipePelaporChart" role="img"
                                         aria-label="Diagram lingkaran tipe pelapor berdasarkan kategori pengguna">
                                         Profil tipe pelapor.
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 order-lg-1">
+                        <div class="card card-flush h-100 border border-gray-200 shadow-sm">
+                            <div class="card-header align-items-center border-0 pt-6 pb-0">
+                                <div class="card-title flex-column">
+                                    <h3 class="fw-bold text-gray-900 mb-1 fs-5">Laporan per Kategori</h3>
+                                    <span class="text-gray-500 fs-7">Distribusi berdasarkan kategori laporan</span>
+                                </div>
+                                <div class="card-toolbar w-250px w-lg-300px">
+                                    <select class="form-select form-select-sm form-select-solid w-100" id="unitFilter"
+                                        data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true">
+                                        <option></option>
+                                        @foreach ($units as $unit)
+                                            <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body pt-5">
+                                <div id="chartPlaceholder" class="text-center py-12">
+                                    <div class="mb-4">
+                                        <i class="ki-duotone ki-chart-line fs-3x text-muted">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </div>
+                                    <h4 class="text-gray-700 fw-bold">Pilih Unit Terlebih Dahulu</h4>
+                                    <p class="text-gray-400 fs-6">Silakan pilih unit pada opsi di atas untuk melihat data
+                                        grafik kategori dan sub kategori.</p>
+                                </div>
+                                <div id="kategoriHolder" class="chart-holder chart-holder-bar d-none"
+                                    style="--chart-height: 280px;">
+                                    <canvas id="kategoriChart" role="img"
+                                        aria-label="Grafik batang horizontal distribusi laporan per kategori">
+                                        Distribusi laporan per kategori.
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="subkategoriRow" class="row g-5 d-none">
+                    <div class="col-12">
+                        <div class="card card-flush border border-gray-200 shadow-sm">
+                            <div class="card-header align-items-center border-0 pt-6 pb-0">
+                                <div class="card-title flex-column">
+                                    <h3 class="fw-bold text-gray-900 mb-1 fs-5">Laporan per Sub Kategori</h3>
+                                    <span class="text-gray-500 fs-7">Distribusi berdasarkan sub kategori laporan</span>
+                                </div>
+                            </div>
+                            <div class="card-body pt-5">
+                                <div class="chart-holder chart-holder-bar" id="subKategoriHolder"
+                                    style="--chart-height: 280px;">
+                                    <canvas id="subKategoriChart" role="img"
+                                        aria-label="Grafik batang horizontal distribusi laporan per sub kategori">
+                                        Distribusi laporan per sub kategori.
                                     </canvas>
                                 </div>
                             </div>
@@ -374,21 +403,16 @@
             }
 
             function createLegend(el, labels, data, legendColors) {
-                const total = data.reduce(function(a, b) {
-                    return a + Number(b);
-                }, 0);
-
                 labels.forEach(function(label, index) {
                     const item = document.createElement('span');
                     const swatch = document.createElement('span');
-                    const percent = total > 0 ? Math.round(Number(data[index]) / total * 100) : 0;
 
                     item.className = 'd-flex align-items-center text-gray-600 fs-7';
                     swatch.className = 'chart-legend-swatch me-2';
                     swatch.style.backgroundColor = legendColors[index % legendColors.length];
 
                     item.appendChild(swatch);
-                    item.appendChild(document.createTextNode(`${label} ${percent}%`));
+                    item.appendChild(document.createTextNode(label + ' ' + data[index]));
                     el.appendChild(item);
                 });
             }
@@ -451,65 +475,6 @@
                                     size: 11
                                 },
                                 color: colors.gray500
-                            }
-                        }
-                    }
-                }
-            });
-
-            const katLabels = {!! json_encode($laporanPerKategori->pluck('nama_kategori')) !!};
-            const katData = {!! json_encode($laporanPerKategori->pluck('jumlah_laporan')) !!};
-
-            new Chart(document.getElementById('kategoriChart'), {
-                type: 'bar',
-                data: {
-                    labels: katLabels,
-                    datasets: [{
-                        label: 'Laporan',
-                        data: katData,
-                        backgroundColor: katLabels.map(function(_, index) {
-                            return palette[index % palette.length];
-                        }),
-                        borderRadius: 6,
-                        borderSkipped: false,
-                        barThickness: 24
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            grid: {
-                                color: colors.gray200,
-                                drawBorder: false
-                            },
-                            ticks: {
-                                stepSize: 1,
-                                font: {
-                                    size: 11
-                                },
-                                color: colors.gray500
-                            }
-                        },
-                        y: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    size: 11,
-                                    weight: '600'
-                                },
-                                color: colors.gray700
                             }
                         }
                     }
@@ -583,6 +548,133 @@
                         tooltip
                     }
                 }
+            });
+
+            function makeBarChart(canvasId, labels, data) {
+                return new Chart(document.getElementById(canvasId), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Laporan',
+                            data: data,
+                            backgroundColor: labels.map(function(_, idx) {
+                                return palette[idx % palette.length];
+                            }),
+                            borderRadius: 6,
+                            borderSkipped: false,
+                            barThickness: 24
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: colors.gray200,
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    font: {
+                                        size: 11
+                                    },
+                                    color: colors.gray500
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 11,
+                                        weight: '600'
+                                    },
+                                    color: colors.gray700
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            let kategoriChartInstance = null;
+            let subKategoriChartInstance = null;
+
+            function handleUnitFilter() {
+                var unitId = document.getElementById('unitFilter').value;
+                var subkategoriRow = document.getElementById('subkategoriRow');
+                var chartPlaceholder = document.getElementById('chartPlaceholder');
+                var kategoriHolder = document.getElementById('kategoriHolder');
+
+                if (unitId) {
+                    fetch('/statistik/data?unit_id=' + unitId)
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+                            var katLabels = data.kategoriLabels || [];
+                            var katValues = data.kategoriValues || [];
+
+                            chartPlaceholder.classList.add('d-none');
+                            kategoriHolder.classList.remove('d-none');
+                            kategoriHolder.style.setProperty('--chart-height', Math.max(280, katLabels.length *
+                                46) + 'px');
+
+                            if (kategoriChartInstance) kategoriChartInstance.destroy();
+                            kategoriChartInstance = makeBarChart('kategoriChart', katLabels, katValues);
+
+                            var subLabels = data.subLabels || [];
+                            var subValues = data.subValues || [];
+
+                            if (subLabels.length) {
+                                subkategoriRow.classList.remove('d-none');
+
+                                var subHolder = document.getElementById('subKategoriHolder');
+                                subHolder.style.setProperty('--chart-height', Math.max(280, subLabels.length *
+                                    46) + 'px');
+
+                                if (subKategoriChartInstance) subKategoriChartInstance.destroy();
+                                subKategoriChartInstance = makeBarChart('subKategoriChart', subLabels,
+                                    subValues);
+                            } else {
+                                subkategoriRow.classList.add('d-none');
+                            }
+                        })
+                        .catch(function(err) {
+                            console.error('Gagal memuat data statistik:', err);
+                        });
+                } else {
+                    chartPlaceholder.classList.remove('d-none');
+                    kategoriHolder.classList.add('d-none');
+                    subkategoriRow.classList.add('d-none');
+
+                    if (kategoriChartInstance) {
+                        kategoriChartInstance.destroy();
+                        kategoriChartInstance = null;
+                    }
+                    if (subKategoriChartInstance) {
+                        subKategoriChartInstance.destroy();
+                        subKategoriChartInstance = null;
+                    }
+                }
+            }
+
+            $('#unitFilter').on('select2:select', function() {
+                handleUnitFilter();
+            });
+            $('#unitFilter').on('select2:clear', function() {
+                handleUnitFilter();
             });
         });
     </script>

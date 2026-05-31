@@ -31,6 +31,7 @@ Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori
 Route::get('/alur', [AlurController::class, 'alur'])->name('alur');
 Route::get('/faq', [FAQController::class, 'faq'])->name('faq');
 Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
+Route::get('/statistik/data', [StatistikController::class, 'getData'])->name('statistik.data');
 Route::get('/lapor', [LaporController::class, 'index'])->name('lapor');
 Route::post('/lapor', [LaporController::class, 'store'])->name('lapor.store');
 Route::get('/lapor/data/units', [LaporController::class, 'getUnits'])->name('lapor.units');
