@@ -585,45 +585,19 @@
                         </div>
 
                         <div class="col-xl-4">
-                            <div class="card info-card profile-card">
+                            <div class="card chart-card">
                                 <div class="card-body">
-                                    <div class="info-title">Informasi Akun Admin</div>
-                                    <div class="profile-shell">
-                                        <div class="profile-top">
-                                            <div class="profile-avatar">
-                                                <i class="ki-duotone ki-profile-user">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                    <span class="path3"></span>
-                                                    <span class="path4"></span>
-                                                </i>
-                                            </div>
-                                            <div class="flex-grow-1 min-w-0">
-                                                <div class="profile-kicker">Akun Aktif</div>
-                                                <div class="profile-name">{{ $user->nama }}</div>
-                                                <p class="profile-subtitle">Administrator Sistem E-Lapor</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-grid">
-                                            <div class="info-item">
-                                                <div class="info-label">Username</div>
-                                                <div class="info-value">{{ $user->username }}</div>
-                                            </div>
-                                            <div class="info-item">
-                                                <div class="info-label">Role</div>
-                                                <div class="info-value text-capitalize">{{ $user->role }}</div>
-                                            </div>
-                                            <div class="info-item">
-                                                <div class="info-label">Total Unit</div>
-                                                <div class="info-value">{{ $meta['total_unit'] ?? 0 }}</div>
-                                            </div>
-                                            <div class="info-item">
-                                                <div class="info-label">Total User</div>
-                                                <div class="info-value">{{ $meta['total_user'] ?? 0 }}</div>
+                                    <div class="info-title">Tipe Pelapor</div>
+                                    <div class="chart-wrap">
+                                        <div class="chart-box" style="width:220px;height:220px;">
+                                            <canvas id="tipePelaporChart"></canvas>
+                                            <div class="chart-center">
+                                                <div class="chart-center-label">Total</div>
+                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="tipePelaporLegend" class="legend-list" style="grid-template-columns:1fr;"></div>
                                 </div>
                             </div>
                         </div>
@@ -645,38 +619,93 @@
                         <div class="col-lg-4">
                             <div class="card chart-card">
                                 <div class="card-body">
-                                    <div class="info-title">Rahasia vs Anonim</div>
-                                    <div class="text-muted fs-7 mb-4">Pilihan privasi pelapor</div>
-                                    <div id="anonimLegend" class="d-flex flex-wrap justify-content-center gap-3 mb-5"></div>
-                                    <div class="chart-holder chart-holder-donut">
-                                        <canvas id="anonimChart"></canvas>
+                                    <div class="info-title">Privasi Laporan</div>
+                                    <div class="chart-wrap">
+                                        <div class="chart-box" style="width:220px;height:220px;">
+                                            <canvas id="privasiChart"></canvas>
+                                            <div class="chart-center">
+                                                <div class="chart-center-label">Total</div>
+                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="legend-list" style="grid-template-columns:1fr;">
+                                        <div class="legend-item">
+                                            <div class="legend-left">
+                                                <span class="legend-dot" style="background:#8b5cf6"></span>
+                                                <span class="legend-label">Anonim</span>
+                                            </div>
+                                            <span class="legend-value">{{ $anonimData['anonim'] ?? 0 }}</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-left">
+                                                <span class="legend-dot" style="background:#f59e0b"></span>
+                                                <span class="legend-label">Rahasia</span>
+                                            </div>
+                                            <span class="legend-value">{{ $anonimData['rahasia'] ?? 0 }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row g-5 g-xl-10">
-                        <div class="col-lg-8">
+                    <!-- Filter Unit Section -->
+                    <div class="row g-5 g-xl-10 mb-5">
+                        <div class="col-12">
                             <div class="card chart-card">
                                 <div class="card-body">
-                                    <div class="info-title">Laporan per Kategori</div>
-                                    <div class="text-muted fs-7 mb-4">Distribusi berdasarkan kategori laporan</div>
-                                    <div class="chart-holder chart-holder-bar" style="--chart-height: {{ max(280, count($laporanPerKategori) * 46) }}px;">
-                                        <canvas id="kategoriChart"></canvas>
+                                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-6">
+                                        <div>
+                                            <div class="info-title mb-1">Filter Unit Laporan</div>
+                                            <div class="text-muted fs-7">Pilih unit untuk melihat grafik laporan per kategori dan sub kategori</div>
+                                        </div>
+                                        <div>
+                                            <select id="unitSelect" class="form-select form-select-solid w-md-250px" data-control="select2" data-placeholder="Pilih Unit">
+                                                <option value="">-- Pilih Unit --</option>
+                                                @foreach($units as $unit)
+                                                    <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }} ({{ $unit->singkatan }})</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-4">
-                            <div class="card chart-card">
-                                <div class="card-body">
-                                    <div class="info-title">Tipe Pelapor</div>
-                                    <div class="text-muted fs-7 mb-4">Profil berdasarkan kategori pengguna</div>
-                                    <div id="tipeLegend" class="d-flex flex-wrap justify-content-center gap-3 mb-5"></div>
-                                    <div class="chart-holder chart-holder-pie">
-                                        <canvas id="tipePelaporChart"></canvas>
+                                    <!-- Placeholder / Empty State -->
+                                    <div id="chartPlaceholder" class="text-center py-12">
+                                        <div class="mb-4">
+                                            <i class="ki-duotone ki-chart-line fs-3x text-muted">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <h4 class="text-gray-700 fw-bold">Pilih Unit Terlebih Dahulu</h4>
+                                        <p class="text-gray-400 fs-6">Silakan pilih unit pada opsi di atas untuk melihat data grafik kategori dan sub kategori.</p>
+                                    </div>
+
+                                    <!-- Charts Container (hidden by default) -->
+                                    <div id="chartsContainer" class="d-none">
+                                        <div class="row g-5">
+                                            <div class="col-12">
+                                                <div class="card border border-dashed border-gray-300">
+                                                    <div class="card-body">
+                                                        <h3 class="card-title fw-bold text-gray-800 fs-5 mb-5">Laporan per Kategori</h3>
+                                                        <div style="position:relative; height:320px;">
+                                                            <canvas id="kategoriUnitChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="card border border-dashed border-gray-300">
+                                                    <div class="card-body">
+                                                        <h3 class="card-title fw-bold text-gray-800 fs-5 mb-5">Laporan per Sub Kategori</h3>
+                                                        <div style="position:relative; height:420px;">
+                                                            <canvas id="subKategoriUnitChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -692,9 +721,17 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('assets/plugins/custom/chartjs/chartjs.bundle.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Chart instances for dynamic updates
+            let adminStatusChartInstance = null;
+            let trenChartInstance = null;
+            let tipePelaporChartInstance = null;
+            let privasiChartInstance = null;
+            let kategoriUnitChartInstance = null;
+            let subKategoriUnitChartInstance = null;
+
             const cssVar = function(name, fallback) {
                 const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
                 return value || fallback;
@@ -738,7 +775,7 @@
             const chartElement = document.getElementById('adminStatusChart');
 
             if (chartElement && typeof Chart !== 'undefined') {
-                new Chart(chartElement, {
+                adminStatusChartInstance = new Chart(chartElement, {
                     type: 'doughnut',
                     data: {
                         labels: ['Menunggu Respons', 'Diproses', 'Selesai', 'Ditolak'],
@@ -777,31 +814,13 @@
                 return `rgba(${r},${g},${b},${alpha})`;
             }
 
-            function createLegend(el, labels, data, legendColors) {
-                if(!el) return;
-                const total = data.reduce((a, b) => a + Number(b), 0);
-                labels.forEach((label, index) => {
-                    const item = document.createElement('span');
-                    const swatch = document.createElement('span');
-                    const percent = total > 0 ? Math.round(Number(data[index]) / total * 100) : 0;
-
-                    item.className = 'd-flex align-items-center text-gray-600 fs-7';
-                    swatch.className = 'admin-dashboard chart-legend-swatch me-2';
-                    swatch.style.backgroundColor = legendColors[index % legendColors.length];
-
-                    item.appendChild(swatch);
-                    item.appendChild(document.createTextNode(`${label} ${percent}%`));
-                    el.appendChild(item);
-                });
-            }
-
             // 1. Tren Laporan Bulanan
             const trenChartEl = document.getElementById('trenChart');
             if (trenChartEl) {
                 const trenLabels = {!! json_encode(collect($bulanData)->pluck('bulan')) !!};
                 const trenData = {!! json_encode(collect($bulanData)->pluck('jumlah')) !!};
 
-                new Chart(trenChartEl, {
+                trenChartInstance = new Chart(trenChartEl, {
                     type: 'line',
                     data: {
                         labels: trenLabels,
@@ -832,82 +851,64 @@
                 });
             }
 
-            // 2. Laporan per Kategori
-            const kategoriChartEl = document.getElementById('kategoriChart');
-            if (kategoriChartEl) {
-                const katLabels = {!! json_encode($laporanPerKategori->pluck('nama_kategori')) !!};
-                const katData = {!! json_encode($laporanPerKategori->pluck('jumlah_laporan')) !!};
-
-                new Chart(kategoriChartEl, {
-                    type: 'bar',
-                    data: {
-                        labels: katLabels,
-                        datasets: [{
-                            label: 'Laporan',
-                            data: katData,
-                            backgroundColor: katLabels.map((_, i) => palette[i % palette.length]),
-                            borderRadius: 6,
-                            barThickness: 24
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        indexAxis: 'y',
-                        plugins: { legend: { display: false }, tooltip: tooltipOptions },
-                        scales: {
-                            x: { beginAtZero: true, grid: { color: colors.gray200 }, ticks: { stepSize: 1, color: colors.gray500 } },
-                            y: { grid: { display: false }, ticks: { color: colors.gray700, font: { weight: '600' } } }
-                        }
-                    }
-                });
-            }
-
-            // 3. Tipe Pelapor
+            // 2. Tipe Pelapor
             const tipePelaporChartEl = document.getElementById('tipePelaporChart');
             if (tipePelaporChartEl) {
                 const tipeLabels = {!! json_encode($tipePelapor->pluck('tipe_pelapor')) !!};
                 const tipeData = {!! json_encode($tipePelapor->pluck('jumlah')) !!};
                 const tipeColorMap = {
-                    'Dosen': colors.primary,
-                    'Mahasiswa': colors.success,
-                    'Tenaga Pendidik': colors.warning,
-                    'Masyarakat/Umum': colors.info
+                    'Dosen': '#2563eb',
+                    'Mahasiswa': '#7c3aed',
+                    'Tenaga Pendidik': '#059669',
+                    'Masyarakat/Umum': '#d97706'
                 };
                 const tipeColors = tipeLabels.map(label => tipeColorMap[label] || colors.danger);
 
-                createLegend(document.getElementById('tipeLegend'), tipeLabels, tipeData, tipeColors);
-
-                new Chart(tipePelaporChartEl, {
-                    type: 'pie',
+                tipePelaporChartInstance = new Chart(tipePelaporChartEl, {
+                    type: 'doughnut',
                     data: {
                         labels: tipeLabels,
                         datasets: [{
                             data: tipeData,
                             backgroundColor: tipeColors,
                             borderColor: colors.body,
-                            borderWidth: 3,
-                            hoverOffset: 10
+                            borderWidth: 4,
+                            hoverOffset: 6
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false }, tooltip: tooltipOptions }
+                        cutout: '68%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: tooltipOptions
+                        }
                     }
                 });
+
+                const legendContainer = document.getElementById('tipePelaporLegend');
+                if (legendContainer) {
+                    legendContainer.innerHTML = tipeLabels.map((label, i) => `
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <span class="legend-dot" style="background:${tipeColors[i]}"></span>
+                                <span class="legend-label">${label}</span>
+                            </div>
+                            <span class="legend-value">${tipeData[i]}</span>
+                        </div>
+                    `).join('');
+                }
             }
 
-            // 4. Rahasia vs Anonim
-            const anonimChartEl = document.getElementById('anonimChart');
-            if (anonimChartEl) {
-                const anonData = [{{ $anonimData['rahasia'] ?? 0 }}, {{ $anonimData['anonim'] ?? 0 }}];
-                const anonLabels = ['Rahasia', 'Anonim'];
-                const anonColors = [colors.primary, colors.success];
+            // 3. Privasi Laporan
+            const privasiChartEl = document.getElementById('privasiChart');
+            if (privasiChartEl) {
+                const anonData = [{{ $anonimData['anonim'] ?? 0 }}, {{ $anonimData['rahasia'] ?? 0 }}];
+                const anonLabels = ['Anonim', 'Rahasia'];
+                const anonColors = ['#8b5cf6', '#f59e0b'];
 
-                createLegend(document.getElementById('anonimLegend'), anonLabels, anonData, anonColors);
-
-                new Chart(anonimChartEl, {
+                privasiChartInstance = new Chart(privasiChartEl, {
                     type: 'doughnut',
                     data: {
                         labels: anonLabels,
@@ -916,16 +917,160 @@
                             backgroundColor: anonColors,
                             borderColor: colors.body,
                             borderWidth: 4,
-                            hoverOffset: 8
+                            hoverOffset: 6
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        cutout: '62%',
-                        plugins: { legend: { display: false }, tooltip: tooltipOptions }
+                        cutout: '68%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: tooltipOptions
+                        }
                     }
                 });
+            }
+
+            // 4. Filter Unit AJAX & Charts
+            const unitSelect = document.getElementById('unitSelect');
+            const chartPlaceholder = document.getElementById('chartPlaceholder');
+            const chartsContainer = document.getElementById('chartsContainer');
+
+            let isFetching = false;
+
+            if (unitSelect) {
+                const handleUnitChange = function() {
+                    const unitId = unitSelect.value;
+
+                    if (!unitId) {
+                        chartsContainer.classList.add('d-none');
+                        chartPlaceholder.classList.remove('d-none');
+                        return;
+                    }
+
+                    // Prevent concurrent requests
+                    if (isFetching) return;
+                    isFetching = true;
+
+                    fetch(`{{ route('admin.dashboard.unit-data', [], false) }}?unit_id=${encodeURIComponent(unitId)}`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        },
+                        credentials: 'same-origin'
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
+                        return res.json();
+                    })
+                    .then(data => {
+                        // Show container first
+                        chartPlaceholder.classList.add('d-none');
+                        chartsContainer.classList.remove('d-none');
+
+                        // Delay rendering until after browser reflows the now-visible container
+                        requestAnimationFrame(function() {
+                            requestAnimationFrame(function() {
+
+                                // Render Kategori Chart
+                                const katCanvas = document.getElementById('kategoriUnitChart');
+                                if (katCanvas) {
+                                    if (kategoriUnitChartInstance) {
+                                        kategoriUnitChartInstance.destroy();
+                                        kategoriUnitChartInstance = null;
+                                    }
+                                    const katLabels = Array.isArray(data.kategoriLabels) ? data.kategoriLabels : Object.values(data.kategoriLabels);
+                                    const katValues = Array.isArray(data.kategoriValues) ? data.kategoriValues : Object.values(data.kategoriValues);
+
+                                    kategoriUnitChartInstance = new Chart(katCanvas.getContext('2d'), {
+                                        type: 'bar',
+                                        data: {
+                                            labels: katLabels,
+                                            datasets: [{
+                                                label: 'Jumlah Laporan',
+                                                data: katValues,
+                                                backgroundColor: katLabels.map((_, i) => palette[i % palette.length]),
+                                                borderRadius: 6
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            indexAxis: 'y',
+                                            plugins: { legend: { display: false }, tooltip: tooltipOptions },
+                                            scales: {
+                                                x: { beginAtZero: true, grid: { color: colors.gray200 }, ticks: { stepSize: 1, color: colors.gray500 } },
+                                                y: { grid: { display: false }, ticks: { autoSkip: false, color: colors.gray700, font: { weight: '600', size: 10 } } }
+                                            }
+                                        }
+                                    });
+                                }
+
+                                // Render Sub Kategori Chart
+                                const subCanvas = document.getElementById('subKategoriUnitChart');
+                                if (subCanvas) {
+                                    if (subKategoriUnitChartInstance) {
+                                        subKategoriUnitChartInstance.destroy();
+                                        subKategoriUnitChartInstance = null;
+                                    }
+                                    const subLabels = Array.isArray(data.subLabels) ? data.subLabels : Object.values(data.subLabels);
+                                    const subValues = Array.isArray(data.subValues) ? data.subValues : Object.values(data.subValues);
+
+                                    subKategoriUnitChartInstance = new Chart(subCanvas.getContext('2d'), {
+                                        type: 'bar',
+                                        data: {
+                                            labels: subLabels,
+                                            datasets: [{
+                                                label: 'Jumlah Laporan',
+                                                data: subValues,
+                                                backgroundColor: subLabels.map((_, i) => palette[(i + 3) % palette.length]),
+                                                borderRadius: 6
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                            indexAxis: 'y',
+                                            plugins: { legend: { display: false }, tooltip: tooltipOptions },
+                                            scales: {
+                                                x: { beginAtZero: true, grid: { color: colors.gray200 }, ticks: { stepSize: 1, color: colors.gray500 } },
+                                                y: { grid: { display: false }, ticks: { autoSkip: false, color: colors.gray700, font: { weight: '600', size: 10 } } }
+                                            }
+                                        }
+                                    });
+                                }
+
+                                isFetching = false;
+                            });
+                        });
+                    })
+                    .catch(err => {
+                        console.error('Error fetching unit chart data:', err);
+                        chartPlaceholder.classList.remove('d-none');
+                        chartPlaceholder.innerHTML = `
+                            <div class="mb-4">
+                                <i class="ki-duotone ki-information-3 fs-3x text-danger">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <h4 class="text-gray-700 fw-bold">Gagal Memuat Data</h4>
+                            <p class="text-gray-400 fs-6">Terjadi kesalahan saat memuat data. Silakan coba lagi.</p>
+                        `;
+                        isFetching = false;
+                    });
+                };
+
+                // Gunakan event spesifik Select2 untuk kompatibilitas yang lebih baik
+                $(unitSelect).on('select2:select', function(e) {
+                    handleUnitChange();
+                });
+
+                // Auto-trigger jika select sudah ada nilainya saat halaman dimuat
+                if (unitSelect.value) {
+                    setTimeout(handleUnitChange, 300);
+                }
             }
         });
     </script>

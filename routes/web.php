@@ -56,6 +56,7 @@ Route::get('/sso/logout/{sessionId}', [SsoController::class, 'logout']);
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/unit-data', [AdminDashboardController::class, 'getUnitChartData'])->name('dashboard.unit-data');
 
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
     Route::post('/unit/sinkronisasi', [AdminUnitController::class, 'syncFromApi'])->name('unit.sync');
