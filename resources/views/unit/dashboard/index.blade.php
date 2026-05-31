@@ -768,7 +768,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof Chart === 'undefined') return;
 
-            const BAR_COLORS = ['#2563eb', '#7c3aed', '#059669', '#d97706', '#dc2626', '#0891b2', '#db2777', '#4f46e5', '#ca8a04', '#65a30d'];
+            const BAR_COLORS = ['#009ef7', '#50cd89', '#7239ea', '#ffc700', '#f1416c', '#43ced7', '#ff6f1e'];
 
             // --- Status Doughnut ---
             const statusEl = document.getElementById('unitStatusChart');
@@ -784,7 +784,7 @@
                                 {{ $stats['selesai'] ?? 0 }},
                                 {{ $stats['ditolak'] ?? 0 }}
                             ],
-                            backgroundColor: ['#f59e0b', '#0ea5e9', '#22c55e', '#ef4444'],
+                            backgroundColor: ['#ffc700', '#009ef7', '#50cd89', '#f1416c'],
                             borderColor: '#ffffff',
                             borderWidth: 6,
                             hoverOffset: 6
@@ -889,7 +889,7 @@
             const tipeEl = document.getElementById('tipePelaporChart');
             const tipeLabels = @json($tipePelapor->keys());
             const tipeValues = @json($tipePelapor->values());
-            const tipeColors = ['#2563eb', '#7c3aed', '#059669', '#d97706', '#dc2626'];
+            const tipeColors = ['#009ef7', '#50cd89', '#7239ea', '#ffc700', '#f1416c'];
 
             if (tipeEl && tipeLabels.length) {
                 new Chart(tipeEl, {
