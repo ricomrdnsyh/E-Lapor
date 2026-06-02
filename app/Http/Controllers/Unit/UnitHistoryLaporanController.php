@@ -15,7 +15,9 @@ class UnitHistoryLaporanController extends Controller
 {
     public function index()
     {
-        return view('unit.history-laporan.index');
+        $user = Auth::user();
+        $categories = \App\Models\Kategori::where('unit_id', $user->unit_id)->get();
+        return view('unit.history-laporan.index', compact('categories'));
     }
 
     public function getHistoryLaporan(Request $request)
@@ -34,6 +36,12 @@ class UnitHistoryLaporanController extends Controller
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
+        }
+
+        if ($request->filled('kategori_id')) {
+            $query->whereHas('laporan', function ($q) use ($request) {
+                $q->where('kategori_id', $request->kategori_id);
+            });
         }
 
         return DataTables::of($query)

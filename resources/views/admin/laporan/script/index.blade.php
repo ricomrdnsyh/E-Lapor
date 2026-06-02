@@ -54,6 +54,7 @@
                 data: function(d) {
                     d.status = $('#filter_status').val();
                     d.kategori_id = $('#filter_kategori').val();
+                    d.unit_id = $('#filter_unit').val();
                 }
             },
             columns: [{
@@ -95,6 +96,38 @@
             ]
         });
 
+        // Store all original Kategori options
+        var allKategoriOptions = $('#filter_kategori option').clone();
+
+        function updateKategoriFilter() {
+            var selectedUnitId = $('#filter_unit').val();
+            var kategoriSelect = $('#filter_kategori');
+            
+            // Clear current options
+            kategoriSelect.empty();
+            
+            // Always keep it enabled
+            kategoriSelect.prop('disabled', false);
+            
+            // Re-add options matching unit_id or all if unit_id is empty
+            allKategoriOptions.each(function() {
+                var optionUnitId = $(this).data('unit-id');
+                if (!optionUnitId || !selectedUnitId || optionUnitId == selectedUnitId) {
+                    kategoriSelect.append($(this).clone());
+                }
+            });
+            
+            // Refresh select2 and trigger change to reload table
+            kategoriSelect.val('').trigger('change.select2').trigger('change');
+        }
+
+        $('#filter_unit').on('change', function() {
+            updateKategoriFilter();
+        });
+
+        // Run initially to set correct state
+        updateKategoriFilter();
+
         $('#filter_status, #filter_kategori').on('change', function() {
             table.ajax.reload();
         });
@@ -120,5 +153,4 @@
             });
         @endif
     });
-
 </script>

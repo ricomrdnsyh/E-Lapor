@@ -12,8 +12,9 @@ class AdminLaporanController extends Controller
 {
     public function index()
     {
-        $kategoris = Kategori::all();
-        return view('admin.laporan.index', compact('kategoris'));
+        $kategoris = Kategori::with('unit')->get();
+        $units = \App\Models\Unit::all();
+        return view('admin.laporan.index', compact('kategoris', 'units'));
     }
 
     public function getLaporan(Request $request)
@@ -28,6 +29,12 @@ class AdminLaporanController extends Controller
 
         if ($request->filled('kategori_id')) {
             $query->where('kategori_id', $request->kategori_id);
+        }
+
+        if ($request->filled('unit_id')) {
+            $query->whereHas('units', function ($q) use ($request) {
+                $q->where('unit_id', $request->unit_id);
+            });
         }
 
         return DataTables::of($query)

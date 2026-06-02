@@ -121,7 +121,20 @@
 
                                 <div class="px-9 pb-4">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12 col-md-4">
+                                            <label class="fw-bold fs-7 text-gray-700 mb-1 d-block">Unit:</label>
+                                            <select id="filter_unit"
+                                                class="form-select form-select-sm form-select-solid w-100"
+                                                data-control="select2"
+                                                data-placeholder="Semua Unit"
+                                                data-allow-clear="true">
+                                                <option value="">Semua</option>
+                                                @foreach ($units as $u)
+                                                    <option value="{{ $u->id_unit }}">{{ $u->nama_unit }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-4">
                                             <label class="fw-bold fs-7 text-gray-700 mb-1 d-block">Kategori:</label>
                                             <select id="filter_kategori"
                                                 class="form-select form-select-sm form-select-solid w-100"
@@ -130,11 +143,13 @@
                                                 data-allow-clear="true">
                                                 <option value="">Semua</option>
                                                 @foreach ($kategoris as $kat)
-                                                    <option value="{{ $kat->id_kategori }}">{{ $kat->nama_kategori }}</option>
+                                                    <option value="{{ $kat->id_kategori }}" data-unit-id="{{ $kat->unit_id }}">
+                                                        {{ $kat->nama_kategori }}{{ $kat->unit ? ' — ' . $kat->unit->nama_unit : '' }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12 col-md-4">
                                             <label class="fw-bold fs-7 text-gray-700 mb-1 d-block">Status:</label>
                                             <select id="filter_status"
                                                 class="form-select form-select-sm form-select-solid w-100"

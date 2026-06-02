@@ -13,6 +13,7 @@
                 url: '{{ route('unit.history-laporan.data') }}',
                 data: function(d) {
                     d.status = $('#filter_status').val();
+                    d.kategori_id = $('#filter_kategori').val();
                 }
             },
             columnDefs: [{
@@ -98,7 +99,7 @@
             ],
         });
 
-        $('#filter_status').on('change', function() {
+        $('#filter_status, #filter_kategori').on('change', function() {
             table.ajax.reload();
         });
 

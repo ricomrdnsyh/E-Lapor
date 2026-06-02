@@ -117,7 +117,16 @@
                                 <div class="separator my-4"></div>
                                 <div class="px-9 pb-4">
                                     <div class="row g-3">
-                                        <div class="col-12">
+                                        <div class="col-12 col-md-6">
+                                            <label class="fw-bold fs-7 text-gray-800 mb-1 d-block">Kategori:</label>
+                                            <select id="filter_kategori" class="form-select form-select-sm form-select-solid w-100" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                                <option value="">Semua</option>
+                                                @foreach ($categories as $kat)
+                                                    <option value="{{ $kat->id_kategori }}">{{ $kat->nama_kategori }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-6">
                                             <label class="fw-bold fs-7 text-gray-800 mb-1 d-block">Status:</label>
                                             <select id="filter_status" class="form-select form-select-sm form-select-solid w-100" data-control="select2" data-placeholder="Semua Status" data-allow-clear="true">
                                                 <option value="">Semua</option>

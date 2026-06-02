@@ -15,8 +15,9 @@ class AdminHistoryLaporanController extends Controller
 {
     public function index()
     {
-        $kategoris = \App\Models\Kategori::all();
-        return view('admin.history-laporan.index', compact('kategoris'));
+        $kategoris = \App\Models\Kategori::with('unit')->get();
+        $units = \App\Models\Unit::all();
+        return view('admin.history-laporan.index', compact('kategoris', 'units'));
     }
 
     public function getHistoryLaporan(Request $request)
@@ -40,6 +41,12 @@ class AdminHistoryLaporanController extends Controller
         if ($request->filled('kategori_id')) {
             $query->whereHas('laporan', function ($q) use ($request) {
                 $q->where('kategori_id', $request->kategori_id);
+            });
+        }
+
+        if ($request->filled('unit_id')) {
+            $query->whereHas('laporan.units', function ($q) use ($request) {
+                $q->where('unit_id', $request->unit_id);
             });
         }
 
