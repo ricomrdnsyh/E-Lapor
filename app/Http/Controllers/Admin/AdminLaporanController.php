@@ -13,7 +13,7 @@ class AdminLaporanController extends Controller
     public function index()
     {
         $kategoris = Kategori::with('unit')->get();
-        $units = \App\Models\Unit::all();
+        $units = \App\Models\Unit::has('kategoris')->get();
         return view('admin.laporan.index', compact('kategoris', 'units'));
     }
 

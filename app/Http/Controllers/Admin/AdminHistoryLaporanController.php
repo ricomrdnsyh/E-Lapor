@@ -16,7 +16,7 @@ class AdminHistoryLaporanController extends Controller
     public function index()
     {
         $kategoris = \App\Models\Kategori::with('unit')->get();
-        $units = \App\Models\Unit::all();
+        $units = \App\Models\Unit::has('kategoris')->get();
         return view('admin.history-laporan.index', compact('kategoris', 'units'));
     }
 

@@ -29,6 +29,7 @@ class LaporController extends Controller
     {
         $units = Unit::select('id_unit', 'nama_unit', 'singkatan')
             ->where('status', 'aktif')
+            ->has('kategoris')
             ->orderBy('nama_unit')
             ->get()
             ->map(function ($item) {
