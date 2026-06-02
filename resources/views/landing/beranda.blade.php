@@ -240,20 +240,20 @@
             <div class="container">
                 <div class="text-center mb-8">
                     <h1 class="fw-bolder text-gray-700 text-uppercase mb-2"
-                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Laporan
-                        Kategori Unit</h1>
+                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Total
+                        Laporan</h1>
                 </div>
 
                 <div class="row g-4 g-lg-6 justify-content-center mb-8">
-                    @foreach ($laporanPerKategori as $kategori)
-                        <div class="col-6 col-md-4 col-lg-3">
+                    @foreach (['menunggu' => 'Menunggu', 'diproses' => 'Diproses', 'selesai' => 'Selesai', 'ditolak' => 'Ditolak'] as $key => $label)
+                        <div class="col-6">
                             <div class="text-center p-5 rounded-3 unit-stat-card"
                                 style="border: 1px solid #f1f5f9; transition: all .2s ease;">
                                 <div class="fw-bolder text-gray-900 mb-1"
                                     style="font-size: clamp(1.8rem, 3vw, 2.6rem); line-height:1;">
-                                    <span class="counter-unit" data-target="{{ $kategori->jumlah_laporan }}">0</span>
+                                    {{ $stats[$key] ?? 0 }}
                                 </div>
-                                <div class="text-muted fw-semibold fs-7">{{ $kategori->nama_kategori }}</div>
+                                <div class="text-muted fw-semibold fs-7">{{ $label }}</div>
                             </div>
                         </div>
                     @endforeach

@@ -6,13 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Laporan;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BerandaController extends Controller
 {
     public function beranda(Request $request)
     {
-        $totalLaporan = Laporan::count();
+        $baseQuery = Laporan::query();
+        $totalLaporan = (clone $baseQuery)->count();
+
+        $stats = [
+            'total'    => $totalLaporan,
+            'menunggu' => (clone $baseQuery)->where('status', 'menunggu')->count(),
+            'diproses' => (clone $baseQuery)->where('status', 'diproses')->count(),
+            'selesai'  => (clone $baseQuery)->where('status', 'selesai')->count(),
+            'ditolak'  => (clone $baseQuery)->where('status', 'ditolak')->count(),
+        ];
 
         $laporanPerKategoriRaw = Kategori::select('kategori.id_kategori', 'kategori.nama_kategori')
             ->leftJoin('laporan', 'laporan.kategori_id', '=', 'kategori.id_kategori')
@@ -41,6 +49,6 @@ class BerandaController extends Controller
 
         $laporanPerKategori = $laporanPerKategori->sortByDesc('jumlah_laporan')->values();
 
-        return view('landing.beranda', compact('totalLaporan', 'laporanPerKategori'));
+        return view('landing.beranda', compact('totalLaporan', 'laporanPerKategori', 'stats'));
     }
 }
