@@ -405,10 +405,6 @@
                                     </div>
                                     <div class="d-flex gap-4 flex-wrap justify-content-center">
                                         <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
-                                            <div class="text-white fw-bolder fs-2x lh-1">{{ $stats['total'] ?? 0 }}</div>
-                                            <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Total Laporan</div>
-                                        </div>
-                                        <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
                                             <div class="text-white fw-bolder fs-2x lh-1">{{ $meta['total_unit'] ?? 0 }}</div>
                                             <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Unit Aktif</div>
                                         </div>
@@ -607,8 +603,22 @@
                         <div class="col-lg-8">
                             <div class="card chart-card">
                                 <div class="card-body">
-                                    <div class="info-title">Tren Laporan Bulanan</div>
-                                    <div class="text-muted fs-7 mb-4">Jumlah laporan masuk per bulan — 12 bulan terakhir</div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div>
+                                            <div class="info-title mb-0">Tren Laporan Bulanan</div>
+                                            <div class="text-muted fs-7">Jumlah laporan masuk per bulan — 12 bulan terakhir</div>
+                                        </div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                <i class="ki-duotone ki-dots-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div class="chart-holder chart-holder-trend">
                                         <canvas id="trenChart"></canvas>
                                     </div>
@@ -661,7 +671,7 @@
                                             <div class="text-muted fs-7">Pilih unit untuk melihat grafik laporan per kategori dan sub kategori</div>
                                         </div>
                                         <div>
-                                            <select id="unitSelect" class="form-select form-select-solid w-md-250px" data-control="select2" data-placeholder="Pilih Unit">
+                                            <select id="unitSelect" class="form-select form-select-solid w-md-400px" data-control="select2" data-placeholder="Pilih Unit">
                                                 <option value="">-- Pilih Unit --</option>
                                                 @foreach($units as $unit)
                                                     <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }} ({{ $unit->singkatan }})</option>
@@ -688,7 +698,19 @@
                                             <div class="col-12">
                                                 <div class="card border border-dashed border-gray-300">
                                                     <div class="card-body">
-                                                        <h3 class="card-title fw-bold text-gray-800 fs-5 mb-5">Laporan per Kategori</h3>
+                                                        <div class="d-flex align-items-center justify-content-between mb-5">
+                                                            <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Kategori</h3>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                                    <i class="ki-duotone ki-dots-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                                    <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                                    <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                                    <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                         <div style="position:relative; height:320px;">
                                                             <canvas id="kategoriUnitChart"></canvas>
                                                         </div>
@@ -698,7 +720,19 @@
                                             <div class="col-12">
                                                 <div class="card border border-dashed border-gray-300">
                                                     <div class="card-body">
-                                                        <h3 class="card-title fw-bold text-gray-800 fs-5 mb-5">Laporan per Sub Kategori</h3>
+                                                        <div class="d-flex align-items-center justify-content-between mb-5">
+                                                            <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Sub Kategori</h3>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                                    <i class="ki-duotone ki-dots-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                         <div style="position:relative; height:420px;">
                                                             <canvas id="subKategoriUnitChart"></canvas>
                                                         </div>
@@ -1073,5 +1107,34 @@
                 }
             }
         });
+
+        function downloadChart(canvasId, filename, format) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            if (format === 'pdf') {
+                if (typeof window.jspdf === 'undefined' && typeof jspdf === 'undefined') {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    script.onload = function() {
+                        downloadChart(canvasId, filename, format);
+                    };
+                    document.head.appendChild(script);
+                    return;
+                }
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('l', 'mm', 'a4');
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save(filename + '.pdf');
+            } else {
+                const link = document.createElement('a');
+                link.download = filename + '.' + format;
+                link.href = canvas.toDataURL(format === 'jpeg' ? 'image/jpeg' : 'image/png', format === 'jpeg' ? 0.92 : undefined);
+                link.click();
+            }
+        }
     </script>
 @endsection

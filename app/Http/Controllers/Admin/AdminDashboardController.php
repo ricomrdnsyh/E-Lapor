@@ -86,7 +86,7 @@ class AdminDashboardController extends Controller
             'anonim'  => $anonimCount,
         ];
 
-        $units = Unit::where('status', 'aktif')->orderBy('nama_unit')->get();
+        $units = Unit::where('status', 'aktif')->has('kategoris')->orderBy('nama_unit')->get();
 
         return view('admin.dashboard.index', compact(
             'stats', 'meta', 'user', 'tipePelapor', 'bulanData', 'laporanPerKategori', 'anonimData', 'totalLaporan', 'units'
