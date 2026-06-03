@@ -240,7 +240,7 @@
             <div class="container">
                 <div class="text-center mb-8">
                     <h1 class="fw-bolder text-gray-700 text-uppercase mb-2"
-                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Total
+                        style="letter-spacing:.1em; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight:900;">Detail
                         Laporan</h1>
                 </div>
 

@@ -15,7 +15,7 @@ class StatistikController extends Controller
 {
     public function index()
     {
-        $units = Unit::where('status', 'aktif')->orderBy('nama_unit')->get();
+        $units = Unit::where('status', 'aktif')->has('kategoris')->orderBy('nama_unit')->get();
         $globalData = $this->globalStats();
 
         return view('landing.statistik', array_merge($globalData, compact('units')));
