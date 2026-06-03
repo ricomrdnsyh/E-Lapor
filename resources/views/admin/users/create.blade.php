@@ -63,6 +63,7 @@
                                     <option value="">-- Pilih Role --</option>
                                     <option value="admin" @selected(old('role') === 'admin')>Admin</option>
                                     <option value="unit" @selected(old('role') === 'unit')>Unit</option>
+                                    <option value="pimpinan" @selected(old('role') === 'pimpinan')>Pimpinan</option>
                                 </select>
 
                                 @error('role')

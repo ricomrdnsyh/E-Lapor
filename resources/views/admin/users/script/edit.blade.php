@@ -117,7 +117,7 @@
         }
 
         $(roleSelect).on('change', function() {
-            showUnitKategoriFields(roleSelect.value === 'unit');
+            showUnitKategoriFields(roleSelect.value === 'unit' || roleSelect.value === 'pimpinan');
         });
 
         // Check all / uncheck all per unit
@@ -175,10 +175,10 @@
                         $(roleSelect).val(data.role || '').trigger('change');
                         document.getElementById('edit_password').value = '';
 
-                        const isUnit = data.role === 'unit';
-                        showUnitKategoriFields(isUnit);
+                        const showUnit = data.role === 'unit' || data.role === 'pimpinan';
+                        showUnitKategoriFields(showUnit);
 
-                        if (isUnit && data.unit) {
+                        if (showUnit && data.unit) {
                             $(unitSelect).val(data.unit_id).trigger('change');
                             // After unit change shows kategori groups, check the user's kategoris
                             setTimeout(function() {

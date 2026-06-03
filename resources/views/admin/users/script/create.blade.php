@@ -118,7 +118,7 @@
         }
 
         $(roleSelect).on('change', function() {
-            showUnitKategoriFields(roleSelect.value === 'unit');
+            showUnitKategoriFields(roleSelect.value === 'unit' || roleSelect.value === 'pimpinan');
         });
 
         // Check all / uncheck all per unit
@@ -171,7 +171,7 @@
             showUnitKategoriFields(false);
         });
 
-        showUnitKategoriFields(roleSelect.value === 'unit');
+        showUnitKategoriFields(roleSelect.value === 'unit' || roleSelect.value === 'pimpinan');
 
         @if ($errors->any())
             (new bootstrap.Modal(modalEl)).show();

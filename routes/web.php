@@ -97,3 +97,9 @@ Route::prefix('unit')->name('unit.')->middleware(['auth', 'role:unit'])->group(f
     Route::get('/history-laporan/data', [UnitHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
     Route::resource('history-laporan', UnitHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
 });
+
+Route::prefix('pimpinan')->name('pimpinan.')->middleware(['auth', 'role:pimpinan'])->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Pimpinan\PimpinanDashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/history-laporan/data', [\App\Http\Controllers\Pimpinan\PimpinanHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
+    Route::resource('history-laporan', \App\Http\Controllers\Pimpinan\PimpinanHistoryLaporanController::class, ['only' => ['index', 'show']]);
+});

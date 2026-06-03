@@ -64,6 +64,7 @@
                                     <option value="">-- Pilih Role --</option>
                                     <option value="admin">Admin</option>
                                     <option value="unit">Unit</option>
+                                    <option value="pimpinan">Pimpinan</option>
                                 </select>
 
                                 @error('role')

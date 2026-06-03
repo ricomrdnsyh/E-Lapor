@@ -24,7 +24,11 @@ class AdminUserController extends Controller
 
         return DataTables::of($query)
             ->editColumn('role', function ($row) {
-                $badgeClass = $row->role === 'admin' ? 'bg-success' : 'bg-info';
+                $badgeClass = match ($row->role) {
+                    'admin' => 'bg-success',
+                    'pimpinan' => 'bg-primary',
+                    default => 'bg-info',
+                };
                 return '<span class="badge text-white ' . $badgeClass . '">' . ucfirst($row->role) . '</span>';
             })
             ->addColumn('unit_info', function ($row) {
@@ -98,8 +102,8 @@ class AdminUserController extends Controller
             'username'     => 'required|string|max:100|unique:users',
             'telegram_id'  => 'nullable|string|max:50',
             'password'     => 'required|string|min:6',
-            'role'         => 'required|in:admin,unit',
-            'unit_id'      => 'required_if:role,unit|nullable|exists:unit,id_unit',
+            'role'         => 'required|in:admin,unit,pimpinan',
+            'unit_id'      => 'required_if:role,unit|required_if:role,pimpinan|nullable|exists:unit,id_unit',
             'kategori_ids' => 'nullable|array',
             'kategori_ids.*' => 'exists:kategori,id_kategori',
         ], [
@@ -109,7 +113,7 @@ class AdminUserController extends Controller
             'password.required'      => 'Password harus diisi',
             'password.min'           => 'Password minimal 6 karakter',
             'role.required'          => 'Role harus dipilih',
-            'unit_id.required_if'    => 'Unit harus dipilih untuk role unit',
+            'unit_id.required_if'    => 'Unit harus dipilih untuk role unit/pimpinan',
             'unit_id.exists'         => 'Unit tidak ditemukan',
             'kategori_ids.*.exists'  => 'Kategori tidak ditemukan',
         ]);
@@ -120,10 +124,10 @@ class AdminUserController extends Controller
             'telegram_id'  => $request->telegram_id ?: null,
             'password'     => Hash::make($request->password),
             'role'         => $request->role,
-            'unit_id'      => $request->role === 'unit' ? $request->unit_id : null,
+            'unit_id'      => in_array($request->role, ['unit', 'pimpinan']) ? $request->unit_id : null,
         ]);
 
-        if ($request->role === 'unit' && $request->filled('kategori_ids')) {
+        if (in_array($request->role, ['unit', 'pimpinan']) && $request->filled('kategori_ids')) {
             $user->kategoris()->sync($request->kategori_ids);
         }
 
@@ -139,8 +143,8 @@ class AdminUserController extends Controller
             'username'     => 'required|string|max:100|unique:users,username,' . $id,
             'telegram_id'  => 'nullable|string|max:50',
             'password'     => 'nullable|string|min:6',
-            'role'         => 'required|in:admin,unit',
-            'unit_id'      => 'required_if:role,unit|nullable|exists:unit,id_unit',
+            'role'         => 'required|in:admin,unit,pimpinan',
+            'unit_id'      => 'required_if:role,unit|required_if:role,pimpinan|nullable|exists:unit,id_unit',
             'kategori_ids' => 'nullable|array',
             'kategori_ids.*' => 'exists:kategori,id_kategori',
         ], [
@@ -149,7 +153,7 @@ class AdminUserController extends Controller
             'username.unique'        => 'Username sudah terdaftar',
             'password.min'           => 'Password minimal 6 karakter',
             'role.required'          => 'Role harus dipilih',
-            'unit_id.required_if'    => 'Unit harus dipilih untuk role unit',
+            'unit_id.required_if'    => 'Unit harus dipilih untuk role unit/pimpinan',
             'unit_id.exists'         => 'Unit tidak ditemukan',
             'kategori_ids.*.exists'  => 'Kategori tidak ditemukan',
         ]);
@@ -159,7 +163,7 @@ class AdminUserController extends Controller
             'username'     => $request->username,
             'telegram_id'  => $request->telegram_id ?: null,
             'role'         => $request->role,
-            'unit_id'      => $request->role === 'unit' ? $request->unit_id : null,
+            'unit_id'      => in_array($request->role, ['unit', 'pimpinan']) ? $request->unit_id : null,
         ];
 
         if ($request->filled('password')) {
@@ -168,10 +172,8 @@ class AdminUserController extends Controller
 
         $user->update($data);
 
-        if ($request->role === 'unit' && $request->filled('kategori_ids')) {
+        if (in_array($request->role, ['unit', 'pimpinan']) && $request->filled('kategori_ids')) {
             $user->kategoris()->sync($request->kategori_ids);
-        } elseif ($request->role === 'unit') {
-            $user->kategoris()->sync([]);
         } else {
             $user->kategoris()->sync([]);
         }

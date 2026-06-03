@@ -32,7 +32,7 @@ class SsoController extends Controller
         if ($identifier) {
             $user = User::where('username', $identifier)->first();
 
-            if ($user && in_array($user->role, ['admin', 'unit'])) {
+            if ($user && in_array($user->role, ['admin', 'unit', 'pimpinan'])) {
                 $this->syncUserFromSso($user, $responseData);
 
                 $request->session()->put('sso_pending_user_id', $user->id);
@@ -79,9 +79,10 @@ class SsoController extends Controller
         $user->refresh();
 
         return match ($user->role) {
-            'admin' => redirect()->route('admin.dashboard.index'),
-            'unit'  => redirect()->route('unit.dashboard.index'),
-            default => redirect()->route('beranda'),
+            'admin'    => redirect()->route('admin.dashboard.index'),
+            'unit'     => redirect()->route('unit.dashboard.index'),
+            'pimpinan' => redirect()->route('pimpinan.dashboard.index'),
+            default    => redirect()->route('beranda'),
         };
     }
 
@@ -141,9 +142,10 @@ class SsoController extends Controller
         $this->registerSsoCallback($request, $responseData);
 
         return match ($user->role) {
-            'admin' => redirect()->route('admin.dashboard.index'),
-            'unit'  => redirect()->route('unit.dashboard.index'),
-            default => redirect()->route('beranda'),
+            'admin'    => redirect()->route('admin.dashboard.index'),
+            'unit'     => redirect()->route('unit.dashboard.index'),
+            'pimpinan' => redirect()->route('pimpinan.dashboard.index'),
+            default    => redirect()->route('beranda'),
         };
     }
 

@@ -118,6 +118,7 @@
     $currentUser = Auth::user();
     $isAdmin = $currentUser?->role === 'admin';
     $isUnit = $currentUser?->role === 'unit';
+    $isPimpinan = $currentUser?->role === 'pimpinan';
 @endphp
 
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
@@ -329,6 +330,32 @@
                         <div class="menu-item">
                             <a class="menu-link {{ Request::is('unit/history-laporan*') ? 'active' : '' }}"
                                 href="{{ route('unit.history-laporan.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-time fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">History Laporan</span>
+                            </a>
+                        </div>
+                    @elseif ($isPimpinan)
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('pimpinan/dashboard*') ? 'active' : '' }}"
+                                href="{{ route('pimpinan.dashboard.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-element-11 fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                        <span class="path3"></span><span class="path4"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('pimpinan/history-laporan*') ? 'active' : '' }}"
+                                href="{{ route('pimpinan.history-laporan.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-time fs-2">
                                         <span class="path1"></span>
