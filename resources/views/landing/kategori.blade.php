@@ -1,121 +1,105 @@
 @extends('pages.app')
 
+@php
+    $akdIcons = ['ki-book', 'ki-notepad-edit', 'ki-chart-simple', 'ki-magnifier'];
+    $akdColors = ['primary', 'warning', 'success', 'info'];
+    $nonIcons = [
+        'ki-home-2',
+        'ki-monitor-mobile',
+        'ki-wallet',
+        'ki-people',
+        'ki-shield',
+        'ki-flag',
+        'ki-dots-circle',
+        'ki-handshake',
+        'ki-brush',
+        'ki-call',
+        'ki-trash',
+        'ki-archive',
+    ];
+    $nonColors = [
+        'success',
+        'info',
+        'warning',
+        'dark',
+        'danger',
+        'primary',
+        'info',
+        'success',
+        'danger',
+        'warning',
+        'primary',
+        'dark',
+    ];
+@endphp
+
 @section('content')
     <section id="kategori" class="py-10 py-lg-15 bg-light">
         <div class="container">
 
-            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-5 mb-8">
-                <div>
-                    <h2 class="fw-bold text-gray-900 mb-2">Kategori Laporan</h2>
-                    <div class="section-kicker text-muted mb-0">Pilih kategori agar langsung ke unit terkait</div>
-                </div>
-            </div>
-
-            <div class="row g-6">
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-primary mb-5">
-                                <i class="ki-duotone ki-teacher fs-2 text-primary"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Akademik</div>
-                            <div class="text-muted fs-7 mt-2">KRS, LMS, jadwal, nilai, administrasi akademik.</div>
+            @if ($kategoriAkademikUnik->isNotEmpty())
+                <h4 class="fw-bold text-gray-800 mb-5">
+                    <i class="ki-duotone ki-teacher fs-3 text-primary me-2"><span class="path1"></span><span class="path2"></span></i>Bidang Akademik
+                </h4>
+                <div class="row g-6 mb-10">
+                    @foreach ($kategoriAkademikUnik as $k)
+                        @php
+                            $i = $loop->index;
+                            $c = $akdColors[$i % count($akdColors)];
+                        @endphp
+                        <div class="col-md-6 col-lg-3">
+                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                                <div class="card-body p-7">
+                                    <span class="symbol symbol-45px symbol-circle bg-light-{{ $c }} mb-5">
+                                        <i
+                                            class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <div class="fw-bold text-gray-900">{{ $k->nama_kategori }}</div>
+                                    <div class="d-flex flex-wrap gap-1 mt-2">
+                                        @foreach ($unitAkademik as $u)
+                                            <span
+                                                class="badge badge-light-{{ $c }} fs-9 px-2 py-1">{{ $u->singkatan }}</span>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    @endforeach
                 </div>
+            @endif
 
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-success mb-5">
-                                <i class="ki-duotone ki-home-2 fs-2 text-success"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Sarpras</div>
-                            <div class="text-muted fs-7 mt-2">Ruang, listrik, AC, kebersihan, aksesibilitas.</div>
+            @if ($kategoriNonAkademik->isNotEmpty())
+                <h4 class="fw-bold text-gray-800 mb-4">
+                    <i class="ki-duotone ki-flag fs-3 text-success me-2"><span class="path1"></span><span class="path2"></span></i>Bidang Non Akademik
+                </h4>
+                <div class="row g-6">
+                    @foreach ($kategoriNonAkademik as $k)
+                        @php
+                            $i = $loop->index;
+                            $c = $nonColors[$i % count($nonColors)];
+                        @endphp
+                        <div class="col-md-6 col-lg-3">
+                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
+                                <div class="card-body p-7">
+                                    <span class="symbol symbol-45px symbol-circle bg-light-{{ $c }} mb-5">
+                                        <i
+                                            class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <div class="fw-bold text-gray-900">{{ $k->nama_kategori }}</div>
+                                    <span class="badge badge-light-{{ $c }} fs-8 px-3 py-2 mt-2">
+                                        <i class="ki-duotone ki-geolocation fs-8 me-1"></i>
+                                        {{ $k->unit?->singkatan ?? ($k->unit?->nama_unit ?? '-') }}
+                                    </span>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    @endforeach
                 </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-info mb-5">
-                                <i class="ki-duotone ki-monitor-mobile fs-2 text-info"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">TIK / Sistem Informasi </div>
-                            <div class="text-muted fs-7 mt-2">SSO, WiFi, email kampus, aplikasi layanan.</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-danger mb-5">
-                                <i class="ki-duotone ki-shield fs-2 text-danger"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Keamanan</div>
-                            <div class="text-muted fs-7 mt-2">Insiden, kehilangan, parkir, ketertiban kampus.</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-warning mb-5">
-                                <i class="ki-duotone ki-flag fs-2 text-warning"><span class="path1"></span><span
-                                        class="path2"></span><span class="path3"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Etik / Perundungan</div>
-                            <div class="text-muted fs-7 mt-2">Pelanggaran etik, pelecehan, diskriminasi.</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-dark mb-5">
-                                <i class="ki-duotone ki-people fs-2 text-gray-800"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Kemahasiswaan</div>
-                            <div class="text-muted fs-7 mt-2">UKM, beasiswa, kegiatan, konseling.</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-success mb-5">
-                                <i class="ki-duotone ki-wallet fs-2 text-success"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Keuangan</div>
-                            <div class="text-muted fs-7 mt-2">UKT, pembayaran, refund, administrasi.</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                        <div class="card-body p-7">
-                            <span class="symbol symbol-45px symbol-circle bg-light-info mb-5">
-                                <i class="ki-duotone ki-dots-circle fs-2 text-info"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </span>
-                            <div class="fw-bold text-gray-900">Lainnya</div>
-                            <div class="text-muted fs-7 mt-2">Aspirasi, saran, masukan layanan.</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            @endif
 
         </div>
     </section>

@@ -49,6 +49,18 @@ class BerandaController extends Controller
 
         $laporanPerKategori = $laporanPerKategori->sortByDesc('jumlah_laporan')->values();
 
-        return view('landing.beranda', compact('totalLaporan', 'laporanPerKategori', 'stats'));
+        $kategoris = Kategori::with('unit')->get();
+        $kategoriAkademik = $kategoris->filter(fn($k) => $k->unit && (
+            stripos($k->unit->nama_unit, 'Fakultas') !== false ||
+            stripos($k->unit->nama_unit, 'Pascasarjana') !== false
+        ));
+        $kategoriNonAkademik = $kategoris->filter(fn($k) => !$k->unit || (
+            stripos($k->unit->nama_unit, 'Fakultas') === false &&
+            stripos($k->unit->nama_unit, 'Pascasarjana') === false
+        ));
+        $kategoriAkademikUnik = $kategoriAkademik->unique('nama_kategori')->values();
+        $unitAkademik = $kategoriAkademik->pluck('unit')->unique('id_unit')->sortBy('id_unit');
+
+        return view('landing.beranda', compact('totalLaporan', 'laporanPerKategori', 'stats', 'kategoriAkademik', 'kategoriNonAkademik', 'kategoriAkademikUnik', 'unitAkademik'));
     }
 }
