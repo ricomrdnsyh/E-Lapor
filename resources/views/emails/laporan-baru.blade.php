@@ -76,6 +76,13 @@
                                     <tr>
                                         <td
                                             style="padding:6px 0; color:#888; font-size:13px; width:140px; vertical-align:top;">
+                                            Unit Tujuan</td>
+                                        <td style="padding:6px 0; color:#333; font-size:13px;">
+                                            {{ $laporan->kategori?->unit?->nama_unit ?? '-' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="padding:6px 0; color:#888; font-size:13px; width:140px; vertical-align:top;">
                                             Kategori</td>
                                         <td style="padding:6px 0; color:#333; font-size:13px;">
                                             {{ $laporan->kategori?->nama_kategori ?? '-' }}</td>
@@ -83,10 +90,10 @@
                                     <tr>
                                         <td
                                             style="padding:6px 0; color:#888; font-size:13px; width:140px; vertical-align:top;">
-                                            Unit Tujuan</td>
+                                            Sub Kategori</td>
                                         <td style="padding:6px 0; color:#333; font-size:13px;">
-                                            {{ $laporan->kategori?->unit?->nama_unit ?? '-' }}</td>
-                                    </tr>
+                                            {{ $laporan->subKategori?->nama_sub ?? '-' }}</td>
+                                    </tr>                                    
                                     <tr>
                                         <td
                                             style="padding:6px 0; color:#888; font-size:13px; width:140px; vertical-align:top;">

@@ -20,7 +20,7 @@ class TelegramNotificationService
     public function notifyNewLaporan(Laporan $laporan): void
     {
         try {
-            $laporan->loadMissing('kategori.unit');
+            $laporan->loadMissing(['kategori.unit', 'subKategori']);
 
             $targetUsers = $this->getTargetUsers($laporan);
 
@@ -87,6 +87,7 @@ class TelegramNotificationService
     protected function buildMessageText(Laporan $laporan): string
     {
         $kategori  = $laporan->kategori?->nama_kategori ?? '-';
+        $subKategori = $laporan->subKategori?->nama_sub ?? '-';
         $unitNama  = $laporan->kategori?->unit?->nama_unit ?? '-';
         $tanggal   = $laporan->tgl_kejadian
             ? $laporan->tgl_kejadian->locale('id')->isoFormat('DD MMMM YYYY, HH:mm')
@@ -114,8 +115,9 @@ class TelegramNotificationService
             '',
             '🎫 <b>Kode Tiket:</b> <code>' . e($laporan->kode_tiket) . '</code>',
             '📋 <b>Judul:</b> ' . e($laporan->judul_laporan),
-            '📂 <b>Kategori:</b> ' . e($kategori),
             '🏢 <b>Unit Tujuan:</b> ' . e($unitNama),
+            '📂 <b>Kategori:</b> ' . e($kategori),
+            '📁 <b>Sub Kategori:</b> ' . e($subKategori),
             '📍 <b>Lokasi:</b> ' . e($lokasi),
             '📅 <b>Tanggal:</b> ' . $tanggal,
             '',
