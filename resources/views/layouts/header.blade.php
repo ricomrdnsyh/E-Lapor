@@ -155,7 +155,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">{{ $currentUser?->nama ?? 'User' }}
                                     </div>
-                                    <span class="fw-semibold text-muted text-hover-primary fs-7">{{ $currentUser?->unit?->singkatan ?? 'Unit' }}</span>
+                                    <span class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()?->role === 'admin' ? 'Administrator' : auth()->user()?->unit?->singkatan ?? 'Unit' }}</span>
                                 </div>
                             </div>
                         </div>
