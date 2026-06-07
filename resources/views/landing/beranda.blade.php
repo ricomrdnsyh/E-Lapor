@@ -49,6 +49,35 @@
             border-color: var(--bs-primary, #3b82f6) !important;
             color: #ffffff !important;
         }
+
+        .cat-tile {
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .cat-tile:hover {
+            border-color: var(--tile-color, #3b82f6);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+        .cat-arrow {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        .cat-tile:hover .cat-arrow {
+            color: var(--tile-color, #3b82f6);
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 @endsection
 
@@ -288,27 +317,27 @@
                 </div>
 
                 <div class="col-lg-7 d-flex align-items-center">
-                    <div class="w-100">
-                        <h2 class="fw-bold text-white mb-4">
-                            Apa Itu E-Lapor?
+                    <div class="w-100 text-center text-lg-start">
+                        <h2 class="fw-bold text-light mb-4 fs-1">
+                            Apa Itu E-LAPOR?
                         </h2>
 
-                        <p class="text-white text-opacity-75 fs-5 mb-4 text-justify-lg">
-                            <span class="fw-semibold text-white">E-Lapor</span> adalah kanal resmi pengaduan dan aspirasi
+                        <p class="text-light text-opacity-75 fs-5 mb-4 text-justify-lg">
+                            <span class="fw-semibold text-light">E-Lapor</span> adalah kanal resmi pengaduan dan aspirasi
                             di Universitas Nurul Jadid. Layanan ini dibuat agar setiap keluhan, temuan, atau masukan dari
                             civitas akademika atau masyarakat umum dapat disampaikan secara <span
-                                class="fw-semibold text-white">terstruktur</span>,
-                            diproses oleh unit yang tepat, serta <span class="fw-semibold text-white">terpantau</span>
+                                class="fw-semibold text-light">terstruktur</span>,
+                            diproses oleh unit yang tepat, serta <span class="fw-semibold text-light">terpantau</span>
                             hingga selesai.
                         </p>
 
-                        <p class="text-white text-opacity-75 fs-5 mb-0 text-justify-lg">
+                        <p class="text-light text-opacity-75 fs-5 mb-0 text-justify-lg">
                             Saat membuat laporan, pelapor dapat memilih kategori, menuliskan kronologi secara singkat-jelas,
                             mencantumkan lokasi dan waktu, serta melampirkan bukti (foto/screenshot/dokumen) bila
                             diperlukan.
                             Laporan diverifikasi terlebih dahulu, diteruskan ke unit terkait, dan status penanganannya
                             diperbarui sampai ditutup. Untuk menjaga kenyamanan, tersedia opsi
-                            <span class="fw-semibold text-white">anonim/rahasia</span> serta pembatasan akses petugas
+                            <span class="fw-semibold text-light">anonim/rahasia</span> serta pembatasan akses petugas
                             sesuai kewenangan.
                         </p>
                     </div>
@@ -342,17 +371,22 @@
                     @foreach($kategoriAkademikUnik as $k)
                         @php $i = $loop->index; $c = $akdColors[$i % count($akdColors)]; @endphp
                         <div class="col-md-6 col-lg-3">
-                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                                <div class="card-body p-7">
-                                    <span class="symbol symbol-45px symbol-circle bg-light-{{ $c }} mb-5">
-                                        <i class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
-                                            <span class="path1"></span><span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    <div class="fw-bold text-gray-900">{{ $k->nama_kategori }}</div>
-                                    <div class="d-flex flex-wrap gap-1 mt-2">
+                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none" style="--tile-color: var(--bs-{{ $c }});">
+                                <div class="card-body p-6 d-flex flex-column">
+                                    <div class="d-flex align-items-center gap-4 mb-4">
+                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0" style="border-radius: 0.75rem;">
+                                            <i class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bolder text-gray-900 fs-6 mb-1">{{ $k->nama_kategori }}</div>
+                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 mt-auto">
                                         @foreach($unitAkademik as $u)
-                                            <span class="badge badge-light-{{ $c }} fs-9 px-2 py-1">{{ $u->singkatan }}</span>
+                                            <span class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">{{ $u->singkatan }}</span>
                                         @endforeach
                                     </div>
                                 </div>
@@ -370,18 +404,25 @@
                     @foreach($kategoriNonAkademik as $k)
                         @php $i = $loop->index; $c = $nonColors[$i % count($nonColors)]; @endphp
                         <div class="col-md-6 col-lg-3">
-                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                                <div class="card-body p-7">
-                                    <span class="symbol symbol-45px symbol-circle bg-light-{{ $c }} mb-5">
-                                        <i class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
-                                            <span class="path1"></span><span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    <div class="fw-bold text-gray-900">{{ $k->nama_kategori }}</div>
-                                    <span class="badge badge-light-{{ $c }} fs-8 px-3 py-2 mt-2" >
-                                        <i class="ki-duotone ki-geolocation fs-8 me-1"></i>
-                                        {{ $k->unit?->singkatan ?? $k->unit?->nama_unit ?? '-' }}
-                                    </span>
+                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none" style="--tile-color: var(--bs-{{ $c }});">
+                                <div class="card-body p-6 d-flex flex-column">
+                                    <div class="d-flex align-items-center gap-4 mb-4">
+                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0" style="border-radius: 0.75rem;">
+                                            <i class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bolder text-gray-900 fs-6 mb-1">{{ $k->nama_kategori }}</div>
+                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                                        <span class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">
+                                            <i class="ki-duotone ki-geolocation fs-8 me-1 text-{{ $c }}"></i>
+                                            {{ $k->unit?->singkatan ?? $k->unit?->nama_unit ?? '-' }}
+                                        </span>
+                                    </div>
                                 </div>
                             </a>
                         </div>

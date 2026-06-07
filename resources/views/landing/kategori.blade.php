@@ -49,18 +49,21 @@
                         @endphp
                         <div class="col-md-6 col-lg-3">
                             <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                                <div class="card-body p-7">
-                                    <span class="symbol symbol-45px symbol-circle bg-light-{{ $c }} mb-5">
-                                        <i
-                                            class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
-                                            <span class="path1"></span><span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    <div class="fw-bold text-gray-900">{{ $k->nama_kategori }}</div>
-                                    <div class="d-flex flex-wrap gap-1 mt-2">
+                                <div class="card-body p-6 d-flex flex-column">
+                                    <div class="d-flex align-items-center gap-4 mb-4">
+                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0" style="border-radius: 0.75rem;">
+                                            <i class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bolder text-gray-900 fs-6 mb-1">{{ $k->nama_kategori }}</div>
+                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 mt-auto">
                                         @foreach ($unitAkademik as $u)
-                                            <span
-                                                class="badge badge-light-{{ $c }} fs-9 px-2 py-1">{{ $u->singkatan }}</span>
+                                            <span class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">{{ $u->singkatan }}</span>
                                         @endforeach
                                     </div>
                                 </div>
@@ -82,18 +85,24 @@
                         @endphp
                         <div class="col-md-6 col-lg-3">
                             <a href="#kategori" class="card h-100 cat-tile text-decoration-none">
-                                <div class="card-body p-7">
-                                    <span class="symbol symbol-45px symbol-circle bg-light-{{ $c }} mb-5">
-                                        <i
-                                            class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
-                                            <span class="path1"></span><span class="path2"></span>
-                                        </i>
-                                    </span>
-                                    <div class="fw-bold text-gray-900">{{ $k->nama_kategori }}</div>
-                                    <span class="badge badge-light-{{ $c }} fs-8 px-3 py-2 mt-2">
-                                        <i class="ki-duotone ki-geolocation fs-8 me-1"></i>
-                                        {{ $k->unit?->singkatan ?? ($k->unit?->nama_unit ?? '-') }}
-                                    </span>
+                                <div class="card-body p-6 d-flex flex-column">
+                                    <div class="d-flex align-items-center gap-4 mb-4">
+                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0" style="border-radius: 0.75rem;">
+                                            <i class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bolder text-gray-900 fs-6 mb-1">{{ $k->nama_kategori }}</div>
+                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                                        <span class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">
+                                            <i class="ki-duotone ki-geolocation fs-8 me-1 text-{{ $c }}"></i>
+                                            {{ $k->unit?->singkatan ?? ($k->unit?->nama_unit ?? '-') }}
+                                        </span>
+                                    </div>
                                 </div>
                             </a>
                         </div>

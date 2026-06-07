@@ -6,7 +6,7 @@
                     <img src="{{ asset('assets/media/logos/unuja.png') }}" alt="Logo" height="36" style="object-fit: contain; margin-right: 8px;">
                     <span class="fw-bold fs-4">E-LAPOR</span>
                 </div>
-                <p class="mb-4 lh-lg" style="color: rgba(255,255,255,0.65); font-size: 0.875rem;">
+                <p class="mb-4 lh-lg" style="color: rgba(255,255,255,0.65); font-size: 1rem;">
                     Portal layanan pengaduan dan aspirasi mahasiswa Universitas Nurul Jadid yang terintegrasi secara digital untuk kemudahan layanan akademik.
                 </p>
                 <div class="d-flex gap-3">
@@ -26,48 +26,48 @@
             </div>
 
             <div class="col-md-6 col-lg-3 px-lg-4">
-                <h4 class="fw-semibold text-white text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 0.75rem;">Kontak kami</h4>
+                <h4 class="fw-semibold text-white text-uppercase" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 0.75rem;">Kontak kami</h4>
                 <div style="width: 32px; height: 2px; background-color: #facc15; margin-bottom: 1rem;"></div>
-                <ul class="list-unstyled d-flex flex-column gap-3 mb-0" style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">
-                    <li class="d-flex align-items-start gap-2">
-                        <svg width="16" height="16" class="mt-1 flex-shrink-0" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span class="lh-base">JL. PP Nurul Jadid, Dusun Tj. Lor, Karanganyar, Kec. Paiton, Kabupaten Probolinggo, Jawa Timur 67291</span>
+                <ul class="list-unstyled d-flex flex-column gap-3 mb-0" style="color: rgba(255,255,255,0.6); font-size: 1rem;">
+                    <li class="d-flex align-items-start gap-2 contact-item">
+                        <svg width="16" height="16" class="mt-1 flex-shrink-0 contact-icon" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span class="lh-base contact-text">JL. PP Nurul Jadid, Dusun Tj. Lor, Karanganyar, Kec. Paiton, Kabupaten Probolinggo, Jawa Timur 67291</span>
                     </li>
-                    <li class="d-flex align-items-center gap-2">
-                        <svg width="16" height="16" class="flex-shrink-0" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                        <a href="tel:+628883077077" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">0888 30 77077</a>
+                    <li class="d-flex align-items-center gap-2 contact-item">
+                        <svg width="16" height="16" class="flex-shrink-0 contact-icon" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <a href="tel:+628883077077" class="text-decoration-none contact-text" style="color: rgba(255,255,255,0.6);">0888 30 77077</a>
                     </li>
-                    <li class="d-flex align-items-center gap-2">
-                        <svg width="16" height="16" class="flex-shrink-0" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                        <span>Fax 0888 30 77077</span>
+                    <li class="d-flex align-items-center gap-2 contact-item">
+                        <svg width="16" height="16" class="flex-shrink-0 contact-icon" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                        <span class="contact-text">Fax 0888 30 77077</span>
                     </li>
-                    <li class="d-flex align-items-center gap-2">
-                        <svg width="16" height="16" class="flex-shrink-0" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <a href="mailto:unuja@unuja.ac.id" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">unuja@unuja.ac.id</a>
+                    <li class="d-flex align-items-center gap-2 contact-item">
+                        <svg width="16" height="16" class="flex-shrink-0 contact-icon" style="color: rgba(255,255,255,0.4);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <a href="mailto:unuja@unuja.ac.id" class="text-decoration-none contact-text" style="color: rgba(255,255,255,0.6);">unuja@unuja.ac.id</a>
                     </li>
                 </ul>
             </div>
 
             <div class="col-md-6 col-lg-3 px-lg-4">
-                <h4 class="fw-semibold text-white text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 0.75rem;">Internal link</h4>
+                <h4 class="fw-semibold text-white text-uppercase" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 0.75rem;">Internal link</h4>
                 <div style="width: 32px; height: 2px; background-color: #facc15; margin-bottom: 1rem;"></div>
-                <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">
-                    <li><a href="https://unuja.ac.id" target="_blank" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Universitas Nurul Jadid</a></li>
-                    <li><a href="https://pmb.unuja.ac.id" target="_blank" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">PMB Universitas Nurul Jadid</a></li>
-                    <li><a href="https://sso.unuja.ac.id" target="_blank" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Portal SSO Universitas Nurul Jadid</a></li>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="color: rgba(255,255,255,0.6); font-size: 1rem;">
+                    <li><a href="https://unuja.ac.id" target="_blank" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Universitas Nurul Jadid</a></li>
+                    <li><a href="https://pmb.unuja.ac.id" target="_blank" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> PMB Universitas Nurul Jadid</a></li>
+                    <li><a href="https://sso.unuja.ac.id" target="_blank" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Portal SSO Universitas Nurul Jadid</a></li>
                 </ul>
             </div>
 
             <div class="col-md-6 col-lg-3 px-lg-4">
-                <h4 class="fw-semibold text-white text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 0.75rem;">Navigasi cepat</h4>
+                <h4 class="fw-semibold text-white text-uppercase" style="font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 0.75rem;">Navigasi cepat</h4>
                 <div style="width: 32px; height: 2px; background-color: #facc15; margin-bottom: 1rem;"></div>
-                <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">
-                    <li><a href="{{ route('beranda') }}" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Beranda</a></li>
-                    <li><a href="{{ route('kategori') }}" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Kategori Laporan</a></li>
-                    <li><a href="{{ route('alur') }}" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Alur Penanganan</a></li>
-                    <li><a href="{{ route('faq') }}" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">FAQ</a></li>
-                    <li><a href="{{ route('statistik') }}" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Statistik</a></li>
-                    <li><a href="{{ route('lacak') }}" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.6);">Pelacakan</a></li>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="color: rgba(255,255,255,0.6); font-size: 1rem;">
+                    <li><a href="{{ route('beranda') }}" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Beranda</a></li>
+                    <li><a href="{{ route('kategori') }}" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Kategori Laporan</a></li>
+                    <li><a href="{{ route('alur') }}" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Alur Penanganan</a></li>
+                    <li><a href="{{ route('faq') }}" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> FAQ</a></li>
+                    <li><a href="{{ route('statistik') }}" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Statistik</a></li>
+                    <li><a href="{{ route('lacak') }}" class="text-decoration-none link-arrow-hover"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg> Pelacakan</a></li>
                 </ul>
             </div>
         </div>
@@ -75,8 +75,8 @@
 
     <div style="border-top: 1px solid rgba(255,255,255,0.08);">
         <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3" style="padding-top: 1.25rem; padding-bottom: 1.25rem;">
-            <p class="mb-0" style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">&copy; {{ date('Y') }} PDSI Universitas Nurul Jadid. Hak Cipta Dilindungi.</p>
-            <div class="d-flex align-items-center gap-3" style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">
+            <p class="mb-0" style="color: rgba(255,255,255,0.4); font-size: 0.85rem;">&copy; {{ date('Y') }} PDSI Universitas Nurul Jadid. Hak Cipta Dilindungi.</p>
+            <div class="d-flex align-items-center gap-3" style="color: rgba(255,255,255,0.4); font-size: 0.85rem;">
                 <a href="#" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.4);">Kebijakan Privasi</a>
                 <span style="color: rgba(255,255,255,0.2);">·</span>
                 <a href="#" class="text-decoration-none hover-warning" style="color: rgba(255,255,255,0.4);">Syarat &amp; Ketentuan</a>
@@ -89,8 +89,31 @@
             color: #facc15 !important;
             transition: color 0.2s;
         }
+        footer .link-arrow-hover {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.6) !important;
+            transition: all 0.3s ease;
+        }
+        footer .link-arrow-hover:hover {
+            color: #facc15 !important;
+            transform: translateX(6px);
+        }
+        footer a.rounded-circle {
+            transition: all 0.3s ease !important;
+        }
         footer a.rounded-circle:hover {
             background: rgba(255,255,255,0.2) !important;
+            color: #facc15 !important;
+        }
+        footer .contact-item .contact-icon,
+        footer .contact-item .contact-text {
+            transition: color 0.2s;
+        }
+        footer .contact-item:hover .contact-icon,
+        footer .contact-item:hover .contact-text {
+            color: #facc15 !important;
         }
     </style>
 </footer>
