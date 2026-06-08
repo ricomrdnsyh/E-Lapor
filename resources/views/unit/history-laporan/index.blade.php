@@ -122,7 +122,9 @@
                                             <select id="filter_kategori" class="form-select form-select-sm form-select-solid w-100" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
                                                 <option value="">Semua</option>
                                                 @foreach ($categories as $kat)
-                                                    <option value="{{ $kat->id_kategori }}">{{ $kat->nama_kategori }}</option>
+                                                    <option value="{{ $kat->id_kategori }}" data-unit-id="{{ $kat->unit_id ?? '' }}">
+                                                        {{ $kat->nama_kategori }}{{ $kat->unit ? ' - ' . $kat->unit->nama_unit : '' }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

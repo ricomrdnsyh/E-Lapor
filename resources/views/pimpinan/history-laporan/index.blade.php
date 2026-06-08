@@ -138,7 +138,8 @@
                                                 data-allow-clear="true">
                                                 <option value="">Semua</option>
                                                 @foreach ($categories as $kat)
-                                                    <option value="{{ $kat->id_kategori }}">{{ $kat->nama_kategori }}
+                                                    <option value="{{ $kat->id_kategori }}" data-unit-id="{{ $kat->unit_id ?? '' }}">
+                                                        {{ $kat->nama_kategori }}{{ $kat->unit ? ' - ' . $kat->unit->nama_unit : '' }}
                                                     </option>
                                                 @endforeach
                                             </select>
