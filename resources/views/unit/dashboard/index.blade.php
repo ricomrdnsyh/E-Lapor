@@ -682,7 +682,19 @@
                         <div class="col-xl-8">
                             <div class="card chart-card">
                                 <div class="card-body">
-                                    <div class="info-title">Laporan per Kategori</div>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <div class="info-title mb-0">Laporan per Kategori</div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                <i class="fas fa-bars fs-4"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                <li><a class="dropdown-item" onclick="downloadChart('kategoriChart', 'Laporan Per Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                <li><a class="dropdown-item" onclick="downloadChart('kategoriChart', 'Laporan Per Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                <li><a class="dropdown-item" onclick="downloadChart('kategoriChart', 'Laporan Per Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div style="position:relative; height:300px;">
                                         <canvas id="kategoriChart"></canvas>
                                     </div>
@@ -728,7 +740,19 @@
                         <div class="col-xl-8">
                             <div class="card chart-card">
                                 <div class="card-body">
-                                    <div class="info-title">Laporan per Sub Kategori</div>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <div class="info-title mb-0">Laporan per Sub Kategori</div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                <i class="fas fa-bars fs-4"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div style="position:relative; height:420px;">
                                         <canvas id="subKategoriChart"></canvas>
                                     </div>
@@ -959,5 +983,47 @@
                 });
             }
         });
+
+        function downloadChart(canvasId, filename, format) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            if (format === 'pdf') {
+                if (typeof window.jspdf === 'undefined' && typeof jspdf === 'undefined') {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    script.onload = function() {
+                        downloadChart(canvasId, filename, format);
+                    };
+                    document.head.appendChild(script);
+                    return;
+                }
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('l', 'mm', 'a4');
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save(filename + '.pdf');
+            } else {
+                const link = document.createElement('a');
+                link.download = filename + '.' + format;
+                
+                if (format === 'jpeg') {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    const ctx = tempCanvas.getContext('2d');
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                    ctx.drawImage(canvas, 0, 0);
+                    link.href = tempCanvas.toDataURL('image/jpeg', 0.92);
+                } else {
+                    link.href = canvas.toDataURL('image/png');
+                }
+                
+                link.click();
+            }
+        }
     </script>
 @endsection

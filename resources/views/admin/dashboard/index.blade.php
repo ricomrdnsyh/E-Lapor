@@ -610,7 +610,7 @@
                                         </div>
                                         <div class="dropdown">
                                             <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
-                                                <i class="ki-duotone ki-dots-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
+                                                <i class="fas fa-bars fs-4"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end min-w-125px">
                                                 <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'png')" href="javascript:void(0)">PNG</a></li>
@@ -702,7 +702,7 @@
                                                             <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Kategori</h3>
                                                             <div class="dropdown">
                                                                 <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
-                                                                    <i class="ki-duotone ki-dots-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
+                                                                    <i class="fas fa-bars fs-4"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu dropdown-menu-end min-w-125px">
                                                                     <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
@@ -724,7 +724,7 @@
                                                             <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Sub Kategori</h3>
                                                             <div class="dropdown">
                                                                 <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
-                                                                    <i class="ki-duotone ki-dots-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
+                                                                    <i class="fas fa-bars fs-4"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu dropdown-menu-end min-w-125px">
                                                                     <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
@@ -1132,7 +1132,20 @@
             } else {
                 const link = document.createElement('a');
                 link.download = filename + '.' + format;
-                link.href = canvas.toDataURL(format === 'jpeg' ? 'image/jpeg' : 'image/png', format === 'jpeg' ? 0.92 : undefined);
+                
+                if (format === 'jpeg') {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    const ctx = tempCanvas.getContext('2d');
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                    ctx.drawImage(canvas, 0, 0);
+                    link.href = tempCanvas.toDataURL('image/jpeg', 0.92);
+                } else {
+                    link.href = canvas.toDataURL('image/png');
+                }
+                
                 link.click();
             }
         }
