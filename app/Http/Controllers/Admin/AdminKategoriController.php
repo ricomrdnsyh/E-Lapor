@@ -43,6 +43,11 @@ class AdminKategoriController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
+            ->filterColumn('nama_unit', function($query, $keyword) {
+                $query->whereHas('unit', function($q) use ($keyword) {
+                    $q->where('nama_unit', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['action'])
             ->make(true);
     }

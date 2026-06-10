@@ -43,6 +43,11 @@ class AdminLantaiController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
+            ->filterColumn('nama_gedung', function($query, $keyword) {
+                $query->whereHas('gedung', function($q) use ($keyword) {
+                    $q->where('nama_gedung', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['action'])
             ->make(true);
     }

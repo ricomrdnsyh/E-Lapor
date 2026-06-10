@@ -70,6 +70,11 @@ class AdminLaporanController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . '</div>';
             })
+            ->filterColumn('kategori_name', function($query, $keyword) {
+                $query->whereHas('kategori', function($q) use ($keyword) {
+                    $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['status', 'action'])
             ->make(true);
     }

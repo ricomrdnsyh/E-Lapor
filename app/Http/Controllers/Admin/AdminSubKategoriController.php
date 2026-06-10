@@ -51,6 +51,21 @@ class AdminSubKategoriController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
+            ->filterColumn('nama_kategori', function($query, $keyword) {
+                $query->whereHas('kategori', function($q) use ($keyword) {
+                    $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('nama_kategori_unit', function($query, $keyword) {
+                $query->whereHas('kategori.unit', function($q) use ($keyword) {
+                    $q->where('nama_unit', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('nama_unit_sub', function($query, $keyword) {
+                $query->whereHas('unit', function($q) use ($keyword) {
+                    $q->where('nama_unit', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['action'])
             ->make(true);
     }

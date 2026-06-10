@@ -52,6 +52,21 @@ class AdminRuanganController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
+            ->filterColumn('nama_lantai', function($query, $keyword) {
+                $query->whereHas('lantai', function($q) use ($keyword) {
+                    $q->where('nama_lantai', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('nama_gedung', function($query, $keyword) {
+                $query->whereHas('lantai.gedung', function($q) use ($keyword) {
+                    $q->where('nama_gedung', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('nama_fungsi', function($query, $keyword) {
+                $query->whereHas('fungsiRuangan', function($q) use ($keyword) {
+                    $q->where('nama_fungsi', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['action'])
             ->make(true);
     }

@@ -62,6 +62,13 @@ class AdminUserController extends Controller
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
+            ->filterColumn('unit_info', function($query, $keyword) {
+                $query->whereHas('unit', function($q) use ($keyword) {
+                    $q->where('nama_unit', 'like', "%{$keyword}%");
+                })->orWhereHas('kategoris', function($q) use ($keyword) {
+                    $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['role', 'unit_info', 'action'])
             ->make(true);
     }
