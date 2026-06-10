@@ -100,6 +100,26 @@ class PimpinanHistoryLaporanController extends Controller
 
                 return '<div class="text-center">' . $showBtn . '</div>';
             })
+            ->filterColumn('kode_tiket', function($query, $keyword) {
+                $query->whereHas('laporan', function($q) use ($keyword) {
+                    $q->where('kode_tiket', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('judul_laporan', function($query, $keyword) {
+                $query->whereHas('laporan', function($q) use ($keyword) {
+                    $q->where('judul_laporan', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('nama_pelapor', function($query, $keyword) {
+                $query->whereHas('laporan', function($q) use ($keyword) {
+                    $q->where('nama_pelapor', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('kategori', function($query, $keyword) {
+                $query->whereHas('laporan.kategori', function($q) use ($keyword) {
+                    $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['status', 'lampiran_file', 'action'])
             ->make(true);
     }

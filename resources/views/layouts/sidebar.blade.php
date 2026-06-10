@@ -1,14 +1,16 @@
 <style>
+    /* Clean Sidebar Enhancements */
     #kt_app_sidebar_user .user-card {
-        background: rgba(255, 255, 255, .06);
-        border: 1px solid rgba(255, 255, 255, .10);
-        transition: .2s ease
+        background: rgba(255, 255, 255, 0.03);
+        border: none;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
     }
 
     #kt_app_sidebar_user .user-card:hover {
-        background: rgba(255, 255, 255, .10) !important;
-        border-color: rgba(255, 255, 255, .16) !important;
-        transform: translateY(-1px)
+        background: rgba(255, 255, 255, 0.08) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     body[data-kt-app-sidebar-minimize="on"] #kt_app_sidebar_user .sidebar-minimize-hide,
@@ -49,24 +51,44 @@
         justify-content: center !important
     }
 
+    /* Clean Logout Button */
     #kt_app_sidebar_footer .btn {
-        background: rgba(255, 255, 255, .06) !important;
-        border: 1px solid rgba(255, 255, 255, .10) !important;
-        color: rgba(255, 255, 255, .75) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: none !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
     }
 
     #kt_app_sidebar_footer .btn i {
-        color: rgba(255, 255, 255, .75) !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        transition: all 0.3s ease;
     }
 
     #kt_app_sidebar_footer .btn:hover {
-        background: rgba(255, 255, 255, .10) !important;
-        border-color: rgba(255, 255, 255, .16) !important;
+        background: rgba(220, 53, 69, 0.85) !important; /* Soft crimson hover */
         color: #ffffff !important;
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.25);
+        transform: translateY(-1px);
     }
 
     #kt_app_sidebar_footer .btn:hover i {
         color: #ffffff !important;
+        transform: translateX(3px); /* Subtle slide effect */
+    }
+
+    /* Thin Custom Scrollbar */
+    #kt_app_sidebar_menu_scroll::-webkit-scrollbar {
+        width: 4px;
+    }
+    #kt_app_sidebar_menu_scroll::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+    #kt_app_sidebar_menu_scroll:hover::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
     }
 
     #kt_app_sidebar_logo .app-sidebar-logo-default {
@@ -199,68 +221,82 @@
                             </div>
                         </div>
 
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                            <span class="menu-link">
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}"
+                                href="{{ route('admin.unit.index') }}">
                                 <span class="menu-icon">
-                                    <i class="ki-duotone ki-switch fs-2">
+                                    <i class="ki-duotone ki-briefcase fs-2">
                                         <span class="path1"></span><span class="path2"></span>
                                     </i>
                                 </span>
-                                <span class="menu-title">Data Master</span>
-                                <span class="menu-arrow"></span>
-                            </span>
-
-                            <div class="menu-sub menu-sub-accordion">
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}"
-                                        href="{{ route('admin.unit.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Unit</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}"
-                                        href="{{ route('admin.kategori.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Kategori</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/sub-kategori*') ? 'active' : '' }}"
-                                        href="{{ route('admin.sub-kategori.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Sub Kategori</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/gedung*') ? 'active' : '' }}"
-                                        href="{{ route('admin.gedung.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Gedung</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/lantai*') ? 'active' : '' }}"
-                                        href="{{ route('admin.lantai.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Lantai</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/fungsi-ruangan*') ? 'active' : '' }}"
-                                        href="{{ route('admin.fungsi-ruangan.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Fungsi Ruangan</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/ruangan*') ? 'active' : '' }}"
-                                        href="{{ route('admin.ruangan.index') }}">
-                                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                        <span class="menu-title">Master Ruangan</span>
-                                    </a>
-                                </div>
-                            </div>
+                                <span class="menu-title">Master Unit</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}"
+                                href="{{ route('admin.kategori.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-briefcase fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Master Kategori</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/sub-kategori*') ? 'active' : '' }}"
+                                href="{{ route('admin.sub-kategori.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-briefcase fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Master Sub Kategori</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/gedung*') ? 'active' : '' }}"
+                                href="{{ route('admin.gedung.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-briefcase fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Master Gedung</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/lantai*') ? 'active' : '' }}"
+                                href="{{ route('admin.lantai.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-briefcase fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Master Lantai</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/fungsi-ruangan*') ? 'active' : '' }}"
+                                href="{{ route('admin.fungsi-ruangan.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-briefcase fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Master Fungsi Ruangan</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/ruangan*') ? 'active' : '' }}"
+                                href="{{ route('admin.ruangan.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-briefcase fs-2">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Master Ruangan</span>
+                            </a>
                         </div>
 
                         <div class="menu-item pt-1">
