@@ -84,9 +84,8 @@ class UnitHistoryLaporanController extends Controller
                                 <i class="fa fa-file-alt"></i>
                             </a>';
 
-                $editBtn = '<a href="javascript:void(0)"
-                                class="btn btn-sm btn-light btn-active-light-warning text-center btn-edit"
-                                data-id="' . $row->id_history . '"
+                $editBtn = '<a href="' . route('unit.history-laporan.edit', $row->id_history) . '"
+                                class="btn btn-sm btn-light btn-active-light-warning text-center"
                                 data-bs-toggle="tooltip" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>';
@@ -136,9 +135,7 @@ class UnitHistoryLaporanController extends Controller
     {
         $history = $this->findOwnedHistoryOrFail($id);
 
-        return response()->json([
-            'history' => $history,
-        ]);
+        return view('unit.history-laporan.edit', compact('history'));
     }
 
     public function update(Request $request, string $id)

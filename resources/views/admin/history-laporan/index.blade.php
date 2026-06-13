@@ -144,7 +144,6 @@
                 </div>
             </div>
 
-            @include('admin.history-laporan.edit')
             @include('admin.history-laporan.show')
             @include('layouts.footer')
 
@@ -167,6 +166,5 @@
     <script src="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.js') }}"></script>
 
     @include('admin.history-laporan.script.index')
-    @include('admin.history-laporan.script.edit')
     @include('admin.history-laporan.script.show')
 @endsection

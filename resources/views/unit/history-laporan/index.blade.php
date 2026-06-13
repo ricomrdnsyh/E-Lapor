@@ -119,7 +119,6 @@
                     </div>
                 </div>
             </div>
-            @include('unit.history-laporan.edit')
             @include('unit.history-laporan.show')
             @include('layouts.footer')
         </div>
@@ -140,6 +139,5 @@
     <script src="{{ asset('assets/plugins/custom/datatables/print.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.js') }}"></script>
     @include('unit.history-laporan.script.index')
-    @include('unit.history-laporan.script.edit')
     @include('unit.history-laporan.script.show')
 @endsection

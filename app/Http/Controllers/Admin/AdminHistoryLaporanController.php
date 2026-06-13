@@ -90,9 +90,8 @@ class AdminHistoryLaporanController extends Controller
                                 <i class="fa fa-file-alt"></i>
                             </a>';
 
-                $editBtn = '<a href="javascript:void(0)"
-                                class="btn btn-sm btn-light btn-active-light-warning text-center btn-edit"
-                                data-id="' . $row->id_history . '"
+                $editBtn = '<a href="' . route('admin.history-laporan.edit', $row->id_history) . '"
+                                class="btn btn-sm btn-light btn-active-light-warning text-center"
                                 data-bs-toggle="tooltip" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>';
@@ -142,23 +141,28 @@ class AdminHistoryLaporanController extends Controller
     {
         $history = HistoryLaporan::with(['laporan.kategori.unit', 'laporan.subKategori', 'laporan.ruangan.lantai.gedung', 'user.unit'])->findOrFail($id);
 
-        return response()->json([
-            'history' => $history,
-        ]);
+        return view('admin.history-laporan.edit', compact('history'));
     }
 
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $rules = [
             'status'        => 'required|in:menunggu,diproses,selesai,ditolak',
             'catatan'       => 'nullable|string|max:2000',
             'lampiran_file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-        ], [
-            'status.required'       => 'Status harus dipilih',
-            'status.in'             => 'Status tidak valid',
-            'catatan.max'           => 'Catatan maksimal 2000 karakter',
-            'lampiran_file.mimes'   => 'Lampiran harus berupa jpg, jpeg, png, pdf',
-            'lampiran_file.max'     => 'Ukuran lampiran maksimal 5 MB',
+        ];
+
+        if ($request->status === 'selesai') {
+            $rules['lampiran_file'] = 'required|file|mimes:jpg,jpeg,png,pdf|max:5120';
+        }
+
+        $request->validate($rules, [
+            'status.required'           => 'Status harus dipilih',
+            'status.in'                 => 'Status tidak valid',
+            'catatan.max'               => 'Catatan maksimal 2000 karakter',
+            'lampiran_file.required'    => 'Lampiran bukti wajib diunggah saat laporan selesai',
+            'lampiran_file.mimes'       => 'Lampiran harus berupa jpg, jpeg, png, pdf',
+            'lampiran_file.max'         => 'Ukuran lampiran maksimal 5 MB',
         ]);
 
         $history = HistoryLaporan::findOrFail($id);
