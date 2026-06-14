@@ -246,7 +246,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="chart-holder chart-holder-trend">
+                                    <div class="position-relative w-100" style="height: 300px;">
                                         <canvas id="trenChart"></canvas>
                                     </div>
                                 </div>
@@ -778,6 +778,7 @@
         }
     </script>
 @endsection
+
 
 
 
