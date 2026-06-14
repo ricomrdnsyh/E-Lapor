@@ -44,6 +44,20 @@ class UnitHistoryLaporanController extends Controller
             });
         }
 
+        if ($request->filled('sub_kategori_id')) {
+            $query->whereHas('laporan', function ($q) use ($request) {
+                $q->where('sub_kategori_id', $request->sub_kategori_id);
+            });
+        }
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
         return DataTables::of($query)
             ->addColumn('kode_tiket', function ($row) {
                 return $row->laporan?->kode_tiket ?? '-';
@@ -53,6 +67,9 @@ class UnitHistoryLaporanController extends Controller
             })
             ->addColumn('kategori', function ($row) {
                 return $row->laporan?->kategori?->nama_kategori ?? '-';
+            })
+            ->addColumn('sub_kategori', function ($row) {
+                return $row->laporan?->subKategori?->nama_sub ?? '-';
             })
             ->addColumn('nama_pelapor', function ($row) {
                 return $row->laporan?->nama_pelapor ?: '-';
@@ -110,6 +127,11 @@ class UnitHistoryLaporanController extends Controller
             ->filterColumn('kategori', function($query, $keyword) {
                 $query->whereHas('laporan.kategori', function($q) use ($keyword) {
                     $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('sub_kategori', function($query, $keyword) {
+                $query->whereHas('laporan.subKategori', function($q) use ($keyword) {
+                    $q->where('nama_sub', 'like', "%{$keyword}%");
                 });
             })
             ->rawColumns(['status', 'lampiran_file', 'action'])

@@ -54,7 +54,10 @@
                 data: function(d) {
                     d.status = $('#filter_status').val();
                     d.kategori_id = $('#filter_kategori').val();
+                    d.sub_kategori_id = $('#filter_sub_kategori').val();
                     d.unit_id = $('#filter_unit').val();
+                    d.start_date = $('#filter_start_date').val();
+                    d.end_date = $('#filter_end_date').val();
                 }
             },
             columns: [{
@@ -78,16 +81,24 @@
                     name: 'judul_laporan'
                 },
                 {
-                    data: 'nama_pelapor',
-                    name: 'nama_pelapor'
+                    data: 'unit_tujuan',
+                    name: 'unit_tujuan'
                 },
                 {
                     data: 'kategori_name',
                     name: 'kategori_name'
                 },
                 {
+                    data: 'sub_kategori',
+                    name: 'sub_kategori'
+                },
+                {
                     data: 'status',
                     name: 'status'
+                },
+                {
+                    data: 'nama_pelapor',
+                    name: 'nama_pelapor'
                 },
                 {
                     data: 'tgl_kejadian',
@@ -128,7 +139,43 @@
         // Run initially to set correct state
         updateKategoriFilter();
 
-        $('#filter_status, #filter_kategori').on('change', function() {
+        $('#filter_kategori').on('change', function() {
+            var kategoriId = $(this).val();
+            var subKategoriSelect = $('#filter_sub_kategori');
+            
+            subKategoriSelect.empty().append('<option value="">Semua</option>');
+            subKategoriSelect.prop('disabled', true);
+            
+            if (kategoriId) {
+                $.ajax({
+                    url: '{{ route('lapor.subkategoris') }}',
+                    type: 'GET',
+                    data: { kategori_id: kategoriId },
+                    success: function(data) {
+                        $.each(data, function(key, sub) {
+                            subKategoriSelect.append('<option value="' + sub.id + '">' + sub.nama + '</option>');
+                        });
+                        subKategoriSelect.prop('disabled', false);
+                        subKategoriSelect.trigger('change.select2');
+                    }
+                });
+            } else {
+                subKategoriSelect.trigger('change.select2');
+            }
+        });
+
+        if (typeof flatpickr !== 'undefined') {
+            flatpickr('#filter_start_date', {
+                dateFormat: "Y-m-d",
+                allowInput: true
+            });
+            flatpickr('#filter_end_date', {
+                dateFormat: "Y-m-d",
+                allowInput: true
+            });
+        }
+
+        $('#filter_status, #filter_kategori, #filter_sub_kategori, #filter_start_date, #filter_end_date').on('change', function() {
             table.ajax.reload();
         });
 

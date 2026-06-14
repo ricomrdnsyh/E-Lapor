@@ -72,7 +72,7 @@
                                     <h4 class="fw-bold text-primary m-0 fs-5">Filter Data</h4>
                                 </div>
                                 <div class="row g-5">
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-lg-4">
                                         <label class="form-label fw-semibold fs-7 text-gray-700">Kategori Laporan</label>
                                         <select id="filter_kategori" class="form-select form-select-sm" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
                                             <option value="">Semua</option>
@@ -83,7 +83,17 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-lg-4">
+                                        <label class="form-label fw-semibold fs-7 text-gray-700">Sub Kategori</label>
+                                        <select id="filter_sub_kategori"
+                                            class="form-select form-select-sm"
+                                            data-control="select2"
+                                            data-placeholder="Pilih Sub Kategori"
+                                            data-allow-clear="true" disabled>
+                                            <option value="">Semua</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
                                         <label class="form-label fw-semibold fs-7 text-gray-700">Status Penanganan</label>
                                         <select id="filter_status" class="form-select form-select-sm" data-control="select2" data-placeholder="Semua Status" data-allow-clear="true">
                                             <option value="">Semua</option>
@@ -92,6 +102,24 @@
                                             <option value="selesai">Selesai</option>
                                             <option value="ditolak">Ditolak</option>
                                         </select>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label fw-semibold fs-7 text-gray-700">Tanggal Awal</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light-primary border-end-0">
+                                                <i class="fas fa-calendar-alt text-primary"></i>
+                                            </span>
+                                            <input type="text" id="filter_start_date" class="form-control form-control-sm border-start-0" placeholder="Pilih Tanggal Awal" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label fw-semibold fs-7 text-gray-700">Tanggal Akhir</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light-primary border-end-0">
+                                                <i class="fas fa-calendar-alt text-primary"></i>
+                                            </span>
+                                            <input type="text" id="filter_end_date" class="form-control form-control-sm border-start-0" placeholder="Pilih Tanggal Akhir" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -105,6 +133,7 @@
                                             <th class="min-w-100px">Kode Tiket</th>
                                             <th class="min-w-200px">Judul Laporan</th>
                                             <th class="min-w-150px">Kategori</th>
+                                            <th class="min-w-150px">Sub Kategori</th>
                                             <th class="min-w-120px">Status</th>
                                             <th class="min-w-150px">Pelapor</th>
                                             <th class="min-w-150px">Unit Penangan</th>

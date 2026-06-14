@@ -19,8 +19,8 @@ class AdminLaporanController extends Controller
 
     public function getLaporan(Request $request)
     {
-        $query = Laporan::with('kategori')
-            ->select(['id_laporan', 'kode_tiket', 'kategori_id', 'judul_laporan', 'nama_pelapor', 'status', 'tgl_kejadian'])
+        $query = Laporan::with(['kategori', 'subKategori', 'units'])
+            ->select(['id_laporan', 'kode_tiket', 'kategori_id', 'sub_kategori_id', 'judul_laporan', 'nama_pelapor', 'status', 'tgl_kejadian', 'created_at'])
             ->orderByDesc('id_laporan');
 
         if ($request->filled('status')) {
@@ -31,15 +31,36 @@ class AdminLaporanController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
+        if ($request->filled('sub_kategori_id')) {
+            $query->where('sub_kategori_id', $request->sub_kategori_id);
+        }
+
         if ($request->filled('unit_id')) {
             $query->whereHas('units', function ($q) use ($request) {
                 $q->where('unit_id', $request->unit_id);
             });
         }
 
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
         return DataTables::of($query)
             ->addColumn('kategori_name', function ($row) {
                 return $row->kategori->nama_kategori ?? '-';
+            })
+            ->addColumn('unit_tujuan', function ($row) {
+                if ($row->units->isNotEmpty()) {
+                    return $row->units->pluck('nama_unit')->join(', ');
+                }
+                return '-';
+            })
+            ->addColumn('sub_kategori', function ($row) {
+                return $row->subKategori->nama_sub ?? '-';
             })
             ->editColumn('tgl_kejadian', function ($row) {
                 return $row->tgl_kejadian->locale('id')->isoFormat('DD MMMM YYYY, HH:mm');
@@ -73,6 +94,16 @@ class AdminLaporanController extends Controller
             ->filterColumn('kategori_name', function($query, $keyword) {
                 $query->whereHas('kategori', function($q) use ($keyword) {
                     $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('unit_tujuan', function($query, $keyword) {
+                $query->whereHas('units', function($q) use ($keyword) {
+                    $q->where('nama_unit', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('sub_kategori', function($query, $keyword) {
+                $query->whereHas('subKategori', function($q) use ($keyword) {
+                    $q->where('nama_sub', 'like', "%{$keyword}%");
                 });
             })
             ->rawColumns(['status', 'action'])

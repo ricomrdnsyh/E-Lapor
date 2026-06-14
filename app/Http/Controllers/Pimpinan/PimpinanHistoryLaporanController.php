@@ -23,9 +23,17 @@ class PimpinanHistoryLaporanController extends Controller
         $scopeIds = array_unique(array_merge($kategoriIds, $unitKategoriIds));
         $categories = Kategori::whereIn('id_kategori', $scopeIds)->get();
 
+        $unitsQuery = \App\Models\Unit::whereHas('kategoris', function($query) use ($scopeIds) {
+            $query->whereIn('id_kategori', $scopeIds);
+        });
+        if ($user->unit_id) {
+            $unitsQuery->orWhere('id_unit', $user->unit_id);
+        }
+        $units = $unitsQuery->get();
+
         $gedungs = Gedung::all();
 
-        return view('pimpinan.history-laporan.index', compact('categories', 'gedungs'));
+        return view('pimpinan.history-laporan.index', compact('categories', 'gedungs', 'units'));
     }
 
     public function getHistoryLaporan(Request $request)
@@ -58,6 +66,26 @@ class PimpinanHistoryLaporanController extends Controller
             });
         }
 
+        if ($request->filled('unit_id')) {
+            $query->whereHas('laporan.units', function ($q) use ($request) {
+                $q->where('unit_id', $request->unit_id);
+            });
+        }
+
+        if ($request->filled('sub_kategori_id')) {
+            $query->whereHas('laporan', function ($q) use ($request) {
+                $q->where('sub_kategori_id', $request->sub_kategori_id);
+            });
+        }
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
         return DataTables::of($query)
             ->addColumn('kode_tiket', function ($row) {
                 return $row->laporan?->kode_tiket ?? '-';
@@ -65,8 +93,17 @@ class PimpinanHistoryLaporanController extends Controller
             ->addColumn('judul_laporan', function ($row) {
                 return $row->laporan?->judul_laporan ?? '-';
             })
+            ->addColumn('unit_tujuan', function ($row) {
+                if ($row->laporan && $row->laporan->units->isNotEmpty()) {
+                    return $row->laporan->units->pluck('nama_unit')->implode(', ');
+                }
+                return '-';
+            })
             ->addColumn('kategori', function ($row) {
                 return $row->laporan?->kategori?->nama_kategori ?? '-';
+            })
+            ->addColumn('sub_kategori', function ($row) {
+                return $row->laporan?->subKategori?->nama_sub ?? '-';
             })
             ->addColumn('nama_pelapor', function ($row) {
                 return $row->laporan?->nama_pelapor ?: '-';
@@ -110,6 +147,11 @@ class PimpinanHistoryLaporanController extends Controller
                     $q->where('judul_laporan', 'like', "%{$keyword}%");
                 });
             })
+            ->filterColumn('unit_tujuan', function($query, $keyword) {
+                $query->whereHas('laporan.units', function($q) use ($keyword) {
+                    $q->where('nama_unit', 'like', "%{$keyword}%");
+                });
+            })
             ->filterColumn('nama_pelapor', function($query, $keyword) {
                 $query->whereHas('laporan', function($q) use ($keyword) {
                     $q->where('nama_pelapor', 'like', "%{$keyword}%");
@@ -118,6 +160,11 @@ class PimpinanHistoryLaporanController extends Controller
             ->filterColumn('kategori', function($query, $keyword) {
                 $query->whereHas('laporan.kategori', function($q) use ($keyword) {
                     $q->where('nama_kategori', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('sub_kategori', function($query, $keyword) {
+                $query->whereHas('laporan.subKategori', function($q) use ($keyword) {
+                    $q->where('nama_sub', 'like', "%{$keyword}%");
                 });
             })
             ->rawColumns(['status', 'lampiran_file', 'action'])
