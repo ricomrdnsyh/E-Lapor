@@ -89,8 +89,14 @@
                             .deskripsi_laporan || '-';
                         document.getElementById('show_lampiran_laporan').innerHTML =
                             getFilePreview(laporan.lampiran_file);
-                        document.getElementById('show_status').value = history.status ||
-                            laporan.status || '-';
+                        const statusVal = history.status || laporan.status || '-';
+                        let badgeClass = 'bg-secondary text-white';
+                        if (statusVal === 'menunggu') badgeClass = 'bg-warning text-white';
+                        else if (statusVal === 'diproses') badgeClass = 'bg-info text-white';
+                        else if (statusVal === 'selesai') badgeClass = 'bg-success text-white';
+                        else if (statusVal === 'ditolak') badgeClass = 'bg-danger text-white';
+                        const statusText = statusVal !== '-' ? statusVal.charAt(0).toUpperCase() + statusVal.slice(1) : '-';
+                        document.getElementById('show_status').innerHTML = `<span class="badge ${badgeClass} px-2 py-1">${statusText}</span>`;
                         document.getElementById('show_lampiran_bukti').innerHTML =
                             getFilePreview(history.lampiran_file, 'history-laporan');
                         document.getElementById('show_user_penangan').value = history.user ?

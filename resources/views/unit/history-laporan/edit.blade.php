@@ -14,8 +14,8 @@
                         
                         <div class="row g-5">
                             <div class="col-12">
-                                <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
-                                    <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card shadow-sm border border-dashed border-dark rounded-4 mb-0 overflow-hidden">
+                                    <div class="card-header py-3 bg-light-primary border-0">
                                         <div class="card-title d-flex align-items-center gap-2 mb-0">
                                             <span class="badge badge-primary p-2">
                                                 <i class="ki-duotone ki-tag fs-4 text-white">
@@ -58,8 +58,8 @@
                             </div>
 
                             <div class="col-12">
-                                <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
-                                    <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card shadow-sm border border-dashed border-dark rounded-4 mb-0 overflow-hidden">
+                                    <div class="card-header py-3 bg-light-primary border-0">
                                         <div class="card-title d-flex align-items-center gap-2 mb-0">
                                             <span class="badge badge-primary p-2">
                                                 <i class="ki-duotone ki-geolocation fs-4 text-white">
@@ -96,8 +96,8 @@
                             </div>
 
                             <div class="col-12">
-                                <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
-                                    <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card shadow-sm border border-dashed border-dark rounded-4 mb-0 overflow-hidden">
+                                    <div class="card-header py-3 bg-light-primary border-0">
                                         <div class="card-title d-flex align-items-center gap-2 mb-0">
                                             <span class="badge badge-primary p-2">
                                                 <i class="ki-duotone ki-document fs-4 text-white">
@@ -126,7 +126,17 @@
                                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                                     <span>Status Saat Ini</span>
                                                 </label>
-                                                <input type="text" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled value="{{ ucfirst($history->status ?? $history->laporan->status ?? '-') }}">
+                                                <div class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark d-flex align-items-center" style="background-color: #e9ecef; cursor: not-allowed;">
+                                                    @php
+                                                        $statusLaporan = $history->status ?? $history->laporan->status ?? '-';
+                                                        $badgeClass = 'bg-secondary text-white';
+                                                        if ($statusLaporan === 'menunggu') $badgeClass = 'bg-warning text-white';
+                                                        elseif ($statusLaporan === 'diproses') $badgeClass = 'bg-info text-white';
+                                                        elseif ($statusLaporan === 'selesai') $badgeClass = 'bg-success text-white';
+                                                        elseif ($statusLaporan === 'ditolak') $badgeClass = 'bg-danger text-white';
+                                                    @endphp
+                                                    <span class="badge {{ $badgeClass }} px-2 py-1">{{ ucfirst($statusLaporan) }}</span>
+                                                </div>
                                             </div>
                                             <div class="col-12">
                                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
@@ -161,8 +171,8 @@
                             </div>
 
                             <div class="col-12">
-                                <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
-                                    <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card shadow-sm border border-dashed border-dark rounded-4 mb-0 overflow-hidden">
+                                    <div class="card-header py-3 bg-light-primary border-0">
                                         <div class="card-title d-flex align-items-center gap-2 mb-0">
                                             <span class="badge badge-primary p-2">
                                                 <i class="ki-duotone ki-user fs-4 text-white">
@@ -211,8 +221,8 @@
                             </div>
 
                             <div class="col-12">
-                                <div class="card card-flush shadow-sm border border-gray-300 rounded-4 mb-0">
-                                    <div class="card-header py-3 bg-light-primary border-bottom border-gray-200 rounded-top-4">
+                                <div class="card shadow-sm border border-dashed border-dark rounded-4 mb-0 overflow-hidden">
+                                    <div class="card-header py-3 bg-light-primary border-0">
                                         <div class="card-title d-flex align-items-center gap-2 mb-0">
                                             <span class="badge badge-primary p-2">
                                                 <i class="ki-duotone ki-arrows-circle fs-4 text-white">
@@ -235,9 +245,9 @@
                                                         @php
                                                             $hext = strtolower(pathinfo($history->lampiran_file, PATHINFO_EXTENSION));
                                                         @endphp
-                                                        @if(in_array($hext, ['jpg', 'jpeg', 'png', 'gif']))
+                                                        @if(in_array($hext, ['jpg', 'jpeg', 'png']))
                                                             <img src="{{ asset('uploads/history-laporan/' . $history->lampiran_file) }}" alt="Lampiran" style="max-width: 100%; max-height: 300px; border-radius: 5px; border: 1px solid #dee2e6;">
-                                                        @elseif(in_array($hext, ['pdf', 'doc', 'docx', 'xls', 'xlsx']))
+                                                        @elseif(in_array($hext, ['pdf']))
                                                             <a href="{{ asset('uploads/history-laporan/' . $history->lampiran_file) }}" target="_blank" class="btn btn-sm btn-danger"><i class="fas fa-file fs-4 me-1"></i>Lihat File</a>
                                                         @else
                                                             <a href="{{ asset('uploads/history-laporan/' . $history->lampiran_file) }}" target="_blank" class="btn btn-sm btn-light-primary">Unduh File</a>
@@ -247,7 +257,7 @@
                                                 <input type="file" name="lampiran_file" id="edit_lampiran_bukti"
                                                     class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark"
                                                     accept=".jpg,.jpeg,.png,.pdf">
-                                                <small class="text-muted mt-1 d-block">Wajib saat status diubah menjadi selesai.</small>
+                                                <small class="text-muted mt-1 d-block">Format: JPG / JPEG / PNG / PDF. Maksimal ukuran file: <b>5MB</b>.</small>
                                                 @error('lampiran_file')
                                                     <div class="text-danger mt-1 fs-8">{{ $message }}</div>
                                                 @enderror

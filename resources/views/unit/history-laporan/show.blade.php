@@ -131,8 +131,7 @@
                                         <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                             <span>Status Saat Ini</span>
                                         </label>
-                                        <input type="text" id="show_status"
-                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
+                                        <div id="show_status" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark d-flex align-items-center" style="background-color: #e9ecef; cursor: not-allowed; min-height: 34px;"></div>
                                     </div>
                                     <div class="col-12">
                                         <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
