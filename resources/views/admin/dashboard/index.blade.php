@@ -2,530 +2,157 @@
 
 @section('title', 'Dashboard Admin')
 
-@section('css')
-    <style>
-        .admin-dashboard {
-            --admin-surface: #ffffff;
-            --admin-border: #e5e7eb;
-            --admin-text: #1f2937;
-            --admin-muted: #6b7280;
-            --admin-bg-soft: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
-        }
-
-        .hero-welcome-card {
-            background: linear-gradient(135deg, var(--bs-primary) 0%, #1b84ff 50%, #7239ea 100%);
-        }
-
-        .hero-welcome-card::before {
-            content: "";
-            position: absolute;
-            width: 280px;
-            height: 280px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.06);
-            top: -120px;
-            right: -60px;
-            pointer-events: none;
-        }
-
-        .hero-welcome-card::after {
-            content: "";
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.04);
-            bottom: -80px;
-            left: 10%;
-            pointer-events: none;
-        }
-
-
-
-        .admin-dashboard .stat-card,
-        .admin-dashboard .info-card,
-        .admin-dashboard .chart-card {
-            background: var(--admin-surface);
-            border: 1px solid var(--admin-border);
-            border-radius: 1.15rem;
-            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
-            height: 100%;
-        }
-
-        .admin-dashboard .stat-link {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            height: 100%;
-        }
-
-        .admin-dashboard .stat-link .stat-card {
-            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-            cursor: pointer;
-        }
-
-        .admin-dashboard .stat-link:hover .stat-card {
-            transform: translateY(-3px);
-            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
-            border-color: #bfdbfe;
-        }
-
-        .admin-dashboard .stat-card .card-body,
-        .admin-dashboard .info-card .card-body,
-        .admin-dashboard .chart-card .card-body {
-            padding: 1.25rem;
-        }
-
-        .admin-dashboard .stat-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: .75rem;
-        }
-
-        .admin-dashboard .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: .95rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .admin-dashboard .stat-icon i {
-            font-size: 1.35rem;
-        }
-
-        .admin-dashboard .stat-label {
-            color: var(--admin-muted);
-            font-size: .75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-            margin-bottom: .35rem;
-        }
-
-        .admin-dashboard .stat-value {
-            color: var(--admin-text);
-            font-size: 1.8rem;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: .35rem;
-        }
-
-        .admin-dashboard .stat-note {
-            color: #94a3b8;
-            font-size: .82rem;
-        }
-
-        .admin-dashboard .theme-total .stat-icon {
-            background: rgba(114, 57, 234, 0.12);
-            color: #7239ea;
-        }
-
-        .admin-dashboard .theme-menunggu .stat-icon {
-            background: rgba(255, 199, 0, 0.12);
-            color: #ffc700;
-        }
-
-        .admin-dashboard .theme-diproses .stat-icon {
-            background: rgba(0, 158, 247, 0.12);
-            color: #009ef7;
-        }
-
-        .admin-dashboard .theme-selesai .stat-icon {
-            background: rgba(80, 205, 137, 0.12);
-            color: #50cd89;
-        }
-
-        .admin-dashboard .theme-ditolak .stat-icon {
-            background: rgba(241, 65, 108, 0.12);
-            color: #f1416c;
-        }
-
-        .admin-dashboard .chart-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: .5rem 0 1rem;
-        }
-
-        .admin-dashboard .chart-box {
-            position: relative;
-            width: 240px;
-            height: 240px;
-        }
-
-        .admin-dashboard .chart-box canvas {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        .admin-dashboard .chart-center {
-            position: absolute;
-            inset: 50% auto auto 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            pointer-events: none;
-        }
-
-        .admin-dashboard .chart-center-label {
-            color: #64748b;
-            font-size: .82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-        }
-
-        .admin-dashboard .chart-center-value {
-            color: #0f172a;
-            font-size: 2rem;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .admin-dashboard .legend-list {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: .85rem;
-        }
-
-        .admin-dashboard .legend-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: .75rem;
-            padding: .9rem 1rem;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: .9rem;
-        }
-
-        .admin-dashboard .legend-left {
-            display: flex;
-            align-items: center;
-            gap: .65rem;
-            min-width: 0;
-        }
-
-        .admin-dashboard .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 999px;
-            flex-shrink: 0;
-        }
-
-        .admin-dashboard .legend-label {
-            color: #475569;
-            font-weight: 700;
-            font-size: .9rem;
-        }
-
-        .admin-dashboard .legend-value {
-            color: #0f172a;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        .admin-dashboard .summary-strip {
-            background: var(--admin-bg-soft);
-            border: 1px dashed #cbd5e1;
-            border-radius: 1rem;
-            padding: 1rem 1.1rem;
-            color: #475569;
-            line-height: 1.7;
-        }
-
-        .admin-dashboard .summary-strip strong {
-            color: #0f172a;
-        }
-
-        .admin-dashboard .info-title {
-            color: var(--admin-text);
-            font-size: 1.05rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .admin-dashboard .profile-card {
-            background: #ffffff;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid #e2e8f0;
-        }
-
-        .admin-dashboard .profile-shell {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .admin-dashboard .profile-top {
-            display: flex;
-            align-items: center;
-            gap: .9rem;
-            padding-bottom: .25rem;
-        }
-
-        .admin-dashboard .profile-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: .95rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
-            color: #2563eb;
-            box-shadow: none;
-            flex-shrink: 0;
-        }
-
-        .admin-dashboard .profile-avatar i {
-            font-size: 1.35rem;
-        }
-
-        .admin-dashboard .profile-kicker {
-            color: #64748b;
-            font-size: .78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-            margin-bottom: .35rem;
-        }
-
-        .admin-dashboard .profile-name {
-            color: #0f172a;
-            font-size: 1.08rem;
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: .2rem;
-        }
-
-        .admin-dashboard .profile-subtitle {
-            color: #64748b;
-            font-size: .9rem;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        .admin-dashboard .profile-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: .9rem;
-        }
-
-        .admin-dashboard .info-item {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: .95rem;
-            padding: .95rem 1rem;
-            transition: border-color .2s ease, box-shadow .2s ease;
-        }
-
-        .admin-dashboard .info-item:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-        }
-
-        .admin-dashboard .info-label {
-            color: #64748b;
-            font-size: .78rem;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-            margin-bottom: .35rem;
-            font-weight: 700;
-        }
-
-        .admin-dashboard .info-value {
-            color: #0f172a;
-            font-size: 1rem;
-            font-weight: 700;
-            word-break: break-word;
-        }
-
-        @media (max-width: 1199.98px) {
-            .admin-dashboard .legend-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .admin-dashboard .chart-holder {
-            position: relative;
-            width: 100%;
-        }
-
-        .admin-dashboard .chart-holder-trend {
-            height: 300px;
-        }
-
-        .admin-dashboard .chart-holder-donut {
-            height: 260px;
-        }
-
-        .admin-dashboard .chart-holder-bar {
-            height: var(--chart-height);
-        }
-
-        .admin-dashboard .chart-holder-pie {
-            height: 280px;
-        }
-
-        .admin-dashboard .chart-legend-swatch {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
-            flex-shrink: 0;
-            display: inline-block;
-        }
-    </style>
-@endsection
-
 @section('content')
-    <div class="app-main flex-column flex-row-fluid admin-dashboard" id="kt_app_main">
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <div class="d-flex flex-column flex-column-fluid">
-            <div id="kt_app_content" class="app-content flex-column-fluid mt-12">
+            <div id="kt_app_content" class="app-content flex-column-fluid mt-7">
                 <div id="kt_app_content_container" class="app-container container-fluid">
-                    <div class="row g-5 g-xl-10 mb-5">
-                        <div class="col-12">
-                            <div class="card card-flush hero-welcome-card border-0 overflow-hidden">
-                                <div class="card-body d-flex flex-column flex-md-row align-items-center p-8 p-lg-10 position-relative" style="z-index:1">
-                                    <div class="d-flex flex-column flex-grow-1 me-md-8 mb-5 mb-md-0">
-                                        <div class="d-inline-flex align-items-center bg-white bg-opacity-15 rounded-pill px-4 py-2 mb-4" style="width:fit-content">
-                                            <i class="ki-duotone ki-shield-tick fs-4 text-white me-2">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                            <span class="text-white fw-semibold fs-7">Dashboard Admin</span>
+                    <div class="card card-flush border border-dashed border-gray-400 mb-7">
+                                <div class="card-header pt-6 pb-4">
+                                    <div class="card-title d-flex flex-column">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="symbol symbol-40px">
+                                                <span class="symbol-label bg-light-primary">
+                                                    <i class="ki-duotone ki-shield-tick text-primary fs-3">
+                                                        <span class="path1"></span><span class="path2"></span>
+                                                    </i>
+                                                </span>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-3 fw-semibold text-gray-900">
+                                                    Selamat Datang,
+                                                    <span class="text-primary fw-bolder">{{ $user->nama }}</span>
+                                                </span>
+                                                <span class="text-gray-600 fw-semibold fs-7">
+                                                    Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit secara terpusat.
+                                                </span>
+                                            </div>
                                         </div>
-                                        <h1 class="text-white fw-bolder mb-3" style="font-size:clamp(1.5rem,2.5vw,2rem)">Selamat Datang, {{ $user->nama }}!</h1>
-                                        <p class="text-white text-opacity-75 fs-5 mb-0 mw-700px">
-                                            Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit secara terpusat.
-                                        </p>
                                     </div>
-                                    <div class="d-flex gap-4 flex-wrap justify-content-center">
-                                        <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
-                                            <div class="text-white fw-bolder fs-2x lh-1">{{ $meta['total_unit'] ?? 0 }}</div>
-                                            <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Unit Aktif</div>
-                                        </div>
-                                        <div class="bg-white bg-opacity-10 rounded-3 px-5 py-4 text-center" style="min-width:110px">
-                                            <div class="text-white fw-bolder fs-2x lh-1">{{ $meta['total_user'] ?? 0 }}</div>
-                                            <div class="text-white text-opacity-75 fw-semibold fs-7 mt-1">Pengguna</div>
+                                    <div class="card-toolbar">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="d-flex align-items-center fw-bold px-4 py-2" style="background-color: #F8F9FA; color: #64748B; border-radius: 6px; font-size: 0.95rem;">
+                                                <i class="ki-duotone ki-bank me-2" style="color: #64748B;"><span class="path1"></span><span class="path2"></span></i>
+                                                {{ $meta['total_unit'] ?? 0 }} Unit Aktif
+                                            </div>
+                                            <div class="d-flex align-items-center fw-bold px-4 py-2" style="background-color: #F8F9FA; color: #64748B; border-radius: 6px; font-size: 0.95rem;">
+                                                <i class="ki-duotone ki-profile-user me-2" style="color: #64748B;"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                                {{ $meta['total_user'] ?? 0 }} Pengguna
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('admin.history-laporan.index') }}" class="stat-link">
-                                <div class="card stat-card theme-total">
-                                    <div class="card-body">
-                                        <div class="stat-head">
-                                            <div>
-                                                <div class="stat-label">Total Laporan</div>
-                                                <div class="stat-value">{{ $stats['total'] ?? 0 }}</div>
-                                                <div class="stat-note">Seluruh laporan sistem</div>
-                                            </div>
-                                            <div class="stat-icon">
-                                                <i class="ki-duotone ki-element-11">
+                            <a href="{{ route('admin.history-laporan.index') }}"
+                                class="card bg-secondary border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="symbol symbol-40px">
+                                            <span class="symbol-label bg-dark shadow-sm">
+                                                <i class="ki-duotone ki-element-11 text-white fs-3">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
                                                     <span class="path3"></span>
                                                     <span class="path4"></span>
                                                 </i>
-                                            </div>
-                                        </div>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="pt-4">
+                                        <div class="fw-bold fs-2x text-gray-900">{{ $stats['total'] ?? 0 }}</div>
+                                        <div class="fw-semibold text-gray-700 mt-1 fs-7">Total Masuk</div>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('admin.history-laporan.index') }}" class="stat-link">
-                                <div class="card stat-card theme-menunggu">
-                                    <div class="card-body">
-                                        <div class="stat-head">
-                                            <div>
-                                                <div class="stat-label">Menunggu</div>
-                                                <div class="stat-value">{{ $stats['menunggu'] ?? 0 }}</div>
-                                                <div class="stat-note">Belum ditindaklanjuti</div>
-                                            </div>
-                                            <div class="stat-icon">
-                                                <i class="ki-duotone ki-time">
+                            <a href="{{ route('admin.history-laporan.index') }}"
+                                class="card bg-light-warning border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="symbol symbol-40px">
+                                            <span class="symbol-label bg-warning shadow-sm">
+                                                <i class="ki-duotone ki-time text-white fs-3">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
                                                 </i>
-                                            </div>
-                                        </div>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="pt-4">
+                                        <div class="fw-bold fs-2x text-gray-900">{{ $stats['menunggu'] ?? 0 }}</div>
+                                        <div class="fw-semibold text-gray-700 mt-1 fs-7">Menunggu Respons</div>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('admin.history-laporan.index') }}" class="stat-link">
-                                <div class="card stat-card theme-diproses">
-                                    <div class="card-body">
-                                        <div class="stat-head">
-                                            <div>
-                                                <div class="stat-label">Diproses</div>
-                                                <div class="stat-value">{{ $stats['diproses'] ?? 0 }}</div>
-                                                <div class="stat-note">Sedang ditangani</div>
-                                            </div>
-                                            <div class="stat-icon">
-                                                <i class="ki-duotone ki-timer">
+                            <a href="{{ route('admin.history-laporan.index') }}"
+                                class="card bg-light-primary border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="symbol symbol-40px">
+                                            <span class="symbol-label bg-primary shadow-sm">
+                                                <i class="ki-duotone ki-timer text-white fs-3">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
                                                 </i>
-                                            </div>
-                                        </div>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="pt-4">
+                                        <div class="fw-bold fs-2x text-gray-900">{{ $stats['diproses'] ?? 0 }}</div>
+                                        <div class="fw-semibold text-gray-700 mt-1 fs-7">Diproses</div>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('admin.history-laporan.index') }}" class="stat-link">
-                                <div class="card stat-card theme-selesai">
-                                    <div class="card-body">
-                                        <div class="stat-head">
-                                            <div>
-                                                <div class="stat-label">Selesai</div>
-                                                <div class="stat-value">{{ $stats['selesai'] ?? 0 }}</div>
-                                                <div class="stat-note">Sudah dituntaskan</div>
-                                            </div>
-                                            <div class="stat-icon">
-                                                <i class="ki-duotone ki-verify">
+                            <a href="{{ route('admin.history-laporan.index') }}"
+                                class="card border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100"
+                                style="background-color: rgba(114, 57, 234, 0.12) !important;">
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="symbol symbol-40px">
+                                            <span class="symbol-label bg-info shadow-sm">
+                                                <i class="ki-duotone ki-verify text-white fs-3">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
                                                 </i>
-                                            </div>
-                                        </div>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="pt-4">
+                                        <div class="fw-bold fs-2x text-gray-900">{{ $stats['selesai'] ?? 0 }}</div>
+                                        <div class="fw-semibold text-gray-700 mt-1 fs-7">Selesai</div>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('admin.history-laporan.index') }}" class="stat-link">
-                                <div class="card stat-card theme-ditolak">
-                                    <div class="card-body">
-                                        <div class="stat-head">
-                                            <div>
-                                                <div class="stat-label">Ditolak</div>
-                                                <div class="stat-value">{{ $stats['ditolak'] ?? 0 }}</div>
-                                                <div class="stat-note">Tidak diproses lanjut</div>
-                                            </div>
-                                            <div class="stat-icon">
-                                                <i class="ki-duotone ki-cross-circle">
+                            <a href="{{ route('admin.history-laporan.index') }}"
+                                class="card bg-light-danger border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="symbol symbol-40px">
+                                            <span class="symbol-label bg-danger shadow-sm">
+                                                <i class="ki-duotone ki-cross-circle text-white fs-3">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>
                                                 </i>
-                                            </div>
-                                        </div>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="pt-4">
+                                        <div class="fw-bold fs-2x text-gray-900">{{ $stats['ditolak'] ?? 0 }}</div>
+                                        <div class="fw-semibold text-gray-700 mt-1 fs-7">Ditolak</div>
                                     </div>
                                 </div>
                             </a>
@@ -534,46 +161,46 @@
 
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-xl-8">
-                            <div class="card chart-card">
+                            <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
-                                    <div class="info-title">Distribusi Status Laporan</div>
-                                    <div class="chart-wrap">
-                                        <div class="chart-box">
+                                    <div class="text-gray-900 fw-bolder fs-5 mb-4">Distribusi Status Laporan</div>
+                                    <div class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
+                                        <div class="position-relative mx-auto" style="width: 240px; height: 240px;">
                                             <canvas id="adminStatusChart"></canvas>
-                                            <div class="chart-center">
-                                                <div class="chart-center-label">Total</div>
-                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
+                                            <div class="position-absolute top-50 start-50 translate-middle text-center" style="pointer-events: none;">
+                                                <div class="text-muted fw-bold fs-8 text-uppercase">Total</div>
+                                                <div class="text-gray-900 fw-bolder fs-1">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="legend-list">
-                                        <div class="legend-item">
-                                            <div class="legend-left">
-                                                <span class="legend-dot" style="background:#ffc700"></span>
-                                                <span class="legend-label">Menunggu Respons</span>
+                                    <div class="d-grid gap-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#ffc700"></span>
+                                                <span class="text-gray-600 fw-bold fs-6">Menunggu Respons</span>
                                             </div>
-                                            <span class="legend-value">{{ $stats['menunggu'] ?? 0 }}</span>
+                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['menunggu'] ?? 0 }}</span>
                                         </div>
-                                        <div class="legend-item">
-                                            <div class="legend-left">
-                                                <span class="legend-dot" style="background:#009ef7"></span>
-                                                <span class="legend-label">Diproses</span>
+                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#009ef7"></span>
+                                                <span class="text-gray-600 fw-bold fs-6">Diproses</span>
                                             </div>
-                                            <span class="legend-value">{{ $stats['diproses'] ?? 0 }}</span>
+                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['diproses'] ?? 0 }}</span>
                                         </div>
-                                        <div class="legend-item">
-                                            <div class="legend-left">
-                                                <span class="legend-dot" style="background:#50cd89"></span>
-                                                <span class="legend-label">Selesai</span>
+                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#50cd89"></span>
+                                                <span class="text-gray-600 fw-bold fs-6">Selesai</span>
                                             </div>
-                                            <span class="legend-value">{{ $stats['selesai'] ?? 0 }}</span>
+                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['selesai'] ?? 0 }}</span>
                                         </div>
-                                        <div class="legend-item">
-                                            <div class="legend-left">
-                                                <span class="legend-dot" style="background:#f1416c"></span>
-                                                <span class="legend-label">Ditolak</span>
+                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#f1416c"></span>
+                                                <span class="text-gray-600 fw-bold fs-6">Ditolak</span>
                                             </div>
-                                            <span class="legend-value">{{ $stats['ditolak'] ?? 0 }}</span>
+                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['ditolak'] ?? 0 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -581,19 +208,19 @@
                         </div>
 
                         <div class="col-xl-4">
-                            <div class="card chart-card">
+                            <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
-                                    <div class="info-title">Tipe Pelapor</div>
-                                    <div class="chart-wrap">
-                                        <div class="chart-box" style="width:220px;height:220px;">
+                                    <div class="text-gray-900 fw-bolder fs-5 mb-4">Tipe Pelapor</div>
+                                    <div class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
+                                        <div class="position-relative mx-auto" style="width:220px;height:220px;">
                                             <canvas id="tipePelaporChart"></canvas>
-                                            <div class="chart-center">
-                                                <div class="chart-center-label">Total</div>
-                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
+                                            <div class="position-absolute top-50 start-50 translate-middle text-center" style="pointer-events: none;">
+                                                <div class="text-muted fw-bold fs-8 text-uppercase">Total</div>
+                                                <div class="text-gray-900 fw-bolder fs-1">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="tipePelaporLegend" class="legend-list" style="grid-template-columns:1fr;"></div>
+                                    <div id="tipePelaporLegend" class="d-flex flex-column gap-3"></div>
                                 </div>
                             </div>
                         </div>
@@ -601,11 +228,11 @@
 
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-lg-8">
-                            <div class="card chart-card">
+                            <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
                                         <div>
-                                            <div class="info-title mb-0">Tren Laporan Bulanan</div>
+                                            <div class="text-gray-900 fw-bolder fs-5 mb-4 mb-0">Tren Laporan Bulanan</div>
                                             <div class="text-muted fs-7">Jumlah laporan masuk per bulan — 12 bulan terakhir</div>
                                         </div>
                                         <div class="dropdown">
@@ -627,32 +254,32 @@
                         </div>
 
                         <div class="col-lg-4">
-                            <div class="card chart-card">
+                            <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
-                                    <div class="info-title">Privasi Laporan</div>
-                                    <div class="chart-wrap">
-                                        <div class="chart-box" style="width:220px;height:220px;">
+                                    <div class="text-gray-900 fw-bolder fs-5 mb-4">Privasi Laporan</div>
+                                    <div class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
+                                        <div class="position-relative mx-auto" style="width:220px;height:220px;">
                                             <canvas id="privasiChart"></canvas>
-                                            <div class="chart-center">
-                                                <div class="chart-center-label">Total</div>
-                                                <div class="chart-center-value">{{ $stats['total'] ?? 0 }}</div>
+                                            <div class="position-absolute top-50 start-50 translate-middle text-center" style="pointer-events: none;">
+                                                <div class="text-muted fw-bold fs-8 text-uppercase">Total</div>
+                                                <div class="text-gray-900 fw-bolder fs-1">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="legend-list" style="grid-template-columns:1fr;">
-                                        <div class="legend-item">
-                                            <div class="legend-left">
-                                                <span class="legend-dot" style="background:#8b5cf6"></span>
-                                                <span class="legend-label">Anonim</span>
+                                    <div class="d-flex flex-column gap-3">
+                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#8b5cf6"></span>
+                                                <span class="text-gray-600 fw-bold fs-6">Anonim</span>
                                             </div>
-                                            <span class="legend-value">{{ $anonimData['anonim'] ?? 0 }}</span>
+                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $anonimData['anonim'] ?? 0 }}</span>
                                         </div>
-                                        <div class="legend-item">
-                                            <div class="legend-left">
-                                                <span class="legend-dot" style="background:#f59e0b"></span>
-                                                <span class="legend-label">Rahasia</span>
+                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#f59e0b"></span>
+                                                <span class="text-gray-600 fw-bold fs-6">Rahasia</span>
                                             </div>
-                                            <span class="legend-value">{{ $anonimData['rahasia'] ?? 0 }}</span>
+                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $anonimData['rahasia'] ?? 0 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -663,15 +290,15 @@
                     <!-- Filter Unit Section -->
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-12">
-                            <div class="card chart-card">
+                            <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
                                     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-6">
                                         <div>
-                                            <div class="info-title mb-1">Filter Unit Laporan</div>
+                                            <div class="text-gray-900 fw-bolder fs-5 mb-4 mb-1">Filter Unit Laporan</div>
                                             <div class="text-muted fs-7">Pilih unit untuk melihat grafik laporan per kategori dan sub kategori</div>
                                         </div>
                                         <div>
-                                            <select id="unitSelect" class="form-select form-select-solid w-md-400px" data-control="select2" data-placeholder="Pilih Unit">
+                                            <select id="unitSelect" class="form-select w-md-400px" data-control="select2" data-placeholder="Pilih Unit">
                                                 <option value="">-- Pilih Unit --</option>
                                                 @foreach($units as $unit)
                                                     <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }} ({{ $unit->singkatan }})</option>
@@ -924,12 +551,12 @@
                 const legendContainer = document.getElementById('tipePelaporLegend');
                 if (legendContainer) {
                     legendContainer.innerHTML = tipeLabels.map((label, i) => `
-                        <div class="legend-item">
-                            <div class="legend-left">
-                                <span class="legend-dot" style="background:${tipeColors[i]}"></span>
-                                <span class="legend-label">${label}</span>
+                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:${tipeColors[i]}"></span>
+                                <span class="text-gray-600 fw-bold fs-6">${label}</span>
                             </div>
-                            <span class="legend-value">${tipeData[i]}</span>
+                            <span class="text-gray-900 fw-bolder text-nowrap">${tipeData[i]}</span>
                         </div>
                     `).join('');
                 }
@@ -1151,3 +778,10 @@
         }
     </script>
 @endsection
+
+
+
+
+
+
+
