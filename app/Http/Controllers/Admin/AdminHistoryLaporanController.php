@@ -159,8 +159,27 @@ class AdminHistoryLaporanController extends Controller
     {
         $history = HistoryLaporan::with(['laporan.kategori.unit', 'laporan.subKategori', 'laporan.ruangan.lantai.gedung', 'user.unit'])->findOrFail($id);
 
+        $timeline = \App\Models\LogStatusLaporan::with(['user.unit', 'historyLaporan'])
+            ->whereHas('historyLaporan', function ($q) use ($history) {
+                $q->where('laporan_id', $history->laporan_id);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get()
+            ->map(function ($log) {
+                return [
+                    'status' => $log->status,
+                    'catatan' => $log->catatan,
+                    'lampiran_file' => $log->status === 'selesai' ? $log->historyLaporan?->lampiran_file : null,
+                    'created_at_formatted' => $log->created_at ? $log->created_at->copy()->setTimezone('Asia/Jakarta')->locale('id')->translatedFormat('d M Y') : '',
+                    'time_formatted' => $log->created_at ? $log->created_at->copy()->setTimezone('Asia/Jakarta')->format('H:i') : '',
+                    'user_nama' => $log->user ? $log->user->nama : null,
+                    'unit_nama' => $log->user && $log->user->unit ? ($log->user->unit->singkatan ?: $log->user->unit->nama_unit) : null,
+                ];
+            });
+
         return response()->json([
             'history' => $history,
+            'timeline' => $timeline,
             'created_at_formatted' => $history->created_at
                 ? $history->created_at->copy()->setTimezone('Asia/Jakarta')->locale('id')->isoFormat('DD MMMM YYYY, HH:mm')
                 : '-',

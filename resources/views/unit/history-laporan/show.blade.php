@@ -219,34 +219,91 @@
                                     <h6 class="fw-bold fs-6 mb-0 text-primary">Riwayat Penanganan</h6>
                                 </div>
                             </div>
-                            <div class="card-body pt-4 pb-7">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                            <span>Lampiran Bukti Penanganan</span>
-                                        </label>
-                                        <div id="show_lampiran_bukti" class="text-gray-600 fs-8">-</div>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                            <span>Unit Penangan</span>
-                                        </label>
-                                        <input type="text" id="show_user_penangan"
-                                            class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                            <span>Catatan</span>
-                                        </label>
-                                        <textarea id="show_catatan" rows="3" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled></textarea>
-                                    </div>
-                                </div>
+                            <div class="card-body pt-4 pb-7" id="show_timeline_container">
+                                <!-- Timeline will be injected here via AJAX -->
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+
+<style>
+.track-timeline {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    padding-left: 40px;
+}
+.track-timeline::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(0, 66, 137, .26), rgba(15, 23, 42, .08));
+}
+.track-timeline-item {
+    position: relative;
+    padding: 16px 18px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid #e8edf3;
+}
+.track-timeline-badge {
+    position: absolute;
+    left: -40px;
+    top: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e8edf3;
+    background: #fff;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, .08);
+}
+.track-timeline-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.track-timeline-item-title {
+    color: #0f172a;
+    font-size: .98rem;
+    font-weight: 800;
+    margin-bottom: .35rem;
+}
+.track-timeline-item-text,
+.track-timeline-note {
+    color: #64748b;
+    font-size: .9rem;
+    line-height: 1.75;
+}
+.track-timeline-note {
+    margin-top: .45rem;
+    font-size: .8rem;
+}
+.track-timeline-meta {
+    min-width: 150px;
+    text-align: right;
+}
+.track-timeline-date {
+    color: #64748b;
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: .45rem;
+}
+@media (max-width: 991.98px) {
+    .track-timeline { padding-left: 0; }
+    .track-timeline::before, .track-timeline-badge { display: none; }
+    .track-timeline-meta { min-width: 0; text-align: left; }
+}
+</style>
 
             <div class="modal-footer py-4">
                 <button type="button" class="btn btn-sm btn-primary fs-sm-8 fs-lg-6" data-bs-dismiss="modal">

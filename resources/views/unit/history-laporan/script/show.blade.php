@@ -99,13 +99,75 @@
                         else if (statusVal === 'ditolak') badgeClass = 'bg-danger text-white';
                         const statusText = statusVal !== '-' ? statusVal.charAt(0).toUpperCase() + statusVal.slice(1) : '-';
                         document.getElementById('show_status').innerHTML = `<span class="badge ${badgeClass} px-2 py-1">${statusText}</span>`;
-                        document.getElementById('show_lampiran_bukti').innerHTML =
-                            getFilePreview(history.lampiran_file, 'history-laporan');
-                        document.getElementById('show_user_penangan').value = history.user ?
-                            (history.user.nama + ' - ' + (history.user.unit?.singkatan ||
-                                history.user.unit?.nama_unit || '-')) : '-';
-                        document.getElementById('show_catatan').value = history.catatan ||
-                            '-';
+                        const timelineData = data.timeline || [];
+                        let timelineHtml = '<div class="track-timeline">';
+                        
+                        if (timelineData.length > 0) {
+                            timelineData.forEach(function(item) {
+                                let badgeClass = 'bg-light-secondary';
+                                let textClass = 'text-secondary';
+                                let iconClass = 'ki-information-5';
+                                let statusTitle = 'Perubahan status';
+                                let statusBadge = 'badge-light-secondary';
+                                
+                                if (item.status === 'menunggu') {
+                                    badgeClass = 'bg-light-warning'; textClass = 'text-warning'; statusBadge = 'badge-light-warning';
+                                    iconClass = 'ki-time'; statusTitle = 'Menunggu tindak lanjut';
+                                } else if (item.status === 'diproses') {
+                                    badgeClass = 'bg-light-info'; textClass = 'text-info'; statusBadge = 'badge-light-info';
+                                    iconClass = 'ki-setting-2'; statusTitle = 'Diproses unit terkait';
+                                } else if (item.status === 'selesai') {
+                                    badgeClass = 'bg-light-success'; textClass = 'text-success'; statusBadge = 'badge-light-success';
+                                    iconClass = 'ki-check-circle'; statusTitle = 'Laporan selesai';
+                                } else if (item.status === 'ditolak') {
+                                    badgeClass = 'bg-light-danger'; textClass = 'text-danger'; statusBadge = 'badge-light-danger';
+                                    iconClass = 'ki-cross-circle'; statusTitle = 'Laporan ditolak';
+                                }
+
+                                const statusDisplay = item.status ? item.status.charAt(0).toUpperCase() + item.status.slice(1) : '-';
+                                const itemText = item.catatan ? item.catatan : statusTitle;
+                                const itemNote = item.user_nama ? 'Diperbarui oleh ' + item.user_nama : 'Dibuat oleh pelapor';
+                                
+                                let evidenceHtml = '';
+                                if (item.lampiran_file) {
+                                    evidenceHtml = `
+                                        <div class="track-timeline-note mt-2">Lampiran bukti penanganan tersedia.</div>
+                                        <div class="mt-2">
+                                            <a href="/uploads/history-laporan/${item.lampiran_file}" target="_blank" class="btn btn-sm btn-light-success py-1 px-3">Lihat Bukti</a>
+                                        </div>
+                                    `;
+                                }
+
+                                timelineHtml += `
+                                    <div class="track-timeline-item">
+                                        <div class="track-timeline-badge ${badgeClass}">
+                                            <i class="ki-duotone ${iconClass} fs-5 ${textClass}">
+                                                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                            </i>
+                                        </div>
+                                        <div class="track-timeline-row">
+                                            <div>
+                                                <div class="track-timeline-item-title">${statusTitle}</div>
+                                                <div class="track-timeline-item-text">${itemText}</div>
+                                                <div class="track-timeline-note">${itemNote}</div>
+                                                ${evidenceHtml}
+                                            </div>
+                                            <div class="track-timeline-meta">
+                                                <div class="track-timeline-date">
+                                                    ${item.created_at_formatted} &bull; ${item.time_formatted}
+                                                </div>
+                                                <span class="badge ${statusBadge} text-capitalize">${statusDisplay}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                        } else {
+                            timelineHtml += '<div class="text-center text-muted">Belum ada riwayat penanganan.</div>';
+                        }
+                        
+                        timelineHtml += '</div>';
+                        document.getElementById('show_timeline_container').innerHTML = timelineHtml;
 
                         modal.show();
                     },
