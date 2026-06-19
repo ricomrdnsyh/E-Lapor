@@ -65,9 +65,14 @@ class UnitDashboardController extends Controller
             ->groupBy('sub_kategori_id')
             ->pluck('total', 'sub_kategori_id');
 
-        $subKategoriData = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
-            ->orWhere('unit_id', $user->unit_id)
-            ->get()
+        $userKategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
+        $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds);
+        
+        if (empty($userKategoriIds)) {
+            $subKategoriQuery->orWhere('unit_id', $user->unit_id);
+        }
+
+        $subKategoriData = $subKategoriQuery->get()
             ->map(function ($sub) use ($subKategoriCountsRaw) {
                 return ['nama' => $sub->nama_sub, 'total' => $subKategoriCountsRaw[$sub->id_sub] ?? 0];
             })
@@ -117,8 +122,13 @@ class UnitDashboardController extends Controller
 
         $scopeKategoriIds = $this->scopeKategoriIds();
 
-        $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
-            ->orWhere('unit_id', $user->unit_id);
+        $userKategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
+
+        $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds);
+        
+        if (empty($userKategoriIds)) {
+            $subKategoriQuery->orWhere('unit_id', $user->unit_id);
+        }
 
         if ($kategoriId) {
             $subKategoriQuery = SubKategori::where('kategori_id', $kategoriId);
@@ -146,32 +156,28 @@ class UnitDashboardController extends Controller
     {
         $user = Auth::user();
         $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
-        $unitKategoriIds = Kategori::where('unit_id', $user->unit_id)->pluck('id_kategori')->toArray();
-        return array_unique(array_merge($kategoriIds, $unitKategoriIds));
+        if (!empty($kategoriIds)) {
+            return $kategoriIds;
+        }
+        return Kategori::where('unit_id', $user->unit_id)->pluck('id_kategori')->toArray();
     }
 
     private function laporanUnitQuery(): Builder
     {
         $user = Auth::user();
-        $kategoriIds = $this->scopeKategoriIds();
+        $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
 
         return Laporan::where(function ($q) use ($user, $kategoriIds) {
-            $hasFilter = false;
-
             if ($user->unit_id) {
-                $hasFilter = true;
                 $q->whereHas('units', function ($q2) use ($user) {
                     $q2->where('unit_id', $user->unit_id);
                 });
+            } else {
+                $q->whereRaw('0=1');
             }
 
             if (!empty($kategoriIds)) {
-                $hasFilter = true;
-                $q->orWhereIn('kategori_id', $kategoriIds);
-            }
-
-            if (!$hasFilter) {
-                $q->whereRaw('0=1');
+                $q->whereIn('kategori_id', $kategoriIds);
             }
         });
     }

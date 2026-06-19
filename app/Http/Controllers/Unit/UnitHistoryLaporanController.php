@@ -16,7 +16,14 @@ class UnitHistoryLaporanController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $categories = \App\Models\Kategori::where('unit_id', $user->unit_id)->get();
+        $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
+        
+        if (!empty($kategoriIds)) {
+            $categories = \App\Models\Kategori::whereIn('id_kategori', $kategoriIds)->get();
+        } else {
+            $categories = \App\Models\Kategori::where('unit_id', $user->unit_id)->get();
+        }
+        
         return view('unit.history-laporan.index', compact('categories'));
     }
 
@@ -251,25 +258,17 @@ class UnitHistoryLaporanController extends Controller
         $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
 
         return HistoryLaporan::with(['laporan.kategori', 'user.unit'])
-            ->where(function ($q) use ($user, $kategoriIds) {
-                $hasFilter = false;
-
+            ->whereHas('laporan', function ($laporanQuery) use ($user, $kategoriIds) {
                 if ($user->unit_id) {
-                    $hasFilter = true;
-                    $q->whereHas('laporan.units', function ($query) use ($user) {
+                    $laporanQuery->whereHas('units', function ($query) use ($user) {
                         $query->where('unit_id', $user->unit_id);
                     });
+                } else {
+                    $laporanQuery->whereRaw('0=1');
                 }
 
                 if (!empty($kategoriIds)) {
-                    $hasFilter = true;
-                    $q->orWhereHas('laporan', function ($query) use ($kategoriIds) {
-                        $query->whereIn('kategori_id', $kategoriIds);
-                    });
-                }
-
-                if (!$hasFilter) {
-                    $q->whereRaw('0=1');
+                    $laporanQuery->whereIn('kategori_id', $kategoriIds);
                 }
             });
     }
