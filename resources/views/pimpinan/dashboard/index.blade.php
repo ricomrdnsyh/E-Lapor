@@ -339,17 +339,27 @@
                         <div class="col-xl-8">
                             <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <div class="text-gray-900 fw-bolder fs-5 mb-4 mb-0">Laporan per Sub Kategori</div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
-                                                <i class="fas fa-bars fs-4"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end min-w-125px">
-                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
-                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
-                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
-                                            </ul>
+                                    <div class="d-flex align-items-center justify-content-between mb-5">
+                                        <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Sub Kategori</h3>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="w-200px">
+                                                <select class="form-select form-select-sm w-100" id="kategoriFilter" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                                    <option></option>
+                                                    @foreach($kategoriData as $kat)
+                                                        <option value="{{ $kat['id'] }}">{{ $kat['nama'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                    <i class="fas fa-bars fs-4"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div style="position:relative; height:420px;">
@@ -549,11 +559,12 @@
 
             // --- Sub Kategori Bar Chart ---
             const subKategoriEl = document.getElementById('subKategoriChart');
+            let subKategoriChartInstance = null;
             if (subKategoriEl) {
                 const subLabels = @json($subKategoriData->pluck('nama'));
                 const subValues = @json($subKategoriData->pluck('total'));
 
-                new Chart(subKategoriEl, {
+                subKategoriChartInstance = new Chart(subKategoriEl, {
                     type: 'bar',
                     data: {
                         labels: subLabels,
@@ -587,6 +598,35 @@
                             }
                         }
                     }
+                });
+            }
+
+            const kategoriFilter = document.getElementById('kategoriFilter');
+            if (kategoriFilter && subKategoriChartInstance) {
+                $(kategoriFilter).on('change', function() {
+                    const kategoriId = this.value;
+                    let url = `{{ route('pimpinan.dashboard.sub-kategori-data') }}`;
+                    if (kategoriId) {
+                        url += `?kategori_id=${encodeURIComponent(kategoriId)}`;
+                    }
+
+                    fetch(url, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const subLabels = Array.isArray(data.subLabels) ? data.subLabels : Object.values(data.subLabels);
+                        const subValues = Array.isArray(data.subValues) ? data.subValues : Object.values(data.subValues);
+
+                        subKategoriChartInstance.data.labels = subLabels;
+                        subKategoriChartInstance.data.datasets[0].data = subValues;
+                        subKategoriChartInstance.data.datasets[0].backgroundColor = subLabels.map((_, i) => BAR_COLORS[(i + 3) % BAR_COLORS.length]);
+                        subKategoriChartInstance.update();
+                    })
+                    .catch(err => console.error('Error fetching sub kategori data:', err));
                 });
             }
 

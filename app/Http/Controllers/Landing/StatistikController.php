@@ -78,11 +78,13 @@ class StatistikController extends Controller
     public function getData(Request $request)
     {
         $unitId = $request->input('unit_id');
+        $kategoriId = $request->input('kategori_id');
 
         if (!$unitId) {
             return response()->json([
                 'kategoriLabels' => [],
                 'kategoriValues' => [],
+                'kategoriList'   => [],
                 'subLabels'      => [],
                 'subValues'      => []
             ]);
@@ -92,30 +94,14 @@ class StatistikController extends Controller
             ->pluck('id_kategori')
             ->toArray();
 
-        $userKategoriIds = DB::table('kategori_user')
-            ->join('users', 'kategori_user.user_id', '=', 'users.id')
-            ->where('users.unit_id', $unitId)
-            ->pluck('kategori_user.kategori_id')
-            ->toArray();
+        $scopeKategoriIds = $unitKategoriIds;
 
-        $scopeKategoriIds = array_unique(array_merge($unitKategoriIds, $userKategoriIds));
-
-        $baseQuery = Laporan::where(function ($q) use ($unitId, $scopeKategoriIds) {
-            $hasFilter = false;
-
+        $baseQuery = Laporan::where(function ($q) use ($unitId) {
             if ($unitId) {
-                $hasFilter = true;
                 $q->whereHas('units', function ($q2) use ($unitId) {
                     $q2->where('unit_id', $unitId);
                 });
-            }
-
-            if (!empty($scopeKategoriIds)) {
-                $hasFilter = true;
-                $q->orWhereIn('kategori_id', $scopeKategoriIds);
-            }
-
-            if (!$hasFilter) {
+            } else {
                 $q->whereRaw('0=1');
             }
         });
@@ -126,34 +112,42 @@ class StatistikController extends Controller
             ->groupBy('kategori_id')
             ->pluck('total', 'kategori_id');
 
-        $allKategoriIds = array_unique(array_merge(
-            $scopeKategoriIds,
-            array_keys($kategoriCountsRaw->toArray())
-        ));
+        $allKategoriIds = $scopeKategoriIds;
 
         $kategoriData = collect();
         if (!empty($allKategoriIds)) {
             $kategoriData = Kategori::whereIn('id_kategori', $allKategoriIds)
                 ->get()
                 ->map(function ($kat) use ($kategoriCountsRaw) {
-                    return ['nama' => $kat->nama_kategori, 'total' => (int) ($kategoriCountsRaw[$kat->id_kategori] ?? 0)];
+                    return ['id' => $kat->id_kategori, 'nama' => $kat->nama_kategori, 'total' => (int) ($kategoriCountsRaw[$kat->id_kategori] ?? 0)];
                 })
                 ->groupBy('nama')
                 ->map(function ($items) {
-                    return ['nama' => $items->first()['nama'], 'total' => $items->sum('total')];
+                    return ['id' => $items->first()['id'], 'nama' => $items->first()['nama'], 'total' => $items->sum('total')];
                 })
                 ->sortByDesc('total')
                 ->values();
         }
 
-        $subKategoriCountsRaw = (clone $baseQuery)
+        $subKategoriBaseQuery = clone $baseQuery;
+        if ($kategoriId) {
+            $subKategoriBaseQuery->where('kategori_id', $kategoriId);
+        }
+
+        $subKategoriCountsRaw = (clone $subKategoriBaseQuery)
             ->selectRaw('sub_kategori_id, count(*) as total')
             ->whereNotNull('sub_kategori_id')
             ->groupBy('sub_kategori_id')
             ->pluck('total', 'sub_kategori_id');
 
-        $subKategoriData = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
-            ->orWhere('unit_id', $unitId)
+        $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
+            ->orWhere('unit_id', $unitId);
+            
+        if ($kategoriId) {
+            $subKategoriQuery = SubKategori::where('kategori_id', $kategoriId);
+        }
+
+        $subKategoriData = $subKategoriQuery
             ->get()
             ->map(function ($sub) use ($subKategoriCountsRaw) {
                 return ['nama' => $sub->nama_sub, 'total' => (int) ($subKategoriCountsRaw[$sub->id_sub] ?? 0)];
@@ -168,6 +162,7 @@ class StatistikController extends Controller
         return response()->json([
             'kategoriLabels' => $kategoriData->pluck('nama'),
             'kategoriValues' => $kategoriData->pluck('total'),
+            'kategoriList'   => $kategoriData->map(function($item) { return ['id' => $item['id'], 'nama' => $item['nama']]; }),
             'subLabels'      => $subKategoriData->pluck('nama'),
             'subValues'      => $subKategoriData->pluck('total'),
         ]);

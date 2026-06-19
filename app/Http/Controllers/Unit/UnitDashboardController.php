@@ -41,11 +41,19 @@ class UnitDashboardController extends Controller
             $kategoriData = Kategori::whereIn('id_kategori', $allKategoriIds)
                 ->get()
                 ->map(function ($kat) use ($kategoriCountsRaw) {
-                    return ['nama' => $kat->nama_kategori, 'total' => $kategoriCountsRaw[$kat->id_kategori] ?? 0];
+                    return [
+                        'id' => $kat->id_kategori,
+                        'nama' => $kat->nama_kategori,
+                        'total' => $kategoriCountsRaw[$kat->id_kategori] ?? 0
+                    ];
                 })
                 ->groupBy('nama')
                 ->map(function ($items) {
-                    return ['nama' => $items->first()['nama'], 'total' => $items->sum('total')];
+                    return [
+                        'id' => $items->first()['id'],
+                        'nama' => $items->first()['nama'],
+                        'total' => $items->sum('total')
+                    ];
                 })
                 ->sortByDesc('total')
                 ->values();
@@ -88,6 +96,50 @@ class UnitDashboardController extends Controller
         ];
 
         return view('unit.dashboard.index', compact('stats', 'user', 'kategoriData', 'subKategoriData', 'tipePelapor', 'privasiData'));
+    }
+
+    public function getSubKategoriData(\Illuminate\Http\Request $request)
+    {
+        $kategoriId = $request->input('kategori_id');
+        $user = Auth::user();
+
+        $baseQuery = $this->laporanUnitQuery();
+
+        if ($kategoriId) {
+            $baseQuery->where('kategori_id', $kategoriId);
+        }
+
+        $subKategoriCountsRaw = (clone $baseQuery)
+            ->selectRaw('sub_kategori_id, count(*) as total')
+            ->whereNotNull('sub_kategori_id')
+            ->groupBy('sub_kategori_id')
+            ->pluck('total', 'sub_kategori_id');
+
+        $scopeKategoriIds = $this->scopeKategoriIds();
+
+        $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
+            ->orWhere('unit_id', $user->unit_id);
+
+        if ($kategoriId) {
+            $subKategoriQuery = SubKategori::where('kategori_id', $kategoriId);
+        }
+
+        $subKategoriData = $subKategoriQuery
+            ->get()
+            ->map(function ($sub) use ($subKategoriCountsRaw) {
+                return ['nama' => $sub->nama_sub, 'total' => $subKategoriCountsRaw[$sub->id_sub] ?? 0];
+            })
+            ->groupBy('nama')
+            ->map(function ($items) {
+                return ['nama' => $items->first()['nama'], 'total' => $items->sum('total')];
+            })
+            ->sortByDesc('total')
+            ->values();
+
+        return response()->json([
+            'subLabels' => $subKategoriData->pluck('nama'),
+            'subValues' => $subKategoriData->pluck('total'),
+        ]);
     }
 
     private function scopeKategoriIds(): array

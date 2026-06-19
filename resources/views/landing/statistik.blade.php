@@ -244,7 +244,7 @@
                                     <span class="text-gray-500 fs-7">Distribusi berdasarkan kategori laporan</span>
                                 </div>
                                 <div class="card-toolbar w-250px w-lg-300px">
-                                    <select class="form-select form-select-sm form-select-solid w-100" id="unitFilter"
+                                    <select class="form-select form-select-sm w-100" id="unitFilter"
                                         data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true">
                                         <option></option>
                                         @foreach ($units as $unit)
@@ -284,6 +284,12 @@
                                 <div class="card-title flex-column">
                                     <h3 class="fw-bold text-gray-900 mb-1 fs-5">Laporan per Sub Kategori</h3>
                                     <span class="text-gray-500 fs-7">Distribusi berdasarkan sub kategori laporan</span>
+                                </div>
+                                <div class="card-toolbar w-250px w-lg-300px">
+                                    <select class="form-select form-select-sm w-100" id="kategoriFilter"
+                                        data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                        <option></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="card-body pt-5">
@@ -613,12 +619,18 @@
 
             function handleUnitFilter() {
                 var unitId = document.getElementById('unitFilter').value;
+                var kategoriId = document.getElementById('kategoriFilter').value;
                 var subkategoriRow = document.getElementById('subkategoriRow');
                 var chartPlaceholder = document.getElementById('chartPlaceholder');
                 var kategoriHolder = document.getElementById('kategoriHolder');
 
                 if (unitId) {
-                    fetch('/statistik/data?unit_id=' + unitId)
+                    var url = '/statistik/data?unit_id=' + unitId;
+                    if (kategoriId) {
+                        url += '&kategori_id=' + kategoriId;
+                    }
+
+                    fetch(url)
                         .then(function(res) {
                             return res.json();
                         })
@@ -634,10 +646,22 @@
                             if (kategoriChartInstance) kategoriChartInstance.destroy();
                             kategoriChartInstance = makeBarChart('kategoriChart', katLabels, katValues);
 
+                            var kategoriFilter = $('#kategoriFilter');
+                            var currentKatVal = kategoriFilter.val();
+                            
+                            kategoriFilter.empty().append('<option></option>');
+                            if (data.kategoriList) {
+                                data.kategoriList.forEach(function(kat) {
+                                    var option = new Option(kat.nama, kat.id, false, kat.id == currentKatVal);
+                                    kategoriFilter.append(option);
+                                });
+                            }
+                            kategoriFilter.trigger('change');
+
                             var subLabels = data.subLabels || [];
                             var subValues = data.subValues || [];
 
-                            if (subLabels.length) {
+                            if (subLabels.length || kategoriId) {
                                 subkategoriRow.classList.remove('d-none');
 
                                 var subHolder = document.getElementById('subKategoriHolder');
@@ -658,6 +682,7 @@
                     chartPlaceholder.classList.remove('d-none');
                     kategoriHolder.classList.add('d-none');
                     subkategoriRow.classList.add('d-none');
+                    $('#kategoriFilter').val(null).trigger('change.select2');
 
                     if (kategoriChartInstance) {
                         kategoriChartInstance.destroy();
@@ -671,9 +696,18 @@
             }
 
             $('#unitFilter').on('select2:select', function() {
+                $('#kategoriFilter').val(null).trigger('change.select2');
                 handleUnitFilter();
             });
             $('#unitFilter').on('select2:clear', function() {
+                $('#kategoriFilter').val(null).trigger('change.select2');
+                handleUnitFilter();
+            });
+            
+            $('#kategoriFilter').on('select2:select', function() {
+                handleUnitFilter();
+            });
+            $('#kategoriFilter').on('select2:clear', function() {
                 handleUnitFilter();
             });
         });

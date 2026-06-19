@@ -184,9 +184,10 @@
                             setTimeout(function() {
                                 const userKategoriIds = (data.kategoris || []).map(function(k) { return k.id_kategori; });
                                 document.querySelectorAll('#edit_kategori_wrapper .kategori-checkbox').forEach(function(cb) {
-                                    if (userKategoriIds.includes(parseInt(cb.value))) {
-                                        cb.checked = true;
-                                    }
+                                    cb.checked = userKategoriIds.includes(parseInt(cb.value));
+                                });
+                                document.querySelectorAll('#edit_kategori_wrapper .edit-check-all-unit').forEach(function(cb) {
+                                    cb.checked = false;
                                 });
                             }, 100);
                         }

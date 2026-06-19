@@ -311,17 +311,27 @@
                         <div class="col-xl-8">
                             <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="text-gray-900 fw-bolder fs-5 mb-4 mb-0">Laporan per Sub Kategori</div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
-                                                <i class="fas fa-bars fs-4"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end min-w-125px">
-                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
-                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
-                                                <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
-                                            </ul>
+                                    <div class="d-flex align-items-center justify-content-between mb-5">
+                                        <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Sub Kategori</h3>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="w-200px">
+                                                <select class="form-select form-select-sm w-100" id="kategoriFilter" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                                    <option></option>
+                                                    @foreach($kategoriData as $kat)
+                                                        <option value="{{ $kat['id'] }}">{{ $kat['nama'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                    <i class="fas fa-bars fs-4"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriChart', 'Laporan Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div style="position:relative; height:420px;">
@@ -439,11 +449,12 @@
 
             // --- Sub Kategori Bar Chart ---
             const subKategoriEl = document.getElementById('subKategoriChart');
+            let subKategoriChartInstance = null;
             if (subKategoriEl) {
                 const subLabels = @json($subKategoriData->pluck('nama'));
                 const subValues = @json($subKategoriData->pluck('total'));
 
-                new Chart(subKategoriEl, {
+                subKategoriChartInstance = new Chart(subKategoriEl, {
                     type: 'bar',
                     data: {
                         labels: subLabels,
@@ -477,6 +488,26 @@
                             }
                         }
                     }
+                });
+
+                $('#kategoriFilter').on('change', function() {
+                    const kategoriId = $(this).val();
+                    $.ajax({
+                        url: '{{ route("unit.dashboard.sub-kategori-data") }}',
+                        type: 'GET',
+                        data: { kategori_id: kategoriId },
+                        success: function(response) {
+                            if (subKategoriChartInstance) {
+                                subKategoriChartInstance.data.labels = response.subLabels;
+                                subKategoriChartInstance.data.datasets[0].data = response.subValues;
+                                subKategoriChartInstance.data.datasets[0].backgroundColor = response.subLabels.map((_, i) => BAR_COLORS[(i + 3) % BAR_COLORS.length]);
+                                subKategoriChartInstance.update();
+                            }
+                        },
+                        error: function() {
+                            console.error('Gagal mengambil data sub kategori');
+                        }
+                    });
                 });
             }
 

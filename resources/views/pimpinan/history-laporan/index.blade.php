@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="col-12 col-lg-3">
                                         <label class="form-label fw-semibold fs-7 text-gray-700">Kategori Laporan</label>
-                                        <select id="filter_kategori" class="form-select form-select-sm" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                        <select id="filter_kategori" class="form-select form-select-sm" data-control="select2" data-placeholder="Pilih Kategori" data-allow-clear="true" disabled>
                                             <option value="">Semua</option>
                                             @foreach ($categories as $kat)
                                                 <option value="{{ $kat->id_kategori }}" data-unit-id="{{ $kat->unit_id ?? '' }}">

@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Unit\UnitDashboardController;
 use App\Http\Controllers\Unit\UnitHistoryLaporanController;
+use App\Http\Controllers\Pimpinan\PimpinanDashboardController;
+use App\Http\Controllers\Pimpinan\PimpinanHistoryLaporanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\FAQController;
 use App\Http\Controllers\Landing\AlurController;
@@ -94,12 +96,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
 Route::prefix('unit')->name('unit.')->middleware(['auth', 'role:unit'])->group(function () {
     Route::get('/dashboard', [UnitDashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/sub-kategori-data', [UnitDashboardController::class, 'getSubKategoriData'])->name('dashboard.sub-kategori-data');
     Route::get('/history-laporan/data', [UnitHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
     Route::resource('history-laporan', UnitHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
 });
 
 Route::prefix('pimpinan')->name('pimpinan.')->middleware(['auth', 'role:pimpinan'])->group(function () {
-    Route::get('/dashboard', [\App\Http\Controllers\Pimpinan\PimpinanDashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/history-laporan/data', [\App\Http\Controllers\Pimpinan\PimpinanHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
-    Route::resource('history-laporan', \App\Http\Controllers\Pimpinan\PimpinanHistoryLaporanController::class, ['only' => ['index', 'show']]);
+    Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/sub-kategori-data', [PimpinanDashboardController::class, 'getSubKategoriData'])->name('dashboard.sub-kategori-data');
+    Route::get('/history-laporan/data', [PimpinanHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
+    Route::resource('history-laporan', PimpinanHistoryLaporanController::class, ['only' => ['index', 'show']]);
 });

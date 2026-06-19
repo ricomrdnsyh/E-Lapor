@@ -114,6 +114,9 @@
                 document.querySelectorAll('#create_kategori_wrapper .kategori-checkbox').forEach(function(cb) {
                     cb.checked = false;
                 });
+                document.querySelectorAll('#create_kategori_wrapper .create-check-all-unit').forEach(function(cb) {
+                    cb.checked = false;
+                });
             }
         }
 

@@ -112,6 +112,27 @@
             ],
         });
 
+        var allKategoriOptions = $('#filter_kategori option').clone();
+
+        $('#filter_unit').on('change', function() {
+            var unitId = $(this).val();
+            var kategoriSelect = $('#filter_kategori');
+            
+            kategoriSelect.empty().append('<option value="">Semua</option>');
+            kategoriSelect.prop('disabled', true);
+            
+            if (unitId) {
+                allKategoriOptions.each(function() {
+                    var optionUnitId = $(this).attr('data-unit-id');
+                    if (optionUnitId && optionUnitId == unitId) {
+                        kategoriSelect.append($(this).clone());
+                    }
+                });
+                kategoriSelect.prop('disabled', false);
+            }
+            kategoriSelect.trigger('change.select2');
+        });
+
         $('#filter_kategori').on('change', function() {
             var kategoriId = $(this).val();
             var subKategoriSelect = $('#filter_sub_kategori');

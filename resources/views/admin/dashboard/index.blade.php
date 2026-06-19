@@ -298,7 +298,7 @@
                                             <div class="text-muted fs-7">Pilih unit untuk melihat grafik laporan per kategori dan sub kategori</div>
                                         </div>
                                         <div>
-                                            <select id="unitSelect" class="form-select w-md-400px" data-control="select2" data-placeholder="Pilih Unit">
+                                            <select id="unitSelect" class="form-select form-select-sm w-400px" data-control="select2" data-placeholder="Pilih Unit">
                                                 <option value="">-- Pilih Unit --</option>
                                                 @foreach($units as $unit)
                                                     <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }} ({{ $unit->singkatan }})</option>
@@ -307,7 +307,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Placeholder / Empty State -->
                                     <div id="chartPlaceholder" class="text-center py-12">
                                         <div class="mb-4">
                                             <i class="ki-duotone ki-chart-line fs-3x text-muted">
@@ -319,7 +318,6 @@
                                         <p class="text-gray-400 fs-6">Silakan pilih unit pada opsi di atas untuk melihat data grafik kategori dan sub kategori.</p>
                                     </div>
 
-                                    <!-- Charts Container (hidden by default) -->
                                     <div id="chartsContainer" class="d-none">
                                         <div class="row g-5">
                                             <div class="col-12">
@@ -349,15 +347,22 @@
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-center justify-content-between mb-5">
                                                             <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Sub Kategori</h3>
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
-                                                                    <i class="fas fa-bars fs-4"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu dropdown-menu-end min-w-125px">
-                                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
-                                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
-                                                                    <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
-                                                                </ul>
+                                                            <div class="d-flex align-items-center gap-3">
+                                                                <div class="w-200px">
+                                                                    <select class="form-select form-select-sm w-100" id="kategoriFilter" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                                                        <option></option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                                        <i class="fas fa-bars fs-4"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                                        <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
+                                                                        <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
+                                                                        <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div style="position:relative; height:420px;">
@@ -603,10 +608,15 @@
             if (unitSelect) {
                 const handleUnitChange = function() {
                     const unitId = unitSelect.value;
+                    const kategoriFilter = document.getElementById('kategoriFilter');
+                    const kategoriId = kategoriFilter ? kategoriFilter.value : '';
 
                     if (!unitId) {
                         chartsContainer.classList.add('d-none');
                         chartPlaceholder.classList.remove('d-none');
+                        if (kategoriFilter) {
+                            $(kategoriFilter).val(null).trigger('change.select2');
+                        }
                         return;
                     }
 
@@ -614,7 +624,12 @@
                     if (isFetching) return;
                     isFetching = true;
 
-                    fetch(`{{ route('admin.dashboard.unit-data', [], false) }}?unit_id=${encodeURIComponent(unitId)}`, {
+                    let url = `{{ route('admin.dashboard.unit-data', [], false) }}?unit_id=${encodeURIComponent(unitId)}`;
+                    if (kategoriId) {
+                        url += `&kategori_id=${encodeURIComponent(kategoriId)}`;
+                    }
+
+                    fetch(url, {
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
                             'Accept': 'application/json'
@@ -667,6 +682,18 @@
                                         }
                                     });
                                 }
+
+                                const kategoriFilterEl = $('#kategoriFilter');
+                                const currentKatVal = kategoriFilterEl.val();
+                                
+                                kategoriFilterEl.empty().append('<option></option>');
+                                if (data.kategoriList) {
+                                    data.kategoriList.forEach(function(kat) {
+                                        const option = new Option(kat.nama, kat.id, false, kat.id == currentKatVal);
+                                        kategoriFilterEl.append(option);
+                                    });
+                                }
+                                kategoriFilterEl.trigger('change');
 
                                 // Render Sub Kategori Chart
                                 const subCanvas = document.getElementById('subKategoriUnitChart');
@@ -725,6 +752,20 @@
 
                 // Gunakan event spesifik Select2 untuk kompatibilitas yang lebih baik
                 $(unitSelect).on('select2:select', function(e) {
+                    const kategoriFilter = document.getElementById('kategoriFilter');
+                    if (kategoriFilter) $(kategoriFilter).val(null).trigger('change.select2');
+                    handleUnitChange();
+                });
+                $(unitSelect).on('select2:clear', function(e) {
+                    const kategoriFilter = document.getElementById('kategoriFilter');
+                    if (kategoriFilter) $(kategoriFilter).val(null).trigger('change.select2');
+                    handleUnitChange();
+                });
+
+                $('#kategoriFilter').on('select2:select', function(e) {
+                    handleUnitChange();
+                });
+                $('#kategoriFilter').on('select2:clear', function(e) {
                     handleUnitChange();
                 });
 
