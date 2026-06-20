@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Laporan;
 use App\Models\Kategori;
+use App\Models\SubKategori;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,7 +15,7 @@ class AdminLaporanController extends Controller
     public function index()
     {
         $kategoris = Kategori::with('unit')->get();
-        $units = \App\Models\Unit::has('kategoris')->get();
+        $units = Unit::has('kategoris')->get();
         return view('admin.laporan.index', compact('kategoris', 'units'));
     }
 
@@ -120,7 +122,7 @@ class AdminLaporanController extends Controller
     {
         $laporan   = Laporan::with(['kategori.unit', 'subKategori', 'ruangan.lantai.gedung'])->findOrFail($id);
         $kategoris = Kategori::with('unit')->get();
-        $subKategoris = \App\Models\SubKategori::where('kategori_id', $laporan->kategori_id)->get();
+        $subKategoris = SubKategori::where('kategori_id', $laporan->kategori_id)->get();
         return response()->json([
             'laporan'      => $laporan,
             'kategoris'    => $kategoris,
@@ -130,17 +132,19 @@ class AdminLaporanController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'unit_id'           => 'required|exists:unit,id_unit',
             'kategori_id'       => 'required|exists:kategori,id_kategori',
             'sub_kategori_id'   => 'nullable|exists:sub_kategori,id_sub',
             'judul_laporan'     => 'required|string|max:255',
             'tgl_kejadian'      => 'required|date_format:Y-m-d H:i',
             'deskripsi_laporan' => 'required|string|max:2000',
             'lampiran_file'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'nama_pelapor'      => 'nullable|string|max:100',
-            'email_pelapor'     => 'nullable|email|max:100',
-            'no_telp_pelapor'   => 'nullable|string|max:15',
-            'tipe_pelapor'      => 'nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
+            'nama_pelapor'      => 'required_if:is_anonymous,t|nullable|string|max:100',
+            'email_pelapor'     => 'required_if:is_anonymous,t|nullable|email|max:100',
+            'no_telp_pelapor'   => 'required_if:is_anonymous,t|nullable|string|max:15',
+            'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
+            'email_anonim'      => 'nullable|email|max:100',
             'ruangan_id'        => 'nullable|exists:ruangan,id_ruangan',
             'is_anonymous'      => 'required|in:t,y',
             'status'            => 'required|in:menunggu,diproses,selesai,ditolak',
@@ -148,20 +152,32 @@ class AdminLaporanController extends Controller
 
         $laporan = Laporan::findOrFail($id);
 
-        $data = $request->only([
-            'kategori_id',
-            'sub_kategori_id',
-            'judul_laporan',
-            'tgl_kejadian',
-            'deskripsi_laporan',
-            'nama_pelapor',
-            'email_pelapor',
-            'no_telp_pelapor',
-            'tipe_pelapor',
-            'is_anonymous',
-            'status',
-            'ruangan_id'
-        ]);
+        $nama_pelapor       = $validated['nama_pelapor'] ?? null;
+        $email_pelapor      = $validated['email_pelapor'] ?? null;
+        $no_telp_pelapor    = $validated['no_telp_pelapor'] ?? null;
+        $tipe_pelapor       = $validated['tipe_pelapor'] ?? null;
+
+        if ($validated['is_anonymous'] === 'y') {
+            $nama_pelapor       = 'Anonymous';
+            $email_pelapor      = !empty($validated['email_anonim']) ? $validated['email_anonim'] : 'Anonymous';
+            $no_telp_pelapor    = 'Anonymous';
+            $tipe_pelapor       = null;
+        }
+
+        $data = [
+            'kategori_id'       => $validated['kategori_id'],
+            'sub_kategori_id'   => $validated['sub_kategori_id'] ?? null,
+            'judul_laporan'     => $validated['judul_laporan'],
+            'tgl_kejadian'      => $validated['tgl_kejadian'],
+            'deskripsi_laporan' => $validated['deskripsi_laporan'],
+            'nama_pelapor'      => $nama_pelapor,
+            'email_pelapor'     => $email_pelapor,
+            'no_telp_pelapor'   => $no_telp_pelapor,
+            'tipe_pelapor'      => $tipe_pelapor,
+            'is_anonymous'      => $validated['is_anonymous'],
+            'status'            => $validated['status'],
+            'ruangan_id'        => $validated['ruangan_id'] ?? null,
+        ];
 
         if ($request->hasFile('lampiran_file')) {
             $file     = $request->file('lampiran_file');
@@ -171,6 +187,14 @@ class AdminLaporanController extends Controller
         }
 
         $laporan->update($data);
+
+        // Sync unit relationship
+        $unitIds = [$validated['unit_id']];
+        $subKategori = SubKategori::find($validated['sub_kategori_id'] ?? null);
+        if ($subKategori && $subKategori->unit_id && $subKategori->unit_id != $validated['unit_id']) {
+            $unitIds[] = $subKategori->unit_id;
+        }
+        $laporan->units()->sync(array_unique($unitIds));
 
         return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
     }

@@ -215,39 +215,52 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-12" id="edit_anonEmailBlock" style="display: none;">
                                             <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>Nama Pelapor</span>
+                                                <span>Email Pelapor (Opsional)</span>
                                             </label>
-                                            <input type="text" name="nama_pelapor" id="edit_nama_pelapor"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6">
+                                            <input type="email" name="email_anonim" id="edit_email_anonim"
+                                                class="form-control form-control-sm fs-sm-8 fs-lg-6" placeholder="nama@gmail.com">
+                                            <small class="text-muted mt-1 d-block">Alamat email Anda akan dirahasiakan dan hanya digunakan untuk mengirimkan notifikasi perkembangan laporan.</small>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>Email Pelapor</span>
-                                            </label>
-                                            <input type="email" name="email_pelapor" id="edit_email_pelapor"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>No. Telepon Pelapor</span>
-                                            </label>
-                                            <input type="text" name="no_telp_pelapor" id="edit_no_telp_pelapor"
-                                                class="form-control form-control-sm fs-sm-8 fs-lg-6">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
-                                                <span>Tipe Pelapor</span>
-                                            </label>
-                                            <select name="tipe_pelapor" id="edit_tipe_pelapor"
-                                                class="form-select form-select-sm fs-sm-8 fs-lg-6" data-control="select2">
-                                                <option value="">-- Pilih Tipe --</option>
-                                                <option value="Dosen">Dosen</option>
-                                                <option value="Mahasiswa">Mahasiswa</option>
-                                                <option value="Tenaga Pendidik">Tenaga Pendidik</option>
-                                                <option value="Masyarakat/Umum">Masyarakat/Umum</option>
-                                            </select>
+
+                                        <div class="col-12" id="edit_identityBlock">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
+                                                        <span>Nama Pelapor</span>
+                                                    </label>
+                                                    <input type="text" name="nama_pelapor" id="edit_nama_pelapor"
+                                                        class="form-control form-control-sm fs-sm-8 fs-lg-6" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
+                                                        <span>Email Pelapor</span>
+                                                    </label>
+                                                    <input type="email" name="email_pelapor" id="edit_email_pelapor"
+                                                        class="form-control form-control-sm fs-sm-8 fs-lg-6" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                                        <span>No. Telepon Pelapor</span>
+                                                    </label>
+                                                    <input type="text" name="no_telp_pelapor" id="edit_no_telp_pelapor"
+                                                        class="form-control form-control-sm fs-sm-8 fs-lg-6">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
+                                                        <span>Tipe Pelapor</span>
+                                                    </label>
+                                                    <select name="tipe_pelapor" id="edit_tipe_pelapor"
+                                                        class="form-select form-select-sm fs-sm-8 fs-lg-6" data-control="select2">
+                                                        <option value="">-- Pilih Tipe --</option>
+                                                        <option value="Dosen">Dosen</option>
+                                                        <option value="Mahasiswa">Mahasiswa</option>
+                                                        <option value="Tenaga Pendidik">Tenaga Pendidik</option>
+                                                        <option value="Masyarakat/Umum">Masyarakat/Umum</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

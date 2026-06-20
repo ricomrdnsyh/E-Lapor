@@ -59,6 +59,7 @@
             if (unitsLoaded) {
                 if (unitIdToSelect) {
                     jQuery(unitSelect).val(unitIdToSelect).trigger('change');
+                    preload.unitId = null;
                 }
                 return;
             }
@@ -74,6 +75,7 @@
                     unitsLoaded = true;
                     if (unitIdToSelect) {
                         jQuery(unitSelect).val(unitIdToSelect).trigger('change');
+                        preload.unitId = null;
                     }
                 });
         }
@@ -99,6 +101,7 @@
 
                     if (kategoriIdToSelect) {
                         jQuery(kategoriSelect).val(kategoriIdToSelect).trigger('change');
+                        preload.kategoriId = null;
                     }
                 });
         }
@@ -124,6 +127,7 @@
 
                     if (subKategoriIdToSelect) {
                         jQuery(subKategoriSelect).val(subKategoriIdToSelect).trigger('change');
+                        preload.subKategoriId = null;
                     }
                 });
         }
@@ -152,6 +156,7 @@
             if (gedungsLoaded) {
                 if (gedungIdToSelect) {
                     jQuery(gedungSelect).val(gedungIdToSelect).trigger('change');
+                    preload.gedungId = null;
                 }
                 return;
             }
@@ -167,10 +172,12 @@
                     gedungsLoaded = true;
                     if (gedungIdToSelect) {
                         jQuery(gedungSelect).val(gedungIdToSelect).trigger('change');
+                        preload.gedungId = null;
                     }
                 });
         }
 
+        // function loadLantai
         function loadLantai(gedungId, lantaiIdToSelect) {
             resetLantai();
             if (!gedungId) return;
@@ -192,6 +199,7 @@
 
                     if (lantaiIdToSelect) {
                         jQuery(lantaiSelect).val(lantaiIdToSelect).trigger('change');
+                        preload.lantaiId = null;
                     }
                 });
         }
@@ -217,6 +225,7 @@
 
                     if (ruanganIdToSelect) {
                         jQuery(ruanganSelect).val(ruanganIdToSelect).trigger('change');
+                        preload.ruanganId = null;
                     }
                 });
         }
@@ -267,75 +276,59 @@
             });
 
             // Unit → Kategori cascade
-            jQuery(unitSelect).on('select2:select', function() {
+            jQuery(unitSelect).on('change', function() {
                 const selectedUnitId = this.value;
                 const kategoriToSelect = preload.kategoriId;
-                preload.kategoriId = null;
-                preload.subKategoriId = null;
-                resetKategori();
-                resetSubKategori();
                 if (selectedUnitId) {
+                    preload.kategoriId = null;
+                    resetKategori();
+                    resetSubKategori();
                     loadCategories(selectedUnitId, kategoriToSelect);
+                } else {
+                    resetKategori();
+                    resetSubKategori();
                 }
-            });
-
-            jQuery(unitSelect).on('select2:clear', function() {
-                preload.kategoriId = null;
-                preload.subKategoriId = null;
-                resetKategori();
-                resetSubKategori();
             });
 
             // Kategori → SubKategori cascade
-            jQuery(kategoriSelect).on('select2:select', function() {
+            jQuery(kategoriSelect).on('change', function() {
                 const selectedKategoriId = this.value;
                 const subKategoriToSelect = preload.subKategoriId;
-                preload.subKategoriId = null;
-                resetSubKategori();
                 if (selectedKategoriId) {
+                    preload.subKategoriId = null;
+                    resetSubKategori();
                     loadSubCategories(selectedKategoriId, subKategoriToSelect);
+                } else {
+                    resetSubKategori();
                 }
-            });
-
-            jQuery(kategoriSelect).on('select2:clear', function() {
-                preload.subKategoriId = null;
-                resetSubKategori();
             });
 
             // Gedung → Lantai cascade
-            jQuery(gedungSelect).on('select2:select', function() {
+            jQuery(gedungSelect).on('change', function() {
                 const selectedGedungId = this.value;
                 const lantaiToSelect = preload.lantaiId;
-                preload.lantaiId = null;
-                preload.ruanganId = null;
-                resetLantai();
-                resetRuangan();
                 if (selectedGedungId) {
+                    preload.lantaiId = null;
+                    resetLantai();
+                    resetRuangan();
                     loadLantai(selectedGedungId, lantaiToSelect);
+                } else {
+                    resetLantai();
+                    resetRuangan();
                 }
-            });
-
-            jQuery(gedungSelect).on('select2:clear', function() {
-                preload.lantaiId = null;
-                preload.ruanganId = null;
-                resetLantai();
-                resetRuangan();
             });
 
             // Lantai → Ruangan cascade
-            jQuery(lantaiSelect).on('select2:select', function() {
+            jQuery(lantaiSelect).on('change', function() {
                 const selectedLantaiId = this.value;
                 const ruanganToSelect = preload.ruanganId;
-                preload.ruanganId = null;
-                resetRuangan();
                 if (selectedLantaiId) {
+                    preload.ruanganId = null;
+                    resetRuangan();
                     loadRuangan(selectedLantaiId, ruanganToSelect);
+                } else {
+                    resetRuangan();
                 }
-            });
-
-            jQuery(lantaiSelect).on('select2:clear', function() {
-                preload.ruanganId = null;
-                resetRuangan();
             });
 
             jQuery('#edit_status').select2({
@@ -362,6 +355,63 @@
             });
         }
 
+        // ========== PRIVACY TOGGLE ==========
+        function togglePrivacyEdit(val) {
+            const identityBlock = document.getElementById('edit_identityBlock');
+            const anonEmailBlock = document.getElementById('edit_anonEmailBlock');
+            const namaPelapor = document.getElementById('edit_nama_pelapor');
+            const emailPelapor = document.getElementById('edit_email_pelapor');
+            const noTelp = document.getElementById('edit_no_telp_pelapor');
+            const tipePelapor = document.getElementById('edit_tipe_pelapor');
+            const emailAnonim = document.getElementById('edit_email_anonim');
+            const isAnon = (val === 'y');
+
+            if (identityBlock) {
+                identityBlock.style.display = isAnon ? 'none' : '';
+                identityBlock.querySelectorAll('input, select').forEach(inp => {
+                    if (isAnon) {
+                        inp.setAttribute('disabled', 'disabled');
+                        inp.removeAttribute('required');
+                        if (inp.tagName === 'SELECT' && typeof jQuery !== 'undefined') {
+                            jQuery(inp).prop('disabled', true).trigger('change');
+                        }
+                    } else {
+                        inp.removeAttribute('disabled');
+                        if (inp.id === 'edit_nama_pelapor' || inp.id === 'edit_email_pelapor') {
+                            inp.setAttribute('required', 'required');
+                        }
+                        if (inp.tagName === 'SELECT' && typeof jQuery !== 'undefined') {
+                            jQuery(inp).prop('disabled', false).trigger('change');
+                        }
+                    }
+                });
+            }
+
+            if (anonEmailBlock) {
+                anonEmailBlock.style.display = isAnon ? '' : 'none';
+                if (!isAnon && emailAnonim) emailAnonim.value = '';
+            }
+
+            if (isAnon) {
+                if (namaPelapor) namaPelapor.value = 'Anonymous';
+                if (emailPelapor) emailPelapor.value = 'Anonymous';
+                if (noTelp) noTelp.value = 'Anonymous';
+                if (tipePelapor && typeof jQuery !== 'undefined') {
+                    jQuery(tipePelapor).val('').trigger('change');
+                }
+            } else {
+                if (namaPelapor && namaPelapor.value === 'Anonymous') namaPelapor.value = '';
+                if (emailPelapor && emailPelapor.value === 'Anonymous') emailPelapor.value = '';
+                if (noTelp && noTelp.value === 'Anonymous') noTelp.value = '';
+            }
+        }
+
+        document.querySelectorAll('input[name="is_anonymous"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                togglePrivacyEdit(this.value);
+            });
+        });
+
         // ========== EDIT BUTTON CLICK ==========
 
         document.addEventListener('click', function(e) {
@@ -384,14 +434,37 @@
                         document.getElementById('edit_judul_laporan').value = laporan.judul_laporan || '';
 
                         document.getElementById('edit_deskripsi_laporan').value = laporan.deskripsi_laporan || '';
-                        document.getElementById('edit_nama_pelapor').value = laporan.nama_pelapor || '';
-                        document.getElementById('edit_email_pelapor').value = laporan.email_pelapor || '';
-                        document.getElementById('edit_no_telp_pelapor').value = laporan.no_telp_pelapor || '';
-                        document.getElementById('edit_tipe_pelapor').value = laporan.tipe_pelapor || '';
 
-                        document.querySelector('input[name="is_anonymous"][value="' + (laporan.is_anonymous || 't') + '"]').checked = true;
+                        const isAnonymousVal = laporan.is_anonymous || 't';
+                        document.querySelector('input[name="is_anonymous"][value="' + isAnonymousVal + '"]').checked = true;
 
-                        const tglKejadian = laporan.tgl_kejadian ? laporan.tgl_kejadian.replace('T', ' ').substring(0, 16) : '';
+                        togglePrivacyEdit(isAnonymousVal);
+
+                        if (isAnonymousVal === 'y') {
+                            document.getElementById('edit_email_anonim').value = (laporan.email_pelapor && laporan.email_pelapor !== 'Anonymous') ? laporan.email_pelapor : '';
+                            document.getElementById('edit_nama_pelapor').value = 'Anonymous';
+                            document.getElementById('edit_email_pelapor').value = 'Anonymous';
+                            document.getElementById('edit_no_telp_pelapor').value = 'Anonymous';
+                        } else {
+                            document.getElementById('edit_nama_pelapor').value = laporan.nama_pelapor || '';
+                            document.getElementById('edit_email_pelapor').value = laporan.email_pelapor || '';
+                            document.getElementById('edit_no_telp_pelapor').value = laporan.no_telp_pelapor || '';
+                        }
+
+                        let tglKejadian = '';
+                        if (laporan.tgl_kejadian) {
+                            const d = new Date(laporan.tgl_kejadian);
+                            if (!isNaN(d.getTime())) {
+                                const yyyy = d.getFullYear();
+                                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                                const dd = String(d.getDate()).padStart(2, '0');
+                                const hh = String(d.getHours()).padStart(2, '0');
+                                const min = String(d.getMinutes()).padStart(2, '0');
+                                tglKejadian = `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+                            } else {
+                                tglKejadian = laporan.tgl_kejadian.replace('T', ' ').substring(0, 16);
+                            }
+                        }
                         document.getElementById('edit_tgl_kejadian').value = tglKejadian;
 
                         document.getElementById('edit_lampiran_file_preview').innerHTML = getFilePreview(laporan.lampiran_file);
@@ -453,6 +526,7 @@
             resetSubKategori();
             resetLantai();
             resetRuangan();
+            document.getElementById('edit_email_anonim').value = '';
             if (typeof jQuery !== 'undefined') {
                 if (unitsLoaded) jQuery(unitSelect).val(null).trigger('change');
                 if (gedungsLoaded) jQuery(gedungSelect).val(null).trigger('change');

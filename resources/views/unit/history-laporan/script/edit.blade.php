@@ -28,22 +28,21 @@
 
         const formatTanggal = function(dateStr) {
             if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+
             const bulan = [
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
             ];
-            const normalized = dateStr.replace('T', ' ');
-            const datePart = normalized.substring(0, 10);
-            const timePart = normalized.substring(11, 16);
+            
+            const day = String(date.getDate()).padStart(2, '0');
+            const monthName = bulan[date.getMonth()];
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
 
-            if (!datePart || !timePart) return dateStr;
-
-            const [year, month, day] = datePart.split('-');
-            const monthName = bulan[parseInt(month, 10) - 1];
-
-            if (!year || !monthName || !day) return dateStr;
-
-            return `${day} ${monthName} ${year}, ${timePart}`;
+            return `${day} ${monthName} ${year}, ${hours}:${minutes}`;
         };
 
         const getFilePreview = function(filename, folder = 'laporan') {

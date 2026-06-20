@@ -5,26 +5,19 @@
 
         const formatTanggal = function(dateStr) {
             if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+
             const bulan = [
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
             ];
-
-            const date = new Date(dateStr);
-            if (isNaN(date.getTime())) return dateStr;
-
-            const wibOffset = 7 * 60;
-            const localOffset = date.getTimezoneOffset();
-            const wibTime = date.getTime() + (localOffset + wibOffset) * 60 * 1000;
-            const wibDate = new Date(wibTime);
-
-            const year = wibDate.getUTCFullYear();
-            const month = String(wibDate.getUTCMonth() + 1).padStart(2, '0');
-            const day = String(wibDate.getUTCDate()).padStart(2, '0');
-            const hours = String(wibDate.getUTCHours()).padStart(2, '0');
-            const minutes = String(wibDate.getUTCMinutes()).padStart(2, '0');
-
-            const monthName = bulan[parseInt(month, 10) - 1];
+            
+            const day = String(date.getDate()).padStart(2, '0');
+            const monthName = bulan[date.getMonth()];
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
 
             return `${day} ${monthName} ${year}, ${hours}:${minutes}`;
         };
