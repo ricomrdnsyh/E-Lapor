@@ -20,7 +20,7 @@ class AdminSubKategoriController extends Controller
 
     public function getSubKategori()
     {
-        $query = SubKategori::with(['kategori.unit', 'unit'])->select(['id_sub', 'kategori_id', 'nama_sub', 'unit_id']);
+        $query = SubKategori::with(['kategori.unit', 'unit'])->select(['id_sub', 'kategori_id', 'nama_sub', 'unit_id'])->orderByDesc('id_sub');
 
         return DataTables::of($query)
             ->addColumn('nama_kategori', function ($row) {

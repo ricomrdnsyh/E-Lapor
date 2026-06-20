@@ -16,7 +16,7 @@ class AdminFungsiRuanganController extends Controller
 
     public function getFungsiRuangan()
     {
-        $query = FungsiRuangan::select(['id_fungsi', 'nama_fungsi']);
+        $query = FungsiRuangan::select(['id_fungsi', 'nama_fungsi'])->orderByDesc('id_fungsi');
 
         return DataTables::of($query)
             ->addColumn('action', function ($row) {

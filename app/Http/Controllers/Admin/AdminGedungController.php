@@ -16,7 +16,7 @@ class AdminGedungController extends Controller
 
     public function getGedung()
     {
-        $query = Gedung::select(['id_gedung', 'nama_gedung', 'deskripsi']);
+        $query = Gedung::select(['id_gedung', 'nama_gedung', 'deskripsi'])->orderByDesc('id_gedung');
 
         return DataTables::of($query)
             ->addColumn('action', function ($row) {

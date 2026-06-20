@@ -18,7 +18,7 @@ class AdminLantaiController extends Controller
 
     public function getLantai()
     {
-        $query = Lantai::with('gedung')->select(['id_lantai', 'nama_lantai', 'gedung_id']);
+        $query = Lantai::with('gedung')->select(['id_lantai', 'nama_lantai', 'gedung_id'])->orderByDesc('id_lantai');
 
         return DataTables::of($query)
             ->addColumn('nama_gedung', function ($row) {

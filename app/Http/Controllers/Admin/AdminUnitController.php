@@ -18,7 +18,7 @@ class AdminUnitController extends Controller
 
     public function getUnit()
     {
-        $query = Unit::select(['id_unit', 'nama_unit', 'singkatan', 'status']);
+        $query = Unit::select(['id_unit', 'nama_unit', 'singkatan', 'status'])->orderByDesc('id_unit');
 
         return DataTables::of($query)
             ->editColumn('status', function ($row) {

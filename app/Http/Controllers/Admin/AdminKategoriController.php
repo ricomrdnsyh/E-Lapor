@@ -18,7 +18,7 @@ class AdminKategoriController extends Controller
 
     public function getKategori()
     {
-        $query = Kategori::with('unit')->select(['id_kategori', 'nama_kategori', 'unit_id']);
+        $query = Kategori::with('unit')->select(['id_kategori', 'nama_kategori', 'unit_id'])->orderByDesc('id_kategori');
 
         return DataTables::of($query)
             ->addColumn('nama_unit', function ($row) {

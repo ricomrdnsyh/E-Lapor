@@ -21,7 +21,8 @@ class AdminRuanganController extends Controller
     public function getRuangan()
     {
         $query = Ruangan::with(['lantai.gedung', 'fungsiRuangan'])
-            ->select(['id_ruangan', 'nama_ruangan', 'lantai_id', 'jenis_ruangan']);
+            ->select(['id_ruangan', 'nama_ruangan', 'lantai_id', 'jenis_ruangan'])
+            ->orderByDesc('id_ruangan');
 
         return DataTables::of($query)
             ->addColumn('nama_lantai', function ($row) {
