@@ -44,6 +44,8 @@ class AdminUserController extends Controller
                 return $row->telegram_id ?: '-';
             })
             ->addColumn('action', function ($row) {
+                $currentUser = auth()->user();
+
                 $showBtn = '<a href="javascript:void(0)"
                                 class="btn btn-sm btn-light btn-active-light-info text-center btn-show"
                                 data-id="' . $row->id . '"
@@ -51,14 +53,26 @@ class AdminUserController extends Controller
                                 <i class="fa fa-file-alt"></i>
                             </a>';
 
-                $editBtn = '<a href="javascript:void(0)"
-                                class="btn btn-sm btn-light btn-active-light-warning text-center btn-edit"
-                                data-id="' . $row->id . '"
-                                data-bs-toggle="tooltip" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </a>';
+                $editBtn = '';
+                $deleteBtn = '';
 
-                $deleteBtn = '<a href="javascript:void(0)" onclick="confirmDelete(' . $row->id . ')" class="btn btn-sm btn-light btn-active-light-danger text-center" data-bs-toggle="tooltip" title="Hapus" data-bs-title="Hapus"><i class="fas fa-trash-alt"></i></a>';
+                $canEditDelete = true;
+                if ($row->id == $currentUser->id) {
+                    $canEditDelete = false;
+                } elseif ($currentUser->role === 'admin' && $row->role === 'admin') {
+                    $canEditDelete = false;
+                }
+
+                if ($canEditDelete) {
+                    $editBtn = '<a href="javascript:void(0)"
+                                    class="btn btn-sm btn-light btn-active-light-warning text-center btn-edit"
+                                    data-id="' . $row->id . '"
+                                    data-bs-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>';
+
+                    $deleteBtn = '<a href="javascript:void(0)" onclick="confirmDelete(' . $row->id . ')" class="btn btn-sm btn-light btn-active-light-danger text-center" data-bs-toggle="tooltip" title="Hapus" data-bs-title="Hapus"><i class="fas fa-trash-alt"></i></a>';
+                }
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
@@ -99,6 +113,15 @@ class AdminUserController extends Controller
     public function edit(string $id)
     {
         $user = User::with('kategoris', 'unit')->findOrFail($id);
+
+        $currentUser = auth()->user();
+        if ($user->id == $currentUser->id) {
+            return response()->json(['message' => 'Akses ditolak: Tidak dapat mengedit akun sendiri.'], 403);
+        }
+        if ($currentUser->role === 'admin' && $user->role === 'admin') {
+            return response()->json(['message' => 'Akses ditolak: Tidak dapat mengedit admin lain.'], 403);
+        }
+
         return response()->json($user);
     }
 
@@ -144,6 +167,14 @@ class AdminUserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
+
+        $currentUser = auth()->user();
+        if ($user->id == $currentUser->id) {
+            return redirect()->route('admin.users.index')->with('failed', 'Akses ditolak: Tidak dapat mengedit akun sendiri.');
+        }
+        if ($currentUser->role === 'admin' && $user->role === 'admin') {
+            return redirect()->route('admin.users.index')->with('failed', 'Akses ditolak: Tidak dapat mengedit admin lain.');
+        }
 
         $request->validate([
             'nama'         => 'required|string|max:100',
@@ -191,6 +222,21 @@ class AdminUserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+
+        $currentUser = auth()->user();
+        if ($user->id == $currentUser->id) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Akses ditolak: Tidak dapat menghapus akun sendiri.',
+            ], 403);
+        }
+        if ($currentUser->role === 'admin' && $user->role === 'admin') {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Akses ditolak: Tidak dapat menghapus admin lain.',
+            ], 403);
+        }
+
         $user->delete();
 
         return response()->json([

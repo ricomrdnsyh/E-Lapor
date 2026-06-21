@@ -150,8 +150,12 @@
                         });
                         $('#example').DataTable().ajax.reload(null, false);
                     },
-                    error: function() {
-                        Swal.fire("Error!", "Terjadi kesalahan saat menghapus data.", "error");
+                    error: function(xhr) {
+                        let errorMessage = "Terjadi kesalahan saat menghapus data.";
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        Swal.fire("Error!", errorMessage, "error");
                     }
                 });
             }
