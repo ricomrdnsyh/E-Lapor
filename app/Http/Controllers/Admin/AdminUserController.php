@@ -20,7 +20,7 @@ class AdminUserController extends Controller
 
     public function getUsers()
     {
-        $query = User::with('unit', 'kategoris')->select(['id', 'nama', 'username', 'role', 'unit_id', 'telegram_id'])->orderByDesc('id');
+        $query = User::with('unit', 'kategoris')->select(['id', 'nama', 'username', 'role', 'unit_id', 'telegram_id']);
 
         return DataTables::of($query)
             ->editColumn('role', function ($row) {
