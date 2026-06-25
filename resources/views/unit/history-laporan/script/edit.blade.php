@@ -35,7 +35,7 @@
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
             ];
-            
+
             const day = String(date.getDate()).padStart(2, '0');
             const monthName = bulan[date.getMonth()];
             const year = date.getFullYear();

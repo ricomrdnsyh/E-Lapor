@@ -75,7 +75,6 @@ class SsoController extends Controller
 
         $request->session()->forget(['sso_pending_user_id', 'sso_pending_role']);
 
-        // Refresh user instance to reflect any SSO-synced data
         $user->refresh();
 
         return match ($user->role) {
@@ -166,9 +165,6 @@ class SsoController extends Controller
         return 'Masyarakat/Umum';
     }
 
-    /**
-     * Sync/update local user data from SSO response.
-     */
     private function syncUserFromSso(User $user, array $responseData): void
     {
         $nama       = $responseData['nama'] ?? $responseData['nama_penduduk'] ?? null;
@@ -190,16 +186,19 @@ class SsoController extends Controller
         }
 
         if (!empty($updateData)) {
-            $user->update($updateData);
+            try {
+                $user->update($updateData);
+            } catch (\Exception $e) {
+            }
         }
     }
 
     private function verifySsoToken(Request $request)
     {
-        $devId = env('SSO_LAPOR_DEV_ID', 'Ji5Rs5Vj2Kc2Wt0F');
-        $url = env('SSO_ME_URL', 'http://sso.unuja.ac.id:8080/portal/me') . '/' . $devId;
+        $devId = config('services.sso.dev_id');
+        $url = config('services.sso.me_url') . '/' . $devId;
         $access_token = $request->access_token;
-        $xToken = env('SSO_LAPOR_X_TOKEN', 'pB6OpgW1L8XmnhV4');
+        $xToken = config('services.sso.x_token');
         $UserAgent = $request->header('User-Agent');
 
         if (!$access_token) {
@@ -248,13 +247,17 @@ class SsoController extends Controller
         $xToken      = $request->attributes->get('sso_x_token');
         $UserAgent   = $request->attributes->get('sso_user_agent');
 
-        $callbackUrl = str_replace("https://sso.unuja.ac.id", "http://sso.unuja.ac.id:8080", $responseData['callback_session']);
-        $logoutUrl   = str_replace("https://sso.unuja.ac.id", "http://sso.unuja.ac.id:8080", $responseData['logout_session']);
+        $ssoSourceUrl = config('services.sso.replace_source');
+        $ssoTargetUrl = config('services.sso.replace_target');
+        $callbackUrl  = str_replace($ssoSourceUrl, $ssoTargetUrl, $responseData['callback_session']);
+        $logoutUrl    = str_replace($ssoSourceUrl, $ssoTargetUrl, $responseData['logout_session']);
 
         $phpSessionId = $request->session()->getId();
 
+        $laporLogoutUrl = config('services.sso.logout_url');
+
         $data = [
-            "logout" => "http://lapor.unuja.ac.id:8080/sso/logout/" . $phpSessionId,
+            "logout" => rtrim($laporLogoutUrl, '/') . "/" . $phpSessionId,
         ];
 
         $this->makeCurlRequest($callbackUrl, $accessToken, $xToken, $UserAgent, $data);
@@ -284,8 +287,13 @@ class SsoController extends Controller
             CURLOPT_POSTFIELDS => $data ? json_encode($data) : null,
         ]);
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+        try {
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+        } catch (\Exception $e) {
+            $response = false;
+            $err = $e->getMessage();
+        }
 
         curl_close($curl);
 

@@ -8,41 +8,47 @@
             <div id="kt_app_content" class="app-content flex-column-fluid mt-7">
                 <div id="kt_app_content_container" class="app-container container-fluid">
                     <div class="card card-flush border border-dashed border-gray-400 mb-7">
-                                <div class="card-header pt-6 pb-4">
-                                    <div class="card-title d-flex flex-column">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <span class="symbol symbol-40px">
-                                                <span class="symbol-label bg-light-primary">
-                                                    <i class="ki-duotone ki-shield-tick text-primary fs-3">
-                                                        <span class="path1"></span><span class="path2"></span>
-                                                    </i>
-                                                </span>
-                                            </span>
-                                            <div class="d-flex flex-column">
-                                                <span class="fs-3 fw-semibold text-gray-900">
-                                                    Selamat Datang,
-                                                    <span class="text-primary fw-bolder">{{ $user->nama }}</span>
-                                                </span>
-                                                <span class="text-gray-600 fw-semibold fs-7">
-                                                    Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit secara terpusat.
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-toolbar">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="d-flex align-items-center fw-bold px-4 py-2" style="background-color: #F8F9FA; color: #64748B; border-radius: 6px; font-size: 0.95rem;">
-                                                <i class="ki-duotone ki-bank me-2" style="color: #64748B;"><span class="path1"></span><span class="path2"></span></i>
-                                                {{ $meta['total_unit'] ?? 0 }} Unit Aktif
-                                            </div>
-                                            <div class="d-flex align-items-center fw-bold px-4 py-2" style="background-color: #F8F9FA; color: #64748B; border-radius: 6px; font-size: 0.95rem;">
-                                                <i class="ki-duotone ki-profile-user me-2" style="color: #64748B;"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
-                                                {{ $meta['total_user'] ?? 0 }} Pengguna
-                                            </div>
-                                        </div>
+                        <div class="card-header pt-6 pb-4">
+                            <div class="card-title d-flex flex-column">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="symbol symbol-40px">
+                                        <span class="symbol-label bg-light-primary">
+                                            <i class="ki-duotone ki-shield-tick text-primary fs-3">
+                                                <span class="path1"></span><span class="path2"></span>
+                                            </i>
+                                        </span>
+                                    </span>
+                                    <div class="d-flex flex-column">
+                                        <span class="fs-3 fw-semibold text-gray-900">
+                                            Selamat Datang,
+                                            <span class="text-primary fw-bolder">{{ $user->nama }}</span>
+                                        </span>
+                                        <span class="text-gray-600 fw-semibold fs-7">
+                                            Pantau seluruh statistik, status, dan progres penanganan laporan lintas unit
+                                            secara terpusat.
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-toolbar">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-center fw-bold px-4 py-2"
+                                        style="background-color: #F8F9FA; color: #64748B; border-radius: 6px; font-size: 0.95rem;">
+                                        <i class="ki-duotone ki-bank me-2" style="color: #64748B;"><span
+                                                class="path1"></span><span class="path2"></span></i>
+                                        {{ $meta['total_unit'] ?? 0 }} Unit Aktif
+                                    </div>
+                                    <div class="d-flex align-items-center fw-bold px-4 py-2"
+                                        style="background-color: #F8F9FA; color: #64748B; border-radius: 6px; font-size: 0.95rem;">
+                                        <i class="ki-duotone ki-profile-user me-2" style="color: #64748B;"><span
+                                                class="path1"></span><span class="path2"></span><span
+                                                class="path3"></span><span class="path4"></span></i>
+                                        {{ $meta['total_user'] ?? 0 }} Pengguna
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-xl col-md-6">
@@ -164,43 +170,57 @@
                             <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
                                     <div class="text-gray-900 fw-bolder fs-5 mb-4">Distribusi Status Laporan</div>
-                                    <div class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
+                                    <div
+                                        class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
                                         <div class="position-relative mx-auto" style="width: 240px; height: 240px;">
                                             <canvas id="adminStatusChart"></canvas>
-                                            <div class="position-absolute top-50 start-50 translate-middle text-center" style="pointer-events: none;">
+                                            <div class="position-absolute top-50 start-50 translate-middle text-center"
+                                                style="pointer-events: none;">
                                                 <div class="text-muted fw-bold fs-8 text-uppercase">Total</div>
                                                 <div class="text-gray-900 fw-bolder fs-1">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="d-grid gap-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
-                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#ffc700"></span>
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0"
+                                                    style="background:#ffc700"></span>
                                                 <span class="text-gray-600 fw-bold fs-6">Menunggu Respons</span>
                                             </div>
-                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['menunggu'] ?? 0 }}</span>
+                                            <span
+                                                class="text-gray-900 fw-bolder text-nowrap">{{ $stats['menunggu'] ?? 0 }}</span>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#009ef7"></span>
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0"
+                                                    style="background:#009ef7"></span>
                                                 <span class="text-gray-600 fw-bold fs-6">Diproses</span>
                                             </div>
-                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['diproses'] ?? 0 }}</span>
+                                            <span
+                                                class="text-gray-900 fw-bolder text-nowrap">{{ $stats['diproses'] ?? 0 }}</span>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#50cd89"></span>
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0"
+                                                    style="background:#50cd89"></span>
                                                 <span class="text-gray-600 fw-bold fs-6">Selesai</span>
                                             </div>
-                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['selesai'] ?? 0 }}</span>
+                                            <span
+                                                class="text-gray-900 fw-bolder text-nowrap">{{ $stats['selesai'] ?? 0 }}</span>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#f1416c"></span>
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0"
+                                                    style="background:#f1416c"></span>
                                                 <span class="text-gray-600 fw-bold fs-6">Ditolak</span>
                                             </div>
-                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $stats['ditolak'] ?? 0 }}</span>
+                                            <span
+                                                class="text-gray-900 fw-bolder text-nowrap">{{ $stats['ditolak'] ?? 0 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -211,10 +231,12 @@
                             <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
                                     <div class="text-gray-900 fw-bolder fs-5 mb-4">Tipe Pelapor</div>
-                                    <div class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
+                                    <div
+                                        class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
                                         <div class="position-relative mx-auto" style="width:220px;height:220px;">
                                             <canvas id="tipePelaporChart"></canvas>
-                                            <div class="position-absolute top-50 start-50 translate-middle text-center" style="pointer-events: none;">
+                                            <div class="position-absolute top-50 start-50 translate-middle text-center"
+                                                style="pointer-events: none;">
                                                 <div class="text-muted fw-bold fs-8 text-uppercase">Total</div>
                                                 <div class="text-gray-900 fw-bolder fs-1">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
@@ -232,17 +254,25 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between mb-2">
                                         <div>
-                                            <div class="text-gray-900 fw-bolder fs-5 mb-4 mb-0">Tren Laporan Bulanan</div>
-                                            <div class="text-muted fs-7">Jumlah laporan masuk per bulan — 12 bulan terakhir</div>
+                                            <div class="text-gray-900 fw-bolder fs-5 mb-4">Tren Laporan Bulanan</div>
+                                            <div class="text-muted fs-7">Jumlah laporan masuk per bulan — 12 bulan terakhir
+                                            </div>
                                         </div>
                                         <div class="dropdown">
-                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                            <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0"
+                                                data-bs-toggle="dropdown" title="Download">
                                                 <i class="fas fa-bars fs-4"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end min-w-125px">
-                                                <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'png')" href="javascript:void(0)">PNG</a></li>
-                                                <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
-                                                <li><a class="dropdown-item" onclick="downloadChart('trenChart', 'Tren Bulanan', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                <li><a class="dropdown-item"
+                                                        onclick="downloadChart('trenChart', 'Tren Bulanan', 'png')"
+                                                        href="javascript:void(0)">PNG</a></li>
+                                                <li><a class="dropdown-item"
+                                                        onclick="downloadChart('trenChart', 'Tren Bulanan', 'jpeg')"
+                                                        href="javascript:void(0)">JPEG</a></li>
+                                                <li><a class="dropdown-item"
+                                                        onclick="downloadChart('trenChart', 'Tren Bulanan', 'pdf')"
+                                                        href="javascript:void(0)">PDF</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -257,29 +287,37 @@
                             <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
                                     <div class="text-gray-900 fw-bolder fs-5 mb-4">Privasi Laporan</div>
-                                    <div class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
+                                    <div
+                                        class="position-relative d-flex align-items-center justify-content-center pt-2 pb-4">
                                         <div class="position-relative mx-auto" style="width:220px;height:220px;">
                                             <canvas id="privasiChart"></canvas>
-                                            <div class="position-absolute top-50 start-50 translate-middle text-center" style="pointer-events: none;">
+                                            <div class="position-absolute top-50 start-50 translate-middle text-center"
+                                                style="pointer-events: none;">
                                                 <div class="text-muted fw-bold fs-8 text-uppercase">Total</div>
                                                 <div class="text-gray-900 fw-bolder fs-1">{{ $stats['total'] ?? 0 }}</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column gap-3">
-                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#8b5cf6"></span>
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0"
+                                                    style="background:#8b5cf6"></span>
                                                 <span class="text-gray-600 fw-bold fs-6">Anonim</span>
                                             </div>
-                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $anonimData['anonim'] ?? 0 }}</span>
+                                            <span
+                                                class="text-gray-900 fw-bolder text-nowrap">{{ $anonimData['anonim'] ?? 0 }}</span>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between gap-3 px-4 py-3 bg-light border border-dashed border-gray-300 rounded-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="w-10px h-10px rounded-circle flex-shrink-0" style="background:#f59e0b"></span>
+                                                <span class="w-10px h-10px rounded-circle flex-shrink-0"
+                                                    style="background:#f59e0b"></span>
                                                 <span class="text-gray-600 fw-bold fs-6">Rahasia</span>
                                             </div>
-                                            <span class="text-gray-900 fw-bolder text-nowrap">{{ $anonimData['rahasia'] ?? 0 }}</span>
+                                            <span
+                                                class="text-gray-900 fw-bolder text-nowrap">{{ $anonimData['rahasia'] ?? 0 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -287,21 +325,25 @@
                         </div>
                     </div>
 
-                    <!-- Filter Unit Section -->
                     <div class="row g-5 g-xl-10 mb-5">
                         <div class="col-12">
                             <div class="card h-md-100 border border-dashed border-gray-400">
                                 <div class="card-body">
-                                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-6">
+                                    <div
+                                        class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-6">
                                         <div>
-                                            <div class="text-gray-900 fw-bolder fs-5 mb-4 mb-1">Filter Unit Laporan</div>
-                                            <div class="text-muted fs-7">Pilih unit untuk melihat grafik laporan per kategori dan sub kategori</div>
+                                            <div class="text-gray-900 fw-bolder fs-5 mb-4">Filter Unit Laporan</div>
+                                            <div class="text-muted fs-7">Pilih unit untuk melihat grafik laporan per
+                                                kategori dan sub kategori</div>
                                         </div>
                                         <div>
-                                            <select id="unitSelect" class="form-select form-select-sm w-400px" data-control="select2" data-placeholder="Pilih Unit">
+                                            <select id="unitSelect" class="form-select form-select-sm w-400px"
+                                                data-control="select2" data-placeholder="Pilih Unit">
                                                 <option value="">-- Pilih Unit --</option>
-                                                @foreach($units as $unit)
-                                                    <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }} ({{ $unit->singkatan }})</option>
+                                                @foreach ($units as $unit)
+                                                    <option value="{{ $unit->id_unit }}">{{ $unit->nama_unit }}
+                                                        ({{ $unit->singkatan }})
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -315,7 +357,8 @@
                                             </i>
                                         </div>
                                         <h4 class="text-gray-700 fw-bold">Pilih Unit Terlebih Dahulu</h4>
-                                        <p class="text-gray-400 fs-6">Silakan pilih unit pada opsi di atas untuk melihat data grafik kategori dan sub kategori.</p>
+                                        <p class="text-gray-400 fs-6">Silakan pilih unit pada opsi di atas untuk melihat
+                                            data grafik kategori dan sub kategori.</p>
                                     </div>
 
                                     <div id="chartsContainer" class="d-none">
@@ -323,16 +366,26 @@
                                             <div class="col-12">
                                                 <div class="card border border-dashed border-gray-300">
                                                     <div class="card-body">
-                                                        <div class="d-flex align-items-center justify-content-between mb-5">
-                                                            <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Kategori</h3>
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-between mb-5">
+                                                            <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan
+                                                                per Kategori</h3>
                                                             <div class="dropdown">
-                                                                <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                                <button
+                                                                    class="btn btn-sm btn-icon btn-light-primary flex-shrink-0"
+                                                                    data-bs-toggle="dropdown" title="Download">
                                                                     <i class="fas fa-bars fs-4"></i>
                                                                 </button>
                                                                 <ul class="dropdown-menu dropdown-menu-end min-w-125px">
-                                                                    <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
-                                                                    <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
-                                                                    <li><a class="dropdown-item" onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                                    <li><a class="dropdown-item"
+                                                                            onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'png')"
+                                                                            href="javascript:void(0)">PNG</a></li>
+                                                                    <li><a class="dropdown-item"
+                                                                            onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'jpeg')"
+                                                                            href="javascript:void(0)">JPEG</a></li>
+                                                                    <li><a class="dropdown-item"
+                                                                            onclick="downloadChart('kategoriUnitChart', 'Per Kategori', 'pdf')"
+                                                                            href="javascript:void(0)">PDF</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -345,22 +398,36 @@
                                             <div class="col-12">
                                                 <div class="card border border-dashed border-gray-300">
                                                     <div class="card-body">
-                                                        <div class="d-flex align-items-center justify-content-between mb-5">
-                                                            <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan per Sub Kategori</h3>
+                                                        <div
+                                                            class="d-flex align-items-center justify-content-between mb-5">
+                                                            <h3 class="card-title fw-bold text-gray-800 fs-5 mb-0">Laporan
+                                                                per Sub Kategori</h3>
                                                             <div class="d-flex align-items-center gap-3">
                                                                 <div class="w-200px">
-                                                                    <select class="form-select form-select-sm w-100" id="kategoriFilter" data-control="select2" data-placeholder="Semua Kategori" data-allow-clear="true">
+                                                                    <select class="form-select form-select-sm w-100"
+                                                                        id="kategoriFilter" data-control="select2"
+                                                                        data-placeholder="Semua Kategori"
+                                                                        data-allow-clear="true">
                                                                         <option></option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="dropdown">
-                                                                    <button class="btn btn-sm btn-icon btn-light-primary flex-shrink-0" data-bs-toggle="dropdown" title="Download">
+                                                                    <button
+                                                                        class="btn btn-sm btn-icon btn-light-primary flex-shrink-0"
+                                                                        data-bs-toggle="dropdown" title="Download">
                                                                         <i class="fas fa-bars fs-4"></i>
                                                                     </button>
-                                                                    <ul class="dropdown-menu dropdown-menu-end min-w-125px">
-                                                                        <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'png')" href="javascript:void(0)">PNG</a></li>
-                                                                        <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'jpeg')" href="javascript:void(0)">JPEG</a></li>
-                                                                        <li><a class="dropdown-item" onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'pdf')" href="javascript:void(0)">PDF</a></li>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end min-w-125px">
+                                                                        <li><a class="dropdown-item"
+                                                                                onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'png')"
+                                                                                href="javascript:void(0)">PNG</a></li>
+                                                                        <li><a class="dropdown-item"
+                                                                                onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'jpeg')"
+                                                                                href="javascript:void(0)">JPEG</a></li>
+                                                                        <li><a class="dropdown-item"
+                                                                                onclick="downloadChart('subKategoriUnitChart', 'Per Sub Kategori', 'pdf')"
+                                                                                href="javascript:void(0)">PDF</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -452,7 +519,9 @@
                                 {{ $stats['selesai'] ?? 0 }},
                                 {{ $stats['ditolak'] ?? 0 }}
                             ],
-                            backgroundColor: [colors.warning, colors.primary, colors.success, colors.danger],
+                            backgroundColor: [colors.warning, colors.primary, colors.success, colors
+                                .danger
+                            ],
                             borderColor: colors.body,
                             borderWidth: 6,
                             hoverOffset: 6
@@ -508,10 +577,32 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false }, tooltip: tooltipOptions },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: tooltipOptions
+                        },
                         scales: {
-                            x: { grid: { display: false }, ticks: { color: colors.gray500 } },
-                            y: { beginAtZero: true, grid: { color: colors.gray200, borderDash: [5, 5] }, ticks: { stepSize: 1, color: colors.gray500 } }
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: colors.gray500
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: colors.gray200,
+                                    borderDash: [5, 5]
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    color: colors.gray500
+                                }
+                            }
                         }
                     }
                 });
@@ -547,7 +638,9 @@
                         maintainAspectRatio: false,
                         cutout: '68%',
                         plugins: {
-                            legend: { display: false },
+                            legend: {
+                                display: false
+                            },
                             tooltip: tooltipOptions
                         }
                     }
@@ -591,7 +684,9 @@
                         maintainAspectRatio: false,
                         cutout: '68%',
                         plugins: {
-                            legend: { display: false },
+                            legend: {
+                                display: false
+                            },
                             tooltip: tooltipOptions
                         }
                     }
@@ -624,119 +719,195 @@
                     if (isFetching) return;
                     isFetching = true;
 
-                    let url = `{{ route('admin.dashboard.unit-data', [], false) }}?unit_id=${encodeURIComponent(unitId)}`;
+                    let url =
+                        `{{ route('admin.dashboard.unit-data', [], false) }}?unit_id=${encodeURIComponent(unitId)}`;
                     if (kategoriId) {
                         url += `&kategori_id=${encodeURIComponent(kategoriId)}`;
                     }
 
                     fetch(url, {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json'
-                        },
-                        credentials: 'same-origin'
-                    })
-                    .then(res => {
-                        if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
-                        return res.json();
-                    })
-                    .then(data => {
-                        // Show container first
-                        chartPlaceholder.classList.add('d-none');
-                        chartsContainer.classList.remove('d-none');
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            },
+                            credentials: 'same-origin'
+                        })
+                        .then(res => {
+                            if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
+                            return res.json();
+                        })
+                        .then(data => {
+                            // Show container first
+                            chartPlaceholder.classList.add('d-none');
+                            chartsContainer.classList.remove('d-none');
 
-                        // Delay rendering until after browser reflows the now-visible container
-                        requestAnimationFrame(function() {
+                            // Delay rendering until after browser reflows the now-visible container
                             requestAnimationFrame(function() {
+                                requestAnimationFrame(function() {
 
-                                // Render Kategori Chart
-                                const katCanvas = document.getElementById('kategoriUnitChart');
-                                if (katCanvas) {
-                                    if (kategoriUnitChartInstance) {
-                                        kategoriUnitChartInstance.destroy();
-                                        kategoriUnitChartInstance = null;
-                                    }
-                                    const katLabels = Array.isArray(data.kategoriLabels) ? data.kategoriLabels : Object.values(data.kategoriLabels);
-                                    const katValues = Array.isArray(data.kategoriValues) ? data.kategoriValues : Object.values(data.kategoriValues);
-
-                                    kategoriUnitChartInstance = new Chart(katCanvas.getContext('2d'), {
-                                        type: 'bar',
-                                        data: {
-                                            labels: katLabels,
-                                            datasets: [{
-                                                label: 'Jumlah Laporan',
-                                                data: katValues,
-                                                backgroundColor: katLabels.map((_, i) => palette[i % palette.length]),
-                                                borderRadius: 6
-                                            }]
-                                        },
-                                        options: {
-                                            responsive: true,
-                                            maintainAspectRatio: false,
-                                            indexAxis: 'y',
-                                            plugins: { legend: { display: false }, tooltip: tooltipOptions },
-                                            scales: {
-                                                x: { beginAtZero: true, grid: { color: colors.gray200 }, ticks: { stepSize: 1, color: colors.gray500 } },
-                                                y: { grid: { display: false }, ticks: { autoSkip: false, color: colors.gray700, font: { weight: '600', size: 10 } } }
-                                            }
+                                    // Render Kategori Chart
+                                    const katCanvas = document.getElementById(
+                                        'kategoriUnitChart');
+                                    if (katCanvas) {
+                                        if (kategoriUnitChartInstance) {
+                                            kategoriUnitChartInstance.destroy();
+                                            kategoriUnitChartInstance = null;
                                         }
-                                    });
-                                }
+                                        const katLabels = Array.isArray(data
+                                                .kategoriLabels) ? data.kategoriLabels :
+                                            Object
+                                            .values(data.kategoriLabels);
+                                        const katValues = Array.isArray(data
+                                                .kategoriValues) ? data.kategoriValues :
+                                            Object
+                                            .values(data.kategoriValues);
 
-                                const kategoriFilterEl = $('#kategoriFilter');
-                                const currentKatVal = kategoriFilterEl.val();
-                                
-                                kategoriFilterEl.empty().append('<option></option>');
-                                if (data.kategoriList) {
-                                    data.kategoriList.forEach(function(kat) {
-                                        const option = new Option(kat.nama, kat.id, false, kat.id == currentKatVal);
-                                        kategoriFilterEl.append(option);
-                                    });
-                                }
-                                kategoriFilterEl.trigger('change');
-
-                                // Render Sub Kategori Chart
-                                const subCanvas = document.getElementById('subKategoriUnitChart');
-                                if (subCanvas) {
-                                    if (subKategoriUnitChartInstance) {
-                                        subKategoriUnitChartInstance.destroy();
-                                        subKategoriUnitChartInstance = null;
+                                        kategoriUnitChartInstance = new Chart(katCanvas
+                                            .getContext('2d'), {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: katLabels,
+                                                    datasets: [{
+                                                        label: 'Jumlah Laporan',
+                                                        data: katValues,
+                                                        backgroundColor: katLabels
+                                                            .map((_, i) =>
+                                                                palette[i %
+                                                                    palette
+                                                                    .length]),
+                                                        borderRadius: 6
+                                                    }]
+                                                },
+                                                options: {
+                                                    responsive: true,
+                                                    maintainAspectRatio: false,
+                                                    indexAxis: 'y',
+                                                    plugins: {
+                                                        legend: {
+                                                            display: false
+                                                        },
+                                                        tooltip: tooltipOptions
+                                                    },
+                                                    scales: {
+                                                        x: {
+                                                            beginAtZero: true,
+                                                            grid: {
+                                                                color: colors.gray200
+                                                            },
+                                                            ticks: {
+                                                                stepSize: 1,
+                                                                color: colors.gray500
+                                                            }
+                                                        },
+                                                        y: {
+                                                            grid: {
+                                                                display: false
+                                                            },
+                                                            ticks: {
+                                                                autoSkip: false,
+                                                                color: colors.gray700,
+                                                                font: {
+                                                                    weight: '600',
+                                                                    size: 10
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
                                     }
-                                    const subLabels = Array.isArray(data.subLabels) ? data.subLabels : Object.values(data.subLabels);
-                                    const subValues = Array.isArray(data.subValues) ? data.subValues : Object.values(data.subValues);
 
-                                    subKategoriUnitChartInstance = new Chart(subCanvas.getContext('2d'), {
-                                        type: 'bar',
-                                        data: {
-                                            labels: subLabels,
-                                            datasets: [{
-                                                label: 'Jumlah Laporan',
-                                                data: subValues,
-                                                backgroundColor: subLabels.map((_, i) => palette[(i + 3) % palette.length]),
-                                                borderRadius: 6
-                                            }]
-                                        },
-                                        options: {
-                                            responsive: true,
-                                            maintainAspectRatio: false,
-                                            indexAxis: 'y',
-                                            plugins: { legend: { display: false }, tooltip: tooltipOptions },
-                                            scales: {
-                                                x: { beginAtZero: true, grid: { color: colors.gray200 }, ticks: { stepSize: 1, color: colors.gray500 } },
-                                                y: { grid: { display: false }, ticks: { autoSkip: false, color: colors.gray700, font: { weight: '600', size: 10 } } }
-                                            }
+                                    const kategoriFilterEl = $('#kategoriFilter');
+                                    const currentKatVal = kategoriFilterEl.val();
+
+                                    kategoriFilterEl.empty().append('<option></option>');
+                                    if (data.kategoriList) {
+                                        data.kategoriList.forEach(function(kat) {
+                                            const option = new Option(kat.nama, kat
+                                                .id, false, kat.id ==
+                                                currentKatVal);
+                                            kategoriFilterEl.append(option);
+                                        });
+                                    }
+                                    kategoriFilterEl.trigger('change');
+
+                                    // Render Sub Kategori Chart
+                                    const subCanvas = document.getElementById(
+                                        'subKategoriUnitChart');
+                                    if (subCanvas) {
+                                        if (subKategoriUnitChartInstance) {
+                                            subKategoriUnitChartInstance.destroy();
+                                            subKategoriUnitChartInstance = null;
                                         }
-                                    });
-                                }
+                                        const subLabels = Array.isArray(data.subLabels) ?
+                                            data.subLabels : Object.values(data.subLabels);
+                                        const subValues = Array.isArray(data.subValues) ?
+                                            data.subValues : Object.values(data.subValues);
 
-                                isFetching = false;
+                                        subKategoriUnitChartInstance = new Chart(subCanvas
+                                            .getContext('2d'), {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: subLabels,
+                                                    datasets: [{
+                                                        label: 'Jumlah Laporan',
+                                                        data: subValues,
+                                                        backgroundColor: subLabels
+                                                            .map((_, i) =>
+                                                                palette[(i +
+                                                                        3) %
+                                                                    palette
+                                                                    .length]),
+                                                        borderRadius: 6
+                                                    }]
+                                                },
+                                                options: {
+                                                    responsive: true,
+                                                    maintainAspectRatio: false,
+                                                    indexAxis: 'y',
+                                                    plugins: {
+                                                        legend: {
+                                                            display: false
+                                                        },
+                                                        tooltip: tooltipOptions
+                                                    },
+                                                    scales: {
+                                                        x: {
+                                                            beginAtZero: true,
+                                                            grid: {
+                                                                color: colors.gray200
+                                                            },
+                                                            ticks: {
+                                                                stepSize: 1,
+                                                                color: colors.gray500
+                                                            }
+                                                        },
+                                                        y: {
+                                                            grid: {
+                                                                display: false
+                                                            },
+                                                            ticks: {
+                                                                autoSkip: false,
+                                                                color: colors.gray700,
+                                                                font: {
+                                                                    weight: '600',
+                                                                    size: 10
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                    }
+
+                                    isFetching = false;
+                                });
                             });
-                        });
-                    })
-                    .catch(err => {
-                        console.error('Error fetching unit chart data:', err);
-                        chartPlaceholder.classList.remove('d-none');
-                        chartPlaceholder.innerHTML = `
+                        })
+                        .catch(err => {
+                            console.error('Error fetching unit chart data:', err);
+                            chartPlaceholder.classList.remove('d-none');
+                            chartPlaceholder.innerHTML = `
                             <div class="mb-4">
                                 <i class="ki-duotone ki-information-3 fs-3x text-danger">
                                     <span class="path1"></span>
@@ -746,8 +917,8 @@
                             <h4 class="text-gray-700 fw-bold">Gagal Memuat Data</h4>
                             <p class="text-gray-400 fs-6">Terjadi kesalahan saat memuat data. Silakan coba lagi.</p>
                         `;
-                        isFetching = false;
-                    });
+                            isFetching = false;
+                        });
                 };
 
                 // Gunakan event spesifik Select2 untuk kompatibilitas yang lebih baik
@@ -790,7 +961,9 @@
                     document.head.appendChild(script);
                     return;
                 }
-                const { jsPDF } = window.jspdf;
+                const {
+                    jsPDF
+                } = window.jspdf;
                 const pdf = new jsPDF('l', 'mm', 'a4');
                 const imgData = canvas.toDataURL('image/png');
                 const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -800,7 +973,7 @@
             } else {
                 const link = document.createElement('a');
                 link.download = filename + '.' + format;
-                
+
                 if (format === 'jpeg') {
                     const tempCanvas = document.createElement('canvas');
                     tempCanvas.width = canvas.width;
@@ -813,17 +986,9 @@
                 } else {
                     link.href = canvas.toDataURL('image/png');
                 }
-                
+
                 link.click();
             }
         }
     </script>
 @endsection
-
-
-
-
-
-
-
-

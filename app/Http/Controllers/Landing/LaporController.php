@@ -277,14 +277,12 @@ class LaporController extends Controller
                 return $laporan;
             });
 
-            // Kirim notifikasi Telegram
             try {
                 app(TelegramNotificationService::class)->notifyNewLaporan($laporan);
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error('[TelegramNotif] Error: ' . $e->getMessage());
             }
 
-            // Kirim notifikasi Email ke pelapor
             try {
                 app(EmailNotificationService::class)->notifyLaporanBaru($laporan);
             } catch (\Exception $e) {

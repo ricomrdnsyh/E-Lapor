@@ -142,7 +142,7 @@ class StatistikController extends Controller
 
         $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
             ->orWhere('unit_id', $unitId);
-            
+
         if ($kategoriId) {
             $subKategoriQuery = SubKategori::where('kategori_id', $kategoriId);
         }

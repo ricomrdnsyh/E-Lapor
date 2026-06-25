@@ -9,6 +9,7 @@ use App\Models\SubKategori;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class AdminLaporanController extends Controller
 {
@@ -179,23 +180,28 @@ class AdminLaporanController extends Controller
             'ruangan_id'        => $validated['ruangan_id'] ?? null,
         ];
 
-        if ($request->hasFile('lampiran_file')) {
-            $file     = $request->file('lampiran_file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/laporan'), $filename);
-            $data['lampiran_file'] = $filename;
+        try {
+            if ($request->hasFile('lampiran_file')) {
+                $file     = $request->file('lampiran_file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/laporan'), $filename);
+                $data['lampiran_file'] = $filename;
+            }
+
+            DB::transaction(function () use ($laporan, $data, $validated) {
+                $laporan->update($data);
+
+                $unitIds = [$validated['unit_id']];
+                $subKategori = SubKategori::find($validated['sub_kategori_id'] ?? null);
+                if ($subKategori && $subKategori->unit_id && $subKategori->unit_id != $validated['unit_id']) {
+                    $unitIds[] = $subKategori->unit_id;
+                }
+                $laporan->units()->sync(array_unique($unitIds));
+            });
+
+            return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui laporan.');
         }
-
-        $laporan->update($data);
-
-        // Sync unit relationship
-        $unitIds = [$validated['unit_id']];
-        $subKategori = SubKategori::find($validated['sub_kategori_id'] ?? null);
-        if ($subKategori && $subKategori->unit_id && $subKategori->unit_id != $validated['unit_id']) {
-            $unitIds[] = $subKategori->unit_id;
-        }
-        $laporan->units()->sync(array_unique($unitIds));
-
-        return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui.');
     }
 }

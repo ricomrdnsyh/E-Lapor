@@ -220,7 +220,7 @@
                                 </div>
                             </div>
                             <div class="card-body pt-4 pb-7" id="show_timeline_container">
-                                <!-- Timeline will be injected here via AJAX -->
+
                             </div>
                         </div>
                     </div>

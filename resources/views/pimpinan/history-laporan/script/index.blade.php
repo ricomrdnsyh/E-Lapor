@@ -117,10 +117,10 @@
         $('#filter_unit').on('change', function() {
             var unitId = $(this).val();
             var kategoriSelect = $('#filter_kategori');
-            
+
             kategoriSelect.empty().append('<option value="">Semua</option>');
             kategoriSelect.prop('disabled', true);
-            
+
             if (unitId) {
                 allKategoriOptions.each(function() {
                     var optionUnitId = $(this).attr('data-unit-id');
@@ -136,10 +136,10 @@
         $('#filter_kategori').on('change', function() {
             var kategoriId = $(this).val();
             var subKategoriSelect = $('#filter_sub_kategori');
-            
+
             subKategoriSelect.empty().append('<option value="">Semua</option>');
             subKategoriSelect.prop('disabled', true);
-            
+
             if (kategoriId) {
                 $.ajax({
                     url: '{{ route('lapor.subkategoris') }}',

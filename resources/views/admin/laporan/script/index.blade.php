@@ -113,13 +113,13 @@
         function updateKategoriFilter() {
             var selectedUnitId = $('#filter_unit').val();
             var kategoriSelect = $('#filter_kategori');
-            
+
             // Clear current options
             kategoriSelect.empty();
-            
+
             // Always keep it enabled
             kategoriSelect.prop('disabled', false);
-            
+
             // Re-add options matching unit_id or all if unit_id is empty
             allKategoriOptions.each(function() {
                 var optionUnitId = $(this).data('unit-id');
@@ -127,7 +127,7 @@
                     kategoriSelect.append($(this).clone());
                 }
             });
-            
+
             // Refresh select2 and trigger change to reload table
             kategoriSelect.val('').trigger('change.select2').trigger('change');
         }
@@ -142,10 +142,10 @@
         $('#filter_kategori').on('change', function() {
             var kategoriId = $(this).val();
             var subKategoriSelect = $('#filter_sub_kategori');
-            
+
             subKategoriSelect.empty().append('<option value="">Semua</option>');
             subKategoriSelect.prop('disabled', true);
-            
+
             if (kategoriId) {
                 $.ajax({
                     url: '{{ route('lapor.subkategoris') }}',

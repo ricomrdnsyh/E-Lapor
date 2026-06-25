@@ -17,13 +17,13 @@ class UnitHistoryLaporanController extends Controller
     {
         $user = Auth::user();
         $kategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
-        
+
         if (!empty($kategoriIds)) {
             $categories = \App\Models\Kategori::whereIn('id_kategori', $kategoriIds)->get();
         } else {
             $categories = \App\Models\Kategori::where('unit_id', $user->unit_id)->get();
         }
-        
+
         return view('unit.history-laporan.index', compact('categories'));
     }
 
@@ -235,7 +235,6 @@ class UnitHistoryLaporanController extends Controller
             'status' => $request->status,
         ]);
 
-        // Kirim notifikasi email ke pelapor
         try {
             $laporan = $history->laporan;
             if ($laporan) {

@@ -13,7 +13,7 @@
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
             ];
-            
+
             const day = String(date.getDate()).padStart(2, '0');
             const monthName = bulan[date.getMonth()];
             const year = date.getFullYear();
@@ -100,7 +100,7 @@
                         document.getElementById('show_status').innerHTML = `<span class="badge ${badgeClass} px-2 py-1">${statusText}</span>`;
                         const timelineData = data.timeline || [];
                         let timelineHtml = '<div class="track-timeline">';
-                        
+
                         if (timelineData.length > 0) {
                             timelineData.forEach(function(item) {
                                 let badgeClass = 'bg-light-secondary';
@@ -108,7 +108,7 @@
                                 let iconClass = 'ki-information-5';
                                 let statusTitle = 'Perubahan status';
                                 let statusBadge = 'badge-light-secondary';
-                                
+
                                 if (item.status === 'menunggu') {
                                     badgeClass = 'bg-light-warning'; textClass = 'text-warning'; statusBadge = 'badge-light-warning';
                                     iconClass = 'ki-time'; statusTitle = 'Menunggu tindak lanjut';
@@ -126,7 +126,7 @@
                                 const statusDisplay = item.status ? item.status.charAt(0).toUpperCase() + item.status.slice(1) : '-';
                                 const itemText = item.catatan ? item.catatan : statusTitle;
                                 const itemNote = item.user_nama ? 'Diperbarui oleh ' + item.user_nama : 'Dibuat oleh pelapor';
-                                
+
                                 let evidenceHtml = '';
                                 if (item.lampiran_file) {
                                     evidenceHtml = `
@@ -164,7 +164,7 @@
                         } else {
                             timelineHtml += '<div class="text-center text-muted">Belum ada riwayat penanganan.</div>';
                         }
-                        
+
                         timelineHtml += '</div>';
                         document.getElementById('show_timeline_container').innerHTML = timelineHtml;
 

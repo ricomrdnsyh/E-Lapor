@@ -15,7 +15,6 @@
                 <table role="presentation" width="600" cellpadding="0" cellspacing="0"
                     style="max-width:600px; width:100%; background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 
-                    {{-- Header --}}
                     <tr>
                         <td
                             style="background: linear-gradient(135deg, #1F4788 0%, #2B5EA7 100%); padding:32px 40px; text-align:center;">
@@ -28,7 +27,6 @@
                         </td>
                     </tr>
 
-                    {{-- Body --}}
                     <tr>
                         <td style="padding:32px 40px;">
 
@@ -77,7 +75,6 @@
                                 };
                             @endphp
 
-                            {{-- Status Banner --}}
                             <div
                                 style="text-align:center; margin-bottom:24px; padding:20px; background-color:{{ $statusConfig['bannerBg'] }}; border-radius:8px;">
                                 <div style="font-size:36px; margin-bottom:6px;">{{ $statusConfig['icon'] }}</div>
@@ -93,7 +90,6 @@
                                 {{ $statusConfig['message'] }}
                             </p>
 
-                            {{-- Kode Tiket --}}
                             <div
                                 style="text-align:center; margin:20px 0; padding:16px; background-color:#e8f0fe; border-radius:10px; border:2px dashed #1F4788;">
                                 <div style="color:#666; font-size:11px; text-transform:uppercase; font-weight:600; letter-spacing:1px; margin-bottom:6px;">
@@ -104,7 +100,6 @@
                                 </div>
                             </div>
 
-                            {{-- Detail Laporan --}}
                             <div
                                 style="margin:24px 0; padding:20px; background-color:#fafbfd; border-radius:8px; border:1px solid #e8ecf1;">
                                 <div
@@ -174,7 +169,6 @@
                                 </table>
                             </div>
 
-                            {{-- Catatan --}}
                             @if ($catatan)
                                 <div
                                     style="margin:0 0 24px; padding:16px 20px; background-color:#fff8e1; border-left:4px solid #ffc107; border-radius:0 8px 8px 0;">
@@ -188,7 +182,6 @@
                                 </div>
                             @endif
 
-                            {{-- CTA Button --}}
                             <div style="text-align:center; margin:28px 0 16px;">
                                 <a href="{{ route('lacak', ['kode' => $laporan->kode_tiket]) }}"
                                     style="display:inline-block; padding:14px 36px; background-color:#1F4788; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:700; font-size:14px;">
@@ -202,7 +195,6 @@
                         </td>
                     </tr>
 
-                    {{-- Footer --}}
                     <tr>
                         <td
                             style="padding:20px 40px; background-color:#f8f9fb; border-top:1px solid #e8ecf1; text-align:center;">

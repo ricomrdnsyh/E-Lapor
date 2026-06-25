@@ -1,5 +1,4 @@
 <style>
-
     #kt_app_sidebar_user .user-card {
         background: rgba(255, 255, 255, 0.03);
         border: none;
@@ -51,7 +50,6 @@
         justify-content: center !important
     }
 
-
     #kt_app_sidebar_footer .btn {
         background: rgba(255, 255, 255, 0.04) !important;
         border: none !important;
@@ -79,14 +77,15 @@
         transform: translateX(3px);
     }
 
-
     #kt_app_sidebar_menu_scroll::-webkit-scrollbar {
         width: 4px;
     }
+
     #kt_app_sidebar_menu_scroll::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 4px;
     }
+
     #kt_app_sidebar_menu_scroll:hover::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.25);
     }
@@ -171,7 +170,7 @@
                 <img src="{{ asset('assets/media/avatars/profile.png') }}" alt="avatar"
                     class="w-30 h-30 object-fit-cover" />
                 <span
-                    class="position-absolute translate-middle bottom-0 start-100 bg-success rounded-circle border border-2 border-white"
+                    class="position-absolute translate-middle bottom-0 start-100 bg-success rounded-circle border-2 border-white"
                     style="width:10px;height:10px;"></span>
             </div>
 
@@ -234,7 +233,8 @@
                             </div>
                         </div>
 
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ Request::is('admin/unit*') || Request::is('admin/kategori*') || Request::is('admin/sub-kategori*') || Request::is('admin/gedung*') || Request::is('admin/lantai*') || Request::is('admin/fungsi-ruangan*') || Request::is('admin/ruangan*') ? 'here show' : '' }}">
+                        <div data-kt-menu-trigger="click"
+                            class="menu-item menu-accordion {{ Request::is('admin/unit*') || Request::is('admin/kategori*') || Request::is('admin/sub-kategori*') || Request::is('admin/gedung*') || Request::is('admin/lantai*') || Request::is('admin/fungsi-ruangan*') || Request::is('admin/ruangan*') ? 'here show' : '' }}">
                             <span class="menu-link">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-briefcase fs-2">
@@ -246,43 +246,50 @@
                             </span>
                             <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}" href="{{ route('admin.unit.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/unit*') ? 'active' : '' }}"
+                                        href="{{ route('admin.unit.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Unit</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}" href="{{ route('admin.kategori.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/kategori*') ? 'active' : '' }}"
+                                        href="{{ route('admin.kategori.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Kategori</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/sub-kategori*') ? 'active' : '' }}" href="{{ route('admin.sub-kategori.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/sub-kategori*') ? 'active' : '' }}"
+                                        href="{{ route('admin.sub-kategori.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Sub Kategori</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/gedung*') ? 'active' : '' }}" href="{{ route('admin.gedung.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/gedung*') ? 'active' : '' }}"
+                                        href="{{ route('admin.gedung.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Gedung</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/lantai*') ? 'active' : '' }}" href="{{ route('admin.lantai.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/lantai*') ? 'active' : '' }}"
+                                        href="{{ route('admin.lantai.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Lantai</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/fungsi-ruangan*') ? 'active' : '' }}" href="{{ route('admin.fungsi-ruangan.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/fungsi-ruangan*') ? 'active' : '' }}"
+                                        href="{{ route('admin.fungsi-ruangan.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Fungsi Ruangan</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ Request::is('admin/ruangan*') ? 'active' : '' }}" href="{{ route('admin.ruangan.index') }}">
+                                    <a class="menu-link {{ Request::is('admin/ruangan*') ? 'active' : '' }}"
+                                        href="{{ route('admin.ruangan.index') }}">
                                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                                         <span class="menu-title">Master Ruangan</span>
                                     </a>
@@ -320,7 +327,7 @@
                                 </span>
                                 <span class="menu-title">History Laporan</span>
                             </a>
-                        </div>                       
+                        </div>
                     @elseif ($isUnit)
                         <div class="menu-item">
                             <a class="menu-link {{ Request::is('unit/dashboard*') ? 'active' : '' }}"
@@ -393,4 +400,3 @@
         </form>
     </div>
 </div>
-

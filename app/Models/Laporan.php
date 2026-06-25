@@ -70,7 +70,6 @@ class Laporan extends Model
         );
     }
 
-    // Generate kode tiket
     public static function generateTicket()
     {
         $date = date('Ymd');

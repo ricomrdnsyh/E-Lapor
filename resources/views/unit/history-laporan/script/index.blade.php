@@ -109,10 +109,10 @@
         $('#filter_kategori').on('change', function() {
             var kategoriId = $(this).val();
             var subKategoriSelect = $('#filter_sub_kategori');
-            
+
             subKategoriSelect.empty().append('<option value="">Semua</option>');
             subKategoriSelect.prop('disabled', true);
-            
+
             if (kategoriId) {
                 $.ajax({
                     url: '{{ route('lapor.subkategoris') }}',

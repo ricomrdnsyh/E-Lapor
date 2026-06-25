@@ -245,7 +245,6 @@ class AdminHistoryLaporanController extends Controller
             'status' => $request->status,
         ]);
 
-        // Kirim notifikasi email ke pelapor
         try {
             $laporan = $history->laporan;
             if ($laporan) {

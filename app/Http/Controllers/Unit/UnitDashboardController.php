@@ -67,7 +67,7 @@ class UnitDashboardController extends Controller
 
         $userKategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
         $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds);
-        
+
         if (empty($userKategoriIds)) {
             $subKategoriQuery->orWhere('unit_id', $user->unit_id);
         }
@@ -125,7 +125,7 @@ class UnitDashboardController extends Controller
         $userKategoriIds = $user->kategoris()->pluck('kategori.id_kategori')->toArray();
 
         $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds);
-        
+
         if (empty($userKategoriIds)) {
             $subKategoriQuery->orWhere('unit_id', $user->unit_id);
         }

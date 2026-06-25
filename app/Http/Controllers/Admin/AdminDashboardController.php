@@ -33,7 +33,6 @@ class AdminDashboardController extends Controller
             'total_user' => User::count(),
         ];
 
-        // 2. Tipe pelapor (4 kategori tetap)
         $fixedTipes = ['Dosen', 'Mahasiswa', 'Tenaga Pendidik', 'Masyarakat/Umum'];
         $tipePelaporRaw = Laporan::select('tipe_pelapor')
             ->selectRaw('COUNT(*) as jumlah')
@@ -49,7 +48,6 @@ class AdminDashboardController extends Controller
             ];
         });
 
-        // 3. Tren bulanan (12 bulan terakhir)
         $trenBulanan = Laporan::select(
                 DB::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan"),
                 DB::raw('COUNT(*) as jumlah')
@@ -59,7 +57,6 @@ class AdminDashboardController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        // Fill missing months
         $bulanData = [];
         for ($i = 11; $i >= 0; $i--) {
             $bulan = Carbon::now()->subMonths($i)->format('Y-m');
@@ -70,7 +67,6 @@ class AdminDashboardController extends Controller
             ];
         }
 
-        // 4. Laporan per kategori
         $laporanPerKategori = Kategori::select('kategori.nama_kategori')
             ->leftJoin('laporan', 'laporan.kategori_id', '=', 'kategori.id_kategori')
             ->groupBy('kategori.id_kategori', 'kategori.nama_kategori')
@@ -78,7 +74,6 @@ class AdminDashboardController extends Controller
             ->orderByDesc('jumlah_laporan')
             ->get();
 
-        // 5. Rahasia vs Anonim
         $totalLaporan = Laporan::count();
         $anonimCount = Laporan::where('is_anonymous', 'y')->count();
         $anonimData = [
@@ -114,7 +109,6 @@ class AdminDashboardController extends Controller
 
         $scopeKategoriIds = $unitKategoriIds;
 
-        // Base query
         $baseQuery = Laporan::where(function ($q) use ($unitId) {
             if ($unitId) {
                 $q->whereHas('units', function ($q2) use ($unitId) {
@@ -125,7 +119,6 @@ class AdminDashboardController extends Controller
             }
         });
 
-        // Kategori
         $kategoriCountsRaw = (clone $baseQuery)
             ->selectRaw('kategori_id, count(*) as total')
             ->whereNotNull('kategori_id')
@@ -149,7 +142,6 @@ class AdminDashboardController extends Controller
                 ->values();
         }
 
-        // Sub Kategori
         $subKategoriBaseQuery = clone $baseQuery;
         if ($kategoriId) {
             $subKategoriBaseQuery->where('kategori_id', $kategoriId);
@@ -163,7 +155,7 @@ class AdminDashboardController extends Controller
 
         $subKategoriQuery = SubKategori::whereIn('kategori_id', $scopeKategoriIds)
             ->orWhere('unit_id', $unitId);
-            
+
         if ($kategoriId) {
             $subKategoriQuery = SubKategori::where('kategori_id', $kategoriId);
         }

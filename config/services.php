@@ -39,4 +39,13 @@ return [
         'base_url' => env('TELEGRAM_API_BASE_URL', 'https://sso.unuja.ac.id/portal/data/telegram/message'),
     ],
 
+    'sso' => [
+        'dev_id' => env('SSO_LAPOR_DEV_ID'),
+        'x_token' => env('SSO_LAPOR_X_TOKEN'),
+        'me_url' => env('SSO_ME_URL'),
+        'replace_source' => env('SSO_REPLACE_SOURCE'),
+        'replace_target' => env('SSO_REPLACE_TARGET'),
+        'logout_url' => env('APP_URL_SSO_LOGOUT'),
+    ],
+
 ];

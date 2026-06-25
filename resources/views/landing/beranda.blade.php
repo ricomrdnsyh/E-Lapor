@@ -82,7 +82,7 @@
 @endsection
 
 @section('content')
-    <!-- HERO -->
+
     <section id="home" class="elapor-hero py-10 py-lg-15">
         <div class="container">
             <div class="row align-items-center gy-10">
@@ -247,7 +247,6 @@
         </div>
     </section>
 
-    <!-- STATISTIK -->
     <section id="statistik" class="py-0">
         <div class="position-relative overflow-hidden"
             style="background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 58%, #60a5fa 100%);">
@@ -297,7 +296,6 @@
         </div>
     </section>
 
-    <!-- TENTANG -->
     <section id="about" class="py-10 py-lg-15 bg-primary position-relative overflow-hidden">
         <span class="position-absolute top-0 end-0 translate-middle opacity-10"
             style="width:520px;height:520px;border-radius:50%;
@@ -347,7 +345,6 @@
         </div>
     </section>
 
-    <!-- KATEGORI -->
     <section id="kategori" class="py-10 py-lg-15 bg-light">
         <div class="container">
 
@@ -433,7 +430,6 @@
         </div>
     </section>
 
-    <!-- ALUR -->
     <section id="alur" class="alur-section py-10 py-lg-15">
         <div class="container">
             <div class="row align-items-center g-10">
@@ -556,7 +552,6 @@
         </div>
     </section>
 
-    <!-- FAQ -->
     <section id="faq" class="py-10 py-lg-15 bg-light">
         <div class="container">
             <div class="text-center mb-8">

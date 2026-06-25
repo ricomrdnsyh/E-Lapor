@@ -11,7 +11,7 @@
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="status" id="form_status" value="{{ $history->status }}">
-                        
+
                         <div class="row g-5">
                             <div class="col-12">
                                 <div class="card shadow-sm border border-dashed border-dark rounded-4 mb-0 overflow-hidden">
@@ -276,7 +276,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        
+
                                         <div class="mt-8 d-flex justify-content-end gap-2">
                                             @if($history->status === 'menunggu')
                                                 <button type="button" class="btn btn-danger btn-sm fs-sm-8 fs-lg-6 btn-submit-status" data-status="ditolak">
@@ -315,12 +315,12 @@
             var status = $(this).data('status');
             var form = $('#form_edit_history');
             var btn = $(this);
-            
+
             // Validation for Selesai
             if (status === 'selesai') {
                 var fileInput = $('#edit_lampiran_bukti');
                 var hasExistingFile = {!! json_encode(!empty($history->lampiran_file)) !!};
-                
+
                 if (!hasExistingFile && (!fileInput.length || !fileInput[0].files.length)) {
                     Swal.fire({
                         icon: 'warning',
@@ -356,16 +356,16 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $('#form_status').val(status);
-                    
+
                     // Show loading
                     btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
                     $('.btn-submit-status').prop('disabled', true);
-                    
+
                     form.submit();
                 }
             });
         });
-        
+
         @if ($errors->any())
             Swal.fire({
                 text: @json($errors->first()),

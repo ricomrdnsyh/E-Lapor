@@ -648,7 +648,7 @@
 
                             var kategoriFilter = $('#kategoriFilter');
                             var currentKatVal = kategoriFilter.val();
-                            
+
                             kategoriFilter.empty().append('<option></option>');
                             if (data.kategoriList) {
                                 data.kategoriList.forEach(function(kat) {
@@ -703,7 +703,7 @@
                 $('#kategoriFilter').val(null).trigger('change.select2');
                 handleUnitFilter();
             });
-            
+
             $('#kategoriFilter').on('select2:select', function() {
                 handleUnitFilter();
             });
