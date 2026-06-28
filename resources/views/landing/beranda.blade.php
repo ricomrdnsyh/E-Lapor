@@ -59,11 +59,13 @@
             position: relative;
             overflow: hidden;
         }
+
         .cat-tile:hover {
             border-color: var(--tile-color, #3b82f6);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             transform: translateY(-4px);
         }
+
         .cat-arrow {
             position: absolute;
             top: 1.5rem;
@@ -73,6 +75,7 @@
             opacity: 0;
             transform: translateX(-10px);
         }
+
         .cat-tile:hover .cat-arrow {
             color: var(--tile-color, #3b82f6);
             opacity: 1;
@@ -113,6 +116,17 @@
                                     class="path2"></span></i>
                             Buat Laporan
                         </a>
+
+                        @if (isset($panduans) && $panduans->count() > 0)
+                            <a href="{{ asset('storage/' . $panduans->first()->file) }}" target="_blank"
+                                class="btn btn-outline btn-outline-primary btn-active-light-primary btn-lg">
+                                <i class="ki-duotone ki-book fs-4 me-2">
+                                    <span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span><span class="path4"></span>
+                                </i>
+                                Panduan Sistem
+                            </a>
+                        @endif
                     </div>
 
                     <div class="d-flex flex-wrap gap-3 mt-8">
@@ -275,13 +289,14 @@
                 <div class="row g-4 g-lg-6 justify-content-center mb-8">
                     @foreach (['menunggu' => 'Menunggu', 'diproses' => 'Diproses', 'selesai' => 'Selesai', 'ditolak' => 'Ditolak'] as $key => $label)
                         <div class="col-6">
-                            <div class="text-center p-5 rounded-3 unit-stat-card"
-                                style="border: 1px solid #f1f5f9; transition: all .2s ease;">
-                                <div class="fw-bolder text-gray-900 mb-1"
+                            <div class="text-center p-5 rounded-3 unit-stat-card border border-dark border-dashed"
+                                style="transition: all .2s ease; background-color: var(--bs-light-primary);">
+                                <div class="fw-bolder text-primary mb-1"
                                     style="font-size: clamp(1.8rem, 3vw, 2.6rem); line-height:1;">
                                     {{ $stats[$key] ?? 0 }}
                                 </div>
-                                <div class="text-muted fw-semibold fs-7">{{ $label }}</div>
+                                <div class="text-primary fw-bold fs-7 text-uppercase" style="letter-spacing: 1px;">
+                                    {{ $label }}</div>
                             </div>
                         </div>
                     @endforeach
@@ -356,34 +371,69 @@
             @php
                 $akdIcons = ['ki-book', 'ki-notepad-edit', 'ki-chart-simple', 'ki-magnifier'];
                 $akdColors = ['primary', 'warning', 'success', 'info'];
-                $nonIcons = ['ki-home-2', 'ki-monitor-mobile', 'ki-wallet', 'ki-people', 'ki-shield', 'ki-flag', 'ki-dots-circle', 'ki-handshake', 'ki-brush', 'ki-call', 'ki-trash', 'ki-archive'];
-                $nonColors = ['success', 'info', 'warning', 'dark', 'danger', 'primary', 'info', 'success', 'danger', 'warning', 'primary', 'dark'];
+                $nonIcons = [
+                    'ki-home-2',
+                    'ki-monitor-mobile',
+                    'ki-wallet',
+                    'ki-people',
+                    'ki-shield',
+                    'ki-flag',
+                    'ki-dots-circle',
+                    'ki-handshake',
+                    'ki-brush',
+                    'ki-call',
+                    'ki-trash',
+                    'ki-archive',
+                ];
+                $nonColors = [
+                    'success',
+                    'info',
+                    'warning',
+                    'dark',
+                    'danger',
+                    'primary',
+                    'info',
+                    'success',
+                    'danger',
+                    'warning',
+                    'primary',
+                    'dark',
+                ];
             @endphp
 
-            @if($kategoriAkademikUnik->isNotEmpty())
+            @if ($kategoriAkademikUnik->isNotEmpty())
                 <h4 class="fw-bold text-gray-800 mb-5">
-                    <i class="ki-duotone ki-teacher fs-3 text-primary me-2"><span class="path1"></span><span class="path2"></span></i>Bidang Akademik
+                    <i class="ki-duotone ki-teacher fs-3 text-primary me-2"><span class="path1"></span><span
+                            class="path2"></span></i>Bidang Akademik
                 </h4>
                 <div class="row g-6 mb-10">
-                    @foreach($kategoriAkademikUnik as $k)
-                        @php $i = $loop->index; $c = $akdColors[$i % count($akdColors)]; @endphp
+                    @foreach ($kategoriAkademikUnik as $k)
+                        @php
+                            $i = $loop->index;
+                            $c = $akdColors[$i % count($akdColors)];
+                        @endphp
                         <div class="col-md-6 col-lg-3">
-                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none" style="--tile-color: var(--bs-{{ $c }});">
+                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none"
+                                style="--tile-color: var(--bs-{{ $c }});">
                                 <div class="card-body p-6 d-flex flex-column">
                                     <div class="d-flex align-items-center gap-4 mb-4">
-                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0" style="border-radius: 0.75rem;">
-                                            <i class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
+                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0"
+                                            style="border-radius: 0.75rem;">
+                                            <i
+                                                class="ki-duotone {{ $akdIcons[$i % count($akdIcons)] }} fs-2 text-{{ $c }}">
                                                 <span class="path1"></span><span class="path2"></span>
                                             </i>
                                         </div>
                                         <div>
                                             <div class="fw-bolder text-gray-900 fs-6 mb-1">{{ $k->nama_kategori }}</div>
-                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
+                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan
+                                                aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-wrap gap-2 mt-auto">
-                                        @foreach($unitAkademik as $u)
-                                            <span class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">{{ $u->singkatan }}</span>
+                                        @foreach ($unitAkademik as $u)
+                                            <span
+                                                class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">{{ $u->singkatan }}</span>
                                         @endforeach
                                     </div>
                                 </div>
@@ -393,31 +443,39 @@
                 </div>
             @endif
 
-            @if($kategoriNonAkademik->isNotEmpty())
+            @if ($kategoriNonAkademik->isNotEmpty())
                 <h4 class="fw-bold text-gray-800 mb-4">
-                    <i class="ki-duotone ki-flag fs-3 text-success me-2"><span class="path1"></span><span class="path2"></span></i>Bidang Non Akademik
+                    <i class="ki-duotone ki-flag fs-3 text-success me-2"><span class="path1"></span><span
+                            class="path2"></span></i>Bidang Non Akademik
                 </h4>
                 <div class="row g-6">
-                    @foreach($kategoriNonAkademik as $k)
-                        @php $i = $loop->index; $c = $nonColors[$i % count($nonColors)]; @endphp
+                    @foreach ($kategoriNonAkademik as $k)
+                        @php
+                            $i = $loop->index;
+                            $c = $nonColors[$i % count($nonColors)];
+                        @endphp
                         <div class="col-md-6 col-lg-3">
-                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none" style="--tile-color: var(--bs-{{ $c }});">
+                            <a href="#kategori" class="card h-100 cat-tile text-decoration-none"
+                                style="--tile-color: var(--bs-{{ $c }});">
                                 <div class="card-body p-6 d-flex flex-column">
                                     <div class="d-flex align-items-center gap-4 mb-4">
-                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0" style="border-radius: 0.75rem;">
-                                            <i class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
+                                        <div class="symbol symbol-45px bg-light-{{ $c }} flex-shrink-0"
+                                            style="border-radius: 0.75rem;">
+                                            <i
+                                                class="ki-duotone {{ $nonIcons[$i % count($nonIcons)] }} fs-2 text-{{ $c }}">
                                                 <span class="path1"></span><span class="path2"></span>
                                             </i>
                                         </div>
                                         <div>
                                             <div class="fw-bolder text-gray-900 fs-6 mb-1">{{ $k->nama_kategori }}</div>
-                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
+                                            <div class="text-muted fs-8" style="line-height: 1.4;">Layanan pengaduan dan
+                                                aspirasi terkait {{ strtolower($k->nama_kategori) }}.</div>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-wrap gap-2 mt-auto">
                                         <span class="badge badge-light-{{ $c }} rounded-pill fs-8 px-3 py-2">
                                             <i class="ki-duotone ki-geolocation fs-8 me-1 text-{{ $c }}"></i>
-                                            {{ $k->unit?->singkatan ?? $k->unit?->nama_unit ?? '-' }}
+                                            {{ $k->unit?->singkatan ?? ($k->unit?->nama_unit ?? '-') }}
                                         </span>
                                     </div>
                                 </div>

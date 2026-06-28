@@ -13,10 +13,13 @@ use App\Http\Controllers\Admin\AdminRuanganController;
 use App\Http\Controllers\Admin\AdminSubKategoriController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminPanduanController;
 use App\Http\Controllers\Unit\UnitDashboardController;
 use App\Http\Controllers\Unit\UnitHistoryLaporanController;
+use App\Http\Controllers\Unit\UnitPanduanController;
 use App\Http\Controllers\Pimpinan\PimpinanDashboardController;
 use App\Http\Controllers\Pimpinan\PimpinanHistoryLaporanController;
+use App\Http\Controllers\Pimpinan\PimpinanPanduanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\FAQController;
 use App\Http\Controllers\Landing\AlurController;
@@ -89,6 +92,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/history-laporan/data', [AdminHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
     Route::resource('history-laporan', AdminHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
 
+    Route::get('/panduan/data', [AdminPanduanController::class, 'getPanduan'])->name('panduan.data');
+    Route::resource('panduan', AdminPanduanController::class);
+
     Route::get('/users/karyawan-api', [AdminUserController::class, 'getKaryawanApi'])->name('users.karyawan-api');
     Route::get('/users/data', [AdminUserController::class, 'getUsers'])->name('users.data');
     Route::resource('users', AdminUserController::class);
@@ -99,6 +105,8 @@ Route::prefix('unit')->name('unit.')->middleware(['auth', 'role:unit'])->group(f
     Route::get('/dashboard/sub-kategori-data', [UnitDashboardController::class, 'getSubKategoriData'])->name('dashboard.sub-kategori-data');
     Route::get('/history-laporan/data', [UnitHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
     Route::resource('history-laporan', UnitHistoryLaporanController::class, ['only' => ['index', 'show', 'edit', 'update']]);
+
+    Route::get('/panduan', [UnitPanduanController::class, 'index'])->name('panduan.index');
 });
 
 Route::prefix('pimpinan')->name('pimpinan.')->middleware(['auth', 'role:pimpinan'])->group(function () {
@@ -106,4 +114,6 @@ Route::prefix('pimpinan')->name('pimpinan.')->middleware(['auth', 'role:pimpinan
     Route::get('/dashboard/sub-kategori-data', [PimpinanDashboardController::class, 'getSubKategoriData'])->name('dashboard.sub-kategori-data');
     Route::get('/history-laporan/data', [PimpinanHistoryLaporanController::class, 'getHistoryLaporan'])->name('history-laporan.data');
     Route::resource('history-laporan', PimpinanHistoryLaporanController::class, ['only' => ['index', 'show']]);
+
+    Route::get('/panduan', [PimpinanPanduanController::class, 'index'])->name('panduan.index');
 });

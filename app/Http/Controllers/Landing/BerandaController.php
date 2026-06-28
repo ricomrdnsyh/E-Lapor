@@ -60,7 +60,9 @@ class BerandaController extends Controller
         ));
         $kategoriAkademikUnik = $kategoriAkademik->unique('nama_kategori')->values();
         $unitAkademik = $kategoriAkademik->pluck('unit')->unique('id_unit')->sortBy('id_unit');
+        
+        $panduans = \App\Models\Panduan::where('target_audience', 'semua')->get();
 
-        return view('landing.beranda', compact('totalLaporan', 'laporanPerKategori', 'stats', 'kategoriAkademik', 'kategoriNonAkademik', 'kategoriAkademikUnik', 'unitAkademik'));
+        return view('landing.beranda', compact('totalLaporan', 'laporanPerKategori', 'stats', 'kategoriAkademik', 'kategoriNonAkademik', 'kategoriAkademikUnik', 'unitAkademik', 'panduans'));
     }
 }
