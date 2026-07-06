@@ -3,11 +3,11 @@
         display: inline-flex;
         align-items: center;
         max-width: 300px;
-        margin-left: -8px;
+        margin-left: 4px;
     }
 
     .app-mobile-logo img {
-        height: 100px;
+        height: 36px;
         width: auto;
         max-width: 100%;
         object-fit: contain;
@@ -17,11 +17,11 @@
     @media (max-width: 575.98px) {
         .app-mobile-logo {
             max-width: 250px;
-            margin-left: -6px;
+            margin-left: 2px;
         }
 
         .app-mobile-logo img {
-            height: 88px;
+            height: 32px;
         }
     }
 </style>

@@ -91,13 +91,10 @@
     }
 
     #kt_app_sidebar_logo .app-sidebar-logo-default {
-        height: 144px !important;
+        height: 48px !important;
         width: auto !important;
-        margin-top: 8px;
-        margin-left: 0;
-        max-width: 480px;
+        max-width: 100%;
         object-fit: contain;
-        object-position: center;
     }
 
     #kt_app_sidebar_logo .app-sidebar-logo-minimize {
@@ -125,8 +122,8 @@
 
     @media (max-width: 991.98px) {
         #kt_app_sidebar_logo .app-sidebar-logo-default {
-            height: 116px !important;
-            max-width: 400px;
+            height: 40px !important;
+            max-width: 100%;
         }
 
         #kt_app_sidebar_logo .app-sidebar-logo-minimize {
