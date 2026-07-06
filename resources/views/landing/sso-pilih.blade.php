@@ -47,9 +47,9 @@
 
                 <div class="grid sm:grid-cols-2 gap-4 mb-6">
                     <a href="{{ route('sso.pilih.dashboard') }}"
-                        class="flex flex-col items-center text-center gap-2.5 p-6 rounded-xl border-2 border-slate-200 bg-white no-underline text-inherit transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 group">
+                        class="flex flex-col items-center text-center gap-2.5 p-6 rounded-xl border-2 border-slate-200 bg-white no-underline text-inherit transition-all duration-300 hover:border-primary hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:shadow-primary/10 active:shadow-primary/10 active:border-primary active:scale-[0.98] active:bg-slate-50 group">
                         <div
-                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-white shadow-sm group-hover:shadow-md transition-shadow">
+                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-white shadow-sm group-hover:shadow-md group-active:shadow-md transition-shadow group-active:scale-95">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24">
                                 <rect x="3" y="3" width="7" height="7" />
@@ -65,9 +65,9 @@
                         </div>
                     </a>
                     <a href="{{ route('sso.pilih.lapor') }}"
-                        class="flex flex-col items-center text-center gap-2.5 p-6 rounded-xl border-2 border-slate-200 bg-white no-underline text-inherit transition-all duration-300 hover:border-emerald-400 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/10 group">
+                        class="flex flex-col items-center text-center gap-2.5 p-6 rounded-xl border-2 border-slate-200 bg-white no-underline text-inherit transition-all duration-300 hover:border-emerald-400 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:shadow-emerald-500/10 active:shadow-emerald-500/10 active:border-emerald-400 active:scale-[0.98] active:bg-slate-50 group">
                         <div
-                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white shadow-sm group-hover:shadow-md transition-shadow">
+                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white shadow-sm group-hover:shadow-md group-active:shadow-md transition-shadow group-active:scale-95">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -87,7 +87,7 @@
                 <div class="text-center">
                     <span class="text-sm text-slate-400">Kembali ke </span>
                     <a href="{{ route('beranda') }}"
-                        class="text-sm font-semibold text-primary no-underline hover:text-primary-dark transition-colors">Beranda</a>
+                        class="text-sm font-semibold text-primary no-underline hover:text-primary-dark active:text-primary-dark transition-colors active:scale-[0.98]">Beranda</a>
                 </div>
             </div>
         </div>

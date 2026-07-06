@@ -29,7 +29,7 @@
                                 class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50">
                             </div>
                             <div
-                                class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+                                class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-active:scale-110">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,7 +41,7 @@
                             <p class="text-sm text-slate-500 leading-relaxed mb-5 relative z-10">Jika jawaban yang Anda cari
                                 tidak ada, silakan hubungi tim kami untuk bantuan lebih lanjut.</p>
                             <a href="#"
-                                class="inline-flex justify-center items-center px-5 py-2.5 bg-slate-800 text-white text-sm font-bold rounded-xl hover:bg-primary hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 relative z-10 w-fit">
+                                class="inline-flex justify-center items-center px-5 py-2.5 bg-slate-800 text-white text-sm font-bold rounded-xl hover:bg-primary active:bg-primary hover:shadow-lg active:shadow-lg hover:shadow-primary/30 active:shadow-primary/30 transition-all duration-300 relative z-10 w-fit active:scale-[0.98]">
                                 Hubungi Kami
                             </a>
                         </div>
@@ -74,15 +74,15 @@
 
                         @foreach ($faqs as $i => $faq)
                             <div
-                                class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300 hover:border-primary-light/50 hover:shadow-lg hover:shadow-primary/5">
+                                class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300 hover:border-primary-light/50 active:border-primary-light/50 hover:shadow-lg active:shadow-lg hover:shadow-primary/5 active:shadow-primary/5 active:scale-[0.98]">
                                 <h3 class="m-0">
                                     <button
                                         class="accordion-btn cursor-pointer w-full flex items-center justify-between gap-4 p-5 lg:p-6 text-left transition-colors collapsed group focus:outline-none"
                                         type="button" data-target="faq{{ $i }}">
                                         <span
-                                            class="font-bold text-slate-800 text-[15px] lg:text-base group-hover:text-primary transition-colors pr-4">{{ $faq['q'] }}</span>
+                                            class="font-bold text-slate-800 text-[15px] lg:text-base group-hover:text-primary group-active:text-primary transition-colors pr-4 active:scale-[0.98]">{{ $faq['q'] }}</span>
                                         <span
-                                            class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 text-slate-400 group-hover:bg-primary-surface group-hover:text-primary group-hover:border-primary-mist transition-all duration-300">
+                                            class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 text-slate-400 group-hover:bg-primary-surface group-active:bg-primary-surface group-hover:text-primary group-active:text-primary group-hover:border-primary-mist group-active:border-primary-mist transition-all duration-300 active:scale-[0.98]">
                                             <svg class="w-4 h-4 accordion-arrow transition-transform duration-300"
                                                 fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />

@@ -41,7 +41,7 @@
 
                     <div class="flex flex-wrap gap-3 justify-center lg:justify-start animate-slide-up-delay-3">
                         <a href="{{ route('lapor') }}"
-                            class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-white font-bold text-sm shadow-xl transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5 no-underline"
+                            class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-white font-bold text-sm shadow-xl transition-all duration-200 hover:shadow-2xl active:shadow-2xl hover:-translate-y-0.5 active:-translate-y-0.5 no-underline active:scale-[0.98]"
                             style="background: linear-gradient(135deg, #1e40af, #3b82f6);">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5"
                                 viewBox="0 0 24 24">
@@ -51,7 +51,7 @@
                         </a>
                         @if (isset($panduans) && $panduans->count() > 0)
                             <a href="{{ asset('storage/' . $panduans->first()->file) }}" target="_blank"
-                                class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl border-2 border-primary-light/30 text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all no-underline">
+                                class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl border-2 border-primary-light/30 text-primary font-bold text-sm hover:bg-primary active:bg-primary hover:text-white active:text-white transition-all no-underline active:scale-[0.98]">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -64,9 +64,9 @@
 
                     <div class="flex flex-col sm:flex-row gap-3 mt-10 animate-slide-up-delay-3 w-full">
                         <div
-                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-white cursor-default">
+                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:bg-white active:bg-white cursor-default active:scale-[0.98]">
                             <div
-                                class="w-9 h-9 shrink-0 rounded-xl bg-blue-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                                class="w-9 h-9 shrink-0 rounded-xl bg-blue-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-110 group-hover:rotate-3 group-active:rotate-3">
                                 <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -74,15 +74,15 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <div class="font-bold text-slate-800 text-xs transition-colors group-hover:text-blue-600">
+                                <div class="font-bold text-slate-800 text-xs transition-colors group-hover:text-blue-600 group-active:text-blue-600 active:scale-[0.98]">
                                     Privasi Terjamin</div>
                                 <div class="text-slate-500 text-[11px] leading-tight mt-0.5">Opsi pelaporan anonim</div>
                             </div>
                         </div>
                         <div
-                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-white cursor-default">
+                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:bg-white active:bg-white cursor-default active:scale-[0.98]">
                             <div
-                                class="w-9 h-9 shrink-0 rounded-xl bg-amber-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                                class="w-9 h-9 shrink-0 rounded-xl bg-amber-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-110 group-hover:-rotate-3 group-active:-rotate-3">
                                 <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -90,15 +90,15 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <div class="font-bold text-slate-800 text-xs transition-colors group-hover:text-amber-600">
+                                <div class="font-bold text-slate-800 text-xs transition-colors group-hover:text-amber-600 group-active:text-amber-600 active:scale-[0.98]">
                                     Notifikasi Aktif</div>
                                 <div class="text-slate-500 text-[11px] leading-tight mt-0.5">Update via chat/email</div>
                             </div>
                         </div>
                         <div
-                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-white cursor-default">
+                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:bg-white active:bg-white cursor-default active:scale-[0.98]">
                             <div
-                                class="w-9 h-9 shrink-0 rounded-xl bg-emerald-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                                class="w-9 h-9 shrink-0 rounded-xl bg-emerald-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-110 group-hover:rotate-3 group-active:rotate-3">
                                 <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -107,7 +107,7 @@
                             </div>
                             <div class="text-left">
                                 <div
-                                    class="font-bold text-slate-800 text-xs transition-colors group-hover:text-emerald-600">
+                                    class="font-bold text-slate-800 text-xs transition-colors group-hover:text-emerald-600 group-active:text-emerald-600 active:scale-[0.98]">
                                     Proses Transparan</div>
                                 <div class="text-slate-500 text-[11px] leading-tight mt-0.5">Riwayat laporan terekam</div>
                             </div>
@@ -120,7 +120,7 @@
                         <div class="hero-glow w-[300px] h-[300px] -top-20 -right-20 opacity-30"
                             style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
                         <div
-                            class="relative bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl group/card">
+                            class="relative bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-all duration-500 hover:-translate-y-1 active:-translate-y-1 hover:shadow-xl active:shadow-xl group/card active:scale-[0.98]">
                             <div
                                 class="flex items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100 transition-colors duration-500 group-hover/card:border-slate-200">
                                 <div>
@@ -183,7 +183,7 @@
                                     <div class="flex gap-4 group cursor-default">
                                         <div class="flex flex-col items-center">
                                             <div
-                                                class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:shadow-sm {{ $s['bg'] }} {{ $s['text'] }}">
+                                                class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-active:scale-110 group-hover:shadow-sm group-active:shadow-sm {{ $s['bg'] }} {{ $s['text'] }}">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                     stroke-width="2.5" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -242,9 +242,9 @@
             'selesai' => ['Selesai', '#10b981', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
             'ditolak' => ['Ditolak', '#ef4444', 'M6 18L18 6M6 6l12 12'],
         ] as $key => $info)
-                    <div class="group relative overflow-hidden p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                    <div class="group relative overflow-hidden p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-xl active:shadow-xl active:scale-[0.98]"
                         style="border-color: {{ $info[1] }}20; background: linear-gradient(135deg, {{ $info[1] }}06, {{ $info[1] }}02);">
-                        <div class="absolute top-0 right-0 w-24 h-24 -mt-8 -mr-8 rounded-full opacity-[0.06] group-hover:opacity-[0.10] transition-opacity"
+                        <div class="absolute top-0 right-0 w-24 h-24 -mt-8 -mr-8 rounded-full opacity-[0.06] group-hover:opacity-[0.10] group-active:opacity-[0.10] transition-opacity active:scale-[0.98]"
                             style="background: {{ $info[1] }};"></div>
                         <div class="flex items-center gap-3 mb-3">
                             <div class="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -266,9 +266,9 @@
             </div>
             <div class="text-center">
                 <a href="{{ route('statistik') }}"
-                    class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-bold text-sm border-2 border-blue-400 text-blue-500 bg-transparent transition-all duration-300 hover:bg-blue-500 hover:border-blue-500 hover:text-white hover:-translate-y-1 hover:shadow-lg no-underline group">
+                    class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-bold text-sm border-2 border-blue-400 text-blue-500 bg-transparent transition-all duration-300 hover:bg-blue-500 active:bg-blue-500 hover:border-blue-500 active:border-blue-500 hover:text-white active:text-white hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg no-underline group active:scale-[0.98]">
                     Lihat Selengkapnya
-                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none"
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-1 active:scale-[0.98]" fill="none"
                         stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -424,20 +424,20 @@
                         @php $i = $loop->index % 4; @endphp
                         <a href="{{ route('lapor') }}" class="group block h-full no-underline">
                             <div
-                                class="relative h-full bg-white rounded-[2rem] p-6 sm:p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden z-10 flex flex-col group-hover:border-transparent">
+                                class="relative h-full bg-white rounded-[2rem] p-6 sm:p-7 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] active:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden z-10 flex flex-col group-hover:border-transparent group-active:border-transparent active:scale-[0.98]">
 
                                 <div
-                                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10">
+                                    class="absolute inset-0 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 active:scale-[0.98]">
                                     <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[50px]"
                                         style="background-color: {{ $akdGrads[$i][0] }}30;"></div>
                                 </div>
 
-                                <div class="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                <div class="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500 active:scale-[0.98]"
                                     style="background: linear-gradient(to right, {{ $akdGrads[$i][0] }}, {{ $akdGrads[$i][1] }});">
                                 </div>
 
                                 <div class="flex items-start gap-4 mb-5">
-                                    <div class="relative w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 shadow-sm"
+                                    <div class="relative w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110 group-active:scale-110 group-hover:-rotate-6 group-active:-rotate-6 shadow-sm"
                                         style="background: linear-gradient(135deg, {{ $akdGrads[$i][0] }}15, {{ $akdGrads[$i][1] }}20); color: {{ $akdGrads[$i][0] }};">
                                         <div
                                             class="absolute inset-0 rounded-2xl border border-white/60 bg-white/10 backdrop-blur-[2px]">
@@ -450,26 +450,26 @@
                                     </div>
                                     <div class="pt-1.5 flex-1">
                                         <h4
-                                            class="font-extrabold text-slate-800 text-[1.1rem] leading-tight mb-1.5 group-hover:text-primary transition-colors duration-300">
+                                            class="font-extrabold text-slate-800 text-[1.1rem] leading-tight mb-1.5 group-hover:text-primary group-active:text-primary transition-colors duration-300 active:scale-[0.98]">
                                             {{ $k->nama_kategori }}</h4>
-                                        <div class="inline-flex items-center text-[10px] font-bold uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                                        <div class="inline-flex items-center text-[10px] font-bold uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-active:opacity-100 group-hover:translate-x-0 group-active:translate-x-0 transition-all duration-300 active:scale-[0.98]"
                                             style="color: {{ $akdGrads[$i][0] }};">
                                             Buat Laporan <span
-                                                class="ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">&rarr;</span>
+                                                class="ml-1 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500 delay-100 active:scale-[0.98]">&rarr;</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <p
-                                    class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-2 transition-colors duration-300 group-hover:text-slate-600">
+                                    class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-2 transition-colors duration-300 group-hover:text-slate-600 group-active:text-slate-600 active:scale-[0.98]">
                                     Layanan
                                     pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</p>
 
                                 <div
-                                    class="flex flex-wrap gap-2 mt-auto pt-5 border-t border-slate-100/80 transition-colors duration-300 group-hover:border-slate-200">
+                                    class="flex flex-wrap gap-2 mt-auto pt-5 border-t border-slate-100/80 transition-colors duration-300 group-hover:border-slate-200 group-active:border-slate-200 active:scale-[0.98]">
                                     @foreach ($unitAkademik as $u)
                                         <span
-                                            class="inline-flex items-center text-[10px] font-bold px-3 py-1.5 rounded-xl bg-slate-50 text-slate-500 border border-slate-100 transition-all duration-300 group-hover:bg-white group-hover:shadow-sm group-hover:border-slate-200/60"
+                                            class="inline-flex items-center text-[10px] font-bold px-3 py-1.5 rounded-xl bg-slate-50 text-slate-500 border border-slate-100 transition-all duration-300 group-hover:bg-white group-active:bg-white group-hover:shadow-sm group-active:shadow-sm group-hover:border-slate-200/60 group-active:border-slate-200/60 active:scale-[0.98]"
                                             style="group-hover:color: {{ $akdGrads[$i][0] }};">
                                             {{ $u->singkatan }}
                                         </span>
@@ -503,20 +503,20 @@
                         @php $i = $loop->index % 12; @endphp
                         <a href="{{ route('lapor') }}" class="group block h-full no-underline">
                             <div
-                                class="relative h-full bg-white rounded-[2rem] p-6 sm:p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden z-10 flex flex-col group-hover:border-transparent">
+                                class="relative h-full bg-white rounded-[2rem] p-6 sm:p-7 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] active:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden z-10 flex flex-col group-hover:border-transparent group-active:border-transparent active:scale-[0.98]">
 
                                 <div
-                                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10">
+                                    class="absolute inset-0 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 active:scale-[0.98]">
                                     <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[50px]"
                                         style="background-color: {{ $nonColors[$i][0] }}30;"></div>
                                 </div>
 
-                                <div class="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                <div class="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500 active:scale-[0.98]"
                                     style="background: linear-gradient(to right, {{ $nonColors[$i][0] }}, {{ $nonColors[$i][1] }});">
                                 </div>
 
                                 <div class="flex items-start gap-4 mb-5">
-                                    <div class="relative w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 shadow-sm"
+                                    <div class="relative w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110 group-active:scale-110 group-hover:-rotate-6 group-active:-rotate-6 shadow-sm"
                                         style="background: linear-gradient(135deg, {{ $nonColors[$i][0] }}15, {{ $nonColors[$i][1] }}20); color: {{ $nonColors[$i][0] }};">
                                         <div
                                             class="absolute inset-0 rounded-2xl border border-white/60 bg-white/10 backdrop-blur-[2px]">
@@ -529,25 +529,25 @@
                                     </div>
                                     <div class="pt-1.5 flex-1">
                                         <h4
-                                            class="font-extrabold text-slate-800 text-[1.1rem] leading-tight mb-1.5 group-hover:text-primary transition-colors duration-300">
+                                            class="font-extrabold text-slate-800 text-[1.1rem] leading-tight mb-1.5 group-hover:text-primary group-active:text-primary transition-colors duration-300 active:scale-[0.98]">
                                             {{ $k->nama_kategori }}</h4>
-                                        <div class="inline-flex items-center text-[10px] font-bold uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                                        <div class="inline-flex items-center text-[10px] font-bold uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-active:opacity-100 group-hover:translate-x-0 group-active:translate-x-0 transition-all duration-300 active:scale-[0.98]"
                                             style="color: {{ $nonColors[$i][0] }};">
                                             Buat Laporan <span
-                                                class="ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">&rarr;</span>
+                                                class="ml-1 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500 delay-100 active:scale-[0.98]">&rarr;</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <p
-                                    class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-2 transition-colors duration-300 group-hover:text-slate-600">
+                                    class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-2 transition-colors duration-300 group-hover:text-slate-600 group-active:text-slate-600 active:scale-[0.98]">
                                     Layanan
                                     pengaduan dan aspirasi terkait {{ strtolower($k->nama_kategori) }}.</p>
 
                                 <div
-                                    class="mt-auto pt-5 border-t border-slate-100/80 transition-colors duration-300 group-hover:border-slate-200">
+                                    class="mt-auto pt-5 border-t border-slate-100/80 transition-colors duration-300 group-hover:border-slate-200 group-active:border-slate-200 active:scale-[0.98]">
                                     <span
-                                        class="inline-flex items-center text-[10px] font-bold px-3 py-1.5 rounded-xl bg-slate-50 text-slate-500 border border-slate-100 transition-all duration-300 group-hover:bg-white group-hover:shadow-sm group-hover:border-slate-200/60"
+                                        class="inline-flex items-center text-[10px] font-bold px-3 py-1.5 rounded-xl bg-slate-50 text-slate-500 border border-slate-100 transition-all duration-300 group-hover:bg-white group-active:bg-white group-hover:shadow-sm group-active:shadow-sm group-hover:border-slate-200/60 group-active:border-slate-200/60 active:scale-[0.98]"
                                         style="group-hover:color: {{ $nonColors[$i][0] }};">
                                         {{ $k->unit?->singkatan ?? ($k->unit?->nama_unit ?? '-') }}
                                     </span>
@@ -614,7 +614,7 @@
                     @foreach ($alurSteps as $index => $step)
                         <div class="flex flex-col items-center text-center relative group">
                             <div
-                                class="w-20 h-20 rounded-full {{ $index === 0 ? 'bg-blue-500 text-white shadow-xl shadow-blue-500/40 ring-4 ring-blue-500/30' : 'bg-white/5 text-white/50 border-[3px] border-white/20 backdrop-blur-sm' }} flex items-center justify-center mb-6 shrink-0 z-10 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105">
+                                class="w-20 h-20 rounded-full {{ $index === 0 ? 'bg-blue-500 text-white shadow-xl shadow-blue-500/40 ring-4 ring-blue-500/30' : 'bg-white/5 text-white/50 border-[3px] border-white/20 backdrop-blur-sm' }} flex items-center justify-center mb-6 shrink-0 z-10 transition-transform duration-300 group-hover:-translate-y-1 group-active:-translate-y-1 group-hover:scale-105 group-active:scale-105">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="{!! $step['icon'] !!}">
@@ -659,7 +659,7 @@
                             class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50">
                         </div>
                         <div
-                            class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+                            class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-active:scale-110">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -671,7 +671,7 @@
                         <p class="text-sm text-slate-500 leading-relaxed mb-5 relative z-10">Jika jawaban yang Anda cari
                             tidak ada, silakan hubungi tim kami untuk bantuan lebih lanjut.</p>
                         <a href="#"
-                            class="inline-flex justify-center items-center px-5 py-2.5 bg-slate-800 text-white text-sm font-bold rounded-xl hover:bg-primary hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 relative z-10 w-fit">
+                            class="inline-flex justify-center items-center px-5 py-2.5 bg-slate-800 text-white text-sm font-bold rounded-xl hover:bg-primary active:bg-primary hover:shadow-lg active:shadow-lg hover:shadow-primary/30 active:shadow-primary/30 transition-all duration-300 relative z-10 w-fit active:scale-[0.98]">
                             Hubungi Kami
                         </a>
                     </div>
@@ -704,15 +704,15 @@
 
                     @foreach ($faqs as $i => $faq)
                         <div
-                            class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300 hover:border-primary-light/50 hover:shadow-lg hover:shadow-primary/5">
+                            class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300 hover:border-primary-light/50 active:border-primary-light/50 hover:shadow-lg active:shadow-lg hover:shadow-primary/5 active:shadow-primary/5 active:scale-[0.98]">
                             <h3 class="m-0">
                                 <button
                                     class="accordion-btn cursor-pointer w-full flex items-center justify-between gap-4 p-5 lg:p-6 text-left transition-colors collapsed group focus:outline-none"
                                     type="button" data-target="faq{{ $i }}">
                                     <span
-                                        class="font-bold text-slate-800 text-[15px] lg:text-base group-hover:text-primary transition-colors pr-4">{{ $faq['q'] }}</span>
+                                        class="font-bold text-slate-800 text-[15px] lg:text-base group-hover:text-primary group-active:text-primary transition-colors pr-4 active:scale-[0.98]">{{ $faq['q'] }}</span>
                                     <span
-                                        class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 text-slate-400 group-hover:bg-primary-surface group-hover:text-primary group-hover:border-primary-mist transition-all duration-300">
+                                        class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 text-slate-400 group-hover:bg-primary-surface group-active:bg-primary-surface group-hover:text-primary group-active:text-primary group-hover:border-primary-mist group-active:border-primary-mist transition-all duration-300 active:scale-[0.98]">
                                         <svg class="w-4 h-4 accordion-arrow transition-transform duration-300"
                                             fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />

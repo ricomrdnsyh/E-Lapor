@@ -3,7 +3,7 @@
         <span class="text-white/75 text-[11px] sm:text-xs font-medium tracking-wide">Kanal resmi pengaduan & aspirasi
             civitas akademika</span>
         <a href="{{ route('faq') }}"
-            class="text-white/75 hover:text-white no-underline text-[11px] sm:text-xs font-medium transition-colors flex items-center gap-1.5">
+            class="text-white/75 hover:text-white active:text-white no-underline text-[11px] sm:text-xs font-medium transition-colors flex items-center gap-1.5 active:scale-[0.98]">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
@@ -21,7 +21,7 @@
 
             <div class="flex items-center gap-3">
                 <button id="mobileMenuToggle"
-                    class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-primary-mist/50 transition-colors"
+                    class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-primary-mist/50 active:bg-primary-mist/50 transition-colors active:scale-[0.98]"
                     type="button" aria-label="Buka menu">
                     <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
 
                 <a href="{{ route('beranda') }}" class="flex items-center no-underline group py-1">
                     <img src="{{ asset('assets/media/logos/logo-elapor-dark.png') }}" alt="Logo E-Lapor"
-                        class="h-10 lg:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                        class="h-10 lg:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 group-active:scale-105">
                 </a>
             </div>
 
@@ -53,7 +53,7 @@
             </nav>
 
             <a href="{{ route('lapor') }}"
-                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-sm no-underline shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-sm no-underline shadow-lg transition-all duration-200 hover:shadow-xl active:shadow-xl hover:-translate-y-0.5 active:-translate-y-0.5 active:scale-[0.98]"
                 style="background: linear-gradient(135deg, #1e40af, #3b82f6);">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -71,7 +71,7 @@
         <img src="{{ asset('assets/media/logos/logo-elapor-dark.png') }}" alt="Logo"
             class="h-8 lg:h-9 w-auto object-contain">
         <button id="mobileMenuClose" type="button"
-            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors text-slate-500"
+            class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 active:bg-slate-100 transition-colors text-slate-500 active:scale-[0.98]"
             aria-label="Tutup">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -84,14 +84,14 @@
                 @php $active = request()->routeIs($n['route']); @endphp
                 <a href="{{ route(str_replace('*', '', $n['route'])) }}"
                     class="block px-4 py-3 rounded-xl text-sm font-semibold no-underline transition-all
-                    {{ $active ? 'text-white shadow-md' : 'text-slate-600 hover:bg-primary-surface hover:text-primary' }}"
+                    {{ $active ? 'text-white shadow-md' : 'text-slate-600 hover:bg-primary-surface hover:text-primary active:bg-primary-surface active:text-primary active:scale-[0.98]' }}"
                     style="{{ $active ? 'background: linear-gradient(135deg, #1e40af, #3b82f6);' : '' }}">
                     {{ $n['label'] }}
                 </a>
             @endforeach
             <hr class="my-4 border-slate-100">
             <a href="{{ route('lapor') }}"
-                class="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-white font-bold text-sm no-underline shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 mt-2"
+                class="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-white font-bold text-sm no-underline shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:-translate-y-0.5 active:scale-[0.98] active:shadow-xl transition-all duration-200 mt-2"
                 style="background: linear-gradient(135deg, #1e40af, #3b82f6);">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />

@@ -73,12 +73,12 @@
                         @foreach ($alurSteps as $s)
                             <div class="group relative pb-8">
                                 <div
-                                    class="absolute -left-10 top-0.5 w-8 h-8 rounded-full flex items-center justify-center border-2 border-white shadow-sm transition-transform duration-200 group-hover:scale-110 bg-gradient-to-br {{ $s['g'] }}">
+                                    class="absolute -left-10 top-0.5 w-8 h-8 rounded-full flex items-center justify-center border-2 border-white shadow-sm transition-transform duration-200 group-hover:scale-110 group-active:scale-110 bg-gradient-to-br {{ $s['g'] }}">
                                     <span
                                         class="text-[11px] font-black text-white">{{ sprintf('%02d', $loop->iteration) }}</span>
                                 </div>
                                 <div
-                                    class="bg-white rounded-2xl border border-slate-200 p-5 transition-all duration-200 group-hover:shadow-md">
+                                    class="bg-white rounded-2xl border border-slate-200 p-5 transition-all duration-200 group-hover:shadow-md group-active:shadow-md active:scale-[0.98]">
                                     <div class="flex items-center flex-wrap gap-2 mb-1">
                                         <span class="font-extrabold text-primary-dark text-sm">{{ $s['title'] }}</span>
                                         <span

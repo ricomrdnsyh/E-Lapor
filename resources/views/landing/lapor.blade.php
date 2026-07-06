@@ -223,11 +223,11 @@
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
-                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110">
+                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110 group-active:scale-110">
                                         1
                                     </div>
                                     <span
-                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788]">Kategori
+                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Kategori
                                         Laporan</span>
                                 </div>
 
@@ -239,11 +239,11 @@
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
-                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110">
+                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110 group-active:scale-110">
                                         2
                                     </div>
                                     <span
-                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788]">Lokasi</span>
+                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Lokasi</span>
                                 </div>
 
 
@@ -254,11 +254,11 @@
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
-                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110">
+                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110 group-active:scale-110">
                                         3
                                     </div>
                                     <span
-                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788]">Detail</span>
+                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Detail</span>
                                 </div>
 
 
@@ -269,11 +269,11 @@
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
-                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110">
+                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110 group-active:scale-110">
                                         4
                                     </div>
                                     <span
-                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788]">Pelapor</span>
+                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Pelapor</span>
                                 </div>
 
 
@@ -284,11 +284,11 @@
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
-                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110">
+                                        class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110 group-active:scale-110">
                                         5
                                     </div>
                                     <span
-                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788]">Kirim</span>
+                                        class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Kirim</span>
                                 </div>
 
                             </div>
@@ -471,9 +471,9 @@
                                     <label class="text-xs font-bold text-primary-dark mb-1.5 block">Lampiran Bukti</label>
                                     <div id="upload_zone">
                                         <label for="lampiran_file"
-                                            class="flex flex-col items-center justify-center w-full h-28 px-4 py-4 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50/50 hover:bg-primary-surface hover:border-primary/50 transition-all cursor-pointer group">
+                                            class="flex flex-col items-center justify-center w-full h-28 px-4 py-4 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50/50 hover:bg-primary-surface active:bg-primary-surface hover:border-primary/50 active:border-primary/50 transition-all cursor-pointer group active:scale-[0.98]">
                                             <div
-                                                class="w-10 h-10 rounded-full bg-white border border-slate-200 shadow-sm text-slate-400 group-hover:text-primary group-hover:border-primary/30 flex items-center justify-center mb-2 group-hover:-translate-y-1 transition-all duration-300">
+                                                class="w-10 h-10 rounded-full bg-white border border-slate-200 shadow-sm text-slate-400 group-hover:text-primary group-active:text-primary group-hover:border-primary/30 group-active:border-primary/30 flex items-center justify-center mb-2 group-hover:-translate-y-1 group-active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                     stroke-width="2" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -481,7 +481,7 @@
                                                 </svg>
                                             </div>
                                             <div
-                                                class="text-sm font-bold text-slate-700 group-hover:text-primary transition-colors">
+                                                class="text-sm font-bold text-slate-700 group-hover:text-primary group-active:text-primary transition-colors active:scale-[0.98]">
                                                 Klik untuk unggah file</div>
                                             <div class="text-[11px] text-slate-400 font-medium mt-0.5">Format JPG, PNG, PDF
                                                 (Maks. 5MB)</div>
@@ -509,7 +509,7 @@
                                             </div>
                                         </div>
                                         <button type="button" id="btn_remove_file"
-                                            class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 hover:bg-white transition-colors shrink-0"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-500 active:text-red-500 hover:bg-white active:bg-white transition-colors shrink-0 active:scale-[0.98]"
                                             aria-label="Hapus">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
                                                 viewBox="0 0 24 24">
@@ -697,7 +697,7 @@
                                                 id="captcha_question">Memuat...</span>
                                         </div>
                                         <button type="button" id="btn_refresh_captcha"
-                                            class="w-9 h-9 rounded-xl bg-primary-surface flex items-center justify-center text-primary hover:bg-primary-mist transition-all"
+                                            class="w-9 h-9 rounded-xl bg-primary-surface flex items-center justify-center text-primary hover:bg-primary-mist active:bg-primary-mist transition-all active:scale-[0.98]"
                                             title="Refresh Captcha">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
                                                 viewBox="0 0 24 24">
@@ -721,7 +721,7 @@
                                 </div>
                                 <div>
                                     <button type="submit"
-                                        class="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-primary-light text-white font-bold text-sm shadow-lg shadow-primary/25 hover:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                                        class="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-primary-light text-white font-bold text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                                         id="btn_submit">
                                         <span class="indicator-label inline-flex items-center gap-2">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"

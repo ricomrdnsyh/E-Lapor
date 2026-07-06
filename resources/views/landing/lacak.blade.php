@@ -78,9 +78,9 @@
 
 
                 <div
-                    class="bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-white p-8 lg:p-14 mb-14 overflow-hidden relative group hover:bg-white/90 transition-all duration-700">
+                    class="bg-white/70 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-white p-8 lg:p-14 mb-14 overflow-hidden relative group hover:bg-white/90 active:bg-white/90 transition-all duration-700 active:scale-[0.98]">
                     <div
-                        class="absolute top-0 right-0 p-12 opacity-[0.02] pointer-events-none group-hover:scale-110 group-hover:rotate-6 transition-all duration-700">
+                        class="absolute top-0 right-0 p-12 opacity-[0.02] pointer-events-none group-hover:scale-110 group-active:scale-110 group-hover:rotate-6 group-active:rotate-6 transition-all duration-700">
                         <svg class="w-96 h-96" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
@@ -131,11 +131,11 @@
                                             autocomplete="off" placeholder="UNUJA-XXX-XXXXXXXX-XXXX" required>
                                     </div>
                                     <button type="submit"
-                                        class="w-full sm:w-auto h-12 sm:h-14 mt-2 sm:mt-0 px-10 rounded-2xl bg-gradient-to-r from-primary to-blue-600 text-white font-bold text-sm shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2 border-0 cursor-pointer group"
+                                        class="w-full sm:w-auto h-12 sm:h-14 mt-2 sm:mt-0 px-10 rounded-2xl bg-gradient-to-r from-primary to-blue-600 text-white font-bold text-sm shadow-lg shadow-primary/25 hover:shadow-xl active:shadow-xl hover:shadow-primary/40 active:shadow-primary/40 hover:-translate-y-0.5 active:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2 border-0 cursor-pointer group active:scale-[0.98]"
                                         id="track-submit-btn">
                                         <span class="indicator-label inline-flex items-center gap-2 whitespace-nowrap">
                                             Lacak Tiket
-                                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                                            <svg class="w-4 h-4 group-hover:translate-x-1 group-active:translate-x-1 transition-transform active:scale-[0.98]"
                                                 fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -156,7 +156,7 @@
                     @if ($laporan)
                         <div class="space-y-5">
                             <div
-                                class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 hover:bg-white/95 transition-all duration-500 p-8 lg:p-10 relative overflow-hidden">
+                                class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] active:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 active:-translate-y-1 hover:bg-white/95 active:bg-white/95 transition-all duration-500 p-8 lg:p-10 relative overflow-hidden active:scale-[0.98]">
 
                                 <div class="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
                                     <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="lg:col-span-2 space-y-4">
                                         <div
-                                            class="p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-colors">
+                                            class="p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 active:border-slate-200 transition-colors active:scale-[0.98]">
                                             <div class="text-[11px] font-bold uppercase tracking-widest text-slate-400">
                                                 Kode
                                                 Tiket</div>
@@ -236,7 +236,7 @@
                                                 {{ $laporan->kode_tiket }}</div>
                                         </div>
                                         <div
-                                            class="p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-colors">
+                                            class="p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 active:border-slate-200 transition-colors active:scale-[0.98]">
                                             <div class="text-[11px] font-bold uppercase tracking-widest text-slate-400">
                                                 Judul
                                                 Laporan</div>
@@ -268,7 +268,7 @@
 
                             <div class="grid lg:grid-cols-2 gap-5">
                                 <div
-                                    class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 hover:bg-white/95 transition-all duration-500 p-8 lg:p-10">
+                                    class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] active:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 active:-translate-y-1 hover:bg-white/95 active:bg-white/95 transition-all duration-500 p-8 lg:p-10 active:scale-[0.98]">
                                     <div class="flex items-center gap-4 mb-6">
                                         <div
                                             class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/30 flex items-center justify-center shrink-0">
@@ -285,7 +285,7 @@
                                     </div>
                                     <div class="grid grid-cols-2 gap-4">
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Kategori</div>
@@ -293,7 +293,7 @@
                                                 {{ $laporan->kategori?->nama_kategori ?? '-' }}</div>
                                         </div>
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Unit
@@ -302,7 +302,7 @@
                                                 {{ $laporan->kategori?->unit?->nama_unit ?? '-' }}</div>
                                         </div>
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Lokasi</div>
@@ -317,7 +317,7 @@
                                             </div>
                                         </div>
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Tanggal Kejadian</div>
@@ -332,7 +332,7 @@
                                             </div>
                                         </div>
                                         <div
-                                            class="col-span-2 p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="col-span-2 p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Deskripsi</div>
@@ -343,7 +343,7 @@
                                 </div>
 
                                 <div
-                                    class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 hover:bg-white/95 transition-all duration-500 p-8 lg:p-10">
+                                    class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] active:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 active:-translate-y-1 hover:bg-white/95 active:bg-white/95 transition-all duration-500 p-8 lg:p-10 active:scale-[0.98]">
                                     <div class="flex items-center gap-4 mb-6">
                                         <div
                                             class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 flex items-center justify-center shrink-0">
@@ -360,7 +360,7 @@
                                     </div>
                                     <div class="grid grid-cols-1 gap-4">
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Nama
@@ -369,7 +369,7 @@
                                                 {{ $laporan->nama_pelapor ?: 'Anonim' }}</div>
                                         </div>
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Tipe
@@ -378,7 +378,7 @@
                                                 {{ $laporan->tipe_pelapor ?: '-' }}</div>
                                         </div>
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 Email</div>
@@ -386,7 +386,7 @@
                                                 {{ $laporan->email_pelapor ?: '-' }}</div>
                                         </div>
                                         <div
-                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 transition-all duration-300">
+                                            class="p-4 rounded-2xl bg-white/60 border border-slate-100 hover:bg-white active:bg-white hover:border-blue-100 active:border-blue-100 hover:shadow-xl active:shadow-xl hover:shadow-blue-500/5 active:shadow-blue-500/5 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 active:scale-[0.98]">
                                             <div
                                                 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">
                                                 No.
@@ -399,7 +399,7 @@
                             </div>
 
                             <div
-                                class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 hover:bg-white/95 transition-all duration-500 p-8 lg:p-12">
+                                class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] active:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 active:-translate-y-1 hover:bg-white/95 active:bg-white/95 transition-all duration-500 p-8 lg:p-12 active:scale-[0.98]">
                                 <div class="flex items-end justify-between gap-4 mb-8">
                                     <div>
                                         <h3 class="font-bold text-slate-800 text-xl m-0 tracking-tight">Riwayat Penanganan
@@ -475,7 +475,7 @@
                                                 </svg>
                                             </div>
                                             <div
-                                                class="flex justify-between items-start gap-4 flex-wrap bg-white p-5 rounded-2xl border border-slate-100 shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all">
+                                                class="flex justify-between items-start gap-4 flex-wrap bg-white p-5 rounded-2xl border border-slate-100 shadow-[0_2px_10px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] active:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all active:scale-[0.98]">
                                                 <div class="flex-1 min-w-0">
                                                     <div class="font-bold text-slate-800 text-base mb-1">
                                                         {{ $itemMeta['title'] }}
@@ -512,7 +512,7 @@
 
                                                         @if ($itemEvidenceUrl)
                                                             <a href="{{ $itemEvidenceUrl }}" target="_blank"
-                                                                class="inline-flex items-center gap-1.5 text-xs font-bold px-2 py-1 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all no-underline">
+                                                                class="inline-flex items-center gap-1.5 text-xs font-bold px-2 py-1 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 active:bg-emerald-100 transition-all no-underline active:scale-[0.98]">
                                                                 <svg class="w-3.5 h-3.5" fill="none"
                                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -577,12 +577,12 @@
                         </div>
                     @else
                         <div
-                            class="bg-gradient-to-b from-red-50/50 to-white backdrop-blur-lg rounded-[2.5rem] border border-red-100/50 shadow-[0_8px_30px_rgb(239,68,68,0.04)] p-14 w-full text-center group hover:shadow-[0_20px_40px_rgb(239,68,68,0.08)] hover:-translate-y-1 transition-all duration-500 relative overflow-hidden mt-8">
+                            class="bg-gradient-to-b from-red-50/50 to-white backdrop-blur-lg rounded-[2.5rem] border border-red-100/50 shadow-[0_8px_30px_rgb(239,68,68,0.04)] p-14 w-full text-center group hover:shadow-[0_20px_40px_rgb(239,68,68,0.08)] active:shadow-[0_20px_40px_rgb(239,68,68,0.08)] hover:-translate-y-1 active:-translate-y-1 transition-all duration-500 relative overflow-hidden mt-8 active:scale-[0.98]">
                             <div
                                 class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none">
                             </div>
                             <div
-                                class="w-24 h-24 rounded-[2rem] bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-8 relative z-10 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                                class="w-24 h-24 rounded-[2rem] bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-8 relative z-10 shadow-inner group-hover:scale-110 group-active:scale-110 group-hover:rotate-6 group-active:rotate-6 transition-all duration-500">
                                 <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="2.5"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -596,7 +596,7 @@
                                 tidak terdaftar di sistem kami. Pastikan kode tiket yang Anda masukkan sudah benar.
                             </p>
                             <a href="{{ route('lapor') }}"
-                                class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 shadow-xl shadow-slate-900/20 hover:shadow-slate-900/30 hover:-translate-y-0.5 transition-all no-underline relative z-10">
+                                class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 active:bg-slate-800 shadow-xl shadow-slate-900/20 hover:shadow-slate-900/30 active:shadow-slate-900/30 hover:-translate-y-0.5 active:-translate-y-0.5 transition-all no-underline relative z-10 active:scale-[0.98]">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -608,9 +608,9 @@
                 @else
                     <div class="grid lg:grid-cols-2 gap-8 mt-4">
                         <div
-                            class="bg-white/80 backdrop-blur-lg rounded-[2.5rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-500 p-12 text-center flex flex-col justify-center items-center h-full group">
+                            class="bg-white/80 backdrop-blur-lg rounded-[2.5rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] active:shadow-[0_20px_40px_rgb(0,0,0,0.06)] hover:-translate-y-1 active:-translate-y-1 transition-all duration-500 p-12 text-center flex flex-col justify-center items-center h-full group active:scale-[0.98]">
                             <div
-                                class="w-28 h-28 rounded-full bg-blue-50/50 flex items-center justify-center mb-8 relative group-hover:scale-105 transition-transform duration-500">
+                                class="w-28 h-28 rounded-full bg-blue-50/50 flex items-center justify-center mb-8 relative group-hover:scale-105 group-active:scale-105 transition-transform duration-500">
                                 <div
                                     class="absolute inset-0 border-2 border-dashed border-blue-200 rounded-full animate-[spin_10s_linear_infinite]">
                                 </div>
@@ -628,9 +628,9 @@
                                 Anda terima setelah membuat laporan untuk memantau status.</p>
                         </div>
                         <div
-                            class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.5rem] p-12 text-white relative overflow-hidden shadow-xl shadow-slate-900/20 hover:-translate-y-1 transition-all duration-500 flex flex-col justify-center group">
+                            class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.5rem] p-12 text-white relative overflow-hidden shadow-xl shadow-slate-900/20 hover:-translate-y-1 active:-translate-y-1 transition-all duration-500 flex flex-col justify-center group active:scale-[0.98]">
                             <div
-                                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTAgMGgyNHYyNEgwem0xMiAybTkgOW0tOS05bTkgOSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] opacity-20 group-hover:opacity-30 transition-opacity">
+                                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTAgMGgyNHYyNEgwem0xMiAybTkgOW0tOS05bTkgOSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] opacity-20 group-hover:opacity-30 group-active:opacity-30 transition-opacity active:scale-[0.98]">
                             </div>
                             <div
                                 class="absolute -bottom-24 -right-24 w-64 h-64 bg-slate-700/50 rounded-full blur-3xl pointer-events-none">
