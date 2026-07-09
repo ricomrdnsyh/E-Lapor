@@ -38,9 +38,16 @@ class AdminUnitController extends Controller
                                 <i class="fa fa-file-alt"></i>
                             </a>';
 
+                $editBtn = '<a href="javascript:void(0)"
+                                class="btn btn-sm btn-light btn-active-light-warning text-center btn-edit"
+                                data-id="' . $row->id_unit . '"
+                                data-bs-toggle="tooltip" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>';
+
                 $deleteBtn = '<a href="javascript:void(0)" onclick="confirmDelete(' . $row->id_unit . ')" class="btn btn-sm btn-light btn-active-light-danger text-center" data-bs-toggle="tooltip" title="Hapus" data-bs-title="Hapus"><i class="fas fa-trash-alt"></i></a>';
 
-                return '<div class="text-center">' . $showBtn . ' ' . $deleteBtn . '</div>';
+                return '<div class="text-center">' . $showBtn . ' ' . $editBtn . ' ' . $deleteBtn . '</div>';
             })
             ->rawColumns(['status', 'action'])
             ->make(true);
@@ -68,6 +75,30 @@ class AdminUnitController extends Controller
         ]);
     }
 
+    public function edit(string $id)
+    {
+        $unit = Unit::findOrFail($id);
+        return response()->json($unit);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'nama_unit' => 'required|string|max:255',
+            'singkatan' => 'nullable|string|max:50',
+            'status'    => 'required|in:aktif,nonaktif',
+        ]);
+
+        $unit = Unit::findOrFail($id);
+        $unit->update([
+            'nama_unit' => strtoupper($request->nama_unit),
+            'singkatan' => $request->singkatan ? strtoupper($request->singkatan) : null,
+            'status'    => $request->status,
+        ]);
+
+        return redirect()->route('admin.unit.index')->with('success', 'Data unit berhasil diperbarui.');
+    }
+
     public function syncFromApi(ClientSSO $client)
     {
         try {
@@ -87,8 +118,8 @@ class AdminUnitController extends Controller
                 }
 
                 $data = [
-                    'nama_unit' => $item['lembaga'],
-                    'singkatan' => $item['singkatan'] ?? null,
+                    'nama_unit' => strtoupper($item['lembaga']),
+                    'singkatan' => isset($item['singkatan']) ? strtoupper($item['singkatan']) : null,
                     'status'    => $status,
                 ];
 

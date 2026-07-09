@@ -66,7 +66,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
     Route::post('/unit/sinkronisasi', [AdminUnitController::class, 'syncFromApi'])->name('unit.sync');
-    Route::resource('unit', AdminUnitController::class, ['only' => ['index', 'show', 'destroy']]);
+    Route::resource('unit', AdminUnitController::class, ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
 
     Route::get('/kategori/data', [AdminKategoriController::class, 'getKategori'])->name('kategori.data');
     Route::resource('kategori', AdminKategoriController::class);

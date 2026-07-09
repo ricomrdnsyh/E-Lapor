@@ -55,7 +55,7 @@ class ClientSSO
         $allKaryawan = [];
         $seen = [];
 
-        for ($idLembaga = 1; $idLembaga <= 17; $idLembaga++) {
+        for ($idLembaga = 1; $idLembaga <= 18; $idLembaga++) {
             try {
                 $payload = [
                     'filter'     => 'karyawan',

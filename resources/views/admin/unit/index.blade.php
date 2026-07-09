@@ -152,6 +152,7 @@
                     </div>
                 </div>
             </div>
+            @include('admin.unit.edit')
             @include('admin.unit.show')
 
             @include('layouts.footer')
@@ -175,5 +176,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/responsive.bootstrap.min.js') }}"></script>
 
     @include('admin.unit.script.index')
+    @include('admin.unit.script.edit')
     @include('admin.unit.script.show')
 @endsection
