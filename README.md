@@ -2,7 +2,7 @@
 
 E-Lapor adalah aplikasi berbasis web yang dibangun menggunakan **Laravel** untuk memfasilitasi proses pelaporan, pengaduan, dan layanan terpadu dalam sebuah institusi. Aplikasi ini memungkinkan pengguna untuk membuat laporan dengan detail spesifik lokasi (Gedung, Lantai, Ruangan) dan kategori laporan, serta melacak status laporan mereka. Aplikasi ini juga terintegrasi dengan sistem **Single Sign-On (SSO)**.
 
-## Fitur Utama
+## 🚀 Fitur Utama
 
 Aplikasi ini memiliki beberapa modul dan hak akses pengguna (Roles), yaitu:
 
