@@ -48,6 +48,18 @@ Sistem telah terintegrasi dengan layanan Single Sign-On (SSO) untuk autentikasi 
 
 ---
 
+## 🔔 Notifikasi Realtime (Telegram & Email)
+
+Aplikasi E-Lapor dilengkapi dengan sistem notifikasi _realtime_ untuk memastikan setiap pihak terkait segera mendapatkan informasi saat terjadi pembaruan status laporan:
+
+- **Notifikasi Bot Telegram**:
+    - **Admin**: Akan menerima notifikasi Telegram untuk **semua** laporan baru yang masuk ke dalam sistem.
+    - **Unit**: Akan menerima notifikasi Telegram khusus untuk laporan yang masuk ke unit bersangkutan (disesuaikan berdasarkan **kategori laporan** pengguna).
+- **Notifikasi Email (Pelapor)**:
+  Pengguna (pelapor) akan menerima notifikasi via Email yang berisi informasi detail laporan beserta **kode tiket/resi**. Pelapor juga akan otomatis menerima email notifikasi progres jika laporan mereka telah mulai **diproses** atau sudah **disetujui/diselesaikan**.
+
+---
+
 ## 🔄 Alur Kerja Pelaporan (Workflow)
 
 Aplikasi ini menggunakan alur kerja tiket pengaduan terpusat dengan langkah-langkah berikut:
@@ -57,3 +69,9 @@ Aplikasi ini menggunakan alur kerja tiket pengaduan terpusat dengan langkah-lang
 3. **Tindak Lanjut (Unit)**: Unit yang ditugaskan akan menerima laporan, melakukan penanganan di lapangan, dan memberikan pembaruan (_update progress_) di sistem.
 4. **Penyelesaian (Unit/Admin)**: Setelah masalah teratasi, Unit mengubah status laporan menjadi **"Selesai"**. Pengguna dapat melacak status penyelesaian menggunakan nomor tiket mereka di halaman `/lacak`.
 5. **Pemantauan (Pimpinan)**: Pimpinan dapat melihat rekapitulasi data dan durasi penyelesaian laporan untuk evaluasi kinerja unit.
+
+---
+
+## 📜 Lisensi
+
+Aplikasi E-Lapor ini dikembangkan untuk kebutuhan internal institusi (Proprietary). Segala bentuk distribusi atau komersialisasi di luar lingkup institusi dilarang tanpa izin resmi.
