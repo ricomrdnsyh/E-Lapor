@@ -1,59 +1,59 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# E-Lapor (Kanal Resmi Pengaduan & Aspirasi Civitas Akademika)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+E-Lapor adalah aplikasi berbasis web yang dibangun menggunakan **Laravel** untuk memfasilitasi proses pelaporan, pengaduan, dan layanan terpadu dalam sebuah institusi. Aplikasi ini memungkinkan pengguna untuk membuat laporan dengan detail spesifik lokasi (Gedung, Lantai, Ruangan) dan kategori laporan, serta melacak status laporan mereka. Aplikasi ini juga terintegrasi dengan sistem **Single Sign-On (SSO)**.
 
-## About Laravel
+## Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi ini memiliki beberapa modul dan hak akses pengguna (Roles), yaitu:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Halaman Publik (Landing Page)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Beranda**: Halaman utama informasi E-Lapor.
+- **Buat Laporan (Lapor)**: Form pengajuan laporan oleh pengguna, dilengkapi dengan pilihan lokasi (Gedung, Lantai, Ruangan) dan kategori laporan. Terintegrasi dengan Captcha.
+- **Lacak Laporan (Lacak)**: Fitur bagi pengguna untuk melacak status laporan menggunakan nomor resi/tiket.
+- **Statistik**: Menampilkan data statistik laporan yang masuk dan diselesaikan.
+- **FAQ & Alur**: Informasi panduan dan alur penggunaan sistem.
 
-## Learning Laravel
+### 2. Panel Admin (`role: admin`)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Dashboard**: Ringkasan data laporan, grafik, dan statistik unit.
+- **Manajemen Master Data**:
+    - Unit (Sinkronisasi data dari API tersedia)
+    - Kategori & Sub-Kategori Laporan
+    - Master Lokasi: Gedung, Lantai, Fungsi Ruangan, dan Ruangan
+- **Manajemen Laporan**: Melihat laporan masuk, menugaskan ke unit terkait, dan memperbarui status laporan (History Laporan).
+- **Manajemen Pengguna**: Mengelola pengguna sistem dan integrasi data karyawan via API.
+- **Manajemen Panduan**: Mengelola konten panduan sistem.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Panel Unit (`role: unit`)
 
-## Laravel Sponsors
+- **Dashboard**: Ringkasan laporan yang ditugaskan ke unit bersangkutan, beserta data sub-kategori laporan.
+- **History Laporan**: Melihat dan menindaklanjuti laporan yang masuk ke unit.
+- **Panduan**: Panduan operasional untuk unit pengguna.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 4. Panel Pimpinan (`role: pimpinan`)
 
-### Premium Partners
+- **Dashboard**: Ringkasan eksekutif dan statistik pelaporan berdasarkan sub-kategori untuk pemantauan.
+- **History Laporan**: Pemantauan semua laporan yang ada di dalam sistem (Read-only view).
+- **Panduan**: Panduan penggunaan sistem untuk level pimpinan.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 5. Integrasi SSO & Manajemen Sesi
 
-## Contributing
+Sistem telah terintegrasi dengan layanan Single Sign-On (SSO) untuk autentikasi pengguna terpusat:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Mendukung pemisahan login untuk pengajuan laporan (`/sso/lapor`) dan akses admin/unit (`/sso/admin`).
+- Terdapat fitur pilihan peran (Role Selection) jika satu akun memiliki banyak wewenang.
+- **Session Timeout**: Otomatis mengalihkan (redirect) pengguna ke halaman SSO login jika sesi idle atau kedaluwarsa.
+- **Logout Behavior**: Proses logout dirancang untuk menghapus sesi lokal terlebih dahulu sebelum melakukan redirect ke portal SSO agar sesi global tetap aman bila diperlukan.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔄 Alur Kerja Pelaporan (Workflow)
 
-## Security Vulnerabilities
+Aplikasi ini menggunakan alur kerja tiket pengaduan terpusat dengan langkah-langkah berikut:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. **Pengajuan (User)**: Pengguna (Mahasiswa/Dosen/Tendik) mengajukan laporan melalui halaman `/lapor`, melampirkan foto bukti, dan memilih lokasi serta kategori. Laporan akan mendapatkan status **"Menunggu"**.
+2. **Verifikasi & Penugasan (Admin)**: Admin memeriksa laporan masuk. Jika valid, admin akan meneruskan (assign) laporan tersebut ke **Unit** terkait (misal: Unit IT, Unit Sarpras). Status berubah menjadi **"Diproses"**.
+3. **Tindak Lanjut (Unit)**: Unit yang ditugaskan akan menerima laporan, melakukan penanganan di lapangan, dan memberikan pembaruan (_update progress_) di sistem.
+4. **Penyelesaian (Unit/Admin)**: Setelah masalah teratasi, Unit mengubah status laporan menjadi **"Selesai"**. Pengguna dapat melacak status penyelesaian menggunakan nomor tiket mereka di halaman `/lacak`.
+5. **Pemantauan (Pimpinan)**: Pimpinan dapat melihat rekapitulasi data dan durasi penyelesaian laporan untuk evaluasi kinerja unit.
