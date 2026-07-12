@@ -2,11 +2,13 @@
 <html lang="id">
 
 <head>
-    <title>E-Lapor | Universitas Nurul Jadid</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="robots" content="index, follow">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="description" content="Kanal resmi pengaduan & aspirasi civitas akademika Universitas Nurul Jadid." />
+    <title>E-Lapor | Universitas Nurul Jadid</title>
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/unuja.png') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
