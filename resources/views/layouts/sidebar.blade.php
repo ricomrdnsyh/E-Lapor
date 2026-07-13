@@ -235,7 +235,8 @@
                                 href="{{ route('admin.panduan.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-book fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Panduan</span>
@@ -246,7 +247,8 @@
                                 href="{{ route('admin.unit.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-bank fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Unit</span>
@@ -257,7 +259,8 @@
                                 href="{{ route('admin.kategori.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-abstract-26 fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Kategori</span>
@@ -268,7 +271,8 @@
                                 href="{{ route('admin.sub-kategori.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-folder fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Sub Kategori</span>
@@ -279,7 +283,8 @@
                                 href="{{ route('admin.gedung.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-home fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Gedung</span>
@@ -290,7 +295,8 @@
                                 href="{{ route('admin.lantai.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-row-horizontal fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Lantai</span>
@@ -301,7 +307,8 @@
                                 href="{{ route('admin.fungsi-ruangan.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-setting-2 fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Fungsi Ruangan</span>
@@ -312,7 +319,8 @@
                                 href="{{ route('admin.ruangan.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-shop fs-2">
-                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span>
                                     </i>
                                 </span>
                                 <span class="menu-title">Ruangan</span>
@@ -348,6 +356,25 @@
                                     </i>
                                 </span>
                                 <span class="menu-title">History Laporan</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item pt-1">
+                            <div class="menu-content">
+                                <span class="menu-heading fw-bold text-uppercase fs-8">Statistik</span>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link {{ Request::is('admin/statistik-unit*') ? 'active' : '' }}"
+                                href="{{ route('admin.statistik-unit.index') }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-chart-pie-4 fs-2">
+                                        <span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Statistik Laporan</span>
                             </a>
                         </div>
                     @elseif ($isUnit)

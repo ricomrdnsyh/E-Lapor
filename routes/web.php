@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminSubKategoriController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminPanduanController;
+use App\Http\Controllers\Admin\AdminStatistikUnitController;
 use App\Http\Controllers\Unit\UnitDashboardController;
 use App\Http\Controllers\Unit\UnitHistoryLaporanController;
 use App\Http\Controllers\Unit\UnitPanduanController;
@@ -63,6 +64,9 @@ Route::get('/sso/logout/{sessionId}', [SsoController::class, 'logout']);
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/dashboard/unit-data', [AdminDashboardController::class, 'getUnitChartData'])->name('dashboard.unit-data');
+
+    Route::get('/statistik-unit', [AdminStatistikUnitController::class, 'index'])->name('statistik-unit.index');
+    Route::get('/statistik-unit/data', [AdminStatistikUnitController::class, 'getData'])->name('statistik-unit.data');
 
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
     Route::post('/unit/sinkronisasi', [AdminUnitController::class, 'syncFromApi'])->name('unit.sync');
