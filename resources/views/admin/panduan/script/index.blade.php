@@ -2,6 +2,8 @@
     var table;
 
     $(document).ready(function() {
+        $.fn.dataTable.ext.errMode = 'none';
+
         table = $('#table_panduan').DataTable({
             processing: false,
             serverSide: true,

@@ -1,5 +1,10 @@
 <script>
     $(function() {
+        $.fn.dataTable.ext.errMode = 'none';
+        $('#example').on('error.dt', function(e, settings, techNote, message) {
+            console.log('An error has been reported by DataTables: ', message);
+        });
+
         var table = $('#example').DataTable({
             processing: false,
             serverSide: true,
@@ -50,7 +55,7 @@
                 }
             ],
             ajax: {
-                url: '{{ route('admin.laporan.data') }}',
+                url: '{{ route('admin.laporan.data', [], false) }}',
                 data: function(d) {
                     d.status = $('#filter_status').val();
                     d.kategori_id = $('#filter_kategori').val();

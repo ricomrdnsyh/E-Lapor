@@ -1,5 +1,10 @@
 <script>
     $(function() {
+        $.fn.dataTable.ext.errMode = 'none';
+        $('#example').on('error.dt', function(e, settings, techNote, message) {
+            console.log('An error has been reported by DataTables: ', message);
+        });
+
         var table = $('#example').DataTable({
             processing: false,
             serverSide: true,
@@ -10,7 +15,7 @@
                 }
             },
             ajax: {
-                url: '{{ route('admin.history-laporan.data') }}',
+                url: '{{ route('admin.history-laporan.data', [], false) }}',
                 data: function(d) {
                     d.status = $('#filter_status').val();
                     d.kategori_id = $('#filter_kategori').val();
@@ -152,7 +157,7 @@
 
             if (kategoriId) {
                 $.ajax({
-                    url: '{{ route('lapor.subkategoris') }}',
+                    url: '{{ route('lapor.subkategoris', [], false) }}',
                     type: 'GET',
                     data: { kategori_id: kategoriId },
                     success: function(data) {

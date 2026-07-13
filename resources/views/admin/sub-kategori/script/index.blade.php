@@ -1,5 +1,10 @@
 <script>
     $(function() {
+        $.fn.dataTable.ext.errMode = 'none';
+        $('#example').on('error.dt', function(e, settings, techNote, message) {
+            console.log('An error has been reported by DataTables: ', message);
+        });
+
         $('#example').DataTable({
             processing: false,
             serverSide: true,
@@ -49,7 +54,7 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.sub-kategori.data') }}',
+            ajax: '{{ route('admin.sub-kategori.data', [], false) }}',
             columns: [{
                     data: null,
                     defaultContent: '',
