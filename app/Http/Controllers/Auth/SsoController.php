@@ -23,6 +23,7 @@ class SsoController extends Controller
         $tipe = $this->determineTipe($responseData);
 
         $request->session()->put('sso_user', [
+            'identifier' => $identifier,
             'nama'    => $responseData['nama'] ?? $responseData['nama_penduduk'] ?? '',
             'email'   => $responseData['email'] ?? '',
             'no_telp' => $responseData['no_hp'] ?? $responseData['telepon'] ?? $responseData['no_telp'] ?? $responseData['hp'] ?? $responseData['phone'] ?? $responseData['nohp'] ?? '',
@@ -101,8 +102,10 @@ class SsoController extends Controller
         }
 
         $tipe = $this->determineTipe($responseData);
+        $identifier = $responseData['nim'] ?? $responseData['id_penduduk'] ?? null;
 
         $request->session()->put('sso_user', [
+            'identifier' => $identifier,
             'nama'    => $responseData['nama'] ?? $responseData['nama_penduduk'] ?? '',
             'email'   => $responseData['email'] ?? '',
             'no_telp' => $responseData['no_hp'] ?? $responseData['telepon'] ?? $responseData['no_telp'] ?? $responseData['hp'] ?? $responseData['phone'] ?? $responseData['nohp'] ?? '',

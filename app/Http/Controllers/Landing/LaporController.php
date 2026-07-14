@@ -9,6 +9,7 @@ use App\Models\Lantai;
 use App\Models\LogStatusLaporan;
 use App\Models\Kategori;
 use App\Models\Laporan;
+use App\Models\LaporanSsoTracking;
 use App\Models\Ruangan;
 use App\Models\SubKategori;
 use App\Models\Unit;
@@ -182,7 +183,7 @@ class LaporController extends Controller
             'email_pelapor'     => 'required_if:is_anonymous,t|nullable|email|max:100',
             'no_telp_pelapor'   => 'required_if:is_anonymous,t|nullable|string|max:15',
             'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
-            'email_anonim'      => 'nullable|email|max:100',
+            'email_anonim'      => 'required_if:is_anonymous,y|email|max:100',
             'agreement'         => 'required|accepted',
         ], [
             'kategori_id.required'        => 'Kategori laporan harus dipilih',
@@ -196,8 +197,9 @@ class LaporController extends Controller
             'deskripsi_laporan.required'  => 'Deskripsi laporan harus diisi',
             'nama_pelapor.required_if'    => 'Nama pelapor harus diisi jika tidak anonim',
             'email_pelapor.required_if'   => 'Email pelapor harus diisi jika tidak anonim',
-            'no_telp_pelapor.required_if' => 'Email pelapor harus diisi jika tidak anonim',
+            'no_telp_pelapor.required_if' => 'Nomor telepon pelapor harus diisi jika tidak anonim',
             'tipe_pelapor.required_if'    => 'Tipe pelapor harus diisi jika tidak anonim',
+            'email_anonim.required_if'    => 'Email anonim wajib diisi',
             'agreement.required'          => 'Anda harus menyetujui pernyataan',
         ]);
 
@@ -224,6 +226,10 @@ class LaporController extends Controller
                 $tipe_pelapor       = null;
             }
 
+            $ssoUser = Session::get('sso_user');
+            $ssoNimNip = $ssoUser['identifier'] ?? null;
+            $ssoNama = $ssoUser['nama'] ?? null;
+
             $laporan = DB::transaction(function () use (
                 $validated,
                 $kode_tiket,
@@ -231,7 +237,9 @@ class LaporController extends Controller
                 $nama_pelapor,
                 $email_pelapor,
                 $no_telp_pelapor,
-                $tipe_pelapor
+                $tipe_pelapor,
+                $ssoNimNip,
+                $ssoNama
             ) {
                 $laporan = Laporan::create([
                     'kode_tiket'        => $kode_tiket,
@@ -247,8 +255,16 @@ class LaporController extends Controller
                     'email_pelapor'     => $email_pelapor,
                     'no_telp_pelapor'   => $no_telp_pelapor,
                     'tipe_pelapor'      => $tipe_pelapor,
-                    'status'            => 'menunggu'
+                    'status'            => 'menunggu',
                 ]);
+
+                if ($ssoNimNip || $ssoNama) {
+                    LaporanSsoTracking::create([
+                        'laporan_id'  => $laporan->id_laporan,
+                        'sso_nim_nip' => $ssoNimNip,
+                        'sso_nama'    => $ssoNama,
+                    ]);
+                }
 
                 $unitIds = [$validated['unit_id']];
 

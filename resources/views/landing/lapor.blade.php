@@ -483,7 +483,8 @@
                                             <div
                                                 class="text-sm font-bold text-slate-700 group-hover:text-primary group-active:text-primary transition-colors active:scale-[0.98]">
                                                 Klik untuk unggah file</div>
-                                            <div class="text-[11px] text-slate-400 font-medium mt-0.5">Format JPG, PNG, PDF
+                                            <div class="text-[11px] text-slate-400 font-medium mt-0.5">Format JPG, JPEG,
+                                                PNG, PDF
                                                 (Maks. 5MB)</div>
                                         </label>
                                     </div>
@@ -592,11 +593,11 @@
                                 </div>
 
                                 <div id="anonEmailBlock" class="{{ $isAnonOld ? '' : 'hidden' }}">
-                                    <label class="text-xs font-bold text-primary-dark mb-1.5 block">Email <span
-                                            class="font-normal text-slate-400">(opsional)</span></label>
+                                    <label class="text-xs font-bold text-primary-dark mb-1.5 block required">Email</label>
                                     <input type="email" id="email_anonim" name="email_anonim"
                                         class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                        placeholder="nama@gmail.com" value="{{ old('email_anonim') }}">
+                                        placeholder="nama@gmail.com" value="{{ old('email_anonim') }}"
+                                        {{ $isAnonOld ? 'required' : '' }}>
                                     <div class="flex items-start gap-2 p-2.5 rounded-xl bg-primary-surface mt-2">
                                         <svg class="w-4 h-4 text-primary shrink-0 mt-0.5" fill="none"
                                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -866,6 +867,8 @@
             if (namaPelapor) isAnon ? namaPelapor.removeAttribute('required') : namaPelapor.setAttribute('required',
                 'required');
             if (emailPelapor) isAnon ? emailPelapor.removeAttribute('required') : emailPelapor.setAttribute('required',
+                'required');
+            if (emailAnonim) isAnon ? emailAnonim.setAttribute('required', 'required') : emailAnonim.removeAttribute(
                 'required');
         };
 

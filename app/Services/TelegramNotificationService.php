@@ -32,12 +32,13 @@ class TelegramNotificationService
             Log::info('[TelegramNotif] Target users: ' . $targetUsers->pluck('username')->implode(', '));
 
             $text = $this->buildMessageText($laporan);
-            $replyMarkup = $this->buildReplyMarkup($laporan);
 
             $successCount = 0;
             $failCount = 0;
 
             foreach ($targetUsers as $user) {
+                $replyMarkup = $this->buildReplyMarkup($laporan, $user);
+
                 $sent = $this->sendTelegramMessage(
                     userId: $user->username,
                     text: $text,
@@ -142,9 +143,49 @@ class TelegramNotificationService
     /**
      * Susun reply_markup dengan inline keyboard.
      */
-    protected function buildReplyMarkup(Laporan $laporan): array
+    protected function buildReplyMarkup(Laporan $laporan, User $user): array
     {
-        $url = url('https://sso.unuja.ac.id/');
+        // Ambil ID HistoryLaporan terkait
+        $history = $laporan->historyLaporans()->first();
+        $historyId = $history ? $history->id_history : $laporan->id_laporan;
+
+        // Tentukan target URL berdasarkan role user
+        if ($user->role === 'admin') {
+            $targetUrl = route('admin.history-laporan.edit', $historyId);
+        } elseif ($user->role === 'unit') {
+            $targetUrl = route('unit.history-laporan.edit', $historyId);
+        } else {
+            $targetUrl = route('pimpinan.history-laporan.index');
+        }
+
+        // 1. Definisikan data dasar
+        $appSecret = config('services.sso.x_token', env('SSO_X_TOKEN', ''));
+        $devId = config('services.sso.dev_id', env('SSO_DEV_ID', ''));
+        $idTelegram = (string) ($user->telegram_id ?? $user->username);
+        $timestamp = time();
+        $redirectUri = $targetUrl;
+
+        // 2. Lakukan Double Base64 Encode untuk parameter tertentu
+        $encodedXToken = base64_encode(base64_encode($appSecret));
+        $encodedDevId = base64_encode(base64_encode($devId));
+        $encodedIdTelegram = base64_encode(base64_encode($idTelegram));
+        $encodedTimestamp = base64_encode(base64_encode($timestamp));
+
+        // 3. Hitung Signature HMAC-SHA256 menggunakan $appSecret sebagai Key
+        $dataToSign = "x-token=" . $appSecret . "&dev_id=" . $devId . "&id_telegram=" . $idTelegram . "&timestamp=" . $timestamp . "&redirect_uri=" . $redirectUri;
+        $signature = hash_hmac('sha256', $dataToSign, $appSecret);
+
+        // 4. Susun URL GET Lengkap
+        $params = [
+            'x-token'      => $encodedXToken,
+            'redirect_uri' => $redirectUri,
+            'dev_id'       => $encodedDevId,
+            'id_telegram'  => $encodedIdTelegram,
+            'timestamp'    => $encodedTimestamp,
+            'signature'    => $signature
+        ];
+
+        $url = 'https://sso.unuja.ac.id/callback?' . http_build_query($params);
 
         return [
             'inline_keyboard' => [
