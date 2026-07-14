@@ -67,6 +67,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     Route::get('/statistik-unit', [AdminStatistikUnitController::class, 'index'])->name('statistik-unit.index');
     Route::get('/statistik-unit/data', [AdminStatistikUnitController::class, 'getData'])->name('statistik-unit.data');
+    Route::get('/statistik-unit/kategori-data', [AdminStatistikUnitController::class, 'getKategoriData'])->name('statistik-unit.kategori-data');
+    Route::get('/statistik-unit/unit-data', [AdminStatistikUnitController::class, 'getUnitData'])->name('statistik-unit.unit-data');
 
     Route::get('/unit/data', [AdminUnitController::class, 'getUnit'])->name('unit.data');
     Route::post('/unit/sinkronisasi', [AdminUnitController::class, 'syncFromApi'])->name('unit.sync');
