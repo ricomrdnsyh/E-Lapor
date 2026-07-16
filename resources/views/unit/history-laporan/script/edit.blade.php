@@ -106,7 +106,7 @@
 
                         document.getElementById('edit_deskripsi_laporan').value = laporan.deskripsi_laporan || '';
                         document.getElementById('edit_nama_pelapor').value = laporan.nama_pelapor || '-';
-                        document.getElementById('edit_email_pelapor').value = laporan.email_pelapor || '-';
+                        document.getElementById('edit_email_pelapor').value = laporan.is_anonymous === 'y' ? 'Anonymous' : (laporan.email_pelapor || '-');
                         document.getElementById('edit_no_telp_pelapor').value = laporan.no_telp_pelapor || '-';
                         document.getElementById('edit_tipe_pelapor').value = laporan.tipe_pelapor || '-';
                         document.getElementById('edit_is_anonymous').value = privasi;

@@ -121,12 +121,11 @@
 
                         <div class="col-xl col-md-6">
                             <a href="{{ route('admin.history-laporan.index') }}"
-                                class="card border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100"
-                                style="background-color: rgba(114, 57, 234, 0.12) !important;">
+                                class="card bg-light-success border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <span class="symbol symbol-40px">
-                                            <span class="symbol-label bg-info shadow-sm">
+                                            <span class="symbol-label bg-success shadow-sm">
                                                 <i class="ki-duotone ki-verify text-white fs-3">
                                                     <span class="path1"></span>
                                                     <span class="path2"></span>

@@ -201,7 +201,7 @@
                                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">
                                                     <span>Email Pelapor</span>
                                                 </label>
-                                                <input type="email" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled value="{{ $history->laporan->email_pelapor ?? '-' }}">
+                                                <input type="text" class="form-control form-control-sm fs-sm-8 fs-lg-6 text-dark" disabled value="{{ $history->laporan->is_anonymous == 'y' ? 'Anonymous' : ($history->laporan->email_pelapor ?? '-') }}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1">

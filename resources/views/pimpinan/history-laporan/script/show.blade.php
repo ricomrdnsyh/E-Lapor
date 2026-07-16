@@ -69,8 +69,8 @@
                             .judul_laporan || '-';
                         document.getElementById('show_nama_pelapor').value = laporan
                             .nama_pelapor || '-';
-                        document.getElementById('show_email_pelapor').value = laporan
-                            .email_pelapor || '-';
+                        document.getElementById('show_email_pelapor').value = laporan.is_anonymous === 'y' ? 'Anonymous' : (laporan
+                            .email_pelapor || '-');
                         document.getElementById('show_no_telp_pelapor').value = laporan
                             .no_telp_pelapor || '-';
                         document.getElementById('show_tipe_pelapor').value = laporan
