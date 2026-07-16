@@ -29,7 +29,7 @@ class TelegramNotificationService
                 return;
             }
 
-            Log::info('[TelegramNotif] Target users: ' . $targetUsers->pluck('username')->implode(', '));
+            // Log::info('[TelegramNotif] Target users: ' . $targetUsers->pluck('username')->implode(', '));
 
             $text = $this->buildMessageText($laporan);
 
@@ -52,7 +52,7 @@ class TelegramNotificationService
                 }
             }
 
-            Log::info("[TelegramNotif] Laporan #{$laporan->id_laporan}: {$successCount} berhasil, {$failCount} gagal dari {$targetUsers->count()} user");
+            // Log::info("[TelegramNotif] Laporan #{$laporan->id_laporan}: {$successCount} berhasil, {$failCount} gagal dari {$targetUsers->count()} user");
         } catch (\Exception $e) {
             Log::error('[TelegramNotif] Gagal mengirim notifikasi: ' . $e->getMessage(), [
                 'laporan_id' => $laporan->id_laporan ?? null,
@@ -241,7 +241,7 @@ class TelegramNotificationService
             $url     = $telegramAuth['url'];
             $headers = $telegramAuth['headers'];
 
-            Log::info("[TelegramNotif] Kirim ke user_id={$userId} | URL={$url}");
+            // Log::info("[TelegramNotif] Kirim ke user_id={$userId} | URL={$url}");
 
             $body = [
                 'user_id'                  => $userId,
@@ -281,7 +281,7 @@ class TelegramNotificationService
 
             // Jika 401, refresh auth (URL token expired) dan coba lagi
             if ($response->status() === 401) {
-                Log::info('[TelegramNotif] Token expired, refreshing auth...');
+                // Log::info('[TelegramNotif] Token expired, refreshing auth...');
                 $this->auth->refreshAuth();
 
                 $telegramAuth = $this->getAuthForTelegram();
@@ -299,7 +299,7 @@ class TelegramNotificationService
             }
 
             if ($response->successful()) {
-                Log::info("[TelegramNotif] Berhasil kirim ke user_id={$userId} | Response: " . $response->body());
+                // Log::info("[TelegramNotif] Berhasil kirim ke user_id={$userId} | Response: " . $response->body());
                 return true;
             } else {
                 Log::warning("[TelegramNotif] Gagal kirim ke user_id={$userId} | Status: {$response->status()} | Body: {$response->body()}");

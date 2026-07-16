@@ -31,7 +31,7 @@ class EmailNotificationService
         $email = $laporan->email_pelapor;
 
         if (!$this->isValidEmail($email)) {
-            Log::info("[EmailNotif] Skip notif laporan baru #{$laporan->id_laporan} — email tidak valid: {$email}");
+            // Log::info("[EmailNotif] Skip notif laporan baru #{$laporan->id_laporan} — email tidak valid: {$email}");
             return;
         }
 
@@ -40,7 +40,7 @@ class EmailNotificationService
 
             Mail::to($email)->send(new LaporanBaruMail($laporan));
 
-            Log::info("[EmailNotif] Berhasil kirim notif laporan baru ke {$email} (Tiket: {$laporan->kode_tiket})");
+            // Log::info("[EmailNotif] Berhasil kirim notif laporan baru ke {$email} (Tiket: {$laporan->kode_tiket})");
         } catch (\Exception $e) {
             Log::error("[EmailNotif] Gagal kirim notif laporan baru ke {$email}: {$e->getMessage()}");
         }
@@ -54,7 +54,7 @@ class EmailNotificationService
         $email = $laporan->email_pelapor;
 
         if (!$this->isValidEmail($email)) {
-            Log::info("[EmailNotif] Skip notif update #{$laporan->id_laporan} — email tidak valid: {$email}");
+            // Log::info("[EmailNotif] Skip notif update #{$laporan->id_laporan} — email tidak valid: {$email}");
             return;
         }
 
@@ -63,7 +63,7 @@ class EmailNotificationService
 
             Mail::to($email)->send(new LaporanUpdateMail($laporan, $statusBaru, $catatan));
 
-            Log::info("[EmailNotif] Berhasil kirim notif update ke {$email} (Tiket: {$laporan->kode_tiket}, Status: {$statusBaru})");
+            // Log::info("[EmailNotif] Berhasil kirim notif update ke {$email} (Tiket: {$laporan->kode_tiket}, Status: {$statusBaru})");
         } catch (\Exception $e) {
             Log::error("[EmailNotif] Gagal kirim notif update ke {$email}: {$e->getMessage()}");
         }
