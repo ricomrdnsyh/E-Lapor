@@ -183,7 +183,7 @@ class LaporController extends Controller
             'email_pelapor'     => 'required_if:is_anonymous,t|nullable|email|max:100',
             'no_telp_pelapor'   => 'required_if:is_anonymous,t|nullable|string|max:15',
             'tipe_pelapor'      => 'required_if:is_anonymous,t|nullable|string|in:Dosen,Mahasiswa,Tenaga Pendidik,Masyarakat/Umum',
-            'email_anonim'      => 'required_if:is_anonymous,y|email|max:100',
+            'email_anonim'      => 'required_if:is_anonymous,y|nullable|email|max:100',
             'agreement'         => 'required|accepted',
         ], [
             'kategori_id.required'        => 'Kategori laporan harus dipilih',
@@ -197,9 +197,11 @@ class LaporController extends Controller
             'deskripsi_laporan.required'  => 'Deskripsi laporan harus diisi',
             'nama_pelapor.required_if'    => 'Nama pelapor harus diisi jika tidak anonim',
             'email_pelapor.required_if'   => 'Email pelapor harus diisi jika tidak anonim',
+            'email_pelapor.email'         => 'Format email pelapor tidak valid',
             'no_telp_pelapor.required_if' => 'Nomor telepon pelapor harus diisi jika tidak anonim',
             'tipe_pelapor.required_if'    => 'Tipe pelapor harus diisi jika tidak anonim',
             'email_anonim.required_if'    => 'Email anonim wajib diisi',
+            'email_anonim.email'          => 'Format email anonim tidak valid',
             'agreement.required'          => 'Anda harus menyetujui pernyataan',
         ]);
 
