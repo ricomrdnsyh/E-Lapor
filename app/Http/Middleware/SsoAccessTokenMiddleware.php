@@ -53,7 +53,8 @@ class SsoAccessTokenMiddleware
                         unset($params['access_token']);
                         unset($params['token_type']);
 
-                        $cleanUrl = $request->url();
+                        $cleanPath = $request->path();
+                        $cleanUrl = $cleanPath === '/' ? '/' : '/' . $cleanPath;
                         if (!empty($params)) {
                             $cleanUrl .= '?' . http_build_query($params);
                         }

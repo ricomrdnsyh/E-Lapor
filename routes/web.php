@@ -30,7 +30,7 @@ use App\Http\Controllers\Landing\BerandaController;
 use App\Http\Controllers\Landing\KategoriController;
 use App\Http\Controllers\Landing\StatistikController;
 
-Route::get('log-viewer', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::get('log-viewer', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->middleware(['auth', 'role:admin']);
 
 Route::get('/', [BerandaController::class, 'beranda'])->name('beranda');
 Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori');
@@ -39,7 +39,7 @@ Route::get('/faq', [FAQController::class, 'faq'])->name('faq');
 Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
 Route::get('/statistik/data', [StatistikController::class, 'getData'])->name('statistik.data');
 Route::get('/lapor', [LaporController::class, 'index'])->name('lapor');
-Route::post('/lapor', [LaporController::class, 'store'])->name('lapor.store');
+Route::post('/lapor', [LaporController::class, 'store'])->name('lapor.store')->middleware('throttle:3,1');
 Route::get('/lapor/data/units', [LaporController::class, 'getUnits'])->name('lapor.units');
 Route::get('/lapor/data/categories', [LaporController::class, 'getCategories'])->name('lapor.categories');
 Route::get('/lapor/data/gedungs', [LaporController::class, 'getGedungs'])->name('lapor.gedungs');
