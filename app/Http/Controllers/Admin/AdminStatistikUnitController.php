@@ -13,7 +13,7 @@ class AdminStatistikUnitController extends Controller
 {
     public function index()
     {
-        $units = Unit::where('status', 'aktif')->orderBy('nama_unit')->get();
+        $units = Unit::where('status', 'aktif')->has('kategoris')->orderBy('nama_unit')->get();
         $kategoris = Kategori::select('nama_kategori')->distinct()->get()->sortBy('nama_kategori', SORT_NATURAL | SORT_FLAG_CASE);
         return view('admin.statistik_unit.index', compact('units', 'kategoris'));
     }
@@ -41,7 +41,7 @@ class AdminStatistikUnitController extends Controller
             $kategoriId = $request->input('kategori_id');
             $unitChartQuery = clone $baseQuery;
 
-            $unitsQuery = Unit::where('status', 'aktif')->orderBy('nama_unit');
+            $unitsQuery = Unit::where('status', 'aktif')->has('kategoris')->orderBy('nama_unit');
 
             if ($kategoriId && $kategoriId !== 'all') {
                 // Filter laporannya
@@ -180,7 +180,7 @@ class AdminStatistikUnitController extends Controller
             });
         }
 
-        $unitsQuery = Unit::where('status', 'aktif')->orderBy('nama_unit');
+        $unitsQuery = Unit::where('status', 'aktif')->has('kategoris')->orderBy('nama_unit');
         if ($kategoriId && $kategoriId !== 'all') {
             $unitsQuery->whereHas('kategoris', function($q) use ($kategoriId) {
                 $q->where('nama_kategori', $kategoriId);
