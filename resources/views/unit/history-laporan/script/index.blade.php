@@ -49,6 +49,10 @@
                     name: 'kode_tiket'
                 },
                 {
+                    data: 'tgl_laporan_masuk',
+                    name: 'laporan.created_at'
+                },
+                {
                     data: 'judul_laporan',
                     name: 'judul_laporan'
                 },
@@ -67,10 +71,6 @@
                 {
                     data: 'nama_pelapor',
                     name: 'nama_pelapor'
-                },
-                {
-                    data: 'tgl_laporan_masuk',
-                    name: 'laporan.created_at'
                 },
                 {
                     data: 'unit_penangan',

@@ -93,12 +93,6 @@ class PimpinanHistoryLaporanController extends Controller
             ->addColumn('judul_laporan', function ($row) {
                 return $row->laporan?->judul_laporan ?? '-';
             })
-            ->addColumn('unit_tujuan', function ($row) {
-                if ($row->laporan && $row->laporan->units->isNotEmpty()) {
-                    return $row->laporan->units->pluck('nama_unit')->implode(', ');
-                }
-                return '-';
-            })
             ->addColumn('kategori', function ($row) {
                 return $row->laporan?->kategori?->nama_kategori ?? '-';
             })
@@ -108,6 +102,13 @@ class PimpinanHistoryLaporanController extends Controller
             ->addColumn('nama_pelapor', function ($row) {
                 return $row->laporan?->nama_pelapor ?: '-';
             })
+            ->addColumn('tgl_laporan_masuk', function ($row) {
+                if ($row->laporan && $row->laporan->created_at) {
+                    $date = $row->laporan->created_at->setTimezone('Asia/Jakarta')->locale('id');
+                    return $date->translatedFormat('d F Y, H:i') . '<br><small class="text-muted">' . $date->diffForHumans() . '</small>';
+                }
+                return '-';
+            })
             ->addColumn('unit_penangan', function ($row) {
                 if ($row->user) {
                     return $row->user->nama . ' - ' . ($row->user->unit?->singkatan ?? '-');
@@ -116,13 +117,6 @@ class PimpinanHistoryLaporanController extends Controller
             })
             ->editColumn('status', function ($row) {
                 return $this->formatStatusBadge($row->status ?? $row->laporan?->status);
-            })
-            ->editColumn('lampiran_file', function ($row) {
-                if (!$row->lampiran_file) {
-                    return '-';
-                }
-
-                return '<a href="' . asset('uploads/history-laporan/' . $row->lampiran_file) . '" target="_blank" class="btn btn-sm btn-light-primary">Lihat File</a>';
             })
             ->editColumn('catatan', function ($row) {
                 return $row->catatan ? Str::limit($row->catatan, 80) : '-';
@@ -147,11 +141,6 @@ class PimpinanHistoryLaporanController extends Controller
                     $q->where('judul_laporan', 'like', "%{$keyword}%");
                 });
             })
-            ->filterColumn('unit_tujuan', function($query, $keyword) {
-                $query->whereHas('laporan.units', function($q) use ($keyword) {
-                    $q->where('nama_unit', 'like', "%{$keyword}%");
-                });
-            })
             ->filterColumn('nama_pelapor', function($query, $keyword) {
                 $query->whereHas('laporan', function($q) use ($keyword) {
                     $q->where('nama_pelapor', 'like', "%{$keyword}%");
@@ -167,7 +156,7 @@ class PimpinanHistoryLaporanController extends Controller
                     $q->where('nama_sub', 'like', "%{$keyword}%");
                 });
             })
-            ->rawColumns(['status', 'lampiran_file', 'action'])
+            ->rawColumns(['status', 'tgl_laporan_masuk', 'action'])
             ->make(true);
     }
 

@@ -204,14 +204,13 @@
                                             <th class="text-center p-0" style="width:28px; min-width:28px;"></th>
                                             <th class="text-center ps-1 min-w-150px">Aksi</th>
                                             <th class="min-w-100px">Kode Tiket</th>
+                                            <th class="min-w-150px">Tanggal Laporan Masuk</th>
                                             <th class="min-w-200px">Judul Laporan</th>
-                                            <th class="min-w-150px">Unit Tujuan</th>
                                             <th class="min-w-150px">Kategori</th>
                                             <th class="min-w-150px">Sub Kategori</th>
                                             <th class="min-w-120px">Status</th>
                                             <th class="min-w-150px">Pelapor</th>
                                             <th class="min-w-150px">Unit Penangan</th>
-                                            <th class="min-w-150px">Lampiran Bukti</th>
                                             <th class="min-w-200px">Catatan</th>
                                         </tr>
                                     </thead>

@@ -51,12 +51,12 @@
                     name: 'kode_tiket'
                 },
                 {
-                    data: 'judul_laporan',
-                    name: 'judul_laporan'
+                    data: 'tgl_laporan_masuk',
+                    name: 'laporan.created_at'
                 },
                 {
-                    data: 'unit_tujuan',
-                    name: 'unit_tujuan'
+                    data: 'judul_laporan',
+                    name: 'judul_laporan'
                 },
                 {
                     data: 'kategori',
@@ -77,10 +77,6 @@
                 {
                     data: 'unit_penangan',
                     name: 'unit_penangan'
-                },
-                {
-                    data: 'lampiran_file',
-                    name: 'lampiran_file'
                 },
                 {
                     data: 'catatan',
