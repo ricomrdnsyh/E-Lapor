@@ -69,12 +69,12 @@
                     name: 'nama_pelapor'
                 },
                 {
-                    data: 'unit_penangan',
-                    name: 'unit_penangan'
+                    data: 'tgl_laporan_masuk',
+                    name: 'laporan.created_at'
                 },
                 {
-                    data: 'lampiran_file',
-                    name: 'lampiran_file'
+                    data: 'unit_penangan',
+                    name: 'unit_penangan'
                 },
                 {
                     data: 'catatan',

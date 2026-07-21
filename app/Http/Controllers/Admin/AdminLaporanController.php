@@ -68,8 +68,12 @@ class AdminLaporanController extends Controller
             ->addColumn('sub_kategori', function ($row) {
                 return $row->subKategori->nama_sub ?? '-';
             })
-            ->editColumn('tgl_kejadian', function ($row) {
-                return $row->tgl_kejadian->locale('id')->isoFormat('DD MMMM YYYY, HH:mm');
+            ->addColumn('tgl_laporan_masuk', function ($row) {
+                if ($row->created_at) {
+                    $date = $row->created_at->setTimezone('Asia/Jakarta')->locale('id');
+                    return $date->translatedFormat('d F Y, H:i') . '<br><small class="text-muted">' . $date->diffForHumans() . '</small>';
+                }
+                return '-';
             })
             ->editColumn('status', function ($row) {
                 return match ($row->status) {
@@ -112,7 +116,7 @@ class AdminLaporanController extends Controller
                     $q->where('nama_sub', 'like', "%{$keyword}%");
                 });
             })
-            ->rawColumns(['status', 'action'])
+            ->rawColumns(['status', 'tgl_laporan_masuk', 'action'])
             ->make(true);
     }
 

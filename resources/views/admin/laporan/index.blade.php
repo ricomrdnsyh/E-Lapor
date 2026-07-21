@@ -159,7 +159,7 @@
                                             <th class="min-w-150px">Sub Kategori</th>
                                             <th class="min-w-100px">Status</th>
                                             <th class="min-w-150px">Pelapor</th>
-                                            <th class="min-w-150px">Tanggal Kejadian</th>
+                                            <th class="min-w-150px">Tanggal Masuk Laporan</th>
                                         </tr>
                                     </thead>
                                     <tbody class="fw-semibold text-gray-800"></tbody>

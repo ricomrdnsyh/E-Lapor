@@ -90,12 +90,12 @@ class UnitHistoryLaporanController extends Controller
             ->editColumn('status', function ($row) {
                 return $this->formatStatusBadge($row->status ?? $row->laporan?->status);
             })
-            ->editColumn('lampiran_file', function ($row) {
-                if (!$row->lampiran_file) {
-                    return '-';
+            ->addColumn('tgl_laporan_masuk', function ($row) {
+                if ($row->laporan && $row->laporan->created_at) {
+                    $date = $row->laporan->created_at->setTimezone('Asia/Jakarta')->locale('id');
+                    return $date->translatedFormat('d F Y, H:i') . '<br><small class="text-muted">' . $date->diffForHumans() . '</small>';
                 }
-
-                return '<a href="' . asset('uploads/history-laporan/' . $row->lampiran_file) . '" target="_blank" class="btn btn-sm btn-light-primary">Lihat File</a>';
+                return '-';
             })
             ->editColumn('catatan', function ($row) {
                 return $row->catatan ? Str::limit($row->catatan, 80) : '-';
@@ -108,11 +108,15 @@ class UnitHistoryLaporanController extends Controller
                                 <i class="fa fa-file-alt"></i>
                             </a>';
 
-                $editBtn = '<a href="' . route('unit.history-laporan.edit', $row->id_history) . '"
-                                class="btn btn-sm btn-light btn-active-light-warning text-center"
-                                data-bs-toggle="tooltip" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </a>';
+                $status = $row->status ?? $row->laporan?->status;
+                $editBtn = '';
+                if (!in_array($status, ['selesai', 'ditolak'])) {
+                    $editBtn = '<a href="' . route('unit.history-laporan.edit', $row->id_history) . '"
+                                    class="btn btn-sm btn-light btn-active-light-warning text-center"
+                                    data-bs-toggle="tooltip" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>';
+                }
 
                 return '<div class="text-center">' . $showBtn . ' ' . $editBtn . '</div>';
             })
@@ -141,7 +145,7 @@ class UnitHistoryLaporanController extends Controller
                     $q->where('nama_sub', 'like', "%{$keyword}%");
                 });
             })
-            ->rawColumns(['status', 'lampiran_file', 'action'])
+            ->rawColumns(['status', 'tgl_laporan_masuk', 'action'])
             ->make(true);
     }
 

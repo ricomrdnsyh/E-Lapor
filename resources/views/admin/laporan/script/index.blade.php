@@ -106,8 +106,8 @@
                     name: 'nama_pelapor'
                 },
                 {
-                    data: 'tgl_kejadian',
-                    name: 'tgl_kejadian'
+                    data: 'tgl_laporan_masuk',
+                    name: 'created_at'
                 },
             ]
         });

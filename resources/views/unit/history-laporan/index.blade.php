@@ -189,8 +189,8 @@
                                             <th class="min-w-150px">Sub Kategori</th>
                                             <th class="min-w-120px">Status</th>
                                             <th class="min-w-150px">Pelapor</th>
+                                            <th class="min-w-150px">Tanggal Laporan Masuk</th>
                                             <th class="min-w-150px">Unit Penangan</th>
-                                            <th class="min-w-150px">Lampiran Bukti</th>
                                             <th class="min-w-200px">Catatan</th>
                                         </tr>
                                     </thead>
