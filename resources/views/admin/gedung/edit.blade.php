@@ -34,8 +34,8 @@
                                     <span>Deskripsi</span>
                                 </label>
                                 <textarea name="deskripsi" id="edit_deskripsi"
-                                    class="form-control form-control-sm fs-sm-8 fs-lg-6 @error('deskripsi') is-invalid @enderror"
-                                    rows="3" maxlength="100">{{ old('deskripsi') }}</textarea>
+                                    class="form-control form-control-sm fs-sm-8 fs-lg-6 @error('deskripsi') is-invalid @enderror" rows="3"
+                                    maxlength="100">{{ old('deskripsi') }}</textarea>
 
                                 @error('deskripsi')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
@@ -53,7 +53,7 @@
 
                     <button type="submit" data-kt-contacts-type="submit"
                         class="btn btn-sm btn-primary fs-sm-8 fs-lg-6">
-                        <span class="indicator-label">Simpan Perubahan</span>
+                        <span class="indicator-label">Update</span>
                         <span class="indicator-progress" style="display:none;">
                             Tunggu sebentar...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

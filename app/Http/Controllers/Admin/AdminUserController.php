@@ -18,9 +18,13 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('units'));
     }
 
-    public function getUsers()
+    public function getUsers(Request $request)
     {
         $query = User::with('unit', 'kategoris')->select(['id', 'nama', 'username', 'role', 'unit_id', 'telegram_id']);
+
+        if ($request->has('unit_id') && $request->unit_id != '') {
+            $query->where('unit_id', $request->unit_id);
+        }
 
         return DataTables::of($query)
             ->editColumn('role', function ($row) {

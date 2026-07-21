@@ -16,9 +16,13 @@ class AdminKategoriController extends Controller
         return view('admin.kategori.index', compact('units'));
     }
 
-    public function getKategori()
+    public function getKategori(Request $request)
     {
         $query = Kategori::with('unit')->select(['id_kategori', 'nama_kategori', 'unit_id'])->orderByDesc('id_kategori');
+
+        if ($request->has('unit_id') && $request->unit_id != '') {
+            $query->where('unit_id', $request->unit_id);
+        }
 
         return DataTables::of($query)
             ->addColumn('nama_unit', function ($row) {

@@ -16,9 +16,13 @@ class AdminLantaiController extends Controller
         return view('admin.lantai.index', compact('gedungs'));
     }
 
-    public function getLantai()
+    public function getLantai(Request $request)
     {
         $query = Lantai::with('gedung')->select(['id_lantai', 'nama_lantai', 'gedung_id'])->orderByDesc('id_lantai');
+
+        if ($request->has('gedung_id') && $request->gedung_id != '') {
+            $query->where('gedung_id', $request->gedung_id);
+        }
 
         return DataTables::of($query)
             ->addColumn('nama_gedung', function ($row) {

@@ -54,7 +54,13 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.sub-kategori.data', [], false) }}',
+            ajax: {
+                url: '{{ route('admin.sub-kategori.data', [], false) }}',
+                data: function(d) {
+                    d.unit_id = $('#filter-unit').val();
+                    d.kategori_id = $('#filter-kategori').val();
+                }
+            },
             columns: [{
                     data: null,
                     defaultContent: '',
@@ -84,6 +90,36 @@
                     name: 'nama_unit_sub'
                 },
             ]
+        });
+
+        var allKategoris = @json($kategoris);
+
+        $('#filter-unit').on('change', function() {
+            var unitId = $(this).val();
+            var $kategori = $('#filter-kategori');
+            
+            $kategori.empty();
+            $kategori.append('<option value="">Semua Kategori</option>');
+            
+            if (unitId) {
+                $kategori.prop('disabled', false);
+                var filteredKategoris = allKategoris.filter(function(kat) {
+                    return kat.unit_id == unitId;
+                });
+                
+                filteredKategoris.forEach(function(kat) {
+                    $kategori.append('<option value="' + kat.id_kategori + '">' + kat.nama_kategori + '</option>');
+                });
+            } else {
+                $kategori.prop('disabled', true);
+            }
+            
+            $kategori.trigger('change.select2');
+            $('#example').DataTable().ajax.reload();
+        });
+
+        $('#filter-kategori').on('change', function() {
+            $('#example').DataTable().ajax.reload();
         });
 
         @if ($message = Session::get('success'))

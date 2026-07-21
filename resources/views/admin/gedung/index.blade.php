@@ -96,27 +96,16 @@
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <div class="d-flex flex-column flex-column-fluid">
 
-            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-                <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
-                    <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                            Manajemen Gedung
-                        </h1>
-                        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-                            <li class="breadcrumb-item text-muted">Master Data</li>
-                            <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
-                            <li class="breadcrumb-item text-primary">Gedung</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div id="kt_app_content" class="app-content flex-column-fluid">
+            <div id="kt_app_content" class="app-content flex-column-fluid mt-7">
                 <div id="kt_app_content_container" class="app-container container-fluid">
                     <div class="card shadow-sm border border-dashed border-dark rounded">
                         <div class="card-header border-0 pt-6">
-                            <div class="card-title m-0">
-                                <h3 class="fw-bolder m-0 text-gray-900">List Gedung</h3>
+                            <div class="card-title">
+                                <div class="d-flex align-items-center position-relative my-1">
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bolder fs-3 mb-1">List Gedung</span>
+                                    </h3>
+                                </div>
                             </div>
                             <div class="card-toolbar">
                                 <a type="button" class="btn btn-sm btn-primary m-0" data-bs-toggle="modal" data-bs-target="#form_create" title="Tambah Gedung">
@@ -124,11 +113,12 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="card-body py-4">
+                        <div class="separator my-5"></div>
+                        <div class="card-body pt-0">
                             <div class="table-responsive">
                                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="example">
-                                    <thead>
-                                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                    <thead class="">
+                                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                                 <th class="text-center p-0" style="width:28px; min-width:28px;"></th>
                                                 <th class="text-center ps-1 min-w-175px">Aksi</th>
                                                 <th class="min-w-150px">Nama Gedung</th>

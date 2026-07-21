@@ -54,7 +54,12 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.lantai.data', [], false) }}',
+            ajax: {
+                url: '{{ route('admin.lantai.data', [], false) }}',
+                data: function(d) {
+                    d.gedung_id = $('#filter-gedung').val();
+                }
+            },
             columns: [{
                     data: null,
                     defaultContent: '',
@@ -76,6 +81,10 @@
                     name: 'nama_gedung'
                 },
             ]
+        });
+
+        $('#filter-gedung').on('change', function() {
+            $('#example').DataTable().ajax.reload();
         });
 
         @if ($message = Session::get('success'))

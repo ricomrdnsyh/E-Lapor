@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FungsiRuangan;
 use App\Models\Lantai;
 use App\Models\Ruangan;
+use App\Models\Gedung;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,16 +14,27 @@ class AdminRuanganController extends Controller
 {
     public function index()
     {
+        $gedungs = Gedung::all();
         $lantais = Lantai::with('gedung')->get();
         $fungsiRuangans = FungsiRuangan::all();
-        return view('admin.ruangan.index', compact('lantais', 'fungsiRuangans'));
+        return view('admin.ruangan.index', compact('gedungs', 'lantais', 'fungsiRuangans'));
     }
 
-    public function getRuangan()
+    public function getRuangan(Request $request)
     {
         $query = Ruangan::with(['lantai.gedung', 'fungsiRuangan'])
             ->select(['id_ruangan', 'nama_ruangan', 'lantai_id', 'jenis_ruangan'])
             ->orderByDesc('id_ruangan');
+
+        if ($request->has('gedung_id') && $request->gedung_id != '') {
+            $query->whereHas('lantai', function($q) use ($request) {
+                $q->where('gedung_id', $request->gedung_id);
+            });
+        }
+
+        if ($request->has('lantai_id') && $request->lantai_id != '') {
+            $query->where('lantai_id', $request->lantai_id);
+        }
 
         return DataTables::of($query)
             ->addColumn('nama_lantai', function ($row) {

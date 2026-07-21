@@ -96,22 +96,7 @@
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <div class="d-flex flex-column flex-column-fluid">
 
-            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-                <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
-                    <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                            Manajemen Lantai
-                        </h1>
-                        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-                            <li class="breadcrumb-item text-muted">Master Data</li>
-                            <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
-                            <li class="breadcrumb-item text-primary">Lantai</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div id="kt_app_content" class="app-content flex-column-fluid">
+            <div id="kt_app_content" class="app-content flex-column-fluid mt-7">
                 <div id="kt_app_content_container" class="app-container container-fluid">
                     <div class="card shadow-sm border border-dashed border-dark rounded">
                         <div class="card-header border-0 pt-6">
@@ -124,7 +109,25 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="card-body py-4">
+                        <div class="card-body py-4 px-8 filter-container mt-4">
+                            <div class="border border-dashed rounded p-5 mb-5" style="border-color: #b5b5c3 !important;">
+                                <h5 class="text-primary mb-4"><i class="fas fa-filter text-primary me-2"></i>Filter Data</h5>
+                                <div class="row g-5">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <label class="form-label fw-bold mb-2">Gedung:</label>
+                                        <select class="form-select form-select-sm" data-control="select2"
+                                            data-placeholder="Semua Gedung" data-allow-clear="true" data-filter="gedung"
+                                            id="filter-gedung">
+                                            <option value="">Semua Gedung</option>
+                                            @foreach ($gedungs as $gedung)
+                                                <option value="{{ $gedung->id_gedung }}">{{ $gedung->nama_gedung }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
                             <div class="table-responsive">
                                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="example">
                                     <thead>

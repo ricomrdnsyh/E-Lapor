@@ -20,7 +20,7 @@
                                 <input type="text" name="nama_unit" id="edit_nama_unit"
                                     class="form-control form-control-sm fs-sm-8 fs-lg-6 text-uppercase @error('nama_unit') is-invalid @enderror"
                                     value="{{ old('nama_unit') }}" required autofocus>
-                                
+
                                 @error('nama_unit')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
                                 @enderror
@@ -36,13 +36,13 @@
                                 <input type="text" name="singkatan" id="edit_singkatan"
                                     class="form-control form-control-sm fs-sm-8 fs-lg-6 text-uppercase @error('singkatan') is-invalid @enderror"
                                     value="{{ old('singkatan') }}">
-                                
+
                                 @error('singkatan')
                                     <div class="small text-danger mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <div class="d-flex flex-column mb-2">
                                 <label class="d-flex align-items-center fs-sm-8 fs-lg-6 fw-bolder mb-1 required">
@@ -72,7 +72,7 @@
 
                     <button type="submit" data-kt-contacts-type="submit"
                         class="btn btn-sm btn-primary fs-sm-8 fs-lg-6">
-                        <span class="indicator-label">Simpan Perubahan</span>
+                        <span class="indicator-label">Update</span>
                         <span class="indicator-progress" style="display:none;">
                             Tunggu sebentar...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

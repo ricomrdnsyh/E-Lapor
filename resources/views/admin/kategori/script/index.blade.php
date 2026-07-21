@@ -54,7 +54,12 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.kategori.data', [], false) }}',
+            ajax: {
+                url: '{{ route('admin.kategori.data', [], false) }}',
+                data: function(d) {
+                    d.unit_id = $('#filter-unit').val();
+                }
+            },
             columns: [{
                     data: null,
                     defaultContent: '',
@@ -76,6 +81,10 @@
                     name: 'nama_unit'
                 },
             ]
+        });
+
+        $('#filter-unit').on('change', function() {
+            $('#example').DataTable().ajax.reload();
         });
 
         @if ($message = Session::get('success'))

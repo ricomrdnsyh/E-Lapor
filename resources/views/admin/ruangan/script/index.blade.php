@@ -54,7 +54,13 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.ruangan.data', [], false) }}',
+            ajax: {
+                url: '{{ route('admin.ruangan.data', [], false) }}',
+                data: function(d) {
+                    d.gedung_id = $('#filter-gedung').val();
+                    d.lantai_id = $('#filter-lantai').val();
+                }
+            },
             columns: [{
                     data: null,
                     defaultContent: '',
@@ -84,6 +90,36 @@
                     name: 'nama_gedung'
                 },
             ]
+        });
+
+        var allLantais = @json($lantais);
+
+        $('#filter-gedung').on('change', function() {
+            var gedungId = $(this).val();
+            var $lantai = $('#filter-lantai');
+            
+            $lantai.empty();
+            $lantai.append('<option value="">Semua Lantai</option>');
+            
+            if (gedungId) {
+                $lantai.prop('disabled', false);
+                var filteredLantais = allLantais.filter(function(lnt) {
+                    return lnt.gedung_id == gedungId;
+                });
+                
+                filteredLantais.forEach(function(lnt) {
+                    $lantai.append('<option value="' + lnt.id_lantai + '">' + lnt.nama_lantai + '</option>');
+                });
+            } else {
+                $lantai.prop('disabled', true);
+            }
+            
+            $lantai.trigger('change.select2');
+            $('#example').DataTable().ajax.reload();
+        });
+
+        $('#filter-lantai').on('change', function() {
+            $('#example').DataTable().ajax.reload();
         });
 
         @if ($message = Session::get('success'))

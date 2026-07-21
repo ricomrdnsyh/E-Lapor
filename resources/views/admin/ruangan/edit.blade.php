@@ -83,7 +83,7 @@
 
                     <button type="submit" data-kt-contacts-type="submit"
                         class="btn btn-sm btn-primary fs-sm-8 fs-lg-6">
-                        <span class="indicator-label">Simpan Perubahan</span>
+                        <span class="indicator-label">Update</span>
                         <span class="indicator-progress" style="display:none;">
                             Tunggu sebentar...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

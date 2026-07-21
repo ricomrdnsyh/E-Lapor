@@ -18,9 +18,19 @@ class AdminSubKategoriController extends Controller
         return view('admin.sub-kategori.index', compact('kategoris', 'units'));
     }
 
-    public function getSubKategori()
+    public function getSubKategori(Request $request)
     {
         $query = SubKategori::with(['kategori.unit', 'unit'])->select(['id_sub', 'kategori_id', 'nama_sub', 'unit_id'])->orderByDesc('id_sub');
+
+        if ($request->has('unit_id') && $request->unit_id != '') {
+            $query->whereHas('kategori', function($q) use ($request) {
+                $q->where('unit_id', $request->unit_id);
+            });
+        }
+
+        if ($request->has('kategori_id') && $request->kategori_id != '') {
+            $query->where('kategori_id', $request->kategori_id);
+        }
 
         return DataTables::of($query)
             ->addColumn('nama_kategori', function ($row) {

@@ -54,7 +54,12 @@
                     className: 'btn btn-sm btn-primary mt-2 rounded-2'
                 }
             ],
-            ajax: '{{ route('admin.users.data', [], false) }}',
+            ajax: {
+                url: '{{ route('admin.users.data', [], false) }}',
+                data: function(d) {
+                    d.unit_id = $('#filter-unit').val();
+                }
+            },
             columns: [{
                     data: null,
                     defaultContent: '',
@@ -91,6 +96,10 @@
             order: [
                 [2, 'asc']
             ]
+        });
+
+        $('#filter-unit').on('change', function() {
+            $('#example').DataTable().ajax.reload();
         });
 
         @if ($message = Session::get('success'))
