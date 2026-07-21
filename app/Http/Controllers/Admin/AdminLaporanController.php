@@ -7,7 +7,10 @@ use App\Models\Laporan;
 use App\Models\Kategori;
 use App\Models\SubKategori;
 use App\Models\Unit;
+use App\Models\HistoryLaporan;
+use App\Models\LogStatusLaporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 
@@ -188,7 +191,9 @@ class AdminLaporanController extends Controller
                 $data['lampiran_file'] = $filename;
             }
 
-            DB::transaction(function () use ($laporan, $data, $validated) {
+            DB::transaction(function () use ($laporan, $data, $validated, $request) {
+                $oldStatus = $laporan->status;
+                
                 $laporan->update($data);
 
                 $unitIds = [$validated['unit_id']];
@@ -197,6 +202,33 @@ class AdminLaporanController extends Controller
                     $unitIds[] = $subKategori->unit_id;
                 }
                 $laporan->units()->sync(array_unique($unitIds));
+
+                $history = HistoryLaporan::where('laporan_id', $laporan->id_laporan)->orderByDesc('id_history')->first();
+                $historyStatus = $history ? $history->status : null;
+
+                if ($oldStatus !== $validated['status'] || $historyStatus !== $validated['status']) {
+                    if ($history) {
+                        $history->update([
+                            'status' => $validated['status'],
+                            'user_id' => Auth::id(),
+                        ]);
+                    } else {
+                        $history = HistoryLaporan::create([
+                            'laporan_id' => $laporan->id_laporan,
+                            'user_id' => Auth::id(),
+                            'status' => $validated['status'],
+                            'lampiran_file' => null,
+                            'catatan' => null,
+                        ]);
+                    }
+
+                    LogStatusLaporan::create([
+                        'history_id'    => $history->id_history,
+                        'user_id'       => Auth::id(),
+                        'status'        => $validated['status'],
+                        'catatan'       => 'Status laporan diubah melalui menu Kelola Laporan.',
+                    ]);
+                }
             });
 
             return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil diperbarui.');

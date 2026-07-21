@@ -332,6 +332,22 @@
                 }
             }
 
+            // Validation for Ditolak
+            if (status === 'ditolak') {
+                var catatanInput = $('#edit_catatan').val().trim();
+                if (!catatanInput) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Catatan wajib diisi',
+                        text: 'Catatan tindak lanjut wajib diisi ketika menolak laporan.'
+                    });
+                    $('#edit_catatan').addClass('is-invalid');
+                    return;
+                } else {
+                    $('#edit_catatan').removeClass('is-invalid');
+                }
+            }
+
             var confirmText = '';
             if (status === 'ditolak') confirmText = 'Anda akan menolak laporan ini.';
             else if (status === 'diproses') confirmText = 'Anda akan memproses laporan ini.';

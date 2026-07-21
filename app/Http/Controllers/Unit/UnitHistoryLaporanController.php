@@ -198,9 +198,14 @@ class UnitHistoryLaporanController extends Controller
             $rules['lampiran_file'] = 'required|file|mimes:jpg,jpeg,png,pdf|max:5120';
         }
 
+        if ($request->status === 'ditolak') {
+            $rules['catatan'] = 'required|string|max:2000';
+        }
+
         $request->validate($rules, [
             'status.required'           => 'Status harus dipilih',
             'status.in'                 => 'Status tidak valid',
+            'catatan.required'          => 'Catatan tindak lanjut wajib diisi saat laporan ditolak',
             'catatan.max'               => 'Catatan maksimal 2000 karakter',
             'lampiran_file.required'    => 'Lampiran bukti wajib diunggah saat laporan selesai',
             'lampiran_file.mimes'       => 'Lampiran harus berupa jpg, jpeg, png, pdf',
