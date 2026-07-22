@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('pimpinan.history-laporan.index') }}"
+                            <a href="{{ route('pimpinan.history-laporan.index', ['status' => 'menunggu']) }}"
                                 class="card bg-light-warning border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('pimpinan.history-laporan.index') }}"
+                            <a href="{{ route('pimpinan.history-laporan.index', ['status' => 'diproses']) }}"
                                 class="card bg-light-primary border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -114,7 +114,7 @@
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('pimpinan.history-laporan.index') }}"
+                            <a href="{{ route('pimpinan.history-laporan.index', ['status' => 'selesai']) }}"
                                 class="card bg-light-success border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -136,7 +136,7 @@
                         </div>
 
                         <div class="col-xl col-md-6">
-                            <a href="{{ route('pimpinan.history-laporan.index') }}"
+                            <a href="{{ route('pimpinan.history-laporan.index', ['status' => 'ditolak']) }}"
                                 class="card bg-light-danger border border-dashed border-gray-400 shadow-sm hover-elevate-up text-decoration-none h-md-100">
                                 <div class="card-body p-4 d-flex flex-column">
                                     <div class="d-flex align-items-center justify-content-between">

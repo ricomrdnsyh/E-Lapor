@@ -1,5 +1,11 @@
 <script>
     $(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var statusParam = urlParams.get('status');
+        if (statusParam) {
+            $('#filter_status').val(statusParam).trigger('change.select2');
+        }
+
         $.fn.dataTable.ext.errMode = 'none';
         $('#example').on('error.dt', function(e, settings, techNote, message) {
             console.log('An error has been reported by DataTables: ', message);
