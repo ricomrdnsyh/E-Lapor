@@ -279,13 +279,12 @@
                         </p>
                     </div>
                 </div>
-            @elseif($current_file && count($logs) > 0)
+            @else
                 <div class="flex-1 overflow-auto p-6 lg:p-8">
                     <div
                         class="bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-200 dark:border-slate-700 p-2 overflow-x-auto">
-                        <div class="min-w-[800px]">
-                            <table id="logTable" class="w-full display responsive nowrap !border-collapse">
-                                <thead>
+                        <table id="logTable" class="w-full display responsive nowrap !border-collapse">
+                            <thead>
                                     <tr class="text-left bg-slate-50 dark:bg-slate-900/50">
                                         <th
                                             class="px-5 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider rounded-tl-xl w-[120px]">
@@ -302,68 +301,59 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
-                                    @foreach ($logs as $key => $log)
-                                        <tr data-stack="stack{{ $key }}"
-                                            class="hover:bg-blue-50/50 dark:hover:bg-slate-800 transition-colors cursor-pointer group"
-                                            onclick="toggleStack('stack{{ $key }}')">
-                                            <td class="px-5 py-4 align-top">
-                                                <span
-                                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg bg-{{ $log['level_class'] }}/15 text-{{ $log['level_class'] }} whitespace-nowrap shadow-sm border border-{{ $log['level_class'] }}/20 uppercase tracking-wider">
-                                                    <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
-                                                    {{ $log['level'] }}
-                                                </span>
-                                            </td>
-                                            <td class="px-5 py-4 text-sm font-semibold text-slate-700 dark:text-slate-300 truncate align-top"
-                                                title="{{ $log['context'] }}">
-                                                {{ $log['context'] }}
-                                            </td>
-                                            <td
-                                                class="px-5 py-4 text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap align-top">
-                                                <div class="flex items-center gap-2">
-                                                    <i class="far fa-clock text-slate-400"></i>
-                                                    {{ \Carbon\Carbon::parse($log['date'])->setTimezone('Asia/Jakarta')->format('Y-m-d H:i:s') }}
-                                                </div>
-                                            </td>
-                                            <td class="px-5 py-4 align-top">
-                                                <div class="flex flex-col gap-3">
-                                                    <div class="flex items-start justify-between gap-4">
-                                                        <pre class="font-mono text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-words flex-1">{{ $log['text'] }}</pre>
+                                    @if ($logs)
+                                        @foreach ($logs as $key => $log)
+                                            <tr data-stack="stack{{ $key }}"
+                                                class="hover:bg-blue-50/50 dark:hover:bg-slate-800 transition-colors cursor-pointer group"
+                                                onclick="toggleStack('stack{{ $key }}')">
+                                                <td class="px-5 py-4 align-top">
+                                                    <span
+                                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg bg-{{ $log['level_class'] }}/15 text-{{ $log['level_class'] }} whitespace-nowrap shadow-sm border border-{{ $log['level_class'] }}/20 uppercase tracking-wider">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                                        {{ $log['level'] }}
+                                                    </span>
+                                                </td>
+                                                <td class="px-5 py-4 text-sm font-semibold text-slate-700 dark:text-slate-300 truncate align-top"
+                                                    title="{{ $log['context'] }}">
+                                                    {{ $log['context'] }}
+                                                </td>
+                                                <td
+                                                    class="px-5 py-4 text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap align-top">
+                                                    <div class="flex items-center gap-2">
+                                                        <i class="far fa-clock text-slate-400"></i>
+                                                        {{ \Carbon\Carbon::parse($log['date'])->setTimezone('Asia/Jakarta')->format('Y-m-d H:i:s') }}
+                                                    </div>
+                                                </td>
+                                                <td class="px-5 py-4 align-top">
+                                                    <div class="flex flex-col gap-3">
+                                                        <div class="flex items-start justify-between gap-4">
+                                                            <pre class="font-mono text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-words flex-1">{{ $log['text'] }}</pre>
+                                                            @if ($log['stack'])
+                                                                <button
+                                                                    class="text-slate-400 group-hover:text-primary group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 flex-shrink-0 w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-900 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-all">
+                                                                    <i class="fas fa-chevron-down transition-transform duration-300"
+                                                                        id="icon-stack{{ $key }}"></i>
+                                                                </button>
+                                                            @endif
+                                                        </div>
                                                         @if ($log['stack'])
-                                                            <button
-                                                                class="text-slate-400 group-hover:text-primary group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 flex-shrink-0 w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-900 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-all">
-                                                                <i class="fas fa-chevron-down transition-transform duration-300"
-                                                                    id="icon-stack{{ $key }}"></i>
-                                                            </button>
+                                                            <div id="stack{{ $key }}"
+                                                                class="hidden mt-2 p-4 bg-slate-900 text-slate-300 rounded-xl shadow-inner border border-slate-800 overflow-x-auto w-full relative"
+                                                                onclick="event.stopPropagation()">
+                                                                <div
+                                                                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-500 opacity-50">
+                                                                </div>
+                                                                <pre class="font-mono text-xs whitespace-pre-wrap break-words">{{ trim($log['stack']) }}</pre>
+                                                            </div>
                                                         @endif
                                                     </div>
-                                                    @if ($log['stack'])
-                                                        <div id="stack{{ $key }}"
-                                                            class="hidden mt-2 p-4 bg-slate-900 text-slate-300 rounded-xl shadow-inner border border-slate-800 overflow-x-auto w-full relative"
-                                                            onclick="event.stopPropagation()">
-                                                            <div
-                                                                class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-500 opacity-50">
-                                                            </div>
-                                                            <pre class="font-mono text-xs whitespace-pre-wrap break-words">{{ trim($log['stack']) }}</pre>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
-                        </div>
                     </div>
-                </div>
-            @elseif($current_file)
-                <div class="flex-1 flex flex-col items-center justify-center p-8 text-center opacity-70">
-                    <div
-                        class="w-24 h-24 mb-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-4xl text-slate-300 dark:text-slate-600">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Log is Empty</h3>
-                    <p class="text-slate-500 dark:text-slate-400 max-w-sm">There are no entries in this log file.
-                        Everything seems to be running smoothly!</p>
                 </div>
             @endif
 
@@ -411,6 +401,7 @@
                         }
                     ],
                     language: {
+                        emptyTable: '<div class="flex flex-col items-center justify-center p-8 text-center opacity-70"><div class="w-16 h-16 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-3xl text-slate-300 dark:text-slate-600"><i class="fas fa-check-circle"></i></div><h3 class="text-lg font-bold text-slate-700 dark:text-slate-300 mb-1">Log is Empty</h3><p class="text-slate-500 dark:text-slate-400 max-w-sm text-sm">Tidak ada data di log ini.</p></div>',
                         search: '',
                         searchPlaceholder: 'Search logs...',
                         lengthMenu: 'Show _MENU_',
