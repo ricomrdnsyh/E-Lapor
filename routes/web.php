@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminFungsiRuanganController;
 use App\Http\Controllers\Admin\AdminRuanganController;
 use App\Http\Controllers\Admin\AdminSubKategoriController;
 use App\Http\Controllers\Admin\AdminLaporanController;
+use App\Http\Controllers\Admin\AdminLaporanSsoTrackingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminPanduanController;
 use App\Http\Controllers\Admin\AdminStatistikUnitController;
@@ -104,6 +105,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/users/karyawan-api', [AdminUserController::class, 'getKaryawanApi'])->name('users.karyawan-api');
     Route::get('/users/data', [AdminUserController::class, 'getUsers'])->name('users.data');
     Route::resource('users', AdminUserController::class);
+
+    Route::get('/sso-tracking', [AdminLaporanSsoTrackingController::class, 'index'])->name('sso-tracking.index');
+    Route::get('/sso-tracking/data', [AdminLaporanSsoTrackingController::class, 'getData'])->name('sso-tracking.data');
 });
 
 Route::prefix('unit')->name('unit.')->middleware(['auth', 'role:unit'])->group(function () {
