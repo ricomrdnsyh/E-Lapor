@@ -173,7 +173,7 @@
                                     Diperbarui Otomatis</span>
                                 <h1 class="font-black text-primary-darker mb-4 leading-tight"
                                     style="font-size:clamp(1.8rem,3.5vw,2.8rem);">
-                                    Statistik Laporan <span class="text-primary-light">E-LAPOR</span> UNUJA
+                                    Statistik <span class="text-primary-light">E-LAPOR</span> UNUJA
                                 </h1>
                                 <p class="text-slate-500 max-w-xl">Visualisasi data laporan yang telah dipublikasikan — tren
                                     bulanan, distribusi kategori, profil pelapor, dan perbandingan laporan rahasia versus
@@ -239,8 +239,94 @@
 
         <section class="pb-10 lg:pb-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
                 <div class="mb-5">
                     <h2 class="font-black text-primary-darker text-xl">Ringkasan Data Laporan</h2>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-5">
+
+                    <div
+                        class="relative bg-white border border-amber-100 shadow-sm rounded-2xl overflow-hidden p-5 sm:p-6 transition-transform hover:-translate-y-1">
+                        <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-amber-50"></div>
+                        <div class="relative z-10 flex flex-col gap-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center shrink-0">
+                                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor"
+                                        stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="font-bold text-amber-500 text-[11px] sm:text-xs uppercase tracking-wider">Menunggu</span>
+                            </div>
+                            <div class="font-black text-amber-500 counter-value leading-none" style="font-size: 2.5rem;"
+                                data-target="{{ $statusData['menunggu'] ?? 0 }}">0</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="relative bg-white border border-blue-100 shadow-sm rounded-2xl overflow-hidden p-5 sm:p-6 transition-transform hover:-translate-y-1">
+                        <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-blue-50"></div>
+                        <div class="relative z-10 flex flex-col gap-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="font-bold text-blue-500 text-[11px] sm:text-xs uppercase tracking-wider">Diproses</span>
+                            </div>
+                            <div class="font-black text-blue-500 counter-value leading-none" style="font-size: 2.5rem;"
+                                data-target="{{ $statusData['diproses'] ?? 0 }}">0</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="relative bg-white border border-emerald-100 shadow-sm rounded-2xl overflow-hidden p-5 sm:p-6 transition-transform hover:-translate-y-1">
+                        <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-emerald-50"></div>
+                        <div class="relative z-10 flex flex-col gap-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor"
+                                        stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="font-bold text-emerald-500 text-[11px] sm:text-xs uppercase tracking-wider">Selesai</span>
+                            </div>
+                            <div class="font-black text-emerald-500 counter-value leading-none" style="font-size: 2.5rem;"
+                                data-target="{{ $statusData['selesai'] ?? 0 }}">0</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="relative bg-white border border-red-100 shadow-sm rounded-2xl overflow-hidden p-5 sm:p-6 transition-transform hover:-translate-y-1">
+                        <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-red-50"></div>
+                        <div class="relative z-10 flex flex-col gap-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
+                                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor"
+                                        stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="font-bold text-red-500 text-[11px] sm:text-xs uppercase tracking-wider">Ditolak</span>
+                            </div>
+                            <div class="font-black text-red-500 counter-value leading-none" style="font-size: 2.5rem;"
+                                data-target="{{ $statusData['ditolak'] ?? 0 }}">0</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid lg:grid-cols-3 gap-5 mb-5">
@@ -257,7 +343,8 @@
                                             class="chart-legend-swatch bg-gradient-to-r from-emerald-400 to-emerald-600"></span>Jumlah
                                         laporan</span>
                                 </div>
-                                <div class="chart-holder chart-holder-trend"><canvas id="trenChart" role="img"></canvas>
+                                <div class="chart-holder chart-holder-trend"><canvas id="trenChart"
+                                        role="img"></canvas>
                                 </div>
                             </div>
                         </div>

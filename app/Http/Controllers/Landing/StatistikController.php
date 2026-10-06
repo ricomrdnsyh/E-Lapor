@@ -72,7 +72,15 @@ class StatistikController extends Controller
             'anonim'  => $anonimCount,
         ];
 
-        return compact('totalLaporan', 'tipePelapor', 'bulanData', 'laporanPerKategori', 'anonimData');
+        $statusCounts = Laporan::select('status', DB::raw('count(*) as total'))->groupBy('status')->pluck('total', 'status');
+        $statusData = [
+            'menunggu' => $statusCounts['menunggu'] ?? 0,
+            'diproses' => $statusCounts['diproses'] ?? 0,
+            'selesai'  => $statusCounts['selesai'] ?? 0,
+            'ditolak'  => $statusCounts['ditolak'] ?? 0,
+        ];
+
+        return compact('totalLaporan', 'tipePelapor', 'bulanData', 'laporanPerKategori', 'anonimData', 'statusData');
     }
 
     public function getData(Request $request)
