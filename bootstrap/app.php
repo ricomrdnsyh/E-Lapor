@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\SsoAccessTokenMiddleware::class,
         ]);
 
+        $middleware->validateCsrfTokens(except: [
+            'api/telegram/callback',
+        ]);
+
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);

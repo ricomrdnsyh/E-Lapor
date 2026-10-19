@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Laporan;
+use App\Models\TelegramOutboxLaporan;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
@@ -29,24 +30,61 @@ class TelegramNotificationService
                 return;
             }
 
-            // Log::info('[TelegramNotif] Target users: ' . $targetUsers->pluck('username')->implode(', '));
-
-            $text = $this->buildMessageText($laporan);
+            // Pastikan otentikasi SSO berhasil terlebih dahulu sebelum memproses user target
+            try {
+                $telegramAuth = $this->getAuthForTelegram();
+            } catch (\Exception $e) {
+                Log::error('[TelegramNotif] Gagal mendapatkan otentikasi SSO Telegram: ' . $e->getMessage());
+                return;
+            }
 
             $successCount = 0;
             $failCount = 0;
 
             foreach ($targetUsers as $user) {
-                $replyMarkup = $this->buildReplyMarkup($laporan, $user);
+                // Ambil ID HistoryLaporan terkait
+                $history = $laporan->historyLaporans()->first();
+                $historyId = $history ? $history->id_history : $laporan->id_laporan;
 
-                $sent = $this->sendTelegramMessage(
+                // Tentukan target URL berdasarkan role user
+                if ($user->role === 'admin') {
+                    $targetUrl = route('admin.history-laporan.edit', $historyId);
+                } elseif ($user->role === 'unit') {
+                    $targetUrl = route('unit.history-laporan.edit', $historyId);
+                } else {
+                    $targetUrl = route('pimpinan.history-laporan.index');
+                }
+
+                $detailUrlSso = $this->buildSsoCallbackUrl($targetUrl, $user);
+                $text = $this->buildMessageText($laporan, $detailUrlSso);
+
+                $sentData = $this->sendTelegramMessage(
                     userId: $user->username,
                     text: $text,
-                    replyMarkup: $replyMarkup
+                    telegramAuth: $telegramAuth
                 );
 
-                if ($sent) {
+                if ($sentData !== null) {
                     $successCount++;
+
+                    // Catat ke telegram_outbox_laporans untuk relasi saat user membalas (reply) di Telegram
+                    try {
+                        TelegramOutboxLaporan::create([
+                            'outbox_id'           => $sentData['outbox_id'] ?? null,
+                            'telegram_message_id' => $sentData['telegram_message_id'] ?? null,
+                            'chat_id'             => $sentData['chat_id'] ?? null,
+                            'user_id'             => $user->id,
+                            'laporan_id'          => $laporan->id_laporan,
+                            'history_id'          => $historyId,
+                        ]);
+
+                        // Simpan telegram_id user jika belum ada
+                        if (!empty($sentData['chat_id']) && empty($user->telegram_id)) {
+                            $user->update(['telegram_id' => (string) $sentData['chat_id']]);
+                        }
+                    } catch (\Exception $e) {
+                        Log::warning('[TelegramNotif] Gagal simpan outbox laporan: ' . $e->getMessage());
+                    }
                 } else {
                     $failCount++;
                 }
@@ -85,7 +123,7 @@ class TelegramNotificationService
     /**
      * Susun teks notifikasi dalam format HTML.
      */
-    protected function buildMessageText(Laporan $laporan): string
+    protected function buildMessageText(Laporan $laporan, ?string $detailUrl = null): string
     {
         $kategori  = $laporan->kategori?->nama_kategori ?? '-';
         $subKategori = $laporan->subKategori?->nama_sub ?? '-';
@@ -137,45 +175,39 @@ class TelegramNotificationService
         $lines[] = '📝 <b>Deskripsi:</b>';
         $lines[] = e(\Illuminate\Support\Str::limit($laporan->deskripsi_laporan, 200));
 
+        $lines[] = '';
+        $lines[] = '━━━━━━━━━━━━━━━━━━━━━━';
+        $lines[] = '💬 <b>CARA RESPON LANGSUNG VIA TELEGRAM:</b>';
+        $lines[] = '👉 Balas langsung / ketik <code>PROSES: [catatan]</code> untuk memproses laporan.';
+        $lines[] = '👉 Ketik <code>TOLAK: [alasan penolakan]</code> untuk menolak laporan.';
+
+        if ($detailUrl) {
+            $lines[] = '';
+            $lines[] = '📄 <a href="' . $detailUrl . '"><b>[ LIHAT DETAIL LAPORAN ]</b></a>';
+        }
+
         return implode("\n", $lines);
     }
 
     /**
-     * Susun reply_markup dengan inline keyboard.
+     * Susun URL SSO Callback terverifikasi untuk link lihat detail laporan di Telegram.
      */
-    protected function buildReplyMarkup(Laporan $laporan, User $user): array
+    protected function buildSsoCallbackUrl(string $targetUrl, User $user): string
     {
-        // Ambil ID HistoryLaporan terkait
-        $history = $laporan->historyLaporans()->first();
-        $historyId = $history ? $history->id_history : $laporan->id_laporan;
-
-        // Tentukan target URL berdasarkan role user
-        if ($user->role === 'admin') {
-            $targetUrl = route('admin.history-laporan.edit', $historyId);
-        } elseif ($user->role === 'unit') {
-            $targetUrl = route('unit.history-laporan.edit', $historyId);
-        } else {
-            $targetUrl = route('pimpinan.history-laporan.index');
-        }
-
-        // 1. Definisikan data dasar
-        $appSecret = config('services.sso.x_token', env('SSO_X_TOKEN', ''));
-        $devId = config('services.sso.dev_id', env('SSO_DEV_ID', ''));
+        $appSecret = config('services.sso.x_token') ?: env('SSO_X_TOKEN', '');
+        $devId = config('services.sso.dev_id') ?: env('SSO_DEV_ID', '');
         $idTelegram = (string) ($user->telegram_id ?? $user->username);
         $timestamp = time();
         $redirectUri = $targetUrl;
 
-        // 2. Lakukan Double Base64 Encode untuk parameter tertentu
         $encodedXToken = base64_encode(base64_encode($appSecret));
         $encodedDevId = base64_encode(base64_encode($devId));
         $encodedIdTelegram = base64_encode(base64_encode($idTelegram));
         $encodedTimestamp = base64_encode(base64_encode($timestamp));
 
-        // 3. Hitung Signature HMAC-SHA256 menggunakan $appSecret sebagai Key
         $dataToSign = "x-token=" . $appSecret . "&dev_id=" . $devId . "&id_telegram=" . $idTelegram . "&timestamp=" . $timestamp . "&redirect_uri=" . $redirectUri;
         $signature = hash_hmac('sha256', $dataToSign, $appSecret);
 
-        // 4. Susun URL GET Lengkap
         $params = [
             'x-token'      => $encodedXToken,
             'redirect_uri' => $redirectUri,
@@ -185,18 +217,7 @@ class TelegramNotificationService
             'signature'    => $signature
         ];
 
-        $url = 'https://sso.unuja.ac.id/callback?' . http_build_query($params);
-
-        return [
-            'inline_keyboard' => [
-                [
-                    [
-                        'text' => '📄 Lihat Detail Laporan',
-                        'url'  => $url,
-                    ],
-                ],
-            ],
-        ];
+        return 'https://sso.unuja.ac.id/callback?' . http_build_query($params);
     }
 
     /**
@@ -216,14 +237,19 @@ class TelegramNotificationService
         $path  = parse_url($dataUrl, PHP_URL_PATH);
         $token = $path ? basename($path) : '';
 
-        $baseUrl = config('services.telegram_sso.base_url');
-        $url     = rtrim($baseUrl, '/') . '/' . $token;
+        $baseUrl       = config('services.telegram_sso.base_url');
+        $replaceSource = config('services.sso.replace_source');
+        $replaceTarget = config('services.sso.replace_target');
+        if ($replaceSource && $replaceTarget && $replaceSource !== $replaceTarget) {
+            $baseUrl = str_replace($replaceSource, $replaceTarget, $baseUrl);
+        }
 
-        // Gunakan headers dari auth response (berisi X-Token yang benar)
-        // Sama seperti pattern di ClientSSO::getUnitFromApi()
+        $url = rtrim($baseUrl, '/') . '/' . $token;
+
         $headers = $auth['headers'];
         $headers['Accept']       = 'application/json';
         $headers['Content-Type'] = 'application/json';
+        $headers['User-Agent']   = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
 
         return [
             'url'     => $url,
@@ -233,29 +259,42 @@ class TelegramNotificationService
 
     /**
      * Kirim pesan Telegram via API SSO.
+     *
+     * @return array|null Response data dari SSO jika berhasil (outbox_id, telegram_message_id, chat_id), atau null jika gagal.
      */
-    protected function sendTelegramMessage(string $userId, string $text, array $replyMarkup = []): bool
+    protected function sendTelegramMessage(string $userId, string $text, ?array $telegramAuth = null): ?array
     {
         try {
-            $telegramAuth = $this->getAuthForTelegram();
+            $telegramAuth = $telegramAuth ?: $this->getAuthForTelegram();
             $url     = $telegramAuth['url'];
             $headers = $telegramAuth['headers'];
 
-            // Log::info("[TelegramNotif] Kirim ke user_id={$userId} | URL={$url}");
+            $callbackUrl = config('services.telegram_sso.callback_url');
+            if (empty($callbackUrl) || str_contains($callbackUrl, 'localhost') || str_contains($callbackUrl, '127.0.0.1')) {
+                if (app()->environment('production') || (request()->getHost() && str_contains(request()->getHost(), 'lapor.unuja.ac.id'))) {
+                    $callbackUrl = 'https://lapor.unuja.ac.id/api/telegram/callback';
+                } else {
+                    $callbackUrl = url('/api/telegram/callback');
+                }
+            }
 
             $body = [
                 'user_id'                  => $userId,
                 'type'                     => 'penduduk',
                 'text'                     => $text,
                 'parse_mode'               => 'HTML',
-                'reply_markup'             => $replyMarkup,
-                'disable_notification'     => false,
+                'callback_url'             => $callbackUrl,
                 'disable_web_page_preview' => true,
-                'reply_to_message_id'      => '',
             ];
 
-            $forceIpv4   = filter_var(env('TELEGRAM_FORCE_IPV4', true), FILTER_VALIDATE_BOOLEAN);
-            $forceHttp11 = filter_var(env('TELEGRAM_FORCE_HTTP_1_1', true), FILTER_VALIDATE_BOOLEAN);
+            Log::warning("[TelegramNotif] Mengirim notif ke {$userId} | callback_url: {$callbackUrl}");
+
+            $forceIpv4      = filter_var(config('services.telegram_sso.force_ipv4', env('TELEGRAM_FORCE_IPV4', false)), FILTER_VALIDATE_BOOLEAN);
+            $forceHttp11    = filter_var(config('services.telegram_sso.force_http_1_1', env('TELEGRAM_FORCE_HTTP_1_1', false)), FILTER_VALIDATE_BOOLEAN);
+            $timeout        = (int) (config('services.telegram_sso.timeout') ?: env('TELEGRAM_TIMEOUT', 15));
+            $connectTimeout = (int) (config('services.telegram_sso.connect_timeout') ?: env('TELEGRAM_CONNECT_TIMEOUT', 5));
+            $retryTimes     = (int) (config('services.telegram_sso.retry_times') ?: env('TELEGRAM_RETRY_TIMES', 1));
+            $retrySleep     = (int) (config('services.telegram_sso.retry_sleep_ms') ?: env('TELEGRAM_RETRY_SLEEP_MS', 500));
 
             $curlOptions = [];
             if ($forceIpv4) {
@@ -265,23 +304,32 @@ class TelegramNotificationService
                 $curlOptions[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
             }
 
-            /** @var \Illuminate\Http\Client\Response $response */
-            $response = Http::withHeaders($headers)
-                ->withOptions([
-                    'curl'   => $curlOptions,
-                    'verify' => false,
-                ])
-                ->timeout((int) env('TELEGRAM_TIMEOUT', 15))
-                ->connectTimeout((int) env('TELEGRAM_CONNECT_TIMEOUT', 5))
-                ->retry(
-                    (int) env('TELEGRAM_RETRY_TIMES', 1),
-                    (int) env('TELEGRAM_RETRY_SLEEP_MS', 500)
-                )
-                ->post($url, $body);
+            try {
+                /** @var \Illuminate\Http\Client\Response $response */
+                $response = Http::withHeaders($headers)
+                    ->withOptions([
+                        'curl'   => $curlOptions,
+                        'verify' => false,
+                    ])
+                    ->timeout($timeout)
+                    ->connectTimeout($connectTimeout)
+                    ->retry($retryTimes, $retrySleep)
+                    ->post($url, $body);
+            } catch (\Exception $e) {
+                // Fallback jika curl options khusus gagal koneksi
+                if (!empty($curlOptions)) {
+                    $response = Http::withHeaders($headers)
+                        ->withOptions(['verify' => false])
+                        ->timeout($timeout)
+                        ->connectTimeout($connectTimeout)
+                        ->post($url, $body);
+                } else {
+                    throw $e;
+                }
+            }
 
             // Jika 401, refresh auth (URL token expired) dan coba lagi
             if ($response->status() === 401) {
-                // Log::info('[TelegramNotif] Token expired, refreshing auth...');
                 $this->auth->refreshAuth();
 
                 $telegramAuth = $this->getAuthForTelegram();
@@ -289,25 +337,22 @@ class TelegramNotificationService
                 $headers = $telegramAuth['headers'];
 
                 $response = Http::withHeaders($headers)
-                    ->withOptions([
-                        'curl'   => $curlOptions,
-                        'verify' => false,
-                    ])
-                    ->timeout((int) env('TELEGRAM_TIMEOUT', 15))
-                    ->connectTimeout((int) env('TELEGRAM_CONNECT_TIMEOUT', 5))
+                    ->withOptions(['verify' => false])
+                    ->timeout($timeout)
+                    ->connectTimeout($connectTimeout)
                     ->post($url, $body);
             }
 
             if ($response->successful()) {
-                // Log::info("[TelegramNotif] Berhasil kirim ke user_id={$userId} | Response: " . $response->body());
-                return true;
+                $data = $response->json('data');
+                return is_array($data) ? $data : [];
             } else {
                 Log::warning("[TelegramNotif] Gagal kirim ke user_id={$userId} | Status: {$response->status()} | Body: {$response->body()}");
-                return false;
+                return null;
             }
         } catch (\Exception $e) {
             Log::error("[TelegramNotif] Exception saat kirim ke user_id={$userId}: {$e->getMessage()}");
-            return false;
+            return null;
         }
     }
 }

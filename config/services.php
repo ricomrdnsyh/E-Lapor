@@ -36,16 +36,27 @@ return [
     ],
 
     'telegram_sso' => [
-        'base_url' => env('TELEGRAM_API_BASE_URL', 'https://sso.unuja.ac.id/portal/data/telegram/message'),
+        'base_url'        => env('TELEGRAM_API_BASE_URL'),
+        'callback_url'    => env('TELEGRAM_CALLBACK_URL'),
+        'force_ipv4'      => env('TELEGRAM_FORCE_IPV4', false),
+        'force_http_1_1'  => env('TELEGRAM_FORCE_HTTP_1_1', false),
+        'timeout'         => env('TELEGRAM_TIMEOUT', 15),
+        'connect_timeout' => env('TELEGRAM_CONNECT_TIMEOUT', 5),
+        'retry_times'     => env('TELEGRAM_RETRY_TIMES', 1),
+        'retry_sleep_ms'  => env('TELEGRAM_RETRY_SLEEP_MS', 500),
     ],
 
     'sso' => [
-        'dev_id' => env('SSO_LAPOR_DEV_ID'),
-        'x_token' => env('SSO_LAPOR_X_TOKEN'),
-        'me_url' => env('SSO_ME_URL'),
+        'auth_url'       => env('SSO_AUTH_URL'),
+        'data_base_url'  => env('SSO_DATA_BASE_URL'),
+        'dev_id'         => env('SSO_LAPOR_DEV_ID') ?: env('SSO_DEV_ID'),
+        'x_token'        => env('SSO_LAPOR_X_TOKEN') ?: env('SSO_X_TOKEN'),
+        'force_ipv4'     => env('SSO_FORCE_IPV4', false),
+        'force_http_1_1' => env('SSO_FORCE_HTTP_1_1', false),
+        'me_url'         => env('SSO_ME_URL'),
         'replace_source' => env('SSO_REPLACE_SOURCE'),
         'replace_target' => env('SSO_REPLACE_TARGET'),
-        'logout_url' => env('APP_URL_SSO_LOGOUT'),
+        'logout_url'     => env('APP_URL_SSO_LOGOUT'),
     ],
 
 ];

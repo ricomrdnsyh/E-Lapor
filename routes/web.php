@@ -30,8 +30,13 @@ use App\Http\Controllers\Landing\LaporController;
 use App\Http\Controllers\Landing\BerandaController;
 use App\Http\Controllers\Landing\KategoriController;
 use App\Http\Controllers\Landing\StatistikController;
+use App\Http\Controllers\Telegram\TelegramCallbackController;
 
 Route::get('log-viewer', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->middleware(['auth', 'role:admin']);
+
+// Telegram Webhook Callback dari SSO UNUJA saat user membalas pesan
+Route::post('/api/telegram/callback', [TelegramCallbackController::class, 'handle'])
+    ->name('api.telegram.callback');
 
 Route::get('/', [BerandaController::class, 'beranda'])->name('beranda');
 Route::get('/kategori', [KategoriController::class, 'kategori'])->name('kategori');
