@@ -1,4 +1,4 @@
-<div class="relative z-50" style="background: linear-gradient(135deg, #1e40af, #1e3a5f);">
+<div class="relative z-50 border-b border-blue-950/40" style="background-color: #1e3a5f;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-9">
         <span class="text-white/75 text-[11px] sm:text-xs font-medium tracking-wide">Kanal resmi pengaduan & aspirasi
             civitas akademika</span>
@@ -41,20 +41,15 @@
                     @php $active = request()->routeIs($n['route']); @endphp
                     <a href="{{ route(str_replace('*', '', $n['route'])) }}"
                         class="relative px-3.5 py-2 rounded-xl text-sm font-semibold no-underline transition-all duration-200
-                        {{ $active ? 'text-white' : 'text-slate-600 hover:text-primary hover:bg-primary-surface' }}"
+                        {{ $active ? 'bg-[#1e3a5f] hover:bg-blue-700 text-white shadow-sm' : 'text-slate-600 hover:text-blue-700 hover:bg-blue-50' }}"
                         @if ($active) aria-current="page" @endif>
-                        @if ($active)
-                            <span class="absolute inset-0 rounded-xl"
-                                style="background: linear-gradient(135deg, #1e40af, #3b82f6);"></span>
-                        @endif
                         <span class="relative z-10">{{ $n['label'] }}</span>
                     </a>
                 @endforeach
             </nav>
 
             <a href="{{ route('lapor') }}"
-                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-sm no-underline shadow-lg transition-all duration-200 hover:shadow-xl active:shadow-xl hover:-translate-y-0.5 active:-translate-y-0.5 active:scale-[0.98]"
-                style="background: linear-gradient(135deg, #1e40af, #3b82f6);">
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1e3a5f] hover:bg-blue-700 text-white font-bold text-sm no-underline shadow-lg shadow-[#1e3a5f]/20 transition-all duration-200 hover:-translate-y-0.5 active:-translate-y-0.5 active:scale-[0.98]">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
@@ -84,15 +79,13 @@
                 @php $active = request()->routeIs($n['route']); @endphp
                 <a href="{{ route(str_replace('*', '', $n['route'])) }}"
                     class="block px-4 py-3 rounded-xl text-sm font-semibold no-underline transition-all
-                    {{ $active ? 'text-white shadow-md' : 'text-slate-600 hover:bg-primary-surface hover:text-primary active:bg-primary-surface active:text-primary active:scale-[0.98]' }}"
-                    style="{{ $active ? 'background: linear-gradient(135deg, #1e40af, #3b82f6);' : '' }}">
+                    {{ $active ? 'bg-[#1e3a5f] hover:bg-blue-700 text-white shadow-md' : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 active:bg-blue-50 active:text-blue-700 active:scale-[0.98]' }}">
                     {{ $n['label'] }}
                 </a>
             @endforeach
             <hr class="my-4 border-slate-100">
             <a href="{{ route('lapor') }}"
-                class="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-white font-bold text-sm no-underline shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:-translate-y-0.5 active:scale-[0.98] active:shadow-xl transition-all duration-200 mt-2"
-                style="background: linear-gradient(135deg, #1e40af, #3b82f6);">
+                class="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-[#1e3a5f] hover:bg-blue-700 text-white font-bold text-sm no-underline shadow-lg shadow-[#1e3a5f]/20 hover:shadow-xl hover:-translate-y-0.5 active:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 mt-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>

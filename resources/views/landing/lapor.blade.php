@@ -156,8 +156,53 @@
 @endsection
 
 @section('content')
-    <div class="flex-1" style="background: linear-gradient(160deg, #f0f7ff, #eff6ff 30%, #ffffff 70%, #f0f7ff);">
-        <section class="py-12 lg:py-16 relative overflow-hidden">
+    <div class="flex-1 relative overflow-hidden"
+        style="background: linear-gradient(160deg, #eef6ff 0%, #f5f9ff 35%, #ffffff 65%, #f0f7ff 100%);">
+
+        <div class="absolute -top-28 -left-28 w-[500px] h-[500px] rounded-full bg-blue-200/35 blur-3xl pointer-events-none">
+        </div>
+        <div class="absolute top-1/4 -right-32 w-[550px] h-[550px] rounded-full bg-indigo-200/25 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute top-2/3 -left-32 w-[520px] h-[520px] rounded-full bg-sky-200/30 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-10 -right-24 w-[450px] h-[450px] rounded-full bg-emerald-100/35 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="absolute inset-0 pointer-events-none"
+            style="background-image: radial-gradient(rgba(30, 58, 95, 0.065) 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%);">
+        </div>
+
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 1400" fill="none"
+            preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="laporWaveTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.55" />
+                    <stop offset="50%" stop-color="#e0e7ff" stop-opacity="0.30" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="laporWaveMid" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.45" />
+                    <stop offset="60%" stop-color="#dbeafe" stop-opacity="0.20" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="laporWaveBot" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#d1fae5" stop-opacity="0.35" />
+                    <stop offset="50%" stop-color="#e0f2fe" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <path d="M0,0 L1440,0 L1440,360 C1120,440 820,220 460,320 C220,385 90,300 0,340 Z"
+                fill="url(#laporWaveTop)" />
+            <path
+                d="M0,520 C380,400 760,640 1140,500 C1280,450 1380,470 1440,510 L1440,960 C1080,1060 680,840 280,960 C140,1000 50,970 0,940 Z"
+                fill="url(#laporWaveMid)" />
+            <path d="M0,1060 C360,960 740,1180 1140,1040 C1290,990 1380,1020 1440,1050 L1440,1400 L0,1400 Z"
+                fill="url(#laporWaveBot)" />
+        </svg>
+
+        <section class="py-12 lg:py-16 relative z-10 overflow-hidden">
             <div class="hero-glow w-[300px] h-[300px] -top-40 -right-20 opacity-20"
                 style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
             <div class="hero-glow w-[200px] h-[200px] bottom-0 -left-20 opacity-10"
@@ -180,10 +225,8 @@
             </div>
         </section>
 
-        <section class="pb-16">
+        <section class="relative z-10 pb-16">
             <div class="max-w-7xl mx-auto px-4" style="margin-top:-1.5rem;">
-
-
 
                 @php
                     $ssoUser = session('sso_user');
@@ -206,7 +249,6 @@
                 <form action="{{ route('lapor.store') }}" method="POST" enctype="multipart/form-data" id="form_laporan">
                     @csrf
 
-
                     <div
                         class="bg-white rounded-2xl border border-slate-200 shadow-sm mb-6 p-4 md:p-6 relative overflow-hidden">
 
@@ -220,7 +262,6 @@
                         <div class="overflow-x-auto relative z-10 custom-scrollbar">
                             <div class="flex items-center justify-between min-w-[700px] gap-2 px-2">
 
-
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
                                         class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-[#1F4788] to-[#2a5ca8] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#1F4788]/20 ring-4 ring-white transition-all duration-300 group-hover:scale-110 group-active:scale-110">
@@ -231,11 +272,9 @@
                                         Laporan</span>
                                 </div>
 
-
                                 <div
                                     class="flex-1 h-[2px] bg-gradient-to-r from-slate-200 via-blue-100 to-slate-200 rounded-full mx-1">
                                 </div>
-
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
@@ -246,11 +285,9 @@
                                         class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Lokasi</span>
                                 </div>
 
-
                                 <div
                                     class="flex-1 h-[2px] bg-gradient-to-r from-slate-200 via-blue-100 to-slate-200 rounded-full mx-1">
                                 </div>
-
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
@@ -261,11 +298,9 @@
                                         class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Detail</span>
                                 </div>
 
-
                                 <div
                                     class="flex-1 h-[2px] bg-gradient-to-r from-slate-200 via-blue-100 to-slate-200 rounded-full mx-1">
                                 </div>
-
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
@@ -276,11 +311,9 @@
                                         class="text-sm font-bold text-slate-700 transition-colors duration-300 group-hover:text-[#1F4788] group-active:text-[#1F4788] active:scale-[0.98]">Pelapor</span>
                                 </div>
 
-
                                 <div
                                     class="flex-1 h-[2px] bg-gradient-to-r from-slate-200 via-blue-100 to-slate-200 rounded-full mx-1">
                                 </div>
-
 
                                 <div class="flex items-center gap-2.5 group cursor-default">
                                     <div
@@ -722,13 +755,14 @@
                                 </div>
                                 <div>
                                     <button type="submit"
-                                        class="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-primary-light text-white font-bold text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
+                                        class="group w-full py-3 rounded-xl bg-gradient-to-r from-primary to-primary-light text-white font-bold text-sm shadow-lg shadow-primary/25 hover:brightness-110 active:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                                         id="btn_submit">
                                         <span class="indicator-label inline-flex items-center gap-2">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                                fill="none" stroke="currentColor" stroke-width="2.2"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                                    d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
                                             </svg>
                                             Kirim Laporan
                                         </span>
@@ -806,7 +840,6 @@
                         return;
                     }
 
-                    // Success
                     fileNameText.textContent = file.name;
                     fileSizeText.textContent = formatBytes(file.size);
                     uploadZone.classList.add('hidden');
@@ -843,7 +876,7 @@
 
             if (identityBlock) {
                 identityBlock.classList.toggle('hidden', isAnon);
-                identityBlock.style.display = ''; // Clear inline styles just in case
+                identityBlock.style.display = '';
                 identityBlock.querySelectorAll('input, select').forEach(function(inp) {
                     if (isAnon) inp.setAttribute('disabled', 'disabled');
                     else inp.removeAttribute('disabled');
@@ -851,7 +884,7 @@
             }
             if (anonEmailBlock) {
                 anonEmailBlock.classList.toggle('hidden', !isAnon);
-                anonEmailBlock.style.display = ''; // Clear inline styles
+                anonEmailBlock.style.display = '';
                 if (!isAnon && emailAnonim) emailAnonim.value = '';
             }
             if (isAnon) {

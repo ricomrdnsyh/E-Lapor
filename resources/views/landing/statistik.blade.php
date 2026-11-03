@@ -32,7 +32,6 @@
             flex-shrink: 0;
         }
 
-        /* Select2 Customization */
         .select2-container {
             width: 100% !important;
         }
@@ -159,8 +158,52 @@
 @endsection
 
 @section('content')
-    <div class="flex-1" style="background: linear-gradient(160deg, #f0f7ff, #eff6ff 30%, #ffffff 70%, #f0f7ff);">
-        <section class="pt-12 lg:pt-16 pb-8 lg:pb-10">
+    <div class="flex-1 relative overflow-hidden"
+        style="background: linear-gradient(160deg, #eef6ff 0%, #f5f9ff 35%, #ffffff 65%, #f0f7ff 100%);">
+
+        <div class="absolute -top-28 -left-28 w-[500px] h-[500px] rounded-full bg-blue-200/30 blur-3xl pointer-events-none">
+        </div>
+        <div class="absolute top-1/4 -right-32 w-[550px] h-[550px] rounded-full bg-indigo-200/20 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-32 left-1/4 w-[520px] h-[520px] rounded-full bg-sky-200/25 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-10 -right-24 w-[420px] h-[420px] rounded-full bg-emerald-100/30 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="absolute inset-0 pointer-events-none"
+            style="background-image: radial-gradient(rgba(30, 58, 95, 0.05) 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%);">
+        </div>
+
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 1200" fill="none"
+            preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="statWaveTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.45" />
+                    <stop offset="50%" stop-color="#e0e7ff" stop-opacity="0.22" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="statWaveMid" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.35" />
+                    <stop offset="60%" stop-color="#dbeafe" stop-opacity="0.15" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="statWaveBot" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#d1fae5" stop-opacity="0.28" />
+                    <stop offset="50%" stop-color="#e0f2fe" stop-opacity="0.28" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <path d="M0,0 L1440,0 L1440,340 C1120,420 820,210 460,310 C220,375 90,290 0,330 Z" fill="url(#statWaveTop)" />
+            <path
+                d="M0,460 C380,340 760,580 1140,440 C1280,390 1380,410 1440,450 L1440,860 C1080,960 680,740 280,860 C140,900 50,870 0,840 Z"
+                fill="url(#statWaveMid)" />
+            <path d="M0,920 C360,820 740,1040 1140,900 C1290,850 1380,880 1440,910 L1440,1200 L0,1200 Z"
+                fill="url(#statWaveBot)" />
+        </svg>
+
+        <section class="relative z-10 pt-12 lg:pt-16 pb-8 lg:pb-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div class="relative overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-sm">
                     <div class="hero-glow w-[250px] h-[250px] -top-20 -right-20 opacity-10"
@@ -237,7 +280,7 @@
             </div>
         </section>
 
-        <section class="pb-10 lg:pb-12">
+        <section class="relative z-10 pb-10 lg:pb-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
 
                 <div class="mb-5">
@@ -816,7 +859,7 @@
             if (typeof jQuery !== 'undefined') {
                 $('.select2-searchable').select2({
                     width: '100%',
-                    minimumResultsForSearch: 0 // Ensure search box is always shown
+                    minimumResultsForSearch: 0
                 });
             }
         });

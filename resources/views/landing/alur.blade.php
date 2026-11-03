@@ -2,10 +2,51 @@
 
 @section('content')
     <section class="relative overflow-hidden py-16 lg:py-20 flex-1"
-        style="background: linear-gradient(160deg, #f0f7ff, #eff6ff 30%, #ffffff 70%, #f0f7ff);">
-        <div class="hero-glow w-[500px] h-[500px] top-20 -left-40 opacity-10"
-            style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        style="background: linear-gradient(160deg, #eef6ff 0%, #f5f9ff 35%, #ffffff 65%, #f0f7ff 100%);">
+
+        <div class="absolute -top-28 -left-28 w-[500px] h-[500px] rounded-full bg-blue-200/35 blur-3xl pointer-events-none">
+        </div>
+        <div class="absolute top-1/4 -right-32 w-[550px] h-[550px] rounded-full bg-indigo-200/25 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-32 left-1/4 w-[520px] h-[520px] rounded-full bg-sky-200/30 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-10 -right-24 w-[420px] h-[420px] rounded-full bg-emerald-100/35 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="absolute inset-0 pointer-events-none"
+            style="background-image: radial-gradient(rgba(30, 58, 95, 0.065) 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%);">
+        </div>
+
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 900" fill="none"
+            preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="alurWaveTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.55" />
+                    <stop offset="50%" stop-color="#e0e7ff" stop-opacity="0.30" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="alurWaveMid" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.45" />
+                    <stop offset="60%" stop-color="#dbeafe" stop-opacity="0.20" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="alurWaveBot" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#d1fae5" stop-opacity="0.35" />
+                    <stop offset="50%" stop-color="#e0f2fe" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <path d="M0,0 L1440,0 L1440,280 C1120,350 820,170 460,250 C220,305 90,230 0,265 Z" fill="url(#alurWaveTop)" />
+            <path
+                d="M0,360 C380,260 760,460 1140,340 C1280,300 1380,320 1440,350 L1440,660 C1080,740 680,560 280,660 C140,690 50,670 0,645 Z"
+                fill="url(#alurWaveMid)" />
+            <path d="M0,700 C360,620 740,800 1140,690 C1290,650 1380,675 1440,700 L1440,900 L0,900 Z"
+                fill="url(#alurWaveBot)" />
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center mb-12">
                 <h2 class="font-black text-primary-darker text-2xl lg:text-3xl">Alur Penanganan</h2>
                 <p class="text-slate-500 mt-2">Tahapan penanganan pengaduan dari awal masuk hingga selesai</p>

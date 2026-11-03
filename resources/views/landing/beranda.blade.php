@@ -2,308 +2,326 @@
 
 @section('content')
 
-    <section class="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32"
-        style="background: linear-gradient(160deg, #eff6ff 0%, #f0f7ff 35%, #ffffff 70%, #f0f7ff 100%);">
-        <div class="hero-glow w-[600px] h-[600px] -top-40 -left-32 opacity-20"
-            style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
-        <div class="hero-glow w-[400px] h-[400px] -bottom-20 -right-20 opacity-15"
-            style="background: radial-gradient(circle, #06b6d4, transparent);"></div>
+    <section class="relative overflow-hidden py-10 sm:py-16 lg:py-28 bg-slate-100">
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="{{ asset('assets/media/gedung-unuja.png') }}" alt="Gedung Universitas Nurul Jadid"
+                class="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
+                style="filter: contrast(1.05) saturate(1.1);" />
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <div class="absolute inset-0"
+                style="background: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.22) 48%, rgba(255, 255, 255, 0.48) 80%, #ffffff 100%);">
+            </div>
 
-                <div class="lg:col-span-7 text-center lg:text-left">
-                    <div
-                        class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur border border-slate-200/80 shadow-sm mb-7 animate-slide-up">
-                        <span class="relative flex h-2.5 w-2.5">
+            <div class="absolute inset-0 pointer-events-none"
+                style="background: radial-gradient(ellipse 75% 52% at 50% 36%, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.65) 55%, transparent 100%);">
+            </div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div
+                    class="inline-flex items-center gap-2 sm:gap-2.5 p-1 pr-3 sm:p-1.5 sm:pr-4 rounded-full bg-white/90 backdrop-blur-md border border-white shadow-[0_4px_20px_rgba(15,23,42,0.07)] mb-5 sm:mb-7 animate-slide-up max-w-full">
+                    <span
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] sm:text-[11px] font-extrabold tracking-wider uppercase shadow-xs shrink-0 whitespace-nowrap">
+                        <span class="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
                             <span
-                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-400"></span>
                         </span>
-                        <span class="font-bold text-slate-700 text-xs tracking-wide">Kanal resmi pengaduan & aspirasi
-                            civitas akademika</span>
-                    </div>
+                        E-Lapor UNUJA
+                    </span>
+                    <span class="font-semibold text-blue-900 text-[11px] sm:text-xs tracking-wide truncate">
+                        Kanal Resmi Pengaduan <span class="hidden sm:inline">& Aspirasi Civitas Akademika</span><span
+                            class="sm:hidden">Civitas</span>
+                    </span>
+                </div>
 
-                    <h1 class="font-extrabold text-slate-900 mb-5 animate-slide-up-delay-1 tracking-tight"
-                        style="font-size: clamp(1.8rem, 3.8vw, 3rem); line-height: 1.15;">
-                        Laporkan Masalah Kampus <br class="hidden sm:block">
+                <h1 class="font-black text-primary-darker mb-4 sm:mb-5 animate-slide-up-delay-1 tracking-tight text-[1.55rem] min-[400px]:text-[1.75rem] sm:text-4xl lg:text-[3.35rem]"
+                    style="line-height: 1.16;">
+                    <span class="block" style="text-shadow: 0 2px 20px rgba(255,255,255,0.98);">Laporkan Masalah
+                        Kampus</span>
+                    <span class="relative inline-block mt-0.5 sm:mt-1">
                         <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-primary to-cyan-500">Cepat,
+                            class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-900"
+                            style="filter: drop-shadow(0 2px 12px rgba(255,255,255,0.95));">Cepat,
                             Aman & Terpantau</span>
-                    </h1>
+                    </span>
+                </h1>
 
-                    <p
-                        class="text-slate-500 text-[1.05rem] sm:text-lg max-w-xl mx-auto lg:mx-0 mb-9 animate-slide-up-delay-2 leading-relaxed">
-                        <strong class="text-slate-700 font-bold">E-Lapor</strong> membantu mahasiswa & civitas menyampaikan
-                        laporan (fasilitas, akademik, TIK, keamanan, etik) lengkap dengan bukti, lalu memantau statusnya
-                        sampai selesai.
-                    </p>
+                <p class="text-slate-600 text-[13.5px] sm:text-[1.08rem] max-w-2xl mx-auto mb-6 sm:mb-9 px-1 sm:px-0 animate-slide-up-delay-2 leading-relaxed font-medium"
+                    style="text-shadow: 0 1px 14px rgba(255,255,255,0.98), 0 0 6px rgba(255,255,255,0.95);">
+                    <strong class="text-primary-darker font-extrabold">E-Lapor Universitas Nurul Jadid</strong> membantu
+                    mahasiswa & civitas menyampaikan laporan <span class="text-slate-800 font-semibold">(fasilitas,
+                        akademik, TIK, keamanan, maupun etik)</span> lengkap dengan bukti pendukung, lalu memantau
+                    progresnya hingga tuntas.
+                </p>
 
-                    <div class="flex flex-wrap gap-3 justify-center lg:justify-start animate-slide-up-delay-3">
-                        <a href="{{ route('lapor') }}"
-                            class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-white font-bold text-sm shadow-xl transition-all duration-200 hover:shadow-2xl active:shadow-2xl hover:-translate-y-0.5 active:-translate-y-0.5 no-underline active:scale-[0.98]"
-                            style="background: linear-gradient(135deg, #1e40af, #3b82f6);">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                <div class="flex flex-wrap gap-2.5 sm:gap-3.5 justify-center items-center animate-slide-up-delay-3">
+                    <a href="{{ route('lapor') }}"
+                        class="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:px-8 sm:py-3.5 rounded-2xl bg-[#1e3a5f] hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-xl shadow-[#1e3a5f]/25 transition-all duration-300 hover:-translate-y-0.5 active:-translate-y-0.5 no-underline active:scale-[0.98]">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:rotate-90 shrink-0"
+                            fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Buat Laporan Sekarang
+                    </a>
+
+                    @if (isset($panduans) && $panduans->count() > 0)
+                        <a href="{{ asset('storage/' . $panduans->first()->file) }}" target="_blank"
+                            class="group inline-flex items-center justify-center gap-2 px-4 py-3.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl bg-white/90 backdrop-blur-md border border-white text-primary-darker font-bold text-xs sm:text-sm shadow-[0_8px_24px_rgba(15,23,42,0.1)] hover:bg-blue-700 hover:text-white hover:border-blue-700 transition-all duration-300 hover:-translate-y-0.5 no-underline active:scale-[0.98]">
+                            <svg class="w-4 h-4 text-blue-700 group-hover:text-white transition-colors duration-300 shrink-0"
+                                fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
-                            Buat Laporan
+                            Panduan Sistem
                         </a>
-                        @if (isset($panduans) && $panduans->count() > 0)
-                            <a href="{{ asset('storage/' . $panduans->first()->file) }}" target="_blank"
-                                class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl border-2 border-primary-light/30 text-primary font-bold text-sm hover:bg-primary active:bg-primary hover:text-white active:text-white transition-all no-underline active:scale-[0.98]">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                </svg>
-                                Panduan Sistem
-                            </a>
-                        @endif
-                    </div>
+                    @endif
+                </div>
+            </div>
 
-                    <div class="flex flex-col sm:flex-row gap-3 mt-10 animate-slide-up-delay-3 w-full">
+            <div class="grid grid-cols-3 gap-2 sm:gap-3.5 mt-7 sm:mt-11 max-w-3xl mx-auto animate-slide-up-delay-3">
+                <div
+                    class="group flex flex-col sm:flex-row items-center text-center sm:text-left gap-2 sm:gap-3.5 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/80 hover:bg-white/95 backdrop-blur-md border border-white/90 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 cursor-default">
+                    <div
+                        class="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg sm:rounded-xl bg-blue-50 text-blue-600 border border-blue-100/80 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                        </svg>
+                    </div>
+                    <div>
                         <div
-                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:bg-white active:bg-white cursor-default active:scale-[0.98]">
-                            <div
-                                class="w-9 h-9 shrink-0 rounded-xl bg-blue-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-110 group-hover:rotate-3 group-active:rotate-3">
-                                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                                    <path d="M7 11V7a5 5 0 0110 0v4" />
-                                </svg>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-bold text-slate-800 text-xs transition-colors group-hover:text-blue-600 group-active:text-blue-600 active:scale-[0.98]">
-                                    Privasi Terjamin</div>
-                                <div class="text-slate-500 text-[11px] leading-tight mt-0.5">Opsi pelaporan anonim</div>
-                            </div>
-                        </div>
+                            class="font-bold text-slate-800 text-[11px] sm:text-xs leading-tight group-hover:text-blue-600 transition-colors">
+                            Privasi Terjamin</div>
                         <div
-                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:bg-white active:bg-white cursor-default active:scale-[0.98]">
-                            <div
-                                class="w-9 h-9 shrink-0 rounded-xl bg-amber-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-110 group-hover:-rotate-3 group-active:-rotate-3">
-                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                </svg>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-bold text-slate-800 text-xs transition-colors group-hover:text-amber-600 group-active:text-amber-600 active:scale-[0.98]">
-                                    Notifikasi Aktif</div>
-                                <div class="text-slate-500 text-[11px] leading-tight mt-0.5">Update via chat/email</div>
-                            </div>
-                        </div>
-                        <div
-                            class="flex-1 group flex items-center gap-2.5 p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-sm transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg hover:bg-white active:bg-white cursor-default active:scale-[0.98]">
-                            <div
-                                class="w-9 h-9 shrink-0 rounded-xl bg-emerald-50 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-110 group-hover:rotate-3 group-active:rotate-3">
-                                <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div class="text-left">
-                                <div
-                                    class="font-bold text-slate-800 text-xs transition-colors group-hover:text-emerald-600 group-active:text-emerald-600 active:scale-[0.98]">
-                                    Proses Transparan</div>
-                                <div class="text-slate-500 text-[11px] leading-tight mt-0.5">Riwayat laporan terekam</div>
-                            </div>
-                        </div>
+                            class="text-slate-500 text-[10px] sm:text-[11px] leading-tight mt-0.5 hidden min-[380px]:block">
+                            Opsi anonim</div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-5 hidden lg:block animate-slide-up">
-                    <div class="relative">
-                        <div class="hero-glow w-[300px] h-[300px] -top-20 -right-20 opacity-30"
-                            style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
+                <div
+                    class="group flex flex-col sm:flex-row items-center text-center sm:text-left gap-2 sm:gap-3.5 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/80 hover:bg-white/95 backdrop-blur-md border border-white/90 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 cursor-default">
+                    <div
+                        class="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg sm:rounded-xl bg-amber-50 text-amber-600 border border-amber-100/80 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </div>
+                    <div>
                         <div
-                            class="relative bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 shadow-sm p-5 lg:p-6 transition-all duration-500 hover:-translate-y-1 active:-translate-y-1 hover:shadow-xl active:shadow-xl group/card active:scale-[0.98]">
-                            <div
-                                class="flex items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100 transition-colors duration-500 group-hover/card:border-slate-200">
-                                <div>
-                                    <h3
-                                        class="font-bold text-slate-800 text-base tracking-tight transition-colors duration-300 group-hover/card:text-primary-dark">
-                                        Cara Membuat Laporan</h3>
-                                    <p class="text-slate-400 text-xs mt-0.5">4 langkah mudah</p>
-                                </div>
-                                <div
-                                    class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100 transition-all duration-500 group-hover/card:rotate-12 group-hover/card:bg-primary-surface group-hover/card:text-primary group-hover/card:border-primary-mist">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                            </div>
+                            class="font-bold text-slate-800 text-[11px] sm:text-xs leading-tight group-hover:text-amber-600 transition-colors">
+                            Notifikasi Aktif</div>
+                        <div
+                            class="text-slate-500 text-[10px] sm:text-[11px] leading-tight mt-0.5 hidden min-[380px]:block">
+                            Via chat/email</div>
+                    </div>
+                </div>
 
-                            @php
-                                $steps = [
-                                    [
-                                        'icon' =>
-                                            'M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z',
-                                        'bg' => 'bg-amber-50',
-                                        'text' => 'text-amber-500',
-                                        'hover_text' => 'group-hover:text-amber-600',
-                                        'title' => 'Pilih kategori',
-                                        'desc' => 'Agar laporan tepat sasaran.',
-                                    ],
-                                    [
-                                        'icon' =>
-                                            'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
-                                        'bg' => 'bg-blue-50',
-                                        'text' => 'text-blue-500',
-                                        'hover_text' => 'group-hover:text-blue-600',
-                                        'title' => 'Tulis kronologi',
-                                        'desc' => 'Deskripsikan secara jelas.',
-                                    ],
-                                    [
-                                        'icon' =>
-                                            'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
-                                        'bg' => 'bg-emerald-50',
-                                        'text' => 'text-emerald-500',
-                                        'hover_text' => 'group-hover:text-emerald-600',
-                                        'title' => 'Upload bukti',
-                                        'desc' => 'Foto atau dokumen valid.',
-                                    ],
-                                    [
-                                        'icon' => 'M12 19l9 2-9-18-9 18 9-2zm0 0v-8',
-                                        'bg' => 'bg-indigo-50',
-                                        'text' => 'text-indigo-500',
-                                        'hover_text' => 'group-hover:text-indigo-600',
-                                        'title' => 'Pantau laporan',
-                                        'desc' => 'Dapatkan update progres.',
-                                    ],
-                                ];
-                            @endphp
-                            <div class="space-y-0">
-                                @foreach ($steps as $i => $s)
-                                    <div class="flex gap-4 group cursor-default">
-                                        <div class="flex flex-col items-center">
-                                            <div
-                                                class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-active:scale-110 group-hover:shadow-sm group-active:shadow-sm {{ $s['bg'] }} {{ $s['text'] }}">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                    stroke-width="2.5" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="{{ $s['icon'] }}" />
-                                                </svg>
-                                            </div>
-                                            @if (!$loop->last)
-                                                <div
-                                                    class="w-px flex-1 bg-slate-100 my-1 transition-colors duration-500 group-hover/card:bg-slate-200/80">
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="pb-5 pt-0.5">
-                                            <div
-                                                class="font-bold text-slate-700 text-[13px] transition-colors duration-300 {{ $s['hover_text'] }}">
-                                                {{ $s['title'] }}</div>
-                                            <div class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">
-                                                {{ $s['desc'] }}</div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                <div
+                    class="group flex flex-col sm:flex-row items-center text-center sm:text-left gap-2 sm:gap-3.5 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-white/80 hover:bg-white/95 backdrop-blur-md border border-white/90 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-0.5 cursor-default">
+                    <div
+                        class="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg sm:rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100/80 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div
+                            class="font-bold text-slate-800 text-[11px] sm:text-xs leading-tight group-hover:text-emerald-600 transition-colors">
+                            Proses Transparan</div>
+                        <div
+                            class="text-slate-500 text-[10px] sm:text-[11px] leading-tight mt-0.5 hidden min-[380px]:block">
+                            Riwayat terekam</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="relative overflow-hidden py-16 lg:py-24"
-        style="background: linear-gradient(135deg, #0f2744, #1e3a5f, #1e40af);">
-        <div class="absolute inset-0"
-            style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M29.5 29.5h-5v1h5v5h1v-5h5v-1h-5v-5h-1v5z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E&quot;);">
-        </div>
-        <div class="hero-glow w-[500px] h-[500px] -top-32 -left-32 opacity-10"
-            style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
-        <div class="hero-glow w-[400px] h-[400px] -bottom-20 -right-20 opacity-10"
-            style="background: radial-gradient(circle, #06b6d4, transparent);"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
-            <h2 class="text-white font-bold text-sm lg:text-2xl tracking-[0.15em] uppercase mb-4">Jumlah Laporan Sekarang
-            </h2>
-            <div class="counter-value font-bold text-white tracking-tight leading-none"
-                style="font-size: clamp(4rem, 8vw, 6rem);" data-target="{{ $totalLaporan }}">0</div>
-        </div>
-    </section>
+    <section class="relative z-20 py-10 sm:py-14 lg:py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div
+                class="p-5 sm:p-7 lg:p-8 rounded-[2rem] bg-white border border-slate-200/90 shadow-[0_20px_55px_-15px_rgba(15,39,68,0.09)]">
 
-    <section class="py-16 lg:py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-10">
-                <h2 class="font-black text-primary-darker text-2xl lg:text-3xl">Detail Laporan</h2>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-12">
-                @foreach ([
-            'menunggu' => ['Menunggu', '#f59e0b', 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-            'diproses' => ['Diproses', '#3b82f6', 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/>'],
-            'selesai' => ['Selesai', '#10b981', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
-            'ditolak' => ['Ditolak', '#ef4444', 'M6 18L18 6M6 6l12 12'],
-        ] as $key => $info)
-                    <div class="group relative overflow-hidden p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 active:-translate-y-1 hover:shadow-xl active:shadow-xl active:scale-[0.98]"
-                        style="border-color: {{ $info[1] }}20; background: linear-gradient(135deg, {{ $info[1] }}06, {{ $info[1] }}02);">
-                        <div class="absolute top-0 right-0 w-24 h-24 -mt-8 -mr-8 rounded-full opacity-[0.06] group-hover:opacity-[0.10] group-active:opacity-[0.10] transition-opacity active:scale-[0.98]"
-                            style="background: {{ $info[1] }};"></div>
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-xl flex items-center justify-center"
-                                style="background: {{ $info[1] }}12;">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24" style="color: {{ $info[1] }};">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="{{ $info[2] }}" />
-                                </svg>
-                            </div>
-                            <span class="text-xs font-bold uppercase tracking-wider"
-                                style="color: {{ $info[1] }};">{{ $info[0] }}</span>
-                        </div>
-                        <div class="font-black tracking-tight"
-                            style="font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1; color: {{ $info[1] }};">
-                            {{ $stats[$key] ?? 0 }}
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div class="text-center">
-                <a href="{{ route('statistik') }}"
-                    class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-bold text-sm border-2 border-blue-400 text-blue-500 bg-transparent transition-all duration-300 hover:bg-blue-500 active:bg-blue-500 hover:border-blue-500 active:border-blue-500 hover:text-white active:text-white hover:-translate-y-1 active:-translate-y-1 hover:shadow-lg active:shadow-lg no-underline group active:scale-[0.98]">
-                    Lihat Selengkapnya
-                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-1 active:scale-[0.98]" fill="none"
-                        stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                <div class="relative overflow-hidden rounded-2xl p-7 sm:p-9 flex flex-col items-center justify-center text-center shadow-md shadow-blue-900/15 group"
+                    style="background: radial-gradient(circle at 88% 18%, rgba(59, 95, 209, 0.45) 0%, transparent 55%), radial-gradient(circle at 12% 85%, rgba(29, 78, 216, 0.35) 0%, transparent 55%), linear-gradient(135deg, #0f2744 0%, #1e3a5f 52%, #1d4ed8 100%);">
+
+                    <svg class="absolute bottom-0 left-0 w-full h-24 sm:h-28 pointer-events-none" viewBox="0 0 800 120"
+                        preserveAspectRatio="none">
+                        <path d="M0,65 C220,115 520,10 800,70 L800,120 L0,120 Z" fill="rgba(255,255,255,0.07)"></path>
+                        <path d="M0,85 C280,35 560,110 800,50 L800,120 L0,120 Z" fill="rgba(255,255,255,0.05)"></path>
                     </svg>
-                </a>
+
+                    <svg class="absolute -right-4 -bottom-6 w-40 h-40 sm:w-48 sm:h-48 text-white/[0.07] -rotate-12 pointer-events-none transition-transform duration-500 group-hover:scale-105"
+                        fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+
+                    <div class="relative z-10">
+                        <span class="inline-block text-sky-100 font-bold text-xs sm:text-sm tracking-[0.15em] uppercase">
+                            Jumlah Laporan Sekarang
+                        </span>
+                    </div>
+
+                    <div class="relative z-10 my-3 sm:my-4">
+                        <div class="counter-value font-black text-white tracking-tight leading-none drop-shadow-xs"
+                            style="font-size: clamp(3.5rem, 6vw, 4.75rem);" data-target="{{ $totalLaporan }}">0
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 mt-1">
+                        <a href="{{ route('statistik') }}"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-white text-[#1e3a5f] hover:bg-blue-700 hover:text-white text-xs sm:text-[13px] font-extrabold transition-all duration-300 no-underline group/btn shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                            Lihat Selengkapnya
+                            <svg class="w-3.5 h-3.5 text-blue-700 group-hover/btn:text-white transition-all duration-300 group-hover/btn:translate-x-1"
+                                fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-7 sm:mt-8 pt-1">
+                    <div class="flex items-center justify-center sm:justify-start gap-2.5 mb-5">
+                        <span
+                            class="hidden sm:inline-block w-1.5 h-6 rounded-full bg-gradient-to-b from-primary to-primary-light"></span>
+                        <h3 class="font-black text-primary-darker text-xl sm:text-2xl tracking-tight">
+                            Detail Laporan
+                        </h3>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+                        @foreach ([
+            'menunggu' => [
+                'label' => 'Menunggu',
+                'surface' => 'from-amber-50/95 via-white to-amber-50/40 border-amber-200/80 hover:border-amber-300 shadow-amber-500/5',
+                'icon_box' => 'bg-white border-amber-200/70 text-amber-500 shadow-amber-500/10',
+                'label_color' => 'text-amber-600',
+                'num_color' => 'text-amber-500',
+                'watermark' => 'text-amber-500/[0.07]',
+                'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+            ],
+            'diproses' => [
+                'label' => 'Diproses',
+                'surface' => 'from-blue-50/95 via-white to-blue-50/40 border-blue-200/80 hover:border-blue-300 shadow-blue-500/5',
+                'icon_box' => 'bg-white border-blue-200/70 text-blue-600 shadow-blue-500/10',
+                'label_color' => 'text-blue-600',
+                'num_color' => 'text-blue-600',
+                'watermark' => 'text-blue-500/[0.07]',
+                'icon' => 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/>',
+            ],
+            'selesai' => [
+                'label' => 'Selesai',
+                'surface' => 'from-emerald-50/95 via-white to-emerald-50/40 border-emerald-200/80 hover:border-emerald-300 shadow-emerald-500/5',
+                'icon_box' => 'bg-white border-emerald-200/70 text-emerald-600 shadow-emerald-500/10',
+                'label_color' => 'text-emerald-600',
+                'num_color' => 'text-emerald-600',
+                'watermark' => 'text-emerald-500/[0.07]',
+                'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+            ],
+            'ditolak' => [
+                'label' => 'Ditolak',
+                'surface' => 'from-rose-50/95 via-white to-rose-50/40 border-rose-200/80 hover:border-rose-300 shadow-rose-500/5',
+                'icon_box' => 'bg-white border-rose-200/70 text-rose-500 shadow-rose-500/10',
+                'label_color' => 'text-rose-600',
+                'num_color' => 'text-rose-500',
+                'watermark' => 'text-rose-500/[0.07]',
+                'icon' => 'M6 18L18 6M6 6l12 12',
+            ],
+        ] as $key => $info)
+                            <div
+                                class="group relative overflow-hidden p-5 sm:p-6 rounded-2xl bg-gradient-to-br {{ $info['surface'] }} border shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                                <svg class="absolute -right-3 -bottom-3 w-20 h-20 {{ $info['watermark'] }} pointer-events-none transition-transform duration-300 group-hover:scale-110"
+                                    fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="{!! $info['icon'] !!}" />
+                                </svg>
+
+                                <div class="relative z-10 flex items-center gap-3 mb-4">
+                                    <div
+                                        class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border shadow-xs {{ $info['icon_box'] }} flex items-center justify-center shrink-0">
+                                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor"
+                                            stroke-width="2.2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="{!! $info['icon'] !!}" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="text-xs sm:text-[13px] font-extrabold uppercase tracking-wider {{ $info['label_color'] }}">
+                                        {{ $info['label'] }}
+                                    </span>
+                                </div>
+
+                                <div class="relative z-10 flex items-baseline gap-1.5">
+                                    <div class="counter-value font-black tracking-tight leading-none {{ $info['num_color'] }}"
+                                        style="font-size: clamp(2.1rem, 3.2vw, 2.75rem);"
+                                        data-target="{{ $stats[$key] ?? 0 }}">
+                                        {{ $stats[$key] ?? 0 }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="relative overflow-hidden py-20 lg:py-28"
-        style="background: linear-gradient(160deg, #0f2744, #1e3a5f);">
-        <div class="hero-glow w-[700px] h-[700px] -top-40 -right-40 opacity-[0.08]"
-            style="background: radial-gradient(circle, #3b82f6, transparent);"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
+    <section class="relative overflow-hidden py-20 lg:py-28 border-y border-white/10"
+        style="background: linear-gradient(160deg, #0f2744 0%, #163356 50%, #1e3a5f 100%);">
+
+        <div class="absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full pointer-events-none"
+            style="background: radial-gradient(circle, rgba(37, 99, 235, 0.28) 0%, transparent 68%);"></div>
+        <div class="absolute -bottom-40 -right-24 w-[600px] h-[600px] rounded-full pointer-events-none"
+            style="background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 65%);"></div>
+        <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-[380px] h-[380px] rounded-full pointer-events-none"
+            style="background: radial-gradient(circle, rgba(250, 204, 21, 0.08) 0%, transparent 65%);"></div>
+
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 600" fill="none"
+            preserveAspectRatio="none">
+            <path d="M-100,420 C320,560 720,260 1540,440 L1540,600 L-100,600 Z" fill="rgba(255, 255, 255, 0.025)" />
+            <path d="M-100,490 C420,340 960,580 1540,390 L1540,600 L-100,600 Z" fill="rgba(56, 189, 248, 0.035)" />
+            <path d="M-50,120 C400,280 900,-40 1490,180" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1.5" />
+            <path d="M-50,160 C420,320 920,0 1490,220" stroke="rgba(56, 189, 248, 0.06)" stroke-width="1" />
+            <path d="M-50,460 C460,300 940,560 1490,360" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1.5" />
+            <circle cx="1360" cy="90" r="140" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1.5" />
+            <circle cx="1360" cy="90" r="200" stroke="rgba(255, 255, 255, 0.025)" stroke-width="1"
+                stroke-dasharray="6 6" />
+            <circle cx="80" cy="520" r="160" stroke="rgba(56, 189, 248, 0.05)" stroke-width="1.5" />
+        </svg>
+
+        <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-300/25 to-transparent"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
                 <div class="lg:col-span-5 flex justify-center lg:justify-start">
                     <div class="relative">
                         <div
-                            class="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-light/20 to-accent/20 blur-2xl">
+                            class="absolute inset-4 rounded-full bg-gradient-to-tr from-blue-500/25 via-cyan-400/15 to-yellow-400/15 blur-2xl pointer-events-none">
                         </div>
-                        <img src="{{ asset('assets/media/illustrations/sigma-1/21.png') }}"
-                            class="relative max-w-[280px] sm:max-w-[340px] lg:max-w-full h-auto animate-float"
-                            alt="Ilustrasi E-Lapor" />
+                        <img src="{{ asset('assets/media/illustrations/elapor-karakter.png') }}?v=3"
+                            class="relative max-w-[300px] sm:max-w-[380px] lg:max-w-full h-auto animate-float drop-shadow-[0_20px_40px_rgba(7,18,36,0.4)]"
+                            alt="Ilustrasi Karakter E-Lapor UNUJA" />
                     </div>
                 </div>
+
                 <div class="lg:col-span-7 text-center lg:text-left">
-                    <h2 class="font-black text-white text-3xl lg:text-4xl mb-6 tracking-tight">Apa Itu <span
-                            class="text-yellow-400"">E-LAPOR</span>?</h2>
-                    <div class="space-y-4 text-white/60 text-base lg:text-lg leading-relaxed text-justify">
+                    <h2 class="font-black text-white text-3xl lg:text-4xl mb-6 tracking-tight">
+                        Apa Itu <span class="text-yellow-400">E-LAPOR </span>?
+                    </h2>
+                    <div class="space-y-4 text-white/75 text-base lg:text-lg leading-relaxed text-justify">
                         <p>
-                            <span class="font-semibold text-white/90">E-Lapor</span> adalah kanal resmi pengaduan dan
+                            <span class="font-semibold text-white">E-Lapor</span> adalah kanal resmi pengaduan dan
                             aspirasi
                             di Universitas Nurul Jadid. Layanan ini dibuat agar setiap keluhan, temuan, atau masukan dari
                             civitas akademika atau masyarakat umum dapat disampaikan secara <span
-                                class="font-semibold text-white/90">terstruktur</span>,
-                            diproses oleh unit yang tepat, serta <span class="font-semibold text-white/90">terpantau</span>
+                                class="font-semibold text-white">terstruktur</span>,
+                            diproses oleh unit yang tepat, serta <span class="font-semibold text-white">terpantau</span>
                             hingga selesai.
                         </p>
                         <p>
@@ -312,18 +330,64 @@
                             diperlukan.
                             Laporan diverifikasi terlebih dahulu, diteruskan ke unit terkait, dan status penanganannya
                             diperbarui sampai ditutup. Untuk menjaga kenyamanan, tersedia opsi
-                            <span class="font-semibold text-white/90">anonim/rahasia</span> serta pembatasan akses petugas
+                            <span class="font-semibold text-white">anonim/rahasia</span> serta pembatasan akses petugas
                             sesuai kewenangan.
                         </p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-16 lg:py-20"
-        style="background: linear-gradient(160deg, #f0f7ff, #eff6ff 40%, #ffffff 70%, #f0f7ff);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <section class="py-16 lg:py-20 relative overflow-hidden"
+        style="background: linear-gradient(160deg, #eef6ff 0%, #f5f9ff 35%, #ffffff 65%, #f0f7ff 100%);">
+
+        <div
+            class="absolute -top-28 -left-28 w-[500px] h-[500px] rounded-full bg-blue-200/35 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute top-1/4 -right-32 w-[550px] h-[550px] rounded-full bg-indigo-200/25 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-32 left-1/4 w-[520px] h-[520px] rounded-full bg-sky-200/30 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-10 -right-24 w-[420px] h-[420px] rounded-full bg-emerald-100/35 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="absolute inset-0 pointer-events-none"
+            style="background-image: radial-gradient(rgba(30, 58, 95, 0.065) 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 30%, transparent 100%);">
+        </div>
+
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 1200" fill="none"
+            preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="katWaveTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.55" />
+                    <stop offset="50%" stop-color="#e0e7ff" stop-opacity="0.30" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="katWaveMid" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.45" />
+                    <stop offset="60%" stop-color="#dbeafe" stop-opacity="0.20" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="katWaveBot" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#d1fae5" stop-opacity="0.35" />
+                    <stop offset="50%" stop-color="#e0f2fe" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <path d="M0,0 L1440,0 L1440,340 C1120,420 820,210 460,310 C220,375 90,290 0,330 Z" fill="url(#katWaveTop)" />
+            <path
+                d="M0,460 C380,340 760,580 1140,440 C1280,390 1380,410 1440,450 L1440,860 C1080,960 680,740 280,860 C140,900 50,870 0,840 Z"
+                fill="url(#katWaveMid)" />
+            <path d="M0,920 C360,820 740,1040 1140,900 C1290,850 1380,880 1440,910 L1440,1200 L0,1200 Z"
+                fill="url(#katWaveBot)" />
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center mb-14">
                 <h2 class="font-black text-primary-darker text-2xl lg:text-3xl">Kategori Laporan</h2>
                 <p class="text-slate-500 mt-2">Pilih kategori yang sesuai agar laporan Anda cepat ditangani oleh unit
@@ -644,7 +708,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-start">
 
-
                 <div class="lg:col-span-4 lg:sticky lg:top-32 text-center lg:text-left">
                     <span
                         class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary-surface border border-primary-mist text-primary text-xs font-bold uppercase tracking-widest mb-4">FAQ</span>
@@ -676,7 +739,6 @@
                         </a>
                     </div>
                 </div>
-
 
                 <div class="lg:col-span-8 space-y-4">
                     <?php $faqs = [
